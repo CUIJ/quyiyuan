@@ -1,0 +1,18 @@
+<div class="qy_pay_detail">
+    <div class="ta-c">
+        <span class="f14" kyee-i18n-directive code="payDetail" default="费用明细"></span>
+        <!--<i class="icon icon-icon_2 icon_flo qy-red f16" ng-click="closeDialog()"></i>-->
+    </div>
+
+    <div class="ovf-h border-d border-t-dash mar-t-10">
+        <h5 class="fl-l" kyee-i18n-directive code="itemName" default="药品名称"></h5>
+        <h5 class="fl-r" kyee-i18n-directive code="itemCost" default="金额"></h5>
+    </div>
+    <ul class="fl-c ovf-h border-d pad-td-10"  ng-style="{'width': (KyeeEnv.innerSize.width-56)+'px'}">
+        <li class="row" ng-class="{'pad-d-5':!$last}" ng-repeat="detail in payDetail.PAYDETAIL">
+            <div class="col col-67">{{detail.ITEM_NAME}}</div>
+            <div class="col col-33 ta-r">¥{{detail.ITEM_COSTS.toFixed(2)}}</div>
+        </li>
+    </ul>
+    <span class="fl-r pad-d-20" style="padding-top: 14px;">¥{{payDetail.ACCOUNT_SUM.toFixed(2)}}</span>
+</div>

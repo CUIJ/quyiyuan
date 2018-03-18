@@ -1,0 +1,68 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: WangYuFei
+* 日期: 2015年5月6日09:05:22
+* 创建原因：C端首页公告跳转检验单
+* 修改时间：2015年8月21日14:12:58
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3097
+* 修改原因：报告单样式整改
+*/-->
+<ion-view title="检验单" class="qy_report qy_inspection">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  has-bouncing="true" padding="false" scroll="false" class="report_footer qy-bg-grey1">
+        <div class="report_subfilter ta-c qy-bg-grey3 f14">
+            <span kyee-action-holder-directive="inspection_all_btn" class="subfilter_btn" ng-click="$root.isInspectionTabActive = '0'"ng-class="{'qy-green': $root.isInspectionTabActive == '0'}">全部</span>
+            <span kyee-action-holder-directive="inspection_week_btn" class="subfilter_btn" ng-click="$root.isInspectionTabActive = '1'"ng-class="{'qy-green': $root.isInspectionTabActive == '1'}">本周</span>
+            <span kyee-action-holder-directive="inspection_month_btn"  class="subfilter_btn" ng-click="$root.isInspectionTabActive = '2'"ng-class="{'qy-green': $root.isInspectionTabActive == '2'}">本月</span>
+        </div>
+
+        <div ng-if="searchShow" class="bar item-input-inset search pad-b-14 qy-bg-grey2" ng-style="{'display':QUERY_LAB_SHOW=='0'?'none':'inline-grid'}">
+            <label class="item-input-wrapper search-item">
+                <i class="icon icon-seach placeholder-icon mar-l-10 "></i>
+                <input type="search" placeholder="请输入检验查询单号" ng-model="searchObj.searchNo">
+            </label>
+            <button class="button" kyee-action-holder-directive="inspection_search_btn" ng-click="KAH($event) || search()">
+                搜索
+            </button>
+        </div>
+
+        <div class="report_head qy-bg-white border-d" ng-style="{display:patientEmpty}">
+            <span class="f14 mar-r-10">{{USER_NAME}}</span>
+            <span class="f12">{{SEX}}<span ng-if="!sexEmpty&&!ageEmpty"> / </span>{{AGE}}<span ng-if="!ageEmpty">岁</span></span>
+        </div>
+        <div ng-if="isShowMarkedWords" class="marked_words qy-red">{{markedWords}}</div>
+        <ion-scroll ng-if="!isEmpty" ng-style="{'height':((KyeeEnv.innerSize.height)-(QUERY_LAB_SHOW=='0'?150:192))+'px'}">
+            <ul>
+                <li class="report_li qy-bg-white border-d" ng-repeat="inspectionDetailData in inspectionData | filter:filterData">
+                    <div ng-click="clickItem($index,inspectionDetailData)">
+                        <span class="item_name" ng-style="{'width':(KyeeEnv.innerSize.width-40)+'em'}">{{inspectionDetailData.ITEM_NAME}}</span>
+                    <span class="qy-red ta-r" ng-style="{'display':getLengths(inspectionDetailData.LABDETAIL)==0 && getUrl(inspectionDetailData.PHOTO_URL) ?'inline':'none'}">
+                    暂无结果
+                    </span>
+                        <span class="ion-arrow-right-b qy-green" ng-style="{'display':getLengths(inspectionDetailData.LABDETAIL)==0 && getUrl(inspectionDetailData.PHOTO_URL) ?'none':'inline'}"></span>
+                        <span class="item_date qy-grey5">{{getDate(inspectionDetailData.REQUESTED_DATE_TIME)}}</span>
+                    </div>
+                </li>
+                <li class="ta-c qy-grey4" ng-style="{'display':noLoad==false&& isDisplayAll==true ? 'block':'none'}">
+                    已加载全部数据
+                </li>
+            </ul>
+            <ion-infinite-scroll ng-if=noLoad on-infinite="loadMore()" distance="1%"  icon="ion-loading-c">
+            </ion-infinite-scroll>
+        </ion-scroll>
+        <div ng-if="isEmpty" class="empty-text">
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="report_footer_bar qy-grey5">
+        检验、检查数据仅供参考，以院方实际数据为准
+    </ion-footer-bar>
+</ion-view>

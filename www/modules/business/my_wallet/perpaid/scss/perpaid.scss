@@ -1,0 +1,357 @@
+.qy_perpaid{
+  .hospital_bar{
+    display: block;
+    height: 70px;
+    padding-top: 13px;
+    .bar_cont{
+      position: relative;
+      padding-left: 46px;
+      padding-right: 90px;
+      height: 39px;
+      .bar_cont_l{
+        position: absolute;
+        left: 0;
+        top: 4px;
+      }
+      .bar_cont_r{
+        position: absolute;
+        right: 0;
+        bottom: 4px;
+        line-height: 31px;
+        height: 31px;
+/*        height: 26px;
+        padding: 0 0.2em;
+        margin-top: 10px;
+        line-height: 22px;*/
+/*        span{
+          position: relative;
+          top: 1px;
+          left: 1px;
+          padding-left: 3px;
+        }*/
+      }
+/*      .bar_cont_r:before{
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        vertical-align: inherit;
+        font-size: 12px;
+        line-height: 24px;
+      }*/
+    }
+  }
+  .clear_icon{
+    position: absolute;
+    right: 15px;
+    top: 17px;
+  }
+  .mar_t_80{
+    margin-top: 80px;
+  }
+  .list_line{
+    .input_line{
+      color: #264557;
+      margin-left: 14px;
+      padding:9px 14px 9px 0;
+      border-bottom: 0;
+      position: relative;
+      .input-label{
+        width: 59px;
+      }
+      .input_l{
+        position: absolute;
+        left: 0;
+        top: 15px;
+      }
+      .input_c{
+        position: relative;
+        left: 59px;
+        overflow: hidden;
+        padding-right: 138px;
+      }
+      .input_r{
+        position: absolute;
+        right: 14px;
+        top: 15px;
+        width: 74px;
+        .icon{
+          position: relative;
+          top: 1px;
+        }
+      }
+    }
+  }
+}
+
+.qy_perpaid_pay_info{
+  .result_box{
+    padding-top: 40px;
+    padding-bottom: 40px;
+    .top{
+      height: 30px;
+      i{
+        font-size: 25px;
+      }
+      span{
+        position: relative;
+        bottom: 5px;
+      }
+    }
+    .bottom{
+      padding: 0 20px;
+    }
+  }
+  .hospital_bar{
+    display: block;
+    height: 70px;
+    .bar_cont{
+      position: relative;
+      padding-left: 46px;
+      padding-right: 90px;
+      height: 39px;
+      .bar_cont_l{
+        position: absolute;
+        left: 0;
+        top: 4px;
+      }
+      .bar_cont_r{
+        position: absolute;
+        right: 0;
+        bottom: 4px;
+        line-height: 31px;
+        height: 31px;
+/*        height: 26px;
+        padding: 0 0.2em;
+        margin-top: 10px;
+        line-height: 22px;*/
+/*        span{
+          position: relative;
+          top: 1px;
+          left: 1px;
+          padding-left: 3px;
+        }*/
+      }
+/*      .bar_cont_r:before{
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        vertical-align: inherit;
+        font-size: 12px;
+        line-height: 24px;
+      }*/
+    }
+  }
+  .main_box{
+    .head_left{
+      display: inline-block;
+      width: 73px;
+      color: #264557;
+    }
+    .main_bottom{
+      min-height: 40px;
+      padding: 9px 14px 9px 0;
+    }
+    li{
+      padding-bottom: 5px;
+    }
+  }
+  .perpaid_input{
+    .input_line{
+      color: #264557;
+      margin-left: 14px;
+      padding:9px 14px 9px 0;
+      border-bottom: 0;
+      position: relative;
+      .input-label{
+        width: 59px;
+      }
+      .input_l{
+        position: absolute;
+        left: 0;
+        top: 15px;
+      }
+      .input_c{
+        position: relative;
+        left: 59px;
+        overflow: hidden;
+        padding-right: 138px;
+      }
+      .input_r{
+        position: absolute;
+        right: 14px;
+        top: 15px;
+        width: 74px;
+        .icon{
+          position: relative;
+          top: 1px;
+        }
+      }
+    }
+  }
+  .amount_list{
+    margin-bottom: 20px;
+    .amount_label{
+      width: 47px;
+    }
+    .amount_input{
+      padding-left: 10px;
+      background: #fff !important;
+    }
+  }
+  .empty-text{
+    padding-top:30%;
+  }
+  .pad_l_8{
+    padding-left: 8px;
+  }
+  .single_input{
+    padding: 4px 14px;
+    min-height: 42px;
+    input{
+      height: 33px;
+    }
+  }
+  .button_color_grey{
+    border: 1px solid #CCCCCC;
+    color: #fff;
+    background: #ccc;
+  }
+}
+
+.qy_perpaid_record{
+  .month_line{
+    height: 41px;
+    position: relative;
+    .month{
+      width: 38px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      height: 18px;
+      line-height: 18px;
+      color: #fff;
+      border-radius: 2px;
+      position: absolute;
+      bottom: 8px;
+    }
+    .top_line{
+      height: 15px;
+      border-left: 1px solid #ccc;
+      position: absolute;
+      top: 0;
+      left: 31px;
+    }
+    .line{
+      height: 8px;
+      border-left: 1px solid #ccc;
+      position: absolute;
+      bottom: 0;
+      left: 31px;
+    }
+
+    .year{
+      position: absolute;
+      right: 14px;
+      bottom: 8px;
+    }
+    .bg_grey{
+      background-color: #d8d8d8;
+    }
+  }
+  .main_box{
+    .item-content{
+      padding: 0;
+    }
+    .content_box{
+      .content_list{
+        position: relative;
+        .content_left{
+          display: block;
+          position: relative;
+          padding-right: 100px;
+          height: 20px;
+          .l_span{
+            position: absolute;
+            width: 100%;
+          }
+        }
+        .content_right{
+          display: block;
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+  }
+  .color_white{
+    color: #fff;
+  }
+  .time_box{
+    position: relative;
+    padding: 10px 0;
+    p{
+      margin-bottom: 0;
+    }
+    .mar-t-12{
+      margin-top:12px;
+    }
+    .mar-t-8{
+    margin-top: 8px;
+  }
+    .m-3{
+      margin-top: -3px;
+    }
+    .mar-t-3{
+      margin-top: 3px;
+    }
+    .mar-t-2{
+      margin-top: 2px;
+    }
+    .mar-t-7{
+      margin-top: 7px;
+    }
+    .mar-t-8{
+      margin-top: 8px;
+    }
+    .mar-t-10{
+      margin-top: 10px;
+    }
+    .mar-t-5{
+      margin-top: 5px;
+    }
+    .mar-t-6{
+      margin-top: 6px;
+    }
+    .m-3{
+      margin-top: -3px;
+    }
+    .box_2{
+      color: #333;
+      width: 49px;
+      border-left:1px solid #e7e7e7;
+      height: 37px;
+    }
+    .box_l{
+      color: #333;
+      width: 49px;
+      border-left:1px solid #e7e7e7;
+      height: 57px;
+      .f12{
+        font-size: 12px !important;
+      }
+    }
+    .box_r{
+      padding-left: 16px;
+    }
+  }
+  .qy_green{
+    color: #5baa8a !important;
+  }
+  .qy_red{
+    color: #f55440 !important;
+  }
+  .pad-td-14{
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+}

@@ -1,0 +1,80 @@
+.qy_address_manage {
+  .item_btn{
+    line-height: 26px;
+    padding: 5px 0;
+  }
+  .del_span {
+    position: absolute;
+    right: 7px;
+  }
+  .del_buttonStyle {
+    bottom: 10px;
+    min-height: 35px;
+    //float: right;
+    min-width: 100px;
+    border-color: #5baa8a;
+    line-height: 35px;
+    background: white;
+  }
+  .addressRadioSelStyle {
+    padding-right: 1%;
+    padding-top: 6px;
+    font-size: 20px;
+    color: #5baa8a;
+  }
+  .addressRadioNoSelStyle {
+    padding-right: 1%;
+    padding-top: 6px;
+    font-size: 20px;
+    color: #999;
+  }
+  .addressListGroup {
+    padding: 0 0 15px 0;
+    margin-top: 10px;
+  }
+  .addrsss-arrow-right {
+    float: right;
+    font-size: 18px;
+  }
+  .go-edit-button {
+    position: absolute;
+    right: 0;
+  }
+  .col-1 {
+    width: 10%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  .col-9 {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+.addAddressFlag_label{
+    width: 70%;
+    background-color: white;
+  }
+  .add_address_line{
+    margin-left: 14px;
+    padding:9px 14px 9px 0px;
+  }
+  .last_line{
+    border-bottom: 0px;
+  }
+
+}
+
+.send_address {
+  .border {
+    border: 1px solid #ccc;
+    border-top: 0;
+    vertical-align: middle;
+    line-height: 2.2em;
+  }
+  .width-20 {
+    width: 20%;
+  }
+  .address-table {
+    border-top: 1px solid #ccc;
+  }
+}

@@ -1,0 +1,24 @@
+<div class="quyiyuan-regist-verifycard list" ng-controller="RegistConfirmController">
+    <label class="item item-input" style="padding:9px 0px">
+        <span class="input-label" >
+            <span style="width:25%;"  kyee-i18n-directive code="cardNumber" default="就诊卡号："></span>
+        </span>
+        <input ng-model="isVerifyRegistMedicalCard.IN_CARDNO" type="text"
+               placeholder="请输入就诊卡号" readonly="true">
+    </label>
+    <label class="item item-input" style="padding:9px 0px">
+        <span class="input-label" >
+            <span style="width:25% " kyee-i18n-directive code="cardPassWord" default="就诊卡密码："></span>
+        </span>
+        <input ng-model="isVerifyRegistMedicalCard.IN_CARDPWD"
+               type="password"
+               placeholder="请输入就诊卡密码">
+    </label>
+    <div class="pad-td-10">
+        <span class="f14">
+            <span style="width:25% ; padding:9px 0px"  kyee-i18n-directive code="explain" default="说明："></span>
+        </span>
+        <span class="f12" kyee-i18n-directive code="cardPasswordExplain" default="就诊卡密码即为您本就诊卡对应密码"></span>
+
+    </div>
+</div>

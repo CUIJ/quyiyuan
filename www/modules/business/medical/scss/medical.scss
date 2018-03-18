@@ -1,0 +1,116 @@
+/* create chengshuomin
+* 2015/7/7
+* KYEEAPPC-2669
+* medical views
+*/
+/*medical index view style*/
+.qy_medical{
+  .medical_footer{
+     bottom: 23px;
+  }
+  .medical_search{
+    input{
+      padding-top: 1px;
+    }
+  }
+  .medical_container{
+    li{
+      list-style: none;
+    }
+    .item-content{
+      padding : 0px;
+       h5{
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+    .main_ul{
+      margin-bottom: 0;
+      padding:0;
+      .main_li{
+        overflow: hidden;
+        background-color: #fff;
+        border-top: 1px solid #efefef;
+        border-bottom: 1px solid #efefef;
+        padding: 4px 14px 10px;
+        .medical_word{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 95%;
+        }
+      }
+      .detail_header{
+        padding:10px 14px;
+        border-bottom: 1px solid #efefef;
+        .detail_img{
+          width:70px;
+          height:80px;
+          text-align:center;
+        }
+        .detail_ul{
+          padding-left: 14px;
+        }
+      }
+      .detail_content{
+        .detail_li{
+          padding: 10px 14px;
+          border-bottom: 1px solid #efefef;
+        }
+        p{
+          padding:0 14px;
+        }
+        .statement_img{
+          width: 15px;
+          height: 15px;
+          margin-top: 3px;
+          margin-right: 5px;
+          float: left;
+        }
+      }
+    }
+  }
+  .medical_footer_bar{
+    height: 23px;
+    text-align: center;
+    display: inline-block;
+  }
+}
+
+/* medical_detail view style */
+.qy_medical_detail{
+  .div_titlebox{
+    border-bottom: 1px solid #efefef;
+  }
+  .main_ul{
+    margin-bottom: 0;
+    .main_li{
+      border-bottom: 1px solid #efefef;
+      .medical_icon{
+        font-size: 19px;
+        position: relative;
+        top: 2px;
+        margin-right: 1px;
+      }
+    }
+    .detail_li_fir{
+      padding-top: 8px;
+    }
+    .detail_line{
+      border-bottom: 1px dotted #efefef;
+    }
+    .detail_span_left{
+      display: inline-block;
+      width: 48%;
+    }
+    .detail_span_right{
+      display: inline-block;
+      width: 50%;
+      text-align: right;
+    }
+  }
+  .medical_li_pad{
+    padding-top: 0 !important;
+  }
+}

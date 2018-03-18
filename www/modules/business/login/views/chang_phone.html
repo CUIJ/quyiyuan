@@ -1,0 +1,40 @@
+<!--产品名称：quyiyuan-->
+<!--创建人: 付添-->
+<!--创建日期:2015年12月10日09:08:42-->
+<!--创建原因：更改手机号页面显示 -->
+<!--任务号：KYEEAPPC-4225-->
+<ion-view class="find_pwd_view change_phone">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goOut();" ></ion-nav-back-button>
+        <ion-nav-title>
+            <span >{{user.title}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="find_password_content qy-bg-grey2" has-bouncing="true">
+        <div class="list find_list_div  qy-bg-white  " style="margin-bottom: 0px">
+            <label class="item item-input find_pwd_lab ">
+                <input style="padding-left: 0px;" type="tel" class="phone_input" id="change_phone.phoneNumInput" ng-disabled="user.phoneNumDisabled"
+                       ng-model="user.phone"
+                       placeholder="{{user.hintPhone}}">
+            </label>
+            <div class="item item-input-inset login_num_div  find_pwd_lab " style="border-bottom: solid 1px white;">
+                <label class="item-input-wrapper login_number_label">
+                    <input type="tel" class=""  ng-model="user.checkCode" placeholder="{{user.hintCode}}" style="padding-left: 0px;">
+                </label>
+                <button kyee-operation-monitor-directive="getValiteCode" style="margin-right: 14px;" id="change_phone.validateMsgBtn" ng-click="getValiteCode();" ng-disabled="user.validateBtnDisabled"
+                        class="button button-small login_number_button "
+                        >{{user.btnShow}}
+                </button>
+            </div>
+        </div>
+        <div  class=" pad-l-14 cole pad-t-5"  kyee-i18n-directive code="hint"
+              default=" 重新绑定后,原手机号将不能作为登录凭证">
+        </div>
+        <div class="pad-b-14 pad-t-10">
+            <button kyee-operation-monitor-directive="submit" ng-click="submit();" class="button button-full button-size-l"
+                    kyee-i18n-directive code="all:find_password.submit" default=" 提交">
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

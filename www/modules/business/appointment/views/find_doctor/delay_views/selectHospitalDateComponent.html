@@ -1,0 +1,78 @@
+<ion-view  class="select-hospital-date " > <!--ng-class="{'fade_down_in':data.showComponent,'fade_up_out':(!data.showComponent)}"-->
+    <ion-content ng-class="{'has-footer':data.showChoseDate=='1','mar-d-10':data.showChoseDate=='2'}" padding="false" has-bouncing="true"delegate-handle="select_hospital_component">
+        <div class="pad-l-14 pad-r-14">
+            <div class=" select_title"  ng-if="data.showChoseDate=='1'">
+                <span class="f14 qy-deepblue">
+                    <span kyee-i18n-directive  code="appointDate" default="预约时间（多选）"></span>
+                </span>
+                <span class=" f14 select_all" ng-click="allDate()">
+                    <i class="f16" ng-class="{'ion-android-checkbox-outline-blank':isallselect(),'ion-android-checkbox-outline qy-green':!isallselect()}" ></i>
+                    <span class=" text-ellipsis">
+                        <span kyee-i18n-directive  code="noTimeLimit" default="不限时间"></span>
+                    </span>
+                </span>
+            </div>
+            <div ng-if="data.showChoseDate=='1'">
+                <ul class="row">
+                    <li class="week_box f12" kyee-i18n-directive  code="Monday" default="周一"></li>
+                    <li class="week_box f12" kyee-i18n-directive  code="Tuesday" default="周二"></li>
+                    <li class="week_box f12" kyee-i18n-directive  code="Wednesday" default="周三"></li>
+                    <li class="week_box f12" kyee-i18n-directive  code="Thursday" default="周四"></li>
+                    <li class="week_box f12" kyee-i18n-directive  code="Friday" default="周五"></li>
+                    <li class="week_box f12" kyee-i18n-directive  code="Saturday" default="周六"></li>
+                    <li class="week_box f12" kyee-i18n-directive  code="Sunday" default="周日"></li>
+                </ul>
+                <!-- 第一周-->
+                <ul class="row" ng-if="data.doctorDate.length>0">
+                    <li  class="f12 date_box"  ng-repeat="doctorDate in data.doctorDate track by $index"
+                         ng-class="{'qy-grey2':data.showweek[$index]==3,'qy-bg-green qy-fff':data.showweek[$index]==1}"
+                         ng-click="getDate(1,data.doctorRealDate[$index],$index)">
+                        {{data.doctorDate[$index]}}
+                    </li>
+                </ul>
+                <!--第二周-->
+                <ul class="row" >
+                    <li  class="f12 date_box"
+                         ng-class="{'qy-bg-green qy-fff':data.shownextweek[$index]==1}"
+                         ng-repeat="week in data.nextdoctorDate track by $index"
+                         ng-click="getDate(2,data.nextdoctorRealDate[$index],$index)">
+                        {{data.nextdoctorDate[$index]}}
+                    </li>
+                </ul>
+                <!--第三周-->
+                <ul class="row">
+                    <li class="f12 date_box"
+                        ng-class="{'qy-bg-green qy-fff':data.showotherweek[$index]==1}"
+                        ng-repeat="week in data.otherdoctorDate track by $index"
+                        ng-click="getDate(3,data.otherdoctorRealDate[$index],$index)">
+                        {{data.otherdoctorDate[$index]}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ul class="" ng-if="data.showChoseDate=='2'">
+            <li class="border-d row pad-l-14 pad-r-14 select_date_div"  ng-repeat="hospital in data.hospitals"
+                ng-click="chooseItemHospital(hospital.HOSPITAL_ID,hospital.CITY_CODE,hospital.CITY_NAME,$index)">
+                <img ng-if="!($index==0)"class="select_date_img"
+                     ng-src="{{hospital.LOGO_PHOTO?hospital.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+
+                <i class="icon icon-hospital2 qy-green select_date_i" ng-if="($index==0)"></i>
+                <div  class="col hos_name f14 text-ellipsis pad-r-10 select_date_div"ng-class="{'qy-green':$index==0}" ng-style="{'max-width':getWidth(hospital)}">{{hospital.HOSPITAL_NAME}}</div>
+
+                <span ng-if="data.hospitalIndex == $index"class="ion-ios-checkmark-empty qy-green see_doctor_span"></span>
+            </li>
+            <li ng-click="loadMoreHospital()" class="qy-green pad-l-14 pad-r-14 see_doctor_li" ng-if="data.hasHospital">
+                点击加载更多...
+            </li>
+        </ul>
+    </ion-content>
+    <ion-footer-bar class="foot_butten" ng-if="data.showChoseDate=='1'">
+        <button  class="resetbutton button-size-s" ng-click="resetData()">
+            <span kyee-i18n-directive  code="reset" default="重置"></span>
+        </button>
+        <button  class="selectbutton button-size-s button-color-bg-green" ng-click="confirmSelectDate()">
+            <span kyee-i18n-directive  code="sureMsg" default="确定"></span>
+        </button>
+    </ion-footer-bar>
+</ion-view>

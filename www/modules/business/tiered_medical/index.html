@@ -1,0 +1,93 @@
+<ion-view class="qy_price price_medical_detail qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="referral" default="转诊"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content style="margin-top: 14px;" has-bouncing="true" padding="false" delegate-handle="mainScroll">
+        <div style="background-color: white;border-top: 1px solid #e7e7e7;">
+            <div style="margin-left: 14px;height: 70px;padding-top: 15px" class="border-d">
+                <div class="item row" ng-click="goBack()">
+                    <img style="width:55px;height: 40px;" ng-src="{{hospInfo.hosp}}"
+                         onerror="javascript:this.src='resource/images/center/default_card.png'"/>
+                    <div style="width: 55%;margin-left: 13px;" class="col">
+                        <h3 style="color: #666666;" class="f14 qy-deepblack">{{name}}</h3>
+                        <span style="border-radius: 1px; background-color: #f8bb3c;margin-right: 5px;">
+                            <span style="margin: 5px 5px 5px 5px;color: white;">{{hospInfo.hospLevel}}</span>
+                        </span>
+                        <!--<span style="border-radius: 1px; background-color: #83cc6a;margin-right: 5px;">-->
+                            <!--<span style="margin: 5px;color: white;">医保</span>-->
+                        <!--</span>-->
+                    </div>
+                    <span style="line-height: 43px;color: #5baa8a;padding-right: 8px;"kyee-i18n-directive code="backTreatment" default="回院就诊"></span>
+                    <i style="padding-right: 14px;line-height: 43px;color: #5baa8a" class="icon ion-chevron-right qy-grey5"></i>
+                </div>
+            </div>
+            <div class=" border-d" style="height: 88px;">
+                <div style="margin: 14px 14px 8px 14px;">
+                    <img style="height: 15px;" ng-src="resource/images/center/tequan.png" />
+                </div>
+                <div class="row">
+                    <div style="margin-left: 14px;" class="col ta-c">
+                        <div  class="item row">
+                            <i style="margin: 10px 4px 14px 0;font-size: 25px;color: #f8bb3c" class="icon-zhen"></i>
+                            <div><div style="text-align: left;color: #333333;" kyee-i18n-directive code="treatmentRight" default="就诊特权"></div>
+                                <span kyee-i18n-directive code="priorityTreatment" default="优先安排就诊"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col ta-c">
+                        <div  class="item row">
+                            <i style="margin: 10px 4px 14px 4px;font-size: 25px;border-left: 1px solid #e7e7e7;padding-left: 6px;color: #f8bb3c" class="icon-jian"></i>
+                            <div><div style="text-align: left;color: #333333;"kyee-i18n-directive code="reliefRight" default="减免特权"></div>
+                                <span kyee-i18n-directive code="reliefFee" default="减免挂号费"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-right: 14px;" class="col ta-c">
+                        <div  class="item row">
+                            <i style="margin: 10px 4px 14px 4px;font-size: 25px;border-left: 1px solid #e7e7e7;padding-left: 6px;color: #f8bb3c" class="icon-tong"></i>
+                            <div><div style="text-align: left;color: #333333;"kyee-i18n-directive code="appointmentRight" default="预约特权"></div>
+                                <span kyee-i18n-directive code="expertsAppoint" default="专家随便约"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 10px;background-color: white" class="border-td">
+            <div style="margin-left: 14px;border-bottom: 1px solid #e7e7e7;height: 40px; line-height: 40px;">
+                <i class="icon-hospital2" style="font-size: 20px;"></i>
+                <span style="font-size: 14px;padding-left: 10px;color: #333333;" kyee-i18n-directive code="applicationHos" default="可申请转诊医院"></span>
+            </div>
+            <div style="margin-left: 14px;">
+                <div ng-click="goHosp(data)" ng-if="data.REFERRAL_LEVEL != 2 && data.IS_SHOW" ng-repeat="data in executeData" class="item row" style="border-bottom: 1px solid #e7e7e7;padding-top: 15px;padding-bottom: 15px">
+                    <img ng-if="data.REFERRAL_LEVEL == 1" style="position: absolute; top: 15px;height: 40px;" ng-src="resource/images/center/topHosp.png" />
+                    <img ng-if="data.REFERRAL_LEVEL == 3" style="position: absolute; top: 15px;height: 40px;" ng-src="resource/images/center/bottomHosp.png" />
+                    <img style="width:55px;height: 40px;" ng-src="{{data.ADV_URL}}"
+                         onerror="javascript:this.src='resource/images/center/defult.png'"/>
+                    <div style="margin-left: 13px;" class="col">
+                        <h3 style="color: #666666;" class="f14 qy-deepblack">{{data.HOSPITAL_NAME}}</h3>
+                        <span ng-if="data.HOSPITAL_LEVEL" style="border-radius: 1px; background-color: #f8bb3c;margin-right: 5px;">
+                            <span style="margin: 5px 5px 5px 5px;color: white;">{{data.HOSPITAL_LEVEL}}</span>
+                        </span>
+                        <!--<span style="border-radius: 1px; background-color: #83cc6a;margin-right: 5px;">-->
+                            <!--<span style="margin: 5px;color: white;">医保</span>-->
+                        <!--</span>-->
+                    </div>
+                    <div style="border-radius: 45px; z-index: 99; border: 1px solid #5baa8a; position: absolute;width: 40px;height: 40px;top: 15px;right: 8px;"></div>
+                        <span style="font-size:14px;line-height: 40px;color: #5baa8a;padding-right: 14px;" kyee-i18n-directive code="application" default="申请"></span>
+                </div>
+            </div>
+            <div>
+                <div style="margin-left: 14px;margin-top: 15px;">
+                    <p style="margin-top: 10px;color: #333333;font-size: 14px;" kyee-i18n-directive code="referralSteps" default="转诊步骤"></p>
+                    <p style="margin-top: 10px;color: #666666;font-size: 12px;" kyee-i18n-directive code="step1" default="1.患者在社区医院使用趣医APP预约挂号并就诊；"></p>
+                    <p style="margin-top: 10px;color: #666666;font-size: 12px;" kyee-i18n-directive code="step2" default="2.患者在就诊后，需要获得进一步治疗；"></p>
+                    <p style="margin-top: 10px;color: #666666;font-size: 12px;margin-bottom: 15px;" kyee-i18n-directive code="step3" default="3.通过趣医APP，选择可转入的医院，发起转诊并前往医院就诊；"></p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

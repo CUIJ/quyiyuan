@@ -1,0 +1,134 @@
+<ion-view cache-view="false" class="questionnaire_survey">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span class="text-ellipsis">患者回访单</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" has-header="true" padding="false" scrollbar-y="false" class="qy-bg-grey2"
+                 ng-class="{has_footer:(visitStatus == 1)}">
+        <div class="question_page">
+            <!--患者个人信息-->
+            <div class="pad-d-20 display-flex align_items_c">
+                <img class="user_icon"
+                     ng-src="{{patientInfo.userPhoto?patientInfo.userPhoto:'resource/images/patients_group/user_male.png'}} "
+                     onerror="javascript:this.src='resource/images/patients_group/user_male.png'"/>
+                <div class="patient_info">
+                    <div class="line18">
+                        <span class="qy-grey7 f18 color_3">{{patientInfo.userName}}</span>
+                        <span class="f12 color_6 pad-l-10">就诊者</span>
+                    </div>
+                    <div class="mar-t-10 line12 f12 color_6 min-w200px">
+                        <span>性别:</span>
+                        <span class="pad-l-4 pad-r-12">{{patientInfo.sex == 2 ? '女' : '男'}}</span>
+                        <span class="pad-l-12 border-l">年龄:</span>
+                        <span class="pad-l-4">{{!!patientInfo.age?patientInfo.age:0}}</span>
+                        <span>岁</span>
+                    </div>
+                </div>
+            </div>
+            <!--就诊信息 暂时删除，后面可能会放开，误删-->
+            <!--<div class="visit_info color_6 f14">
+            <div style="height: 14px;line-height: 14px">
+            <span>就诊日期:</span>
+            <span style="padding-left: 16px;color: #333333">2016/11/16</span>
+            </div>
+            <div style="margin-top: 12px;height: 14px;line-height: 14px">
+            <span>就诊科室:</span>
+            <span style="padding-left: 16px;color: #333333">口腔修复科</span>
+            </div>
+            <div style="margin-top: 12px;height: 14px;line-height: 14px">
+            <span>就诊医生:</span>
+            <span style="padding-left: 16px;color: #333333">李乐</span>
+            </div>
+            </div>-->
+            <!--回访调研问题列表-->
+            <div class="questionnaires_info color_3">
+                <div class="f14 pad-l-8 border_l_4 line16">
+                    请您认真填写以下内容
+                </div>
+                <div class="half_circle_left"></div>
+                <div class="half_circle_right"></div>
+                <div ng-repeat="template in questionnaireSurveyData.templateList" ng-init="templateIndex = $index">
+
+                    <div class="f14 mar-l-12 mar-t-26"
+                         ng-repeat="topic in template.topicList" ng-init="topicIndex = $index">
+                        <span>{{templateIndex == 0?$index+1:questionnaireSurveyData.templateList[0].topicList.length+$index+1}}&nbsp;&nbsp;{{topic.topicContent}}
+                            <span class="color_orange_ff9900"
+                                  ng-if="(topic.topicTypeCode == '01700020'||topic.topicTypeCode == '01700050') && topic.isFacing">(多选 必答)</span>
+                            <span class="color_orange_ff9900"
+                                  ng-if="(topic.topicTypeCode == '01700020'||topic.topicTypeCode == '01700050') && !topic.isFacing">(多选)</span>
+                            <span class="color_orange_ff9900"
+                                  ng-if="!(topic.topicTypeCode == '01700020'||topic.topicTypeCode == '01700050') && topic.isFacing">(必答)</span>
+                        </span>
+                        <!--满意度笑脸类题目 暂时删除，后面可能会放开，误删-->
+                        <!--<div style="margin-top: 20px;margin-left: 16px;font-size: 30px"
+                             ng-if="template.templateTypeCode == '00600010'">
+                        <span class="icon"
+                              ng-class="{true:'icon-very-dissatisfied-fill color_orange_ff9900',false:'icon-very-dissatisfied color_9'}[topic.objectAnswer == 1]"
+                              ng-click="confirmSatisfactionScore(templateIndex,topicIndex,1)"></span>
+                        <span class="icon"
+                              ng-class="{true:'icon-not-satisfied-fill color_orange_ff9900',false:'icon-not-satisfied color_9'}[topic.objectAnswer == 2]"
+                              style="padding-left: 20px"
+                              ng-click="confirmSatisfactionScore(templateIndex,topicIndex,2)"></span>
+                        <span class="icon"
+                              ng-class="{true:'icon-satisfied-fill color_orange_ff9900',false:'icon-satisfied color_9'}[topic.objectAnswer == 3]"
+                              style="padding-left: 20px"
+                              ng-click="confirmSatisfactionScore(templateIndex,topicIndex,3)"></span>
+                        <span class="icon"
+                              ng-class="{true:'icon-very-satisfied-fill color_orange_ff9900',false:'icon-very-satisfied color_9'}[topic.objectAnswer == 4]"
+                              style="padding-left: 20px"
+                              ng-click="confirmSatisfactionScore(templateIndex,topicIndex,4)"></span>
+                        </div>-->
+                        <!--单选题／多选题／单选主观题／多选主观题-->
+                        <div class="mar-t-20 mar-l-16 f14"
+                             ng-if="(topic.topicTypeCode == '01700010' || topic.topicTypeCode == '01700020' || topic.topicTypeCode == '01700040' || topic.topicTypeCode == '01700050')">
+                            <div ng-repeat="item in topic.itemList"
+                                 class="mar-t-20"
+                                 ng-click="confirmObjectAnswer(topic.topicTypeCode,templateIndex,topicIndex,$index)">
+                                <span class="icon f20 vertical_align_m"
+                                      ng-class="{true:'icon-choose color_orange_ff9900',false:'icon-none-choose color_9'}[!!item.isChecked]"></span>
+                            <span class="pad-l-4 vertical_align_m"
+                                  ng-class="{'color_orange_ff9900':item.isChecked}">{{item.itemContent}}</span>
+                            </div>
+                            <div class="border-b mar-t-20"
+                                 ng-if="(topic.topicTypeCode == '01700040' || topic.topicTypeCode == '01700050') && !(visitStatus==2 && !questionnaireSurveyData.templateList[templateIndex].topicList[topicIndex].subjectAnswer) ">
+                                <textarea placeholder="请输入您要补充的内容"
+                                          class="text_area"
+                                          ng-readonly="visitStatus==2"
+                                          ng-model="questionnaireSurveyData.templateList[templateIndex].topicList[topicIndex].subjectAnswer"></textarea>
+                            </div>
+                        </div>
+                        <!--主观题-->
+                        <div class="mar-t-20 mar-l-16 f14"
+                             ng-if="topic.topicTypeCode == '01700030' && !(visitStatus==2 && !questionnaireSurveyData.templateList[templateIndex].topicList[topicIndex].subjectAnswer) ">
+                            <div class="mar-t-20 border-b">
+                                <textarea placeholder="请输入您的内容"
+                                          class="text_area"
+                                          ng-readonly="visitStatus==2"
+                                          ng-model="questionnaireSurveyData.templateList[templateIndex].topicList[topicIndex].subjectAnswer"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--就诊评价-->
+            <!--<div style="margin-top: 6px;border-top: 1px dashed #e7e7e7;padding-top: 20px">-->
+            <!--<div style="height: 16px;line-height: 16px;font-size: 14px;border-left: 4px solid #5baa8a;padding-left: 8px">-->
+            <!--就诊评价-->
+            <!--</div>-->
+            <!--<div style="margin-top: 20px;margin-left: 12px">-->
+            <!--<textarea placeholder="写下您的评价内容吧，对医生很有帮助哦"-->
+            <!--style="width: 100%;height: 100px; padding:14px;border-radius: 4px;resize: none;background-color: #fafafa"></textarea>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </ion-content>
+
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2"
+         ng-show="visitStatus == 1">
+        <button class="button button-block button-size-l" ng-click="submitButtonClick()">提交</button>
+    </div>
+
+</ion-view>

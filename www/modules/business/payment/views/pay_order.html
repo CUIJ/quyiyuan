@@ -1,0 +1,148 @@
+<!--缴费订单-->
+<ion-view class="pay_order qy-bg-grey2" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBackToLastPage()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="支付订单"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="pay_order_content BGColor" has-bouncing="true" style="margin-bottom: 0;" ng-style="isQyPayOrder!=1?'bottom: 50px;':''">
+        <ion-scroll ng-if="isQyPayOrder!=1" delegate-handle="pay_order_content" ng-style="{'height':KyeeEnv.innerSize.height-94+'px'}">
+            <div class="pad-b-14 pad-td-10">
+                <div><span kyee-i18n-directive code="tradeNo" default="订单编号："></span>{{payData.TRADE_NO}}</div>
+                <div class="pad-t-5"><span kyee-i18n-directive code="markDesc" default="订单名称："></span>{{payData.MARK_DESC}}</div>
+                <div class="pad-t-5"><span kyee-i18n-directive code="markDetail" default="订单描述："></span>{{payData.MARK_DETAIL}}</div>
+            </div>
+            <div class="list border-td qy-bg-white" style="margin-bottom: 12px;">
+                <div ng-if="payData.ORIGINAL_AMOUNT > 0" class="item item-input list_line_new padding-fixed" >
+                    <span class="input-label" kyee-i18n-directive code="amount"  default="支付金额："></span>
+                    <span class="f14">¥{{convertMoney(payData.ORIGINAL_AMOUNT)}}</span>
+                </div>
+                <div ng-if="payData.DISCOUNT_AMOUNT > 0" class="item item-input list_line_new padding-fixed" >
+                    <span class="input-label" kyee-i18n-directive code="discountAmount" default="优惠金额："></span>
+                    <span class="f14">¥{{convertMoney(payData.DISCOUNT_AMOUNT)}}</span>
+                </div>
+                <div class="item item-input list_line" ng-class="{'padding-fixed': payData.DISCOUNT_AMOUNT > 0}">
+                    <span ng-if="payData.DISCOUNT_AMOUNT > 0" class="input-label" kyee-i18n-directive code="actualAmount" default="实际支付："></span>
+					<span ng-if="!(payData.DISCOUNT_AMOUNT > 0)" class="input-label" kyee-i18n-directive code="amount" default="支付金额："></span>
+                    <span class="f14">¥{{convertMoney(payData.AMOUNT)}}</span>
+                    <!--附加费用明细    by dongzhuo-->
+                    <span ng-if="total > 0" ng-click="showAddChargeInfo()" class="f16"  style="margin-left: 10px;">
+                        <i class="icon icon-icon_3 qy-green" style="line-height: 20px;"></i>
+                    </span>
+                </div>
+                <div ng-if="isShowSmallPay" class="item item-input list_line">
+                    <span class="input-label" kyee-i18n-directive code="qyAmount" default="趣医零钱："></span>
+                    <span class="f14">¥{{changePay}}</span>
+                    <div class="small_pay"  ng-click="useSmallMoney()">
+                        <span kyee-i18n-directive code="useQyPay" default="使用零钱支付"></span>
+                        <i class="small_pay_icon" ng-class="{'icon-radiobox_1 qy-green f16':showUseSmallMoney,'icon-radiobox_2 qy-grey5 f16':!showUseSmallMoney}"></i>
+                    </div>
+                </div>
+                <!--减免项金额-->
+               <!-- <div ng-if="payData.PREFERENTIAL_NAME!=undefined&&payData.PREFERENTIAL_NAME!=''&&payData.PREFERENTIAL_FEE!=undefined&&payData.PREFERENTIAL_FEE!=''" class="item item-input list_line">
+                    <span class="input-label">{{payData.PREFERENTIAL_NAME}}：</span>
+                    <span class="f14">¥{{convertMoney(payData.PREFERENTIAL_FEE)}}</span>
+                </div>-->
+                <!--减免加费活项金额列表-->
+                <div ng-repeat="PREFERENTIAL in payData.PREFERENTIAL_LIST" ng-if="payData.PREFERENTIAL_LIST!=undefined&&payData.PREFERENTIAL_LIST!=''" class="item item-input list_line">
+                    <span class="input-label">{{PREFERENTIAL.preferentialName}}：</span>
+                    <span class="f14">¥{{convertMoney(PREFERENTIAL.preferentialFee)}}</span>
+                </div>
+                <div ng-if="amountuser||payData.PREFERENTIAL_LIST" class="item item-input list_line">
+                    <span class="input-label" kyee-i18n-directive code="userAmount" default="实际支付："></span>
+                    <span class="f14 qy-orange">¥{{convertMoney(payData.USER_PAY_AMOUNT)}}</span>
+                </div>
+                <!--医保自费金额-->
+                <div class="item item-input list_line"
+                     ng-if="payData.PATIENT_PAY_AMOUNT!=='' && payData.PATIENT_PAY_AMOUNT!==undefined">
+                    <span class="input-label" kyee-i18n-directive code="patientAmount" default="自费金额："></span>
+                    <span class="pay_money f14 qy-green">¥{{payData.PATIENT_PAY_AMOUNT.toFixed(2)}}</span>
+                </div>
+                <!--短信验证码-->
+                <div class="item item-input item-icon-right msg_bar list_line" ng-if="showMsgBar()">
+                    <span class="input-label" kyee-i18n-directive code="msgCode" default="验证码："></span>
+                    <input class="input_text" type="text" ng-model="msgCode.msgCode" placeholder={{placeholder.pHMsgCode}}>
+                    <button ng-disabled="btnDisabled" class="button f12 send_msg_btn qy-bg-grey3" ng-click="getValiteCode()">
+                        {{validateMsgText}}
+                    </button>
+                </div>
+                <!--如果有医保支付的信息则显示医保信息-->
+                <div class="mar-t-10 list_line" ng-if="payData.PATIENT_PAY_AMOUNT!=='' && payData.PATIENT_PAY_AMOUNT!==undefined">
+                    <div class="item item-input">
+                        <span class="input-label" kyee-i18n-directive code="medicalSecurityAccountPay" default="医保支付："></span>
+                        <span class="pay_money qy-green">¥{{payData.MEDICAL_SECURITY_ACCOUNT_PAY_AMOUNT.toFixed(2)}}</span>
+                    </div>
+                    <div class="item item-input">
+                        <span class="input-label" kyee-i18n-directive code="medicalSecurityPay" default="统筹支付："></span>
+                        <span class="pay_money qy-green">¥{{payData.MEDICAL_SECURITY_PAY_AMOUNT.toFixed(2)}}</span>
+                    </div>
+                    <div ng-if="payData.VISITING_CARD_PAY_AMOUNT" class="item item-input">
+                        <span class="input-label" kyee-i18n-directive code="visitingCardPay" default="就诊卡支付："></span>
+                        <span class="pay_money qy-green">¥{{payData.VISITING_CARD_PAY_AMOUNT.toFixed(2)}}</span>
+                    </div>
+                    <!--医保验证码-->
+                    <div class="item item-input item-icon-right msg_bar">
+                        <span class="input-label" kyee-i18n-directive code="mdMsgCode" default="医保验证码："></span>
+                        <input class="input_text" type="text" ng-model="msgCode.mdMsgCode" placeholder={{placeholder.pHMdMsgCode}}>
+                        <button ng-disabled="mdBtnDisabled" class="button f12 send_msg_btn qy-bg-grey3" ng-click="getMdValiteCode()">
+                            {{mdValidateMsgText}}
+                        </button>
+                    </div>
+                    <!--医保卡密码-->
+                    <div class="item item-input">
+                        <span class="input-label" kyee-i18n-directive code="password" default="医保密码："></span>
+                        <input type="password" ng-model="msgCode.password" placeholder={{placeholder.pHmdPassword}}>
+                    </div>
+                </div>
+                <div class="item item-input list_line" ng-if="showCountdown">
+                    <span class="input-label pad-r-10" kyee-i18n-directive code="remainSeconds" default="距离订单失效时间："></span>
+                    <span class="pay_money qy-orange f14" ng-class="isWeb===true?('mar-l-40'):('')">{{REMAIN_SECONDS}}</span>
+                </div>
+            </div>
+            <!--自费部分不为0则显示支付方式栏-->
+            <!--<div class="item item-input mar-t-10 pay_type_bar item-icon-right border-t f14" ng-click="showPayTypeList()"-->
+            <!--ng-if="payData.PATIENT_PAY_AMOUNT!==0&&payData.IS_PAID!=='1'">-->
+            <!--<span class="input-label" kyee-i18n-directive code="payType" default="支付方式："></span>-->
+            <!--<span ng-class="{'mar-l-10':radioChecked != -1,'mar-l-10 qy-grey3':radioChecked==-1}">-->
+            <!--{{currentPayType}}</span>-->
+            <!--<i ng-class="{'icon-arrow_up qy-grey5':showPayType,'icon-arrow_right qy-green':!showPayType}" class="arrow icon"></i>-->
+            <!--</div>-->
+            <div class="mar-t-10 border-t qy-bg-white">
+                <div ng-repeat="pay in payTypes" class="pay_type_list qy-bg-white border-d" ng-class="{'mar-l-14':!$last}" ng-click="choosePayType($index,pay)">
+                    <div>
+                        <img class="pay_type_img" ng-src="{{pay.IMAGE}}" ng-style="{'left': $last?'14px':'0'}">
+                        <span ng-if="cashbackExplain && (pay.ITEM_VALUE==8 || pay.ITEM_VALUE==15 || pay.ITEM_VALUE==19 || pay.ITEM_VALUE==21)"
+                          class="cashBack_span" ng-style="{'left': $last?'14px':'0'}"><span kyee-i18n-directive code="cashBack" default="返现"></span></span>
+                        <div class="choose_pay_type f16" ng-class="{'icon-radiobox_1 qy-green':radioChecked == $index,'icon-radiobox_2 qy-grey5':radioChecked != $index}"></div>
+                    </div>
+
+                    <div ng-if="isShowRecharge && pay.ITEM_VALUE==3" ng-class="{'mar-l-14':$last,'recharge_dou_h':cardBalanceInfo.ALERT_MSG}" class="f12 border-t-dash go_recharge" ng-style="{'padding-right':cardBalanceInfo.PERMISSION!=1?'14px':''}">
+                        <div ng-class="cardBalanceInfo.ALERT_MSG?'':'pad-td-5'"><span  kyee-i18n-directive code="cardBalance" default="就诊卡余额："></span><span class="f14" ng-class="cardBalanceInfo.IS_ABLE_PAY==1?'qy-green':'qy-red'">¥{{convertMoney(cardBalanceInfo.REST_AMOUNT)}}</span></div>
+                        <div ng-if="cardBalanceInfo.ALERT_MSG">{{cardBalanceInfo.ALERT_MSG}}</div>
+                        <button ng-if="cardBalanceInfo.PERMISSION==1" ng-click="goRecharge()" class="button-size-s button-color-green" kyee-operation-monitor-directive="goRecharge">
+                            <span  kyee-i18n-directive code="goRecharge" default="去充值"></span>
+                        </button>
+                    </div>
+                </div>
+                <div ng-if="isShowMorePayType" class="qy-bg-white show_more_pay border-d" ng-click="morePayType()">
+                    <p class="ta-c more_pay_font"><span kyee-i18n-directive code="loadMore" default="查看更多支付方式"></span><i class="icon ion-chevron-down more_pay_icon"></i></p>
+                </div>
+            </div>
+
+            <div class="pad-b-14 pad-t-10 pad-d-10" style="color:#b5b5b5;" ng-bind-html="registExplain" ng-if="registExplain!=undefined"></div>
+        </ion-scroll>
+        <!--非趣医支付订单-->
+        <ion-scroll ng-if="isQyPayOrder==1" ng-style="{'height':KyeeEnv.innerSize.height-43+'px'}">
+            <iframe ng-src="{{openUrl}}" style="width:100%;" ng-style="{'height':KyeeEnv.innerSize.height-43+'px'}"></iframe>
+        </ion-scroll>
+    </ion-content>
+    <div ng-if="isQyPayOrder!=1" class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button ng-class="{'button_color_grey':NoClick}" kyee-action-holder-directive="pay_submit" class="button button-block button-size-l"
+                ng-click="KAH($event) || paySubmit()" kyee-operation-monitor-directive="goPay">
+            <span ng-if="amountuser||payData.PREFERENTIAL_LIST"><span kyee-i18n-directive code="payBtn" default="确认支付"></span> ¥ {{payData.USER_PAY_AMOUNT}}</span>
+            <span ng-if="!(amountuser||payData.PREFERENTIAL_LIST)"><span kyee-i18n-directive code="payBtn" default="确认支付"></span> ¥ {{payData.AMOUNT}}</span>
+        </button>
+    </div>
+</ion-view>
+<!--缴费订单-->

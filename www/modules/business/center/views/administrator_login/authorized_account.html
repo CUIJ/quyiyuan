@@ -1,0 +1,12 @@
+<ion-view class="price_medical_detail bounceDown">
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1" delegate-handle="mainScroll">
+        <div style="border-top: 1px solid #e7e7e7" class="item item-input-inset mar-l-14 pwd_item_height"  ng-repeat="everyAdministrators in data">
+            <div class="item item-input-inset pwd_item_height" ng-click="data.currentAuthorizedAccount(everyAdministrators)">
+                <label class="item-input-wrapper login_number_label">
+                    <span>{{everyAdministrators.PHONE_NUMBER}}</span>
+                    <span style="padding-left: 5px">{{everyAdministrators.NAME}}</span>
+                </label>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,76 @@
+<ion-view class="qy_search_group_list">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="searchGroup" default="找群组"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+
+        <!--搜索-->
+        <div class="mar-td-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="search_container position-r" ng-click="goToGroupSearch()">
+                <input type="text"  placeholder="医院名/科室名"  class="text-ellipsis " ng-readonly="true"/>
+                <button class="button-icon icon-seach grid_img color_search"></button>
+            </div>
+        </div>
+
+        <div class="line50 pad-l-14 mar-t-10 border-td qy-bg-white clear position-r" ng-click="selectHospitalDept()">
+            <i class="icon icon-img-box font20 qy-green line50 fl-l"></i>
+            <span class="pad-l-14 display-inline-b line50" kyee-i18n-directive code="chooseHospitalDept"
+                  default="选择医院与科室"></span>
+            <i class="icon icon-arrow_right icon_right qy-grey4"></i>
+        </div>
+
+        <div class="line40 pad-l-14 mar-t-10 border-t qy-bg-white clear">
+            <div class="fl-l">
+                <i class="icon-group font20 qy-green mar-td-10 display-block"></i>
+            </div>
+            <div class="fl-l pad-l-14" kyee-i18n-directive code="recommendGroup" default="群推荐"></div>
+        </div>
+
+        <ul class="list pad-l-14 qy-bg-white border-td" ng-if="recommendGroup.length>0">
+            <li class="pad-r-14 position-r line70" ng-repeat="group in recommendGroup"
+                ng-class="{false:'border-b',true:''}[$index==recommendGroup.length-1]"
+                ng-click="goGroupDetail(group.groupId)">
+                <div class="line70 position-a left_0">
+                    <img class="group_icon" ng-src="{{group.groupPhoto || 'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                </div>
+                <div class="position-a mar-td-10 mar-l-14 r14 left50" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                    <div class="line30 w100">
+                        <div class="fl-l clear line30 w80">
+                            <div class="fl-l max-w60 mar-r-10 text-ellipsis color_3 f14">{{group.groupName}}</div>
+                            <span class="max-w30 bg-label-blue groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==2">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 qy-bg-orange groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==1">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 bg-label-red groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==0">
+                                {{group.groupLabel}}
+                            </span>
+                        </div>
+                        <div class="fl-r text-right line30 f14 w20 color_9 text-ellipsis" ng-if="group.groupMemberCounts >= 50">
+                            <span>{{group.groupMemberCounts}}人</span>
+                        </div>
+                    </div>
+                    <div class="f12 line20 color_9">
+                        <div class="w100 text-ellipsis">{{group.groupDeclared}}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <!--无数据提示信息 start-->
+        <div ng-if="showEmptyIcon" class="empty-text border-t" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDept" default="暂无推荐群组"></span>
+        </div>
+        <!--无数据提示信息 end-->
+    </ion-content>
+</ion-view>

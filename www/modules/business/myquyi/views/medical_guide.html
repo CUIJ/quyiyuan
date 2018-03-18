@@ -1,0 +1,74 @@
+<!--产品名称：quyiyuan.-->
+<!--创建用户：张文华-->
+<!--日期：2015年5月11日23:01:26-->
+<!--创建原因：我的趣医门诊业务页面-->
+<ion-view class="qy_medical_guide qy-bg-grey2" ng-style="{'top':deivce+'px'}">
+    <ion-content has-bouncing="true" style="height: {{KyeeEnv.innerSize.height - deivce - 52}}px" delegate-handle="medical_guide_content">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doMedicalGuideRefresh(false)">
+        </ion-refresher>
+        <div class="border-d qy-blue pad-td-10 f14 pad-b-14 qy-bg-white">
+            <i class="icon icon-current"></i>
+            <span kyee-i18n-directive code="currentOutPatient" default="当前进行中的门诊"></span>
+        </div>
+        <div class="empty-text qy-bg-white pad-td-10 f12 font_color border-d" ng-if="result.length==0" kyee-i18n-directive code="noMedicalRecord" default="您目前没有就诊记录">
+        </div>
+        <div ng-repeat="data in result" class="qy-bg-white hospital_records border-t"
+                ng-class="{'border_none':$index==0}">
+            <div class="pad-td-5 pad-b-14 relative" ng-click="showRecords($index)">
+                <h5 class="mar-td-5 hospital_name mar-r-20">{{data.hospitalName}}</h5>
+                <i class="icon arrow_icon f14"
+                   ng-class="{'icon-arrow_down':showIndex != $index,'icon-arrow_up':showIndex == $index}"></i>
+            </div>
+            <div class="qy-bg-grey1 f14 border-t" ng-if="showIndex == $index">
+                <!--预约记录-->
+                <div ng-repeat="record in data.appointList" class="pad-td-10 row mar-b-14 border-d my_records"
+                     ng-click="onAppointListTap(record.appointNodeInfo)">
+                    <div class="col col-50">{{record.time}}</div>
+                    <div class="col ">{{record.deptName}}</div>
+                    <div class="col ta-r" style="color:{{record.statusColor}}">{{record.status}}</div>
+                </div>
+                <!--缴费记录-->
+                <div ng-repeat="record in data.feeList" class="pad-td-10 row mar-b-14 border-d my_records"
+                     ng-click="onPaymentListTap(data.hospitalId)">
+                    <div class="col col-50">{{record.countNum}}</div>
+                    <div class="col ">{{record.showText}}</div>
+                    <div class="col col-20 red_color ta-r" kyee-i18n-directive code="unPay" default="待缴费"></div>
+                </div>
+                <!--报告单-->
+                <div ng-repeat="record in data.reportList" class="pad-td-10 row mar-b-14 border-d my_records"
+                     ng-click="onReportListTap(record)">
+                    <div class="col col-50">{{record.REPORT_DATE}}</div>
+                    <div class="col col-50">{{record.ITEM_NAME}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="qy-bg-white">
+            <div class="border-td qy-blue pad-td-10 f14 pad-b-14 my_history border-d">
+                <i class="icon icon-records"></i>
+                <span kyee-i18n-directive code="history" default="历史记录"></span>
+            </div>
+            <div class="row main_box pad-td-10 pad-b-14 border-d">
+                <div class="col ta-c" ng-click="appointMent()">
+                    <img src="resource/images/icon/calendar.png">
+
+                    <p kyee-i18n-directive code="appointment" default="预约/挂号"></p>
+                </div>
+                <div class="col ta-c" ng-click="payMent()">
+                    <img src="resource/images/icon/money.png">
+
+                    <p kyee-i18n-directive code="payInfo" default="缴费信息"></p>
+                </div>
+                <div class="col ta-c" ng-click="report()">
+                    <img src="resource/images/icon/analysis.png">
+
+                    <p kyee-i18n-directive code="inspectOrlaboratory" default="检查检验单"></p>
+                </div>
+                <div class="col ta-c" ng-click="satisfication()">
+                    <img src="resource/images/icon/praise.png">
+                    <p kyee-i18n-directive code="satisfied" default="满意度"></p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

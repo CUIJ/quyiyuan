@@ -1,0 +1,21 @@
+<ion-view title="{{title}}">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+          <ion-nav-buttons side="right">
+            <a class="button button-clear" kyee-operation-monitor-directive="jump" ng-click="jump(jumpRouter)">
+                <span class="qy-darkgreen f12" ng-bind ="buttoText"></span>
+            </a>
+          </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" overflow-scroll="true">
+
+        <div style="height:100%; width:100%;">
+            <iframe ng-src="{{openUrl}}" style=" min-height: 100%; width:100%;">
+            </iframe>
+        </div>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,89 @@
+<ion-view class="qy_nearby">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="nearbyHospitalTitle" default="附近的医院"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div ng-if="RecommendHasData">
+            <div style="color: #666666;line-height: 40px!important;" class="row titlebar-icon qy-orange title_top">
+                <i style="left: 14px;top: 8px;" class="icon icon-position"></i>
+                <span kyee-i18n-directive code="recommendHopsital" default="推荐医院"></span>
+            </div>
+            <div class="list qy-bg-white">
+
+                <a style="min-height: 100px;"  class="item item-avatar qy-iconlist" ng-click="selectRemHospital($index)"
+                   ng-repeat="reminfo in recommendhospitalinfo">
+                    <img style="top: 20px;" ng-src="{{reminfo.LOGO_PHOTO ? reminfo.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+
+                    <h3 style="font-size:16px;margin-top: 18px;color: #666666;line-height: 16px;">{{reminfo.HOSPITAL_NAME}}
+                        <span style="padding-left: 2px;padding-right: 2px;line-height:14px;position: absolute;top: 18px;color:#ff9900;border-radius: 2px;font-size: 12px; margin-left: 8px; border: solid 1px #ff9900;">{{reminfo.HOSPITAL_LEVEL}}</span></h3>
+
+
+
+                    <p style="color:#5baa8a;width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="reminfo.DEPT_NAME" class="hospital_info">
+                      <span style=" width: 66%;" kyee-i18n-directive code="specialTitle" default=" 特色：">
+                      </span><span style=" width: 66%;">{{reminfo.DEPT_NAME_SHOW}}</span>
+                    </p>
+                    <p style="color:#5baa8a;width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="!reminfo.DEPT_NAME" class="hospital_info">
+                  <span style=" width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" kyee-i18n-directive code="features" default="特色：综合类医院">
+
+                  </span>
+                    </p>
+                    <p style="width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="reminfo.MAILING_ADDRESS" class="hospital_info">
+                    <span style="color: #b5b5b5;width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" kyee-i18n-directive code="address" default="地址：">
+                    </span><span style="color: #b5b5b5;width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{reminfo.MAILING_ADDRESS}}</span>
+                    </p>
+                    <p style="width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="!reminfo.MAILING_ADDRESS" class="hospital_info">
+                    <span style="color: #b5b5b5;width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" kyee-i18n-directive code="addrNO" default="地址：暂无">
+                    </span>
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div style="color: #666666;padding-left: 14px;line-height: 40px !important;" ng-if="NearbyHasData" class="row titlebar-icon qy-green title_top">
+            <span kyee-i18n-directive code="current" default="当前:"></span><span>{{address}}</span><i ng-click="refresh()" style="font-size: 20px;padding-right: 14px;" class="ion-android-refresh"></i>
+        </div>
+        <div class="list border-d" style="background-color: #fff;">
+            <a style="min-height: 100px;" ng-if="NearbyHasData" class="item item-avatar qy-iconlist" href="#" ng-click="selectNearHospital($index)"
+               ng-repeat="nearinfo in nearbyhospitalinfo">
+                <img style="top: 20px;" ng-src="{{nearinfo.LOGO_PHOTO ? nearinfo.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                <h3 style="font-size:16px;margin-top: 18px;color: #666666;line-height: 16px;">{{nearinfo.HOSPITAL_NAME}}
+                    <span style="padding-left: 2px;padding-right: 2px;line-height:14px;position: absolute;top: 18px;color:#ff9900;border-radius: 2px;font-size: 12px; margin-left: 8px; border: solid 1px #ff9900;">{{nearinfo.HOSPITAL_LEVEL}}</span></h3>
+
+
+                <p style="color:#5baa8a;width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="NearDeptNameHasData($index)" class="hospital_info">
+                  <span style=" width: 66%;" kyee-i18n-directive code="featuresMark" default="特色：">
+                  </span><span style=" width: 66%;"> {{nearinfo.DEPT_NAME_SHOW}}</span>
+                </p>
+                <p style="color:#5baa8a;width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="!NearDeptNameHasData($index)" class="hospital_info">
+                  <span style=" width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" kyee-i18n-directive code="featuresComm" default="特色：综合类医院">
+                  </span>
+                </p>
+                <p style="width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="NearMailingAddressData($index)" class="hospital_info">
+                    <span style="color: #b5b5b5;width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" kyee-i18n-directive code="addressInfo" default="地址：">
+                    </span><span style="color: #b5b5b5;width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{nearinfo.MAILING_ADDRESS}}</span>
+                </p>
+                <p style="width: 66%;padding-bottom:0px;margin-bottom:0px;" ng-if="!NearMailingAddressData($index)" class="hospital_info">
+                    <span style="color: #b5b5b5;width: 66%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" kyee-i18n-directive code="noAddressTip" default="地址：暂无">
+
+                    </span>
+                </p>
+                <i class="ion-location" style="right: 14px; margin-top: 15px;color: #b5b5b5;">{{nearinfo.DISTANCE}} km</i>
+            </a>
+        </div>
+
+        <div ng-if="NearbyText && RecommendText" class="empty-text empty_height">
+            <i class="icon icon-icon_3 empty-icon"></i>
+
+            <p kyee-i18n-directive code="curPositionNoHospital" default="您目前的位置附近没有医院"></p>
+        </div>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,71 @@
+<ion-view class="qy_message_center" >
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="messageCenterTitle" default="消息中心"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('messagecenter')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <div class="bar bar-subheader">
+        <div class="row switchtable">
+            <a class="col off text-ellipsis" ng-click="KAH($event) || selectStatus(0)"
+                 ng-class="{'on':activityClass == 0}">
+            <span kyee-i18n-directive code="unreadMessages" default="未读消息"></span>
+            </a>
+
+            <a class="col off text-ellipsis" ng-click="KAH($event) || selectStatus(1)"
+                 ng-class="{'on':activityClass == 1}" >
+                <span kyee-i18n-directive code="readMessages" default="已读消息"></span>
+            </a>
+        </div>
+    </div>
+
+    <ion-content has-bouncing="true" padding="false" class="has-subheader">
+
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+          refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(false)">
+        </ion-refresher>
+        <ion-list>
+            <ion-item  ng-click="messageClick($index)" ng-repeat="message in messages" class="msg_item">
+
+                <img ng-if="message.MESSAGE_TYPE==14"
+                     src="resource/images/patients_group/logo.png" class="logo_img fl-l"/>
+                <h5>{{message.MESSAGE_TITLE}}</h5>
+                <span style="padding-right: 14px;" class="date">{{message.CREATE_DATE}}</span>
+                <p style="padding-right: 14px;" ng-bind-html="message.MESSAGE_DESCRIPTION|kyee_to_html">
+                    {{message.MESSAGE_DESCRIPTION}}
+                </p>
+                <a ng-if="message.URL_FLAG == 1" class="qy-blue" kyee-i18n-directive>{{message.ULR_TEXT}} ></a>
+
+                <ion-option-button style="border-color: #d9d9d9;background-color: #d9d9d9;" class="button-positive"
+                                   ng-click="changeStatus($index)">
+                    {{message.READ_FLAG == 0?setRead.name:setNoRead.name}}
+                </ion-option-button>
+                <ion-option-button class="button-info  delete_btn"
+                                   ng-click="delete($index)">
+                    <span kyee-i18n-directive code="deleteMessages" default="删除" class="qy-fff"></span>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+
+
+        <div class="empty-text" ng-if="showEmpty" >
+            <p>{{emptyText}}</p>
+        </div>
+
+        <ion-infinite-scroll
+                ng-if="moreDataCanBeLoadedFlag"
+                immediate-check="false"
+                icon="ion-loading-c"
+                on-infinite="loadNextPage()">
+        </ion-infinite-scroll>
+
+    </ion-content>
+
+</ion-view>

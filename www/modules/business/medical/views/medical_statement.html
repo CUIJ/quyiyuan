@@ -1,0 +1,30 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: WangYuFei
+* 日期: 2015年5月7日13:46:40
+* 创建原因：KYEEAPPC-1959 报告单-体检单 医学申明html
+* 修改时间：2015年7月7日14:04:32
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-2669
+* 修改原因：体检单迁移为独立模块
+* 修改时间：2015年8月18日17:20:23
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3084
+* 修改原因：体检单样式整改
+*/-->
+<ion-view>
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="yiXueShenMing " default="医学申明"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false">
+        <div class="pad-td-20 pad-b-14">{{MEDICAL_STATE}}</div>
+    </ion-content>
+</ion-view>

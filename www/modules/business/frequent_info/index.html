@@ -1,0 +1,44 @@
+<ion-view class="frequent_info">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="commonInfo" default="常用信息"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('frequent_info')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div class="list" >
+            <div class="item border-td" kyee-action-holder-directive="patient_card" ui-sref="patient_card">
+                <h3 class="margin"
+                    kyee-i18n-directive code="hospCardCon" default="就诊卡管理"></h3>
+                <i class="ico ion-chevron-right right_icon"></i>
+            </div>
+            <div class="item border-d" kyee-action-holder-directive="my_qr_code" ng-click="go2QrCode();">
+                <h3 class="margin"
+                    kyee-i18n-directive code="myTwoCode" default="我的二维码"></h3>
+                <i class="ico ion-chevron-right right_icon"></i>
+            </div>
+            <div ng-if="!(userSource=='1' || userSource=='3' || userSource=='5' || userSource=='9')" class="item border-d" kyee-action-holder-directive="change_password" ui-sref="change_pwd">
+                <h3 class="margin"
+                    kyee-i18n-directive code="changeLoginCode" default="修改登录密码"></h3>
+                <i class="ico ion-chevron-right right_icon"></i>
+            </div>
+            <div class="item border-d" kyee-action-holder-directive="switching_roles" ui-sref="role_view">
+                <h3 class="margin"
+                    kyee-i18n-directive code="roleChange" default="角色切换"></h3>
+                <i class="ico ion-chevron-right right_icon"></i>
+            </div>
+            <div ng-if="!(userSource=='1' || userSource=='3' || userSource=='5' || userSource=='9')" class="item border-td mg_t_100" ng-click="Cancellation()">
+                <h3 class="margin"
+                    kyee-i18n-directive code="cancelCurrentAccount" default="注销当前账号"></h3>
+                <i class="ico ion-chevron-right right_icon"></i>
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

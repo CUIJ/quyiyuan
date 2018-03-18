@@ -1,0 +1,44 @@
+<ion-view cache-view="false" class="hospital_dept_list">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span class="text-ellipsis appointment_city_name" ng-style="{'max-width':hospitalWidth}">{{hospitalName}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content ng-class="{'qy-bg-grey2':isEmptyFlag == '0'}" has-bouncing="true" has-header="true" padding="false">
+        <!--数据展示区-->
+        <div ng-if="isEmptyFlag == '2'" class="row f14">
+            <!--左边大科室列表区-->
+            <div class="col col-33 qy-bg-grey2">
+                <ion-scroll has-bouncing="true" scrollbar-y="false"
+                            zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 44)+'px'}">
+                    <ul>
+                        <li ng-click="showDept($index)" ng-repeat="groupDept in groupDepts"
+                            ng-class="{'selected_dept' : dksIndex == $index }"
+                            class="group_dept">
+                            {{groupDept.Name}}
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+            <!--右边小科室列表区-->
+            <div class="col ">
+                <ion-scroll on-drag="clearColor()"
+                        has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 44)+'px'}">
+                    <ul>
+                        <li ng-click="selectSecondDept(dept)" ng-repeat="dept in detailDepts" ng-style="{'color':xksIndex == $index ? '#5baa8a' : 'black' }"
+                            on-hold="changeColor()" on-release = "goToDoctorList(dept)"
+                            class="detail_dept">
+                            {{dept.deptName}}
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+        </div>
+        <!--无数据时显示默认-->
+        <div ng-if="isEmptyFlag == '1'" class="empty-text">
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive code="emptyDept" default="医院暂无科室信息"></span>
+        </div>
+    </ion-content>
+</ion-view>

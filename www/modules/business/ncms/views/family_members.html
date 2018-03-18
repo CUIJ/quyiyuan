@@ -1,0 +1,57 @@
+<div ng-if="noShow" class="family_members">
+    <div>
+        <label class="item item-input">
+            <span class="input-label"
+                  kyee-i18n-directive code="patientName" default="患者姓名："></span>
+            <button class="black_button" ng-click="clickUpload()">{{township}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+        </label>
+    </div>
+    <ion-scroll class="light_gray" delegate-handle="aaa" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y"
+                ng-style="{'height':(KyeeEnv.innerSize.height - 150)+'px'}">
+        <div ng-repeat="item in userInfo" class="zx_padding_inherit">
+            <div class="list">
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="name" default="姓名："></span>
+                    <span class="input-label ">{{item.NAME}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="state" default="当前状态："></span>
+                    <span class="input-label ">{{item.CURRENT_STATUS}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="relationship" default="与户主关系："></span>
+                    <span class="input-label ">{{item.RELATIONSHIP_TO_HOUSEHOLDER}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="participatingProperties" default="参合属性："></span>
+                    <span class="input-label ">{{item.PROPERTY}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="firstTimeParticipating" default="首次参合时间："></span>
+                    <span class="input-label ">{{item.ATTEND_TIME}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="IDNumber" default="身份证号："></span>
+                    <span class="input-label ">{{item.ID_NO_PASS}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="medicalCard" default="医疗卡/卡号："></span>
+                    <span class="input-label ">{{item.CARD_NO}}</span>
+                </label>
+                <span class="input-label"></span>
+            </div>
+        </div>
+    </ion-scroll>
+</div>
+<div class="empty-text" ng-if="isNot">
+    <i class="icon icon-icon_3 empty-icon"></i>
+    <p>{{userInfo.text}}</p>
+</div>

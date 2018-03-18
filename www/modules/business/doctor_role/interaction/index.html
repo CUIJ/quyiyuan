@@ -1,0 +1,35 @@
+<ion-view class="qy_doctor_interaction qy_doctor_message_board">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="patientInformation" default="患者信息"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ul class="linear">
+        <li class="f16 header_name">{{data.OFTEN_NAME}}</li>
+        <li class="pad-t-10">
+                    <span class="header_sex">{{data.SEX}} / {{data.AGE}}<span kyee-i18n-directive code="age" default="岁"></span></span>
+            <span ng-click="onPostRootClick()" class="qy-green header_right" kyee-operation-monitor-directive="leaveMsgForPatient">
+                <img src="resource/images/doctorRole/chat.png" class="header_img"/>
+                <span kyee-i18n-directive code="leaveMessagePatient" default="给患者留言"></span>
+            </span>
+        </li>
+    </ul>
+
+
+    <div class="bar bar-subheader subheader_sec">
+        <div class="button-bar two">
+            <a ui-sref="patientInfo.doctorMessageBoard" kyee-operation-monitor-directive="doctorMessageBoard"
+               ui-sref-active="tab_button_active" class="button tab_button ">
+                <span kyee-i18n-directive code="myLeaveMessage" default="我的留言"></span>
+            </a>
+            <a ui-sref="patientInfo.visitRecords" kyee-operation-monitor-directive="visitRecords"
+               ui-sref-active="tab_button_active" class="button tab_button">
+                <span kyee-i18n-directive code="medicalRecords" default="就诊记录"></span>
+            </a>
+        </div>
+    </div>
+
+    <div ui-view="doctor_patient_view"></div>
+</ion-view>

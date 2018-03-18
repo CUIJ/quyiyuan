@@ -1,0 +1,36 @@
+<div ng-if="activityClass=='0'" ng-init="initView()" ng-controller="NavigationFloorController" cache-view="false">
+    <div ng-if="!isShowMessage">
+        <ion-scroll scrollbar-y="false" scrollbar-x="false" locking="false" min-zoom="1" max-zoom="2" zooming="true" direction="xy"
+                    has-bouncing="true" style="height:{{KyeeEnv.innerSize.height-165}}px;">
+            <div>
+                <div ng-if="isShow" style="{{showStyle}}">
+                    <div class="ion-android-pin navigation"></div>
+                </div>
+                <img usemap="#bodyMap" ng-src="{{hosPicSrc}}" class="image_position">
+                <!--坐标-->
+                <map name="bodyMap" id="bodyMap">
+                    <!--坐标集合-->
+                    <area shape="rect" ng-repeat="record in CoordinateSet" coords="{{record.cooUni}}"
+                          ng-click="OpenNavigationDetail(record.navigationID)">
+                </map>
+                <!--图片下方文字-->
+                <div>
+                    <div class="ta-c">
+                        <span>{{hos_name}}</span>
+                    </div>
+
+                    <div ng-bind-html="hospitalMessage|kyee_to_html" class="pad-t-10 pad-b-10 f12"></div>
+                </div>
+            </div>
+        </ion-scroll>
+        <div ng-if="isShowMessage">
+            <div ng-bind-html="notice|kyee_to_html"></div>
+        </div>
+    </div>
+    <div class="ta-c">
+        <div class="mar-t-20 qy-green f14" ng-click="goChooseDept()">
+            <span kyee-i18n-directive code="needSelectDept" default="请选择需要查询的科室"></span>
+            <span class="ico ion-chevron-right" ></span>
+        </div>
+    </div>
+</div>

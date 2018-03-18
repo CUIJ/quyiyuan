@@ -1,0 +1,9 @@
+<div style="max-height: {{KyeeEnv.innerSizeSource.height - 300}}px; padding: 10px;">
+    <div ng-repeat="rule in supplierInfo.RULE_INFOS">
+        <!--INFO_TYPE  0:�������ݣ�1:һ�����⣬2:�������⣬3:�������⣬4:�ļ����⣬5:�弶����-->
+        <br ng-if="[1, 2].indexOf(rule.INFO_TYPE) != -1">
+        <span ng-class="{'green fontB' : rule.INFO_TYPE == 1}" style="line-height: 25px;">
+            {{rule.INFO_CONTENT}}
+        </span>
+    </div>
+</div>

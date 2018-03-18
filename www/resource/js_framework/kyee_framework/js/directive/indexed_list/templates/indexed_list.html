@@ -1,0 +1,49 @@
+<div class="row" style="padding: 5px;margin: 0px;">
+
+    <!--文字图标-->
+    <span id="indexed_list_curr_word" style="border: 1px solid #cccccc;background-color: black;color: white;z-index: 9999;border-radius: 10px;font-size: 30px;padding: 12px;opacity:0.5;position: absolute;right: 50px;top: 0px;display: none;background-clip: padding-box; "></span>
+
+    <div class="col" style="padding: 0px;margin: 0px;">
+        <ion-scroll delegate-handle="indexed_list" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" style="width: 100%; height: {{height}}px;">
+
+            <div ng-hide="group.isDeleted != undefined && group.isDeleted == true" class="row" ng-repeat="group in data" style="padding: 0px;margin: 0px;">
+                <div style="width:1.6em ;color:#f66 ;margin-top:11px;font-size: 16px; font-family:Arial; font-weight:bold; text-align: center;">
+                    {{group.group}}
+                </div>
+                <div class="col list" style="padding: 0px;margin: 0px;" ng-style="{'max-width':maxWidth}">
+                    <a ng-hide="item.isDeleted != undefined && item.isDeleted == true" ng-click="doItemClick(item)" class="item {{item.class}}" ng-repeat="item in group.items" style="padding:5px;color: #666;border-color: white;"
+                       ng-style="{'padding-top': $index==0 ? '10px':'5px','padding-bottom': $index==group.items.length-1 ? '10px':'5px','height': $index==0 && $index==group.items.length-1 ? '40px': $index==0 || $index==group.items.length-1 ? '35px':'30px'}">
+                        <div class="row" style="margin: 0px;padding: 0px;">
+                            <div class="col f14" style="white-space: nowrap;text-align: left;margin: 0px;padding: 0px;overflow: hidden;text-overflow: ellipsis;padding-top:1px;">
+                                {{item.text}}
+                                <!--没有内容时图片不能显式-->
+                                <span ng-repeat="icon in item.leftIcons track by $index" class="{{icon}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <!--没有备注内容时不显式-->
+                                <span ng-if="item.textComments != undefined" ng-class="item.textCommentsClass">{{item.textComments}}</span>
+                            </div>
+                            <!-- 注意：这个 col 为 col-33，而上面的 col 无需设置，因为如果第二个 col 不存在的时候，第一个 col 的宽度会自动为 100% -->
+                            <div ng-if="item.rightIcons != undefined && item.rightIcons != null && item.rightIcons.length > 0" class="col col-33" style="text-align: right;margin: 0px;padding: 0px;">
+                                <!--没有内容时图片不能显式-->
+                                <span ng-repeat="icon in item.rightIcons track by $index" class="{{icon}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div style="border:none;border-bottom:1px solid #d9d9d9;"></div>
+                </div>
+            </div>
+
+            <div ng-if="isEmpty" style="text-align: center;margin-top: 10px;color: #cccccc;">
+                <span ng-if="emptyText == undefined" kyee-i18n-directive code="all:commonText.noShowResult"
+                      default="没有可显示的结果"></span>
+                <span ng-if="emptyText != undefined">{{emptyText}}</span>
+            </div>
+
+        </ion-scroll>
+    </div>
+    <div id="indexed_list_words_bar" on-drag="doIndexedBarDrag($event)" on-release="doIndexedBarRelease($event)" ng-click="doIndexedBarClick($event)" data-tap-disabled="true" style="width:30px;line-height:{{wordHeight}}px;text-align: center;color:#666;">
+        <div style="height: 10px;"></div>
+        <div style="font-family:Arial; font-size: 12px;margin: 0px;padding: 0px;" ng-repeat="word in ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']">
+            {{word}}
+        </div>
+    </div>
+</div>

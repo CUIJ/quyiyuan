@@ -1,0 +1,40 @@
+<ion-view class="qy_claim_complete" cache-view="false">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="资料上传成功"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('claim_complete')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false" >
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height)+'px'}">
+
+            <div class="qy-bg-white mar-t-10 border-td" style="padding-bottom:30px;">
+                <div>
+                    <img ng-src="resource\images\onekeyClaim\claim_complete.png" style="width:{{wid+'px'}};margin-top: 40px;margin-bottom: 30px;" />
+                </div >
+                <div class="f16 mar-d-20" style="text-align: center">
+                    <span>
+                        <span kyee-i18n-directive code="contentSuccess" default="提交成功！" ></span>
+                    </span>
+                </div>
+                <div class="f14" style="margin-left:20px;margin-right:20px;">
+                    <span class="mar-d-10">
+                         <span kyee-i18n-directive code="contentMessage" default="您的理赔资料已经成功上传，若要进行赔付，还需要本人持相关资料去保险公司进行办理。" ></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="mar-t-20 mar-b-14 qy-bg-grey2" >
+                <button class="button-size-l button button-block" style="margin-bottom: 0px" ng-click="complete()" kyee-operation-monitor-directive="goRecharge">
+                    <span kyee-i18n-directive code="complete" default="完成"></span>
+                </button>
+            </div>
+        </ion-scroll>
+    </ion-content>
+</ion-view>

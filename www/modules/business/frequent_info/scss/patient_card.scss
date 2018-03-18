@@ -1,0 +1,322 @@
+@charset "utf-8";
+
+
+.patient_card{
+
+  .w70_display{
+    width: 100%;
+    //display: flex;
+    //display:-webkit-flex;/* Chrome 21+ */
+    //display:-ms-flexbox;/* WP IE 10 */
+    //display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+  }
+  .item_hegiht_by_status{
+    height: 61px;
+  }
+
+  .hosp_top_down{
+ //   position:absolute;
+    padding-top:8px;
+  }
+  .change{
+    right: 22px; position: absolute; padding-top: 8px;top:20px;
+  }
+  .check_false{
+    right: 30px; position: absolute; padding-top: 7px;top:20px;
+  }
+  .mar_k{
+    margin-top: auto;
+  }
+
+  .noHaveInputspan{
+    padding-top: 4px;
+  }
+  .hos_left{
+    display: block;
+    float: left;
+  }
+  .item_top{
+    margin-top: 3px;
+  }
+  .div_mar_top{
+    margin-top: -2px;
+  }
+  .mar_top_by_phone{
+    margin-top: 10px;
+  }
+  .add_new{
+    position: absolute;
+    top: 20px;
+    left: 42px;
+  }
+  .icon_style{
+    font-size: 20px; color: #5baa8a; top: 35px;
+  }
+  .icon_red{
+    color: #ff777a !important;
+    margin-top: -10px;
+    font-size: 16px;
+  }
+  .edit_card_span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 80px;
+  }
+
+  .box-container .center-content{
+    width: 92%;
+    margin-top: 14px;
+  }
+  .qr_code{
+    float: right;
+    padding-right: 14px;
+    padding-top: 16px;
+  }
+}
+
+.patient_card_add{
+  .icon {
+    font-size: 12px;
+  }
+  .card_url{
+    height: 32px;width: 50px;
+  }
+  .icon_width{
+    width: 0px;
+    right: 14px;
+    color: #999999;
+  }
+  .item_border_top_white{
+    border-top: 1px solid white;
+  }
+  .the_grey4 {
+    color: #999 !important;
+  }
+  .item_border_top_gray{
+    border-top: 1px solid  #e7e7e7;
+  }
+  .item_border_bottom_white{
+    border-bottom: 1px solid white;
+  }
+  .item_border_top_bottom{
+    border-bottom: 1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
+  }
+  .item_padding{
+    padding: 9px 14px 9px 0;
+    height: 50px;
+  }
+  .icon_position{
+    position: absolute;
+    right: 14px;
+  }
+  .ion_s{
+    font-size:16px;
+    color: #5baa8a;
+    position: relative;
+    top: 2px;
+  }
+
+
+
+
+  .eral{
+    display:block;width: 20%;
+  }
+  .hosp{
+    display:block;width: 20%
+  }
+  .hosp_name{
+    width: 65%; display:block; color: #333333;
+  }
+  .card_type_top{
+    display:block;width: 20%
+  }
+  .pleass_card{
+    background-color:white;
+  }
+  .card_patientName{
+    display:block;width: 20%
+  }
+  .card_idNo{
+    display:block;width: 20%
+  }
+  .card_phoneNum{
+    display:block;width: 20%
+  }
+  .card_universal{
+    background-color:white;
+  }
+  .card_num{
+    display:block;width:20%
+  }
+
+}
+
+.patient_card_hospital{
+  .width_70{
+    width: 70%;
+  }
+
+  .hos_img{
+    margin-top: 14px;margin-right: 15px;
+  }
+
+  .hos_name{
+    line-height:40px;
+  }
+
+  .net_hos_img{
+    margin-top: 20px;margin-left: 5px;
+  }
+
+  .select_city{
+    //font-weight: 100;
+    .city_name{
+      padding-right: 5px;
+      display: inline-block;
+    }
+    .city_arrow{
+      position: absolute;
+      top: 1px;
+    }
+  }
+
+}
+@media (min-device-width: 376px) and (-webkit-min-device-pixel-ratio:3.0){
+  .patient_card .noHaveInputspan{
+    margin-top: 4px;
+  }
+
+  .patient_card .mar_top_by_phone{
+    margin-top: 32px;
+  }
+}
+.patient_card_city {
+
+  .icon_local {
+    color:#ff777a;
+    font-size: 18px;
+    vertical-align: sub;
+  }
+
+  .local_info{
+    line-height: 44px; padding: 0px 10px;
+  }
+
+  .province_sec {
+    background-color:#f0fcf4;
+  }
+
+  .province_list {
+    width:100%;
+    text-align:center;
+    padding:11px 0;
+  }
+  .province_list_two{
+    width:100%;
+    text-align:center;
+    padding:10px 0;
+  }
+
+  .active {
+    background-color:#fff;
+    color:#5baa8a;
+    border-bottom:1px solid #e7e7e7;
+    border-top:1px solid #e7e7e7;
+  }
+
+  .city_list {
+    text-align:left;
+    margin-left:20px;
+    padding:13px 20px 13px 10px;
+    border-bottom:1px solid #e7e7e7;
+  }
+
+  .sub_border{
+    border-bottom: 1px solid #e7e7e7;
+  }
+}
+
+.patient_card_type {
+  .role_item{
+    padding: 15px;
+    border-bottom: solid 1px lightgrey;
+  }
+
+  .ion-android-radio-button-on:before{
+    content: "\f3a7";
+    font-size: 20px;
+    color: #5baa8a;
+  }
+  .ion-android-radio-button-off:before{
+    content: "\f3a6";
+    font-size: 20px;
+  }
+}
+
+.patient_card_select {
+  .tips_icon{
+    font-size: 20px;
+    color: #5baa8a;
+    margin-top: -10px;
+  }
+}
+
+.qy_code_image{
+  height: 313px;
+  margin-top: -111px;
+  border-radius: 4px;
+  .ion_border_green{
+    border: 1px solid #5baa8a !important;
+  }
+  .f_s_30{
+    font-size: 30px;
+  }
+  .img_footer{
+    margin-left: 14px;
+    margin-right: 14px;
+    border-top: 1px solid #ccc;
+    line-height: 65px;
+    height: 65px;
+    width: auto;
+  }
+  .img_wdt{
+    width: 100%;
+  }
+  .ion_show{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-top: 15px;
+    border-radius: 50%;
+    border: 1px solid #b5b5b5;
+  }
+  .ion_number{
+    line-height: 25px;
+    height: 20px;
+  }
+  .ion_font{
+    line-height: 15px;
+    height: 20px;
+  }
+  .footer_block{
+    position: relative;
+    display: inline-block;
+  }
+  .footer_line{
+    width: 24px;
+    position: absolute;
+    top: 34px;
+    left: 69px;
+    border-bottom: 1px solid #ccc;
+  }
+  .code_div{
+    border: 1px solid #e7e7e7;
+    margin:0 auto;
+    height: 232px;
+    width: 232px;
+    position: relative;
+  }
+}

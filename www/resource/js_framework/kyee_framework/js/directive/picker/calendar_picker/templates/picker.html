@@ -1,0 +1,56 @@
+<div>
+    <div id="{{id}}_backdrop" ng-click="cancel()" class="pickerBackdrop" style="width: 100%;height:{{$root.KyeeEnv.innerSizeSource.height}}px;z-index: 9000;display: none;position: absolute;top: 0px;left: 0px;background-color: rgba(0, 0, 0, 0.4);"></div>
+    <div id="{{id}}" ng-style="{'left':posi.left+'px','width':posi.width+'px','bottom':bottom+'px'}" style="height:320px;z-index: 9999;display: none;position: absolute;">
+
+        <ion-view style="border-radius: 5px;">
+            <div class="bar" style="border: 1px solid #d9d9d9;background-color: #efeff4;border-radius: 5px;background-clip: padding-box;">
+                <button style="color: #333;font-size: 14px;position: absolute;top: 5px;left: 5px;bottom: 5px;background-color: transparent;border: none;" class="button " ng-click="cancel()">
+                    {{cancelText}}{{left}}
+                </button>
+                <h1 class="title" style="font-size: 14px;">{{getYearAndMonth().year + " / " + getYearAndMonth().month}}</h1>
+                <button style="color: #333;font-size: 14px;background-color: transparent;border: none;" class="button" ng-click="finash(type)">
+                    {{okText}}
+                </button>
+            </div>
+            <div class="bar bar-subheader bar-stable" style="height: 38px;margin-top: 0px;top: 44px;">
+                <!-- 可选年月的表头 -->
+                <div ng-if="mode == 'YM'" class="row" style="padding: 0px;">
+                    <div class="col col-33" style="text-align: center; padding: 0px; vertical-align: middle">
+                        <a ng-click="prevYear()" class="button button-icon icon ion-android-arrow-dropleft"></a>
+                        <span style="line-height: 37px;">{{getYearAndMonth().year}}</span>
+                        <a ng-click="nextYear()" class="button button-icon icon ion-android-arrow-dropright"></a>
+                    </div>
+                    <div class="col col-33" style="text-align: center; padding: 0px; vertical-align: middle">
+                        <a ng-click="today()" class="button button-icon icon ion-ios-flag-outline" style="font-size: 14px;">&nbsp;今天</a>
+                    </div>
+                    <div class="col col-33" style="text-align: center; padding: 0px;">
+                        <a ng-click="prevMonth()" class="button button-icon icon ion-android-arrow-dropleft"></a>
+                        <span style="line-height: 37px;">{{getYearAndMonth().month}}</span>
+                        <a ng-click="nextMonth()" class="button button-icon icon ion-android-arrow-dropright"></a>
+                    </div>
+                </div>
+                <!-- 可选月的表头 -->
+                <div ng-if="mode == 'M'" class="row" style="padding: 0px;">
+                    <div class="col col-33" style="text-align: left; padding: 0px; vertical-align: middle">
+                        <a ng-click="prevMonth()" class="button button-icon icon-left ion-android-arrow-dropleft" style="font-size: 14px; margin-left: 5px;"
+                           kyee-i18n-directive code="all:commonText.lastWeekText" default="上一月"></a>
+                    </div>
+                    <div class="col col-33" style="text-align: center; padding: 0px; vertical-align: middle">
+                        <a ng-click="today()" class="button button-icon icon ion-ios-flag-outline" style="font-size: 14px;"
+                           kyee-i18n-directive code="all:commonText.todayText" default="&nbsp;今天"></a>
+                    </div>
+                    <div class="col col-33" style="text-align: right; padding: 0px;">
+                        <a ng-click="nextMonth()" class="button button-icon icon-right ion-android-arrow-dropright" style="font-size: 14px;margin-right: 5px;"
+                           kyee-i18n-directive code="all:commonText.nextWeekText" default="下一月"></a>
+                    </div>
+                </div>
+            </div>
+            <ion-content scrollbar-y="false" has-bouncing="false" padding="false" scroll="false" style="margin-top: 80px;">
+                <div style="margin: 5px;">
+                    <calendar-tag style="width: 100%;"></calendar-tag>
+                </div>
+            </ion-content>
+        </ion-view>
+
+    </div>
+</div>

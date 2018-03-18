@@ -1,0 +1,144 @@
+<ion-view class="rush_clinic_detail"cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backFromRushDetail()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>抢号详情</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a  class="button button-clear " ng-click="openRightMenu('rush_clinic_detail')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" ng-class="{'has-footer': hasBarFoot()}"class="qy-bg-grey2 "ng-class="{'content_bottom':hasFooter()}"delegate-handle="rush_clinic_detail">
+        <!--抢号状态显示-->
+        <div ng-switch="CLINIC_DATA.STATUS" class="has_head">
+            <div ng-switch-when="0" class="qy-green pad-b-14 ta-c status">
+                <i class="f22 icon-remind pad-r-10 position_top_4" ></i>
+                <span class="fw-500 f16 status_type_position">抢号中</span>
+            </div>
+            <div ng-switch-when="1" class="qy-green pad-b-14 ta-c status">
+                <i class="f22 icon-remind pad-r-10 position_top_4" ></i>
+                <span class="fw-500 f16 status_type_position">抢号中</span>
+            </div>
+            <div ng-switch-when="3" class="fail_red pad-b-14 ta-c status">
+                <i class="f22 icon-icon_6 pad-r-10 position_top_4" ></i>
+                <span class="fw-500 f16 status_type_position">抢号失败</span>
+            </div>
+            <div ng-switch-when="4" class="qy-grey5 pad-b-14 ta-c status">
+                <i class="f22 icon-overdue pad-r-10 position_top_4" ></i>
+                <span class="fw-500 f16 status_type_position">抢号过期</span>
+            </div>
+            <div ng-switch-when="5" class="qy-grey5 pad-b-14 ta-c status">
+                <i class="f22 icon-choose pad-r-10 position_top_4" ></i>
+                <span class="fw-500 f16 status_type_position">取消成功</span>
+            </div>
+        </div>
+        <!--抢号基础信息-->
+        <ul class="list border-td  qy-bg-white" style="margin-bottom: 10px !important;" ng-if="!isEmpty(CLINIC_DATA)">
+            <li class="item pad_td20 mar-l-14 pad-r-14 border-d">
+                <div class="row f14 line-h30">
+                    <span class="fixed_width  qy-deepblue">医院：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.HOSPITAL_NAME}}</div>
+                </div>
+                <div class="row f14 line-h30">
+                    <span class="fixed_width  qy-deepblue" >科室：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.DEPT_NAME}}</div>
+                </div>
+                <div class="row f14 line-h30">
+                    <span class="fixed_width  qy-deepblue">医生：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.DOCTOR_NAME}}</div>
+                </div>
+                <div ng-if="showFee" class="row f14 line-h30">
+                    <span class="qy-deepblue" style="margin-right: 14px">预付费用：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.ADVANCE_AMOUNT_SHOW}}</div>
+                </div>
+                <div ng-if="showFee" class="row f14 line-h30">
+                    <span class="qy-deepblue" style="margin-right: 14px">支付状态：</span>
+                    <span class="col qy-grey7">{{CLINIC_DATA.PAYMENT_STATUS_SHOW}}</span>
+                    <span class="f14" style="position: absolute; right: 20px;color:#999999" ng-if="showRefundDetail&&(CLINIC_DATA.STATUS==3 ||CLINIC_DATA.STATUS==4 ||CLINIC_DATA.STATUS==5)" ng-click="goToRefund(CLINIC_DATA)">查看详情</span>
+                    <i ng-if="showRefundDetail&&(CLINIC_DATA.STATUS==3 ||CLINIC_DATA.STATUS==4 ||CLINIC_DATA.STATUS==5)" class="ion-chevron-right right_arrow_new qy-grey5" style="right: 6px"></i>
+                </div>
+            </li>
+            <li class="item pad_td20 mar-b-14 ">
+                <div class="row f14 line-h30">
+                    <span class="fixed_width2  qy-deepblue">就诊人：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.PATIENT_NAME}}</div>
+                </div>
+                <div class="row f14 line-h30" ng-if="!isEmpty(CLINIC_DATA.CARD_NO)">
+                    <span class="fixed_width2  qy-deepblue">就诊卡：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.CARD_NO}}</div>
+                </div>
+            </li>
+        </ul>
+        <!--抢号进度-->
+        <div class="qy-bg-white border-td" ng-if="!isEmpty(CLINIC_DATA)">
+            <ul class="mar-b-14 pad-t-15 pad-d-15">
+                <div class=" pos_re">
+                    <span class="rush_progress qy-bg-green"></span>
+                    <div class="span_left qy-grey7" style="display: inline-block;vertical-align: middle"><span class="pad-r-10">{{CLINIC_DATA.REG_CREATE_TIME}}</span>开始抢号！</div>
+                </div>
+                <div class="border_green  span_margin_left div_mar_t pad-d-10">
+                    <div class="span_left_new">
+                        <span class="small_box qy-bg-orange qy-fff" ng-repeat="detailList in CLINIC_DATA.RUSH_DETAIL_LIST ">{{detailList.CLINIC_DATE}}<span class="mar-l-5" >{{detailList.CLINIC_DURATION}}</span></span>
+                    </div>
+                </div>
+                <div class="div_mar_t pos_re">
+                    <span class="rush_progress qy-bg-green"></span>
+                    <div class="span_left qy-grey7">正在为您抢号中</div>
+                </div>
+                <div class=" span_margin_left div_mar_t pad-d-15" ng-class="{'border-l':(CLINIC_DATA.STATUS==0||CLINIC_DATA.STATUS==1),'border_green':!(CLINIC_DATA.STATUS==0||CLINIC_DATA.STATUS==1)}">
+                    <div class=" span_left_new qy-grey7">已为您抢号<span class="qy-orange pad-r-5 pad-l-5">{{CLINIC_DATA.RUSH_COUNT}}</span>次，未能抢到可用号源</div>
+                </div>
+                <div class="div_mar_t  pos_re" ng-if="CLINIC_DATA.STATUS==5">
+                    <span class="rush_progress qy-bg-green"></span>
+                    <div class="span_left qy-grey7"><span class="pad-r-10">{{CLINIC_DATA.CANCEL_TIME}}</span> 抢号已取消</div>
+                </div>
+                <div class="div_mar_t  pos_re" ng-if="CLINIC_DATA.STATUS==0||CLINIC_DATA.STATUS==1">
+                    <span class="rush_progress qy-bg-grey4"></span>
+                    <div class="span_left qy-grey7"><span class="pad-r-10">{{CLINIC_DATA.END_TIME}}</span>抢号截止时间</div>
+                </div>
+                <div class="div_mar_t  pos_re" ng-if="CLINIC_DATA.STATUS==3">
+                    <span class="rush_progress " style="background-color: #f55440"></span>
+                    <div class="span_left " style="color: #f55440"><span class="pad-r-10 ">{{CLINIC_DATA.RUSH_SUCCESS_TIME}}</span>抢号失败</div>
+                </div>
+                <div class=" span_margin_left div_mar_t "ng-if="CLINIC_DATA.STATUS==3&&!isEmpty(CLINIC_DATA.HANDLE_MESSAGE)" >
+                    <div class=" span_left_new row qy-grey7">
+                        <div style="min-width: 72px">失败原因：</div>
+                        <div ng-style="{'max-width':(KyeeEnv.innerSize.width-28-8-33-72)+'px'}">{{CLINIC_DATA.HANDLE_MESSAGE}}</div>
+                    </div>
+                </div>
+                <div class="div_mar_t  text-ellipsis pos_re" ng-if="CLINIC_DATA.STATUS==4">
+                    <span class="rush_progress qy-bg-green"></span>
+                    <div class="span_left qy-grey7"><span class="pad-r-10">{{CLINIC_DATA.END_TIME}}</span>抢号已截止</div>
+                </div>
+            </ul>
+        </div>
+        <!--抢号小贴士-->
+        <div ng-if="CLINIC_DATA.STATUS==0||CLINIC_DATA.STATUS==1" class="mar-b-14"style="margin-top: 20px;text-align: justify">
+            <div class="qy-grey7 f14 mar-d-5">
+                抢号小贴士：
+            </div>
+            <div class="f12 qy-grey6" >
+                1.抢号的时间可能较长，因其中的不确定因素较多，请您耐心等待
+            </div>
+            <div class="f12 qy-grey6">
+                2.当您设置了多个抢号日期后，小趣优先帮您抢最近时间的号源，抢到可用号源后即停止抢号
+            </div>
+            <div class="f12 qy-grey6">
+                3.抢号成功后系统会以短信、内部消息的形式提示您，请您及时关注
+            </div>
+        </div>
+
+    </ion-content>
+    <div  ng-if="CLINIC_DATA.STATUS==0" class="bar bar-footer pad-b-14 qy-bg-grey2" ng-click="cancelRush(CLINIC_DATA)">
+        <button class="button button-block button-size-l ">取消抢号</button>
+    </div>
+    <div  ng-if="(CLINIC_DATA.STATUS==3&&isEmpty(CLINIC_DATA.REG_ID))||CLINIC_DATA.STATUS==2" ng-click="goToSeeDetail(CLINIC_DATA)" class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button class="button button-block button-size-l ">查看预约详情</button>
+    </div>
+    <div  ng-if="(CLINIC_DATA.STATUS==3||CLINIC_DATA.STATUS==4)&&CLINIC_DATA.RUSH_CLINIC=='1'" class="bar bar-footer pad-b-14 qy-bg-grey2" ng-click="againRush(CLINIC_DATA)">
+        <button class="button button-block button-size-l ">重新抢号</button>
+    </div>
+</ion-view>
+<div kyee-compile-directive template="modules/business/appoint/views/delay_views/selected.html"></div>

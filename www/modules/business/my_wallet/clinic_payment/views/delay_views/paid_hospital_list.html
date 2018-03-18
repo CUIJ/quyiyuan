@@ -1,0 +1,29 @@
+<!--
+ * 产品名称：quyiyuan
+ * 创建人: 程铄闵
+ * 创建日期:2016/5/10
+ * 创建原因：2.2.20版 门诊已缴费选择医院弹出页面
+ * 任务号：KYEEAPPC-6170
+-->
+<ion-view class="qy_paid_hospital_list border-d" ng-style="{'height': data.hospitalListHeight}" style="margin-top: -9px;">
+    <ion-content scroll="false">
+        <ion-scroll ng-style="{'height': data.length>3?150+'px':'auto'}">
+            <div class="list pad-l-14">
+                <div ng-repeat="hospital in data">
+                    <div class="item item-input f14" ng-click="selectHospital(hospital.HOSPITAL_ID);" >
+                        <div class="text-ellipsis" style="width:90%;">{{hospital.HOSPITAL_NAME}}</div>
+                    </div>
+                </div>
+            </div>
+        </ion-scroll>
+        <div class="item item-input f14" ng-click="selectOtherHospital();">
+            <div class="text-ellipsis">
+                <i class="f16">+</i>
+                <span kyee-i18n-directive code="requestOtherHospital" default="选择其它医院"></span>
+            </div>
+        </div>
+        <div class="qy-red tip f14">
+            <span  kyee-i18n-directive code="requestRemark" default="* 本功能支持查询开通历史缴费业务医院的线上及线下缴费记录，请您选择您要查看的医院。"></span>
+        </div>
+    </ion-content>
+</ion-view>

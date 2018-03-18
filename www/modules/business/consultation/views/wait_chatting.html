@@ -1,0 +1,43 @@
+<ion-view class="wait_chatting" cache-view="false" >
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{consultTypeName}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" ng-click="doRefreshOrder()"
+               ng-show="currentStatusInfo.isShowRefreshButton">刷新</a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-grey2 f14 has_footer" scrollbar-y="false">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon=""
+                       refreshing-icon="" refreshing-text="{{$root.lang.refreshingText}}"
+                       class="qy-refresh-icon" on-refresh="onRefresh()">
+        </ion-refresher>
+        <!--头部状态栏-->
+        <div kyee-compile-directive template="modules\business\consultation\views\template\consultation_status.html" delay="0"></div>
+        <!--补充信息主体-->
+        <div ng-show="currentStatusInfo.isShowHint">
+            <div class="pad-lr-14 line_40 f12 text-center bg_color_orange text-ellipsis">
+                <span class="qy-orange">{{remainTime}}</span>
+            </div>
+        </div>
+        <div class="pad-lr-14 pad-td-20 border-d qy-grey5 qy-bg-white notice">
+            <i ng-class="currentStatusInfo.iconStyle" class="block text-center f_60"></i>
+
+            <p class="f18 qy-grey7 text-center mar-t-16 mar-d-10">{{currentStatusInfo.text}}</p>
+
+            <p class="lineH_20" ng-repeat="notice in currentStatusInfo.notices track by $index"
+               ng-style="{'margin-bottom':$last?'0':'8px','text-align':currentStatusInfo.textAlign}">{{notice}}</p>
+        </div>
+        <ul class="mar-t-10 pad-l-14 border-td qy-bg-white f14 order_info">
+            <li><span class="span_width_65">订单信息:</span><span>{{displayOrderDetail.consultName}}</span></li>
+            <li ng-if="showDoctor" class="border-t text-ellipsis"><span class="span_width_65">医生姓名:</span><span>{{displayOrderDetail.doctorName}}</span></li>
+            <li class="border-t"><span class="span_width_65">订单费用:</span><span>{{displayOrderDetail.payAmount}}</span></li>
+        </ul>
+
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button class="button button-block button-size-l" ng-click="doFooterButtonClick()">{{currentStatusInfo.buttonText}}</button>
+    </div>
+</ion-view>

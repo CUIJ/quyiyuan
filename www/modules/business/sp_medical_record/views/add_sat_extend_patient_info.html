@@ -1,0 +1,28 @@
+<ion-view  class="qy_inpatient_payment_query medical_record">
+    <ion-nav-bar class="qy-header " align-title="center">
+        <ion-nav-title>
+            <span >{{title}}</span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false">
+        <div class="mar-l-14 " style="margin-top: 15px;">
+            <div class="f14" style="color: #999999;"> 为了更准确的查询就医记录，请补充信息继续查询。</div>
+            <div>
+                <ul style="padding-top: 15px">
+                    <li class="qy-bg-white pad-r-14 border-d pad-td-10 f14" style="padding-bottom: 16px;">
+                        <span>手机号</span>
+                        <input ng-model="sat.PHONE_NUMBER"style="padding-left: 28px;" placeholder="请输入手机号码" class="input_content ">
+                    </li>
+                    <li class="qy-bg-white pad-r-14 border-d pad-td-10 f14" style="padding-bottom: 16px;">
+                        <span>就诊卡号</span>
+                        <input ng-model="sat.TREATMENT_CARD_NO" placeholder="请输入就诊卡号" class="input_content ">
+                    </li>
+                    <li class="mar-r-14 mar-t-26" >
+                        <button ng-click="submit()" style="border:none !important;" class=" btn_Bg button-size-l button button-block">查询</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

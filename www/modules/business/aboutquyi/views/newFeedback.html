@@ -1,0 +1,127 @@
+<ion-view class="qy_aboutquyi_newfeedback" ng-click="hiddenMenuTab()">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="feedTitle" default="意见反馈"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1 pad-b-14 f14"  scrollbar-y="false" ng-style="{'bottom':contentBottom+'px'}"
+                 ng-init="querySuggest()" id="footerBar" delegate-handle="feedback_content" >
+        <!--下拉加载更多 start-->
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon fresh_height" on-refresh="doRefresh()">
+        </ion-refresher>
+        <!--下拉加载更多 end-->
+        <div class="mar-td-15">
+            <div>
+                <!--显示默认消息 start-->
+                <div class="qy_receive_msg mar-tb-30 position-r ta-l">
+                    <div class="mar-r-10 position-a receive_img">
+                        <img ng-src="resource/images/center/headXiaoQu.png"
+                             class="user_ico_xiaoqu"/>
+                    </div>
+                    <div class="position-r max-w65 display-inline-b ta-l receive_content">
+                        <div class="receive_text text_msg qy-bg-white border-all border_radius_4 color_3 display-inline-b">
+                            <div style="text-align: left">
+                                {{dafaultText}}
+                            </div>
+                        </div>
+                        <div class="arrow_left qy-bg-grey1">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--显示默认消息 end-->
+            <div ng-repeat="suggestItem in suggestData"  ng-init="$last ? repeatFinshed() : angular.noop()">
+                <!--显示发送消息 start-->
+                <div ng-if="suggestItem.COMMENT">
+                    <div class="text-c line30" >
+                        <span class="pad-b-10 qy-bg-grey4 qy-fff border_radius_2 f12 display-inline-b line20">
+                           {{suggestItem.OPINIONS_TIME}}
+                        </span>
+                    </div>
+                    <div class="qy_send_msg mar-tb-30 position-r ta-r">
+                        <div class="mar-l-10 position-a send_img">
+                            <img ng-if="userSex!=2" ng-src="resource/images/center/headM.png" class="user_icon"/>
+                            <img ng-if="userSex==2"  ng-src="resource/images/center/headF.png" class="user_icon"/>
+                        </div>
+                        <div class="position-r max-w65 display-inline-b ta-l send_content">
+                            <div class="send_text text_msg chat_sender_bg border-all-green border_radius_4 color_3">
+                                <div style="text-align: left">
+                                    {{suggestItem.COMMENT}}
+                                </div>
+                            </div>
+                            <div class="arrow_right">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--显示发送消息 end-->
+
+
+                <!--显示接收消息 start-->
+                <div ng-if="suggestItem.REPLY_CONTEXT && suggestItem.STATUS==1">
+                    <div class="text-c line30" >
+                        <span class="pad-b-10 qy-bg-grey4 qy-fff border_radius_2 f12 display-inline-b line20">
+                           {{suggestItem.REPLY_TIME}}
+                        </span>
+                    </div>
+                    <div>
+                        <div class="qy_receive_msg mar-tb-30 position-r ta-l">
+                            <div class="mar-r-10 position-a receive_img">
+                                <img ng-src="resource/images/center/headXiaoQu.png"
+                                     class="user_ico_xiaoqu"/>
+                            </div>
+                            <div class="position-r max-w65 display-inline-b ta-l receive_content">
+                                <div class="receive_text text_msg qy-bg-white border-all border_radius_4 color_3 display-inline-b">
+                                    <div  style="text-align: left">
+                                        {{suggestItem.REPLY_CONTEXT}}
+                                    </div>
+                                </div>
+                                <div class="arrow_left qy-bg-grey1">
+                                    <span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div  ng-if="suggestItem.REPLY_CONTEXT_SECOND && suggestItem.STATUS==1" >
+                        <!--显示接收消息 start-->
+                        <div class="qy_receive_msg mar-tb-30 position-r ta-l">
+                            <div class="mar-r-10 position-a receive_img">
+                                <img ng-src="resource/images/center/headXiaoQu.png"
+                                     class="user_ico_xiaoqu"/>
+                            </div>
+                            <div class="position-r max-w65 display-inline-b ta-l receive_content" on-hold="longPressEvent(message,$index)">
+                                <div class="receive_text text_msg qy-bg-white border-all border_radius_4 color_3 display-inline-b">
+                                    <div class="text-c">
+                                        {{suggestItem.REPLY_CONTEXT_SECOND}}
+                                    </div>
+                                </div>
+                                <div class="arrow_left qy-bg-grey1">
+                                    <span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--显示接收消息 end-->
+            </div>
+        </div>
+
+    </ion-content>
+
+    <ion-footer-bar class="footer_div display-block qy-bg-grey1" keyboard-attach ng-style="{'height':footerBarHeight + 'px'}">
+        <div class="pad-b-14" ng-click="askQuestions()">
+            <button kyee-i18n-directive code="askBtn" default="提问" class="button button-block button-size-l" ></button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

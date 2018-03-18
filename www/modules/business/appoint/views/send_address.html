@@ -1,0 +1,61 @@
+<!--
+    产品名称：quyiyuan
+    创建人: 吴伟刚
+    创建日期:2015年8月6日13:41:49
+    创建原因：检查单详情图片页面
+    任务号：KYEEAPPC-2919
+-->
+<ion-modal-view ng-controller="SendAddressController" class="send_address">
+    <ion-header-bar align-title="center" class="qy-header">
+        <a ng-click="removeAddressModal();" class="button back-button buttons button-clear header-item">
+            <i class="icon ion-android-arrow-back"></i>
+        </a>
+        <h2 class="title" kyee-i18n-directive  code="all:send_address.address" default="配送范围"></h2>
+    </ion-header-bar>
+    <ion-content class="qy-bg-grey1">
+        <!--<div class="f14 pad-t-10"　style="height:50px" ng-repeat="province in addressData">
+            <div>
+                <span class=" pad-l-14 pad-r-10" style="float: left">{{province.PROVINCE}}</span>
+                <i class="ico ion-chevron-right"></i>
+                <span style="padding-left: 10px" ng-repeat="city in province.CITY_LIST">{{city.CITY}}</span>
+            </div>
+            <div class="border-td pad-l-10" ng-repeat="city in province.CITY_LIST">
+                <div class="pad-td-20" style="padding-left: 68px">{{city.COUNTIES}}</div>
+            </div>
+        </div>-->
+<div class=" mar-t-10 qy-bg-white">
+        <div class="f14 border-t row" ng-repeat="province in addressData" ng-class="{'border-d':$index==addressData.length-1}">
+            <div class="pad-l-14 qy-grey7" style="height: 50px;line-height: 50px">{{province.PROVINCE}}</div>
+            <span style="height:50px;line-height: 50px;padding-left: 10px">
+                 <i class="ico ion-chevron-right qy-grey7"></i>
+            </span>
+            <div class="pad-l-10 col" ng-repeat="city in province.CITY_LIST">
+                <div style="height: 50px;line-height: 50px" class="pad-r-14 qy-grey7">
+                    <span> {{city.CITY}}</span>
+                </div>
+               <div ng-repeat="city in province.CITY_LIST" class="border-t">
+                   <div class="pad-r-14 qy-grey6" style="line-height: 24px;padding-top: 13px;padding-bottom: 13px">{{city.COUNTIES}}</div>
+               </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+       <!-- <div class="address-table">
+            <table width="100%" ng-repeat="province in addressData">
+                <tr ng-repeat="city in province.CITY_LIST">
+                    <td class="border width-20" ng-if="$index==0" rowspan="{{province.COUNT}}">{{province.PROVINCE}}</td>
+                    <td class="border width-20">{{city.CITY}}</td>
+                    <td class="border">{{city.COUNTIES}}</td>
+                </tr>
+            </table>
+        </div>-->
+        <div ng-if="showEmpty" class="empty-text">
+            <i class="icon-icon_3 empty-icon"></i>
+            {{emptyText}}
+        </div>
+    </ion-content>
+</ion-modal-view>

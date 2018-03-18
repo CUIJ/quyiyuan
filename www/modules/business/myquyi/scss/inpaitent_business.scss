@@ -1,0 +1,206 @@
+/*inpatient_business view*/
+.qy_inpatient_business{
+  .has-header{
+    top:0 !important;
+  }
+  .words{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+  }
+  .column_absolute {
+    position: absolute;
+    right: 0px;
+    width:30px;
+  }
+  .head{
+    border-bottom: 1px solid #efefef;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    .head_content{
+      display: inline;
+    }
+    .head_icon{
+      padding-left: 10px;
+      padding-right: 4px;
+      font-size: 15px;
+      position: relative;
+      top: 2px;
+    }
+    .cur_no{
+      padding: 10px 8px 0px;
+      border-top: 1px solid #efefef;
+      margin-top: 10px;
+    }
+  }
+  .empty{
+    padding: .3em 0 .4em 13px;
+    color: #ccc;
+	min-height:2.2em;
+	line-height:2.2em;
+  }
+  .more_btn{
+    text-align: right;
+    padding: .3em 12px .3em 0;
+    a{
+      text-decoration: none;
+      color: #333;
+    }
+  }
+  .w_3{
+    width: 3%;
+  }
+  .w_4{
+    width: 4%;
+  }
+  .w_8{
+    width: 8%;
+  }
+  .w_15{
+    width: 15%;
+  }
+  .w_18{
+    width: 18%;
+  }
+  .w_20{
+    width: 20%;
+  }
+  .w_23{
+    width: 23%;
+  }
+  .w_29{
+    width: 29%;
+  }
+  .w_30{
+    width: 30%;
+  }
+  .w_42{
+    width: 42%;
+  }
+  .w_44{
+    width: 44%;
+  }
+  .w_48{
+    width: 48%;
+  }
+  .inpatient_content{
+    background: #fff;
+    margin-top:10px;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+    .inpatient_li{
+      border-bottom: 1px dotted #efefef;
+      padding: 5px 0 2px;
+    }
+  }
+  .inpatient_pay{
+    :last-child{
+      border-bottom:none;
+    }
+    .pay_btn{
+      text-decoration: underline;
+    }
+  }
+  .inset_box{
+    border: 1px solid #e7e7e7;
+    position: relative;
+    padding-left:5px;
+    p{
+      line-height: 30px;
+      margin-bottom: 0;
+      .right_fl{
+        margin-right: 20px;
+      }
+    }
+    .right_arrow{
+      position: absolute;
+      right:5px;
+      top:50%;
+      margin-top: -6px;
+    }
+    .pay_fee{
+      display: inline-block;
+      min-width: 30%;
+      text-align: right;
+    }
+  }
+  .inpatient_footer{
+    bottom: 43px;
+  }
+  .inpatient_bar{
+    height: 43px;
+    text-align: center;
+    display: inline-block;
+  }
+  .dis_inbl {
+    display: inline-block;
+  }
+  .font_position{
+    text-align: center;
+    color:#999999;
+  }
+  .pad_l_5{
+    padding-left: 5px;
+  }
+  .mar_t_0{
+    margin-top: 0;
+  }
+  .item_right{
+    position: absolute;
+    right: 33px;
+  }
+  .item_arrow{
+    position: absolute;
+    right: 20px;
+  }
+  .empty {
+    padding-top: 64%;
+  }
+  .info {
+    .info_head {
+      padding-left: 5px;
+      padding-right: 5px;
+      border: 1px solid #d3d3d3;
+    }
+    .content_icon {
+      position: relative;
+      bottom: -2px;
+      font-size: 15px;
+    }
+    .name {
+      width: 70%;
+      display: inline-block;
+      position: relative;
+    }
+    .fee {
+      width: 30%;
+      text-align: right;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+    }
+  }
+  .hospital_dis{
+    margin-bottom: -10px;
+  }
+  .word {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+  }
+  .main_box .uygLookAndFeel{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 5px;
+  }
+  .my_history{
+    border-top: 1px solid #e7e7e7;
+    margin-top: 8px;
+  }
+  }

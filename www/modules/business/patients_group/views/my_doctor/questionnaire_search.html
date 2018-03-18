@@ -1,0 +1,59 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 陈艳婷
+* 创建日期:2017年10月31日20:05:13
+* 描述：即时随访调用医院+和HCRM获取随访表单
+* 任务号：APP-274
+-->
+<ion-view class="questionnaire_search qy-bg-grey1">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>{{title}}</ion-nav-title>
+    </ion-nav-bar>
+
+
+    <ion-content has-bouncing="true" class="has-header qy-bg-grey1" delegate-handle="questionnaire_search">
+        <div ng-if="isSearching&&!isFail" class="empty-text">
+            <i class="icon-status-wait empty-icon icon-fz-80"></i>
+            <p>正在查询，请稍后...</p>
+        </div>
+        <div ng-if="!isSearching&&isFail" class="empty-text">
+            <i class="icon-status-fail empty-icon icon-fz-80 qy-orange"></i>
+            <p>系统繁忙，请稍后再试!</p>
+        </div>
+        <div ng-if="!isSearching&&pageMessageType=='instant_follow'&&!isFail" class="web_frame out-html">
+            <iframe ng-src="{{openUrl}}" class="web_frame">
+            </iframe>
+        </div>
+        <div ng-if="!isSearching&&!isFail&&(pageMessageType=='no_hplus_user'||pageMessageType=='no_follow_info')">
+            <div class="mar-d-10 border-d qy-bg-white">
+                <div class="ta-c position-h-border ">
+                    <i class="icon-help-feedback qy-orange position-top-20"></i>
+                    <span class="qy-orange fw-500 f16 mar-l-40">{{tips}}</span>
+                </div>
+                <div class="mar-l-14 mar-r-14 pad-font-30">
+                    <span>{{message}}</span>
+                </div>
+            </div>
+            <div class="pad-b-14 qy-bg-white border-d">
+                <div class="item item-input div_padding_0 f14">
+                    <sapn class="w-70 qy-deepblue">姓名：</sapn>
+                    <span class="color-3">{{currentPatientInfo.patientName}}</span>
+                </div>
+                <div class="item item-input div_padding_0 f14">
+                    <sapn class="w-70 qy-deepblue">姓别：</sapn>
+                    <span class="color-3">{{currentPatientInfo.patientSex}}</span>
+                </div>
+                <div class="item item-input div_padding_0 f14 border-b-0">
+                    <sapn class="w-70 qy-deepblue">身份证号：</sapn>
+                    <span class="color-3">{{currentPatientInfo.patientIdNo}}</span>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+    <div ng-if="buttonText&&!isFail" class="bar bar-footer pad-b-14 qy-bg-grey1">
+        <button class="button-block button-size-l btn-bg-fad" ng-click="nextPage()">{{buttonText}}</button>
+    </div>
+</ion-view>

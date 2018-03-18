@@ -1,0 +1,18 @@
+<ion-view class="qy-bg-grey2">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{data.msgTitle}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true" overflow-scroll="true">
+
+        <div style="height:100%; width:100%;">
+            <iframe   onload="hideLoadByHomeWeb()" src='{{urlAdd}}' style=" min-height: 100%; width:100%;">
+            </iframe>
+        </div>
+
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,124 @@
+/*Report Main*/
+.qy_report {
+  .report_footer{
+    bottom: 23px;;
+  }
+  .report_footer_bar{
+    height: 23px;
+    text-align: center;
+    display: inline-block;
+  }
+  .report_subfilter{
+    padding: 6px;
+    .subfilter_btn{
+      margin:0 5px;
+    }
+  }
+  .report_head{
+    overflow: hidden;
+    padding: 10px 8px;
+    margin-bottom: 10px;
+  }
+  .report_li{
+    padding: 8px 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .item_name{
+    white-space: pre-line;
+  }
+  .marked_words{
+    padding: 0 .3em;
+    text-align: center;
+    line-height: 2em;
+    margin-bottom: 7px;
+  }
+  .pad_top31{
+    padding-top: 31% !important;
+  }
+  .pad_top36{
+    padding-top: 36% !important;
+  }
+}
+/*inspection view*/
+.qy_inspection{
+  .report_search{
+    position: relative;
+    input{
+      padding-top: 1px;
+    }
+  }
+  .item_date{
+    float: right;
+    width: 6.5em;
+    text-align: right;
+  }
+}
+/*inspection_detail view*/
+.qy_inspection_detail{
+  .w_39{
+    width: 48%;
+  }
+  .w_100 {
+    width: 100%;
+  }
+  .item_name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+  }
+  .pad_b_5{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+/* check_detail view */
+.qy_check_detail{
+  .content_table{
+    border-right: 1px solid #e7e7e7;
+    table{
+      border-bottom: 1px solid #e7e7e7;
+      td,th{
+        border-left:1px solid #e7e7e7;
+        border-top:1px solid #e7e7e7;
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+      }
+      td{
+        padding-left: 2%;
+        white-space: pre-line;
+      }
+    }
+  }
+  .w_20{
+    width: 20%;
+  }
+  .w_30{
+    width: 30%;
+  }
+  .w_96{
+    width: 96%;
+  }
+  .w_100{
+    width: 100%;
+  }
+
+  .check_img{
+    height: auto;
+    display: block;
+  }
+}
+/* check_detail_img view */
+.qy_check_detail_img{
+  background: #000;
+  opacity: .95 !important;
+  .va_m{
+    vertical-align: middle;
+  }
+  .w_100{
+    width: 100%;
+  }
+}

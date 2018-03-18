@@ -1,0 +1,13 @@
+<!--
+* 产品名称：quyiyuan
+* 创建日期:2016年07月29日19:03:17
+* 创建人: 董茁
+* 创建原因：订单页面门诊附加费的显示
+* 任务号：KYEEAPPC-7183
+
+-->
+    <ul class='pad-t-20' ng-style="{'width': (KyeeEnv.innerSize.width-150)+'px'}">
+        <li   ng-repeat="item in extraCharge.rows" class="row f12">
+        {{$index+1}}、{{item.ITEM_NAME}}：¥{{convertMoney(item.ITEM_COSTS)}}
+        </li>
+    </ul>

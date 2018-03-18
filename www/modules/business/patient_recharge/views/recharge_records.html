@@ -1,0 +1,47 @@
+<ion-view class="qy_recharge_records">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="充值记录"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a kyee-action-holder-directive="card_balance" class="button button-clear txt" ng-click="goCardBalance()" kyee-operation-monitor-directive="cardBalance">
+                <span kyee-i18n-directive code="balance" default="余额查询"></span>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" scroll="false" padding="false" class="qy-bg-grey2" delegate-handle="rechargeRecord">
+        <div ng-if="inShowRechargeDetail" class="pad-b-14 border-td f14 pad-td-10 qy-bg-white" kyee-i18n-directive
+             code="rechargeDetail" default="充值记录明细" style="margin-bottom: 1px;">
+        </div>
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height - footerHeight)+'px'}">
+            <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                           refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon"  on-refresh="refresh()">
+            </ion-refresher>
+            <ul ng-if="!isEmpty" class="f14 qy-bg-white border-d records_container">
+                <li class="row border-d"
+                    ng-repeat="record in records">
+                    <div class="pad-r-10 col">
+                        <span kyee-i18n-directive code="rechargeAmount" default="充值金额：¥{{record.AMOUNT}}"
+                              params="record"></span>
+                        <span ng-class="{'qy-red':record.COLOR == 2,'qy-green':record.COLOR == 1,'qy-orange':record.COLOR == 0}">({{record.STATUS}})</span>
+                    </div>
+                    <span class="qy-grey4">
+                        {{record.CREATE_TIME}}
+                    </span>
+                </li>
+            </ul>
+            <div ng-if="isEmpty" class="empty-text" style="position: absolute;top: 0;width: 100%;">
+                <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+                <p>{{emptyText}}</p>
+            </div>
+        </ion-scroll>
+        <!--底部提示黑框-->
+        <div class="f14 footer_bar qy-fff row pad-l-14 pad-td-5" ng-if="tips!=undefined&&!hiddenBar">
+            <i class="icon icon-cross fl-r mar-r-5" ng-click="closeTip()" kyee-operation-monitor-directive="closeTip"></i>
+            <p class="foot_bar_div" id="rechargeRecordsTipId">
+                {{tips}}
+            </p>
+        </div>
+    </ion-content>
+</ion-view>

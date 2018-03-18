@@ -1,0 +1,707 @@
+.qy_my_care_doctor {
+  .mar-t-30{
+    margin-top:30px;
+  }
+  .care_box{
+    margin-left: 14px;
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .big_cor{
+    color: #333333 !important;
+  }
+  .mid_cor{
+    color: #666666 !important;
+  }
+  .tab{
+    background: white;
+    height: 50px;
+    text-align: center;
+    >div{
+      border-style: solid;
+      border-width: 1px;
+      border-color: transparent;
+    }
+    >div.on{
+      border-bottom-color: #5BAA8A;
+      color: #5BAA8A;
+    }
+
+  }
+  .doctor_padding{
+    margin: 14px 16px 14px 14px;
+  }
+  .img_he{
+    display: block;height: auto;position: relative; width: 50px;
+  }
+  .query_show{
+    color:#ff9900; padding-left: 3px;  padding-right: 3px;
+  }
+  .doctor_w{
+    width: 52px !important;
+  }
+  .go_home_d_div{
+    position: relative;right: 14px;
+  }
+  .go_home_div_1{
+    border-radius: 2px;width: 100px;background-color: #5BAA8A;height: 30px;margin-top: 30px
+  }
+  .go_home_i{
+    color: white; position: relative;top: 5px; left: 5px;
+  }
+  .go_home_span{
+    color: white; margin-left: 5px;border-left: 1px solid #299368;padding-left: 5px;position: relative;top: 2px;
+  }
+  .go_home_span1{
+    color: white; margin-left: 5px;border-left: 1px solid #347fbc;padding-left: 5px;position: relative;top: 2px;
+  }
+  .go_home_div_2{
+    border-radius: 2px;width: 100px;background-color: #7ea6e8;height: 30px;margin-top: 30px
+  }
+  .doctor_div{
+    width: 52px;margin: 10px 16px 10px 0;
+  }
+  .query{
+    color: #5baa8a;
+    border: 1px solid #5BAA8A;
+    background-color: white;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    border-radius: 2px;
+  }
+  .div_ba{
+    height: 50px;
+    background: rgba(255, 153, 0, 0.08);
+    line-height: 50px;
+  }
+  .col_60{
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 60%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 60%;
+    -ms-flex: 0 0 60%;
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+  .li_tip{
+    margin-bottom: 4px;
+    padding-top: 16px;
+  }
+  .doctor_num{
+    font-weight: bold;
+    font-size: 30px;
+  }
+  .doctor_num1{
+    margin: 0;
+    font-size: 12px;
+    color: #ff9900;
+  }
+  .div_c{
+    color: #ff9900;
+    position: relative;
+    right: 14px;
+    padding-top: 8px;
+  }
+  .care_box:last-child{
+    border-bottom: none;
+  }
+  .image_top{
+    top: 14px;
+  }
+  .care_number{
+    position: relative;
+    top: 16px;
+  }
+  .doc_img_box_default{
+    margin: 15px 10px 15px 0 !important;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    background-size: 62px auto !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    background-position: -1px -9px !important;
+    text-align:center;
+    -webkit-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    box-sizing:content-box;
+  }
+
+  .path_show{
+    overflow: inherit !important;
+  }
+  .doctor_sec p {
+    margin: 0;
+    font-size: 12px;
+    margin: 0;
+  }
+  .care_icon {
+    padding: 0;
+    margin: 0;
+    line-height: 24px;
+    color: #ff9900;
+    padding-top: 5px;
+    .icon {
+      font-size: 16px;
+    }
+  }
+  .doctor_desc {
+    text-align: justify;
+    line-height: 22px;
+    min-height: 48px;
+    max-height: 48px;
+  }
+
+  .f20 {
+    font-size: 20px;
+  }
+
+  .mar_14 {
+    margin-left: 14px !important;
+  }
+  .care_empty {
+    text-align: center !important;
+  }
+  .item-content{
+    padding: 0px !important;
+  }
+
+  .care_doctor_button{
+    height: 30px;
+    width: 80px;
+    border-color: #5BAA8A!important;
+    color: #5BAA8A!important;
+  }
+}
+
+.qy_medical_guide {
+
+  .has-header {
+    top: 0 !important;
+  }
+  .font_color {
+    color: #999999;
+  }
+
+  .item_head_icon {
+    position: relative;
+    top: 1px;
+    padding-right: 4px;
+  }
+  .item_head_label {
+    display: inline;
+    padding-right: 4px;
+    font-size: 14px;
+  }
+  .item_head_arrow {
+    display: inline;
+  }
+  .list_item_row {
+    border-bottom: 1px dotted #e1e1e1;
+  }
+  .sub_header {
+    white-space: nowrap;
+    text-align: center;
+    margin-left: 24px;
+    margin-right: 24px;
+    overflow: hidden;
+  }
+  .mar_t_14 {
+    margin-top: 14px;
+  }
+  .record {
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .record div {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .inner_line {
+    border-right: 1px solid #e7e7e7;
+    height: 90px;
+  }
+  .pr_9 {
+    padding-right: 9px;
+  }
+  .ion-chevron-left {
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    left: 8px;
+  }
+  .ion-chevron-right {
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    right: 8px;
+  }
+  .red_color {
+    color: #EC2B10;
+  }
+  .hospital_records {
+    position: relative;
+    .row {
+      width: auto;
+    }
+    .row + .row {
+      padding-top: 10px;
+      margin-left: 14px;
+      margin-right: 14px;;
+    }
+  }
+  .border_none {
+    border-top: none;
+  }
+  .relative {
+    position: relative;
+  }
+  .my_records {
+    .col {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 5px;
+    }
+  }
+
+  .my_records:last-child {
+    border-bottom: none;
+  }
+  .hospital_name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 20px;
+    line-height: 20px;
+    margin-right: 22px;
+  }
+  .arrow_icon {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+  }
+  .my_history {
+    border-top: 1px solid #e7e7e7;
+    margin-top: 8px;
+  }
+  .main_box .uygLookAndFeel {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 5px;
+  }
+}
+
+.appoint-regist-list {
+  padding: 8px;
+  line-height: 2.5em;
+  border-left: 0;
+  border-right: 0;
+  .appoint-list-dept {
+    padding: 0em;
+    .appoint-doctor-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-left: 5px
+    }
+    .appoint-hospital-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .appoint-list-button-bar {
+    padding-right: 0;
+    .appoint-list-button-pay {
+      text-align: center;
+      margin: 0em 1% 0em 1%;
+      width: 30%;
+      background-color: #0F9D58;
+      color: #fff;
+      border-radius: 4px !important;
+      padding: 0px;
+      min-height: 30px;
+    }
+    .appoint-list-button-cancel {
+      text-align: center;
+      margin: 0em 1% 0em 50%;
+      width: 30%;
+      background-color: #999999;
+      color: #fff;
+      border-radius: 4px !important;
+      padding: 0px;
+      min-height: 30px;
+    }
+
+  }
+
+}
+
+.myquyi-null-data {
+  text-align: center;
+  margin-top: 50%;
+}
+
+.quyiyuan_myquyi {
+  //.list{
+  //  padding-top: 1px;
+  //}
+
+  .line_size {
+    margin-bottom: 0.8333em;
+  }
+  .line_size_top {
+    height: 0.8333em;
+  }
+  .switchtable a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+  }
+  .change_patient_btn {
+    max-width: 101px;
+    overflow: hidden;
+    height: 29px;
+  }
+
+  .photo_head {
+    background: url("../../resource/images/myquyi/myquyi_user.png") bottom no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    min-height: 150px;
+    margin-bottom: 0.833333em;
+  }
+
+  .button-color-org {
+    position: absolute;
+    top: 23px;
+    right: 14px;
+    border-radius: 40px;
+    min-width: 80px;
+    background-clip: padding-box;
+    line-height: 27px;
+  }
+  .col-positive {
+    position: relative;
+    overflow: visible;
+  }
+  .line {
+    position: absolute;
+    top: 10px;
+    left: 65px;
+  }
+  .icon-radiobox_1 {
+    border: 6px solid #fff;
+    font-size: 14px;
+  }
+  .header_box p {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .content {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+
+  .grid3 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: -14px;
+    margin-right: -14px;
+    width: auto;
+    li {
+      border-right: 1px solid #e7e7e7;
+    }
+    li:last-child {
+      border-right: none;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .grid_img {
+    font-size: 35px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .color_appointment {
+    color: #98c931;
+  }
+  .color_clinic {
+    color: #7ea6e8;
+  }
+  .color_hospital {
+    color: #98c931;
+  }
+  .color_check {
+    color: #ffae36;
+  }
+
+  .qy_iconlist {
+    padding-right: 10px;
+    border-bottom: 1px solid #e7e7e7;
+    position: relative;
+  }
+  .date_position {
+    border-left: 1px solid #e7e7e7;
+    position: relative;
+    text-align: center;
+    padding-top: 16px
+  }
+  .dian_position {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    left: -5px;
+    color: #8c8c8c;
+    //font-size: 10px;
+  }
+  .dian_red_position {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    left: -5px;
+    color: #eb5412;
+  }
+  .month_display {
+    display: block;
+  }
+  .list_height{
+    height:72px;
+  }
+  .go_hospital{
+    margin: 0;
+    padding-right: 5px;
+    -webkit-box-flex: 1;
+  }
+  .hospital_width{
+    max-width: 35%;
+    display: -webkit-box;
+  }
+  .share_container_init {
+    display: none;
+    .tips {
+      //padding-bottom: 47px;
+      //padding-bottom: 49px;
+      padding-right: 35px;
+    }
+    .tip_container {
+      padding-top: 5px;
+    }
+  }
+  .tip_position {
+    padding: 10px;
+    margin-top: -5px;
+  }
+  .tip_top {
+    padding-top: 5px;
+  }
+  .no_record {
+    padding-top: 0px;
+  }
+
+  .share_container_hide {
+    top: 1000px;
+    display: none;
+  }
+
+  .share_container_in {
+    display: block !important;
+    width: 100%;
+    background: whitesmoke;
+    position: fixed;
+    bottom: 0px;
+    -webkit-animation: bounceInUp 1s ease;
+    animation: bounceInUp 1s ease;
+  }
+  .click_color {
+    margin: 0 -3px;
+    text-decoration: underline;
+  }
+  .click_color_up {
+    margin: 0 -3px;
+    text-decoration: underline;
+  }
+  .empty-icon {
+    display: inline;
+  }
+  .single_color {
+    border-left: 5px solid #98c931;
+  }
+  .double_color {
+    border-left: 5px solid #7ea6e8;
+  }
+
+  .have_people {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    overflow: hidden;
+    margin-bottom: 0.833333em;
+  }
+  .header_box {
+    padding-top: 20px;
+    margin: auto;
+    text-align: center;
+    color: white;
+  }
+  .header_box p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  .header_images {
+    background-position: center !important;
+    background-size: 70px 70px !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    width: 70px;
+    height: 70px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    text-align: center;
+    margin: auto;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+  .img_head {
+    border:  0px solid #dddddd;
+  }
+  .font_w_size {
+    font-weight: 400;
+  }
+  .f_16 {
+    font-size: 16px !important;
+  }
+  .info_cust {
+    float: right;
+    padding-right: 15px;
+    font-size: 14px;
+    color: white;
+  }
+  .info_custom {
+    font-size: 18px;
+    vertical-align: text-top;
+  }
+  .add_custom {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 4px;
+  }
+  .no_patient {
+    white-space: nowrap !important;
+  }
+  .change_patient_icon {
+    white-space: nowrap
+  }
+  .hospital_name_length {
+    max-width: 70%;
+    display: inline-block;
+  }
+  .doctor_name{
+    max-width: 29%;
+  }
+  .hos_color {
+    color: #999;
+  }
+  .tips_color {
+    background-color: black;
+    opacity: 0.7;
+    padding-bottom: 51px;
+  }
+
+  .tips_font {
+    color: white;
+  }
+  .ion_size {
+    font-size: 16px;
+    position: relative;
+    top: 2px;
+  }
+  .click_position {
+    display: inline-block;
+  }
+  .item-content {
+    padding : 0px;
+  }
+  .del_span{
+    display:inline-block;
+    min-width:45px;
+  }
+  .refresh_span{
+    width: 150px;
+    position: absolute;
+    right: 8px;
+    top: 104px;
+  }
+  .re_span{
+    width: 150px;
+    position: absolute;
+    right: 8px;
+    top: 2px;
+  }
+
+  .refresh_img{
+    font-size: 18px;
+    vertical-align: sub;
+    float: right;
+    margin-right: 10px;
+    margin-top: 1px;
+
+
+  }
+}
+
+.qy_change_setting {
+  .item-input{
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .input_content {
+    line-height: 30px;
+    border: 1px solid #e7e7e7;
+    padding: 4px 5px;
+    border-radius: 4px;
+    width: 100%;
+  }
+  .mar_d_14 {
+    margin-bottom: 14px;
+  }
+  .click_color {
+    text-decoration: underline;
+  }
+  .line_type {
+    color: #999;
+    border-bottom: 1px dashed #e7e7e7;
+  }
+  .opened_function {
+    overflow: hidden;
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    //max-width: 120px;
+  }
+  .opened_color {
+    color: #fff;
+  }
+  .modify_patient {
+    display: inline-block;
+  }
+}

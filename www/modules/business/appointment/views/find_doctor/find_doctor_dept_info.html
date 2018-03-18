@@ -1,0 +1,46 @@
+<ion-view >
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="chooseDept" default="选择科室"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('find_doctor_dept_info')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="qy_find_dept_group" ng-class="{'qy-bg-grey2':empty==1}" has-bouncing="true" has-header="true" padding="false" delegate-handle="dept_list">
+        <!--按城市分级科室-->
+        <div ng-if="empty==3">
+            <div class="row dept_group_row f14" >
+                <div class="col col-33 dept_group_col">
+                    <ion-scroll class="dept-group_dks"  has-bouncing="false" scrollbar-y="false"
+                                zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 50)+'px'}">
+                        <ul class="dept-group_dks">
+                            <li ng-click="showSmallDept($index)" ng-repeat="dks in groupDept"
+                                ng-class="{'active_dks active_border_right_none' : dksIndex == $index,'active_border_right padding_td_11' : dksIndex != $index}"  class="deptname_item unactive_dks">
+                                {{dks.SENIORDEPT_NAME}}
+                            </li>
+                        </ul>
+                    </ion-scroll>
+                </div>
+                <div class="col  dept_group_col">
+                    <ion-scroll  has-bouncing="false" scrollbar-y="false"
+                                 zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 50)+'px'}">
+                        <ul class="list dept_group_deptname">
+                            <li ng-click="selectSmallSecondDept($index,dept)" ng-repeat="dept in deptData" class="deptname_item"
+                                ng-class="{'qy-green' : smallIndex == $index}">
+                                {{dept.JUNIORDEPT_NAME}}
+                            </li>
+                        </ul>
+                    </ion-scroll>
+                </div>
+            </div>
+        </div>
+        <div ng-if="empty==1" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDept" default="医院暂无科室信息"></span>
+        </div>
+    </ion-content>
+</ion-view>

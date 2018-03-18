@@ -1,0 +1,174 @@
+<ion-view class="qy_price price_medical_detail ">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="fallback()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="priceTitle" default="价格公示"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('messagecenter')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <div class="bar bar-subheader">
+        <div class="row switchtable">
+            <a class="col off text-ellipsis" kyee-operation-monitor-directive="selectStatus" ng-click="selectStatus(0)"
+               kyee-i18n-directive code="medicalPrice" default="药品价格"
+               ng-class="{'on':activityClass == 0}"></a>
+            <a class="col off text-ellipsis" kyee-operation-monitor-directive="selectStatus"
+               kyee-i18n-directive code="projectPrice" default="项目价格"
+               ng-click=" selectStatus(1)"
+               ng-class="{'on':activityClass == 1}"></a>
+        </div>
+    </div>
+    <ion-content has-bouncing="true" padding="false" class="has-subheader " delegate-handle="mainScroll">
+        <div style="padding:0px;height: 55px;" class="bar item-input-inset search pad-b-14 pad-d-10 qy-bg-grey2"
+             ng-click="brokenMagic()">
+            <div class="item-input-wrapper search-item  mar-td-10 mar-b-14"  style="margin-top:10px">
+                <div class="div_search"><i class="icon icon-seach placeholder-icon mar-l-10 "></i></div>
+
+                <form ng-submit="onKeyup()" style="width: 83%;">
+                    <input class="text-ellipsis " type="search" placeholder="{{textType}}"
+                           ng-model="keyWords.keyWordsValue">
+                </form>
+                <i ng-if="fonkIcon" class="ion-close-circled f16"
+                   style=" position: absolute; right: 24px; top: 18px; color: #ccc;" kyee-operation-monitor-directive="fork" ng-click="fork()"></i>
+            </div>
+        </div>
+        <div ng-if="!front" style="border-top: 1px solid #e7e7e7;">
+            <div style="padding-left: 9px;" class="pad-t-20 ovf-h" ng-if="searchStatus == 1">
+                <div class="grey search_history" ng-if="search" kyee-i18n-directive code="searched"
+                     default="大家都在搜...">
+                </div>
+                <ul>
+                    <li ng-repeat="item in all" class="column_big hot_show">
+                    <span class="text_style" ng-if="item.INFO_NAME" title="{{item.INFO_NAME}}"
+                          kyee-operation-monitor-directive="pitchOn"
+                          ng-click="pitchOn(item.INFO_NAME)"> {{item.INFO_NAME_SHOW}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div ng-if="searchHistorys.length && searchStatus == 1" class="grey search_history_tips">
+                {{historicalRecords}}
+            </div>
+            <div style="padding-bottom: 8px" class="pad-l-14 row search_history_list fontM grey" ng-if="searchStatus == 1"
+                 ng-repeat="item in searchHistorys"
+                 kyee-operation-monitor-directive="onHistoryClick"
+                 ng-click="onHistoryClick(item)">
+                <div class="col col_5">
+                    <i class="result_img icon-records f_z_20"></i>
+                </div>
+                <div class="pad-l-14 f14" style="padding-left:6px;hite-space: nowrap;">
+                    {{item}}
+                </div>
+            </div>
+            <div ng-if="searchHistorys.length  && searchStatus == 1"
+                 ng-click="onClearHistory()"
+                 class="clear_history_btn fontM fontBlod" kyee-i18n-directive code="clearRecord"
+                 default="清除历史记录">
+            </div>
+            <div ng-if="!searchHistorys.length && searchStatus == 1" class="no_history_tips fontB grey"
+                 kyee-i18n-directive code="emptyRecord" default="暂无搜索历史"></div>
+            <!--  搜索结果展示-->
+            <div class="row result_list f14" ng-repeat="item in searchResults"
+                 ng-if="searchResults.length  && searchStatus == 2">
+                <div class="col text-ellipsis"
+                     kyee-operation-monitor-directive="onSearchResultClick" ng-click="onSearchResultClick(item)">
+                    {{item.ITEM_NAME}}
+                </div>
+                <div style="padding-right: 21px;"kyee-operation-monitor-directive="onSearchResultClick" class="pad-b-24" ng-click="onSearchResultClick(item)">
+                    {{item.TYPES}}<span kyee-i18n-directive code="type" default="种"></span>
+                </div>
+            </div>
+        </div>
+        <div style="padding-top: 14px;" ng-show="isEmpty" class="empty-text pad_top36">
+            {{emptyText}}
+        </div>
+        <div ng-if="front" style="border-top: 1px solid #e7e7e7;">
+            <div style=" margin:0px 0px 0px 14px;; border-right: 0; border-left: 0; border-top: 0;"
+                 ng-if="activityClass == 0"
+                 ng-repeat="medicine in frntAll" class="box_container">
+                <div style="line-height: 35px;margin-left: 0px;" ng-click="open($index)"
+                     class="row center-content mar-l-10 mar-td-5 with_95 f14"
+                     ng-class="{'botten_price':openBotten[$index]}">
+                    <span style="width: 55%;" class="spantext text-ellipsis size p_right" title="{{medicine.ITEM_NAME}} ">
+                        {{ medicine.ITEM_NAME }}</span>
+                    <span class=" detail_price text-ellipsis" style="white-space: nowrap;right: 33px; width: 40%;    text-align: right; ">
+                        ￥{{ medicine.ITEM_PRICE }} / {{ medicine.ITEM_MEASURE_UNIT }}</span>
+                </div>
+                <div style=" line-height: 1.5;" ng-show="openBotten[$index]"
+                     class="f14 center-content mar-l-10 mar-td-10 with_80">
+                    <div class=" text-ellipsis">
+                        <span kyee-i18n-directive code="itemCategory" default="剂型："></span>
+                        <span >{{ medicine.ITEM_CATEGORY }}</span>
+                    </div>
+                    <div class=" text-ellipsis">
+                        <span kyee-i18n-directive code="fromarts" default="规格："></span>
+                        <span >{{ medicine.FORMATS }}</span>
+                    </div>
+                    <div class=" text-ellipsis">
+                        <span kyee-i18n-directive code="iteMeasureUnit" default="计量单位："></span>
+                        <span>{{ medicine.ITEM_MEASURE_UNIT }}</span>
+                    </div>
+                   <div class=" text-ellipsis">
+                       <span kyee-i18n-directive code="manufactory" default="制药厂："></span>
+                       <span >{{ medicine.MANUFACTORY }}</span>
+                   </div>
+                    <div class=" text-ellipsis">
+                        <span kyee-i18n-directive code="itemPrice" default="零售价："></span>
+                        <span >{{ medicine.ITEM_PRICE }}</span>
+                    </div>
+                </div>
+                <i ng-click="open($index)"
+                   ng-class="{'icon-arrow_right':!openBotten[$index],'icon-arrow_up':openBotten[$index] }"
+                   class="icon edit_arrow pad-t-10 top_pos qy-grey5" style="color: #999;right: 14px;top: -15px;"></i>
+            </div>
+            <div style=" margin:0px 0px 0px 14px; border-right: 0; border-left: 0; border-top: 0;"
+                 ng-if="activityClass == 1"
+                 ng-repeat="medicine in frntAll" class="box_container">
+                <div style="line-height: 35px;margin-left: 0px;" kyee-operation-monitor-directive="open" ng-click="open($index)"
+                     class="row center-content mar-l-10 mar-td-5 with_95 f14"
+                     ng-class="{'botten_price':openBotten[$index]}">
+            <span class="spantext text-ellipsis size p_right" title="{{medicine.ITEM_NAME}} ">
+            {{ medicine.ITEM_NAME }}</span>
+                    <span class=" detail_price text-ellipsis "
+                          style="white-space: nowrap;right: 33px; width: 40%; text-align: right;">￥{{ medicine.ITEM_PRICE }} / {{ medicine.ITEM_MEASURE_UNIT }}</span>
+                </div>
+                <div style="line-height: 1.5;" ng-show="openBotten[$index]"
+                     class="f14 center-content mar-l-10 mar-td-10 with_80">
+                    <span kyee-i18n-directive code="itemPriceProject" default="价格："></span>
+                    <span>{{ medicine.ITEM_PRICE }}</span><br>
+                    <span kyee-i18n-directive code="iteMeasureUnitProject" default="计价单位："></span>
+                    <span>{{ medicine.ITEM_MEASURE_UNIT }}</span><br>
+                    <span kyee-i18n-directive code="instructions" default="说明："></span>
+                    <span>{{ medicine.INSTRUCTIONS }}</span><br>
+                </div>
+                <i kyee-operation-monitor-directive="open" ng-click="open($index)"
+                   ng-class="{'icon-arrow_right':!openBotten[$index],'icon-arrow_up':openBotten[$index] }"
+                   class="icon edit_arrow pad-t-10 top_pos qy-grey5 " style="color: #999;right: 14px;top: -14px;"></i>
+            </div>
+            <div kyee-operation-monitor-directive="queryPriceFront" ng-click="queryPriceFront()" ng-if="moreDataCanBeLoadedFront()"
+                 style="text-align: center; margin-top: 6px; margin-bottom: 6px;color: #999;">
+                <div style=" margin-top: 15px; margin-bottom: 15px;">
+                    <span kyee-i18n-directive code="viewMore" default="点击加载更多..."></span>
+                    </divs>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll
+                ng-if="moreDataCanBeLoaded()"
+                immediate-check="false"
+                icon="ion-loading-c"
+                on-infinite="queryPrice()">
+        </ion-infinite-scroll>
+    </ion-content>
+    <div
+            kyee-overlay-directive
+            location="center"
+            width="{{overlayData.width+40}}"
+            height="172"
+            data="data"
+            template="modules/business/price/views/price_jump.html"
+            bind="bind(params)"></div>
+
+</ion-view>

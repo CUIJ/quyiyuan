@@ -1,0 +1,35 @@
+<ion-view  ng-init="initView()">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive  code="featureDeptTital" default="特色科室"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right" >
+            <a  ng-if="showAllDept"class="button button-clear txt" ng-click="goAllDept()" kyee-i18n-directive  code="allDept" default="全部科室">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1" delegate-handle="features_dept">
+        <div class="qy-bg-white pad-b-14 mar-td-10 border-td pad-d-10" ng-repeat="item in allFeaturesData">
+            <!-- 设置滚动记忆锚点-->
+            <a id="{{item.DEPT_ID + '_' + $index}}"></a>
+            <h5 class="border-d pad-td-10 " style="margin-top: 0px" >{{item.DEPT_NAME}}</h5>
+            <p style="margin: 0px;text-indent: 2em;text-align: justify"ng-repeat="deptDic in item.DEPT_DIC_SHOW track by $index " ng-bind-html="deptDic|kyee_to_html"ng-click="changeShowStatus(item,item.DEPT_ID + '_' + $index)"></p>
+            <!--<a class="border-d-deepbule mar-r-20 mar-td-10 qy-deepblue" ng-repeat="itemDoctor in item.DOCTOR"
+            ng-click="goDoctorPage(item.DEPT_CODE,item.DEPT_NAME,itemDoctor)">{{itemDoctor.DOCTOR_NAME}}</a>-->
+            <ul style="margin-top: 10px;">
+                <li class="row" ng-repeat="showRowDoctor in item.SHOW_DOCTOR">
+                    <span class="col qy-orange mar-d-5" ng-class="{'features_dept_col':showAllDept}"  ng-repeat="showColDoctor in showRowDoctor" ng-click="goDoctorPage(item.DEPT_CODE,item.DEPT_NAME,item.IS_ONLINE,showColDoctor)">{{showColDoctor.DOCTOR_NAME}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="empty-text" ng-if="hasDataFlag">
+            <i class="icon-icon_3 empty-icon"></i>
+            <p kyee-i18n-directive  code="noFeatureDept" default="该医院暂无特色科室"></p>
+        </div>
+    </ion-content>
+
+</ion-view>

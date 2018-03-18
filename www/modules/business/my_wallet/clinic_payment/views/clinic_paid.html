@@ -1,0 +1,295 @@
+<!--已缴费记录-->
+<ion-view class="qy_clinic_paid qy-bg-grey1">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="newTitle" default="历史缴费"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <!--非跨院展示切换医院-->
+    <div ng-if="!isAllHospital && canBeSelect" class="bar bar-subheader pad-14 border-d bar_isAllHospital">
+        <div class="row head">
+            <div class="mar-r-5 head_l">
+                <img width="32px" height="32px" style="vertical-align: top;"
+                     ng-src="{{hospitalLogo?hospitalLogo:'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+            </div>
+            <ul class="col f14 mar-r-10">
+                <li class="qy-grey7 text-ellipsis" kyee-i18n-directive code="paidBtn" default="当前您所选择的医院：">
+                </li>
+                <li class="qy-green text-ellipsis">
+                    {{hospitalName}}
+                </li>
+            </ul>
+            <button ng-click="goToHospitalView();" class="button button-size-s button-color-bg-green head_r"
+                    kyee-operation-monitor-directive="changeHospital">
+                <span kyee-i18n-directive code="changeHospital" default="切换医院"></span>
+            </button>
+        </div>
+    </div>
+    <!--跨院展示排序选择-->
+    <div class="bar bar-subheader row switchtable pad-b-14 border-d " ng-if="isAllHospital">
+        <div class="col qy-grey7" ng-click="doRefresh(1,true)"
+             ng-class="{'current':sortRule == 1}">
+            <span kyee-i18n-directive code="sortAsTime" default="按时间"></span>
+        </div>
+        <div class="col qy-grey7" ng-click="doRefresh(2,true,true)"
+             ng-class="{'current':sortRule == 2}">
+            <span kyee-i18n-directive code="sortAsHospital" default="按医院"></span>
+        </div>
+    </div>
+
+    <ion-content class="qy-bg-grey1 " ng-class="{'single_header':(!isAllHospital && canBeSelect),'double_header':isAllHospital}">
+        <!--刷新-->
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(sortRule,false)">
+        </ion-refresher>
+        <!--非跨院数据展示-->
+        <div ng-if="!isAllHospital" ng-repeat="item in paidData" >
+            <!--日期头部-->
+            <div class="pad-b-14 f14 border-d month_line">
+                <div ng-if="!$first" class="top_line"></div>
+                <div class="month" ng-class="isCurrentMonth(item.VISIT_DATE)?'qy-bg-green':'bg_grey'">{{item.VISIT_DATE.substr(5,2)}}月</div>
+                <div class="line"></div>
+                <span class="qy-grey4 year">{{item.VISIT_DATE.substr(0,4)}}</span>
+            </div>
+
+            <ul class="pad-l-14 qy-bg-white" ng-class="$last?'border-d':''"  ng-repeat="paidInfo in item.PAYMENT_INFO" >
+                <!--预约挂号记录-->
+                <li class="row time_box" ng-class="$last?'':'border-d'" ng-if="paidInfo.DEPT_NAME"  ng-click="goDetail(paidInfo)"
+                    kyee-operation-monitor-directive="registDetailOfOneHospital">
+                    <div class="box_l">
+                        <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                        <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                    </div>
+                    <div class="col pad-r-14 box_r ">
+                        <p class="text-ellipsis qy-grey7 f14" ng-style="{'width':(KyeeEnv.innerSize.width-120)+'px'}">
+                            <span kyee-i18n-directive code="registFee" default="挂号费"></span>
+                            {{paidInfo.DEPT_NAME}}
+                        </p>
+                        <p class="fw-b qy-green f14">{{'¥ '+paidInfo.ACTUAL_AMOUNT}}</p>
+                    </div>
+                    <i class="icon icon-arrow_right icon_arrow"></i>
+                </li>
+                <!--门诊记录-->
+                <li class="row time_box" ng-class="$last?'':'border-d'" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD != '1'"  ng-click="showRecord(paidInfo)"
+                    kyee-operation-monitor-directive="paidRecordOfOneHospital">
+                    <div class="box_l">
+                        <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                        <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                    </div>
+
+                    <div class="col pad-r-14 box_r">
+                        <p class="text-ellipsis qy-grey7 f14 pad-r-14">
+                            <span class="fl-l" kyee-i18n-directive code="payFee" default="诊间付费"></span>
+                            <span ng-if="paidInfo.IS_DISPLAY_ITEM_CLASS==1" ng-style="{'max-width':(KyeeEnv.innerSize.width-250)+'px'}" class="item_class text-ellipsis">&nbsp;{{paidInfo.ITEM_CLASS}}&nbsp;</span>
+                            <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                            <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                        </p>
+                        <p class="fw-b f14" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                            {{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}
+                        </p>
+                    </div>
+
+                    <i class="icon icon-arrow_right icon_arrow"></i>
+                </li>
+                <!--附加材料费-->
+                <li class="row time_box" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD == '1'" ng-class="$last?'':'border-d'" ng-click="showRecord(paidInfo)"
+                    kyee-operation-monitor-directive="paidRecordOfAllHospitalAsHospital">
+                    <div class="box_l">
+                        <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                        <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                    </div>
+
+                    <div class="col pad-r-14 box_r">
+                        <p class="text-ellipsis qy-grey7 f14">
+                            <span kyee-i18n-directive code="payAdd" default="附加材料费"></span>
+                            <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                            <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                        </p>
+                        <p class="fw-b f14" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                            {{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}
+                        </p>
+                    </div>
+
+                    <i class="icon icon-arrow_right icon_arrow"></i>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-if="!isAllHospital && changeQueryType && queryHospital==paidData[0].PAYMENT_INFO[0].HOSPITAL_ID" class="ta-c bottom_tip">
+            <div class="box">
+                <div class="box_t">{{NoMsg}}</div>
+                <button class="button button-color-green button-size-s qy-bg-grey1 box_b" ng-click="goToQueryView()"
+                        kyee-operation-monitor-directive="queryViewOfOneHospital">
+                    {{changeQueryType}}
+                </button>
+            </div>
+        </div>
+        <!--跨院数据展示-->
+        <div ng-if="isAllHospital" ng-repeat="item in paidData" >
+            <!--按时间排序-->
+            <div ng-if="sortRule == 1">
+                <!--日期头部-->
+                <div class="pad-b-14 f14 border-d month_line">
+                    <div ng-if="!$first" class="top_line"></div>
+                    <div class="month" ng-class="isCurrentMonth(item.VISIT_DATE)?'qy-bg-green':'bg_grey'">{{item.VISIT_DATE.substr(5,2)}}月</div>
+                    <div class="line"></div>
+                    <span class="qy-grey4 year">{{item.VISIT_DATE.substr(0,4)}}</span>
+                </div>
+
+                <ul class="pad-l-14 qy-bg-white" ng-class="$last?'border-d':''" ng-repeat="paidInfo in item.PAYMENT_INFO">
+                    <!--预约挂号记录-->
+                    <li class="row time_box" ng-class="$last?'':'border-d'" ng-if="paidInfo.DEPT_NAME"  ng-click="goDetail(paidInfo)"
+                        kyee-operation-monitor-directive="registDetailOfAllHospitalAsTime">
+                        <div class=" box_l">
+                            <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                            <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                        </div>
+                        <div class="col pad-r-14 box_r">
+                            <p class="text-ellipsis qy-grey7 f14" ng-style="{'width':(KyeeEnv.innerSize.width-121)+'px'}">
+                                <span kyee-i18n-directive code="registFee" default="挂号费"></span>
+                                {{paidInfo.DEPT_NAME}}
+                            </p>
+                            <p class="text-ellipsis qy-grey5 f12" ng-style="{'width':(KyeeEnv.innerSize.width-120)+'px'}" >{{paidInfo.HOSPITAL_NAME}}</p>
+                        </div>
+                        <i class="icon icon-arrow_right icon_arrow"></i>
+                    </li>
+                    <!--门诊记录-->
+                    <li class="row time_box" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD != '1'" ng-class="$last?'':'border-d'"  ng-click="showRecord(paidInfo)"
+                        kyee-operation-monitor-directive="paidRecordOfAllHospitalAsTime">
+                        <div class="box_l f12">
+                            <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                            <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                        </div>
+
+                        <div class="col pad-r-14 box_r">
+                            <p class="text-ellipsis qy-grey7 f14 pad-r-14">
+                                <span class="fl-l" kyee-i18n-directive code="payFee" default="诊间付费"></span>
+                                <span ng-if="paidInfo.IS_DISPLAY_ITEM_CLASS==1" ng-style="{'max-width':(KyeeEnv.innerSize.width-250)+'px'}" class="item_class text-ellipsis">&nbsp;{{paidInfo.ITEM_CLASS}}&nbsp;</span>
+                                <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                                <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                            </p>
+                            <p class="text-ellipsis qy-grey5 f12" ng-style="{'width':(KyeeEnv.innerSize.width-120)+'px'}" >{{paidInfo.HOSPITAL_NAME}}</p>
+                        </div>
+
+                        <i class="icon icon-arrow_right icon_arrow"></i>
+                    </li>
+                    <!--附加材料费-->
+                    <li class="row time_box" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD == '1'" ng-class="$last?'':'border-d'" ng-click="showRecord(paidInfo)"
+                        kyee-operation-monitor-directive="paidRecordOfAllHospitalAsHospital">
+                        <div class="box_l">
+                            <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                            <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                        </div>
+
+                        <div class="col pad-r-14 box_r">
+                            <p class="text-ellipsis qy-grey7 f14">
+                                <span kyee-i18n-directive code="payAdd" default="附加材料费"></span>
+                                <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                                <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                            </p>
+                            <p class="fw-b f14" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                                {{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}
+                            </p>
+                        </div>
+
+                        <i class="icon icon-arrow_right icon_arrow"></i>
+                    </li>
+                </ul>
+            </div>
+            <!--按医院排序-->
+            <div ng-if="sortRule == 2">
+                <p class="mar-t-10 pad-b-14 content_head f14 border-d h_42">
+                    <span ng-style="{'width':((queryPayResType && $index==0 && queryHospital==paidData[0].HOSPITAL_ID)?(KyeeEnv.innerSize.width-130):(KyeeEnv.innerSize.width-30))+'px'}" class="text-ellipsis text_hos">
+                        {{item.HOSPITAL_NAME}}
+                    </span>
+                    <span class="fl-r qy-green" ng-if="queryPayResType && $index==0 && queryHospital==paidData[0].HOSPITAL_ID" ng-click="goToQueryView();"
+                          kyee-operation-monitor-directive="queryViewOfAllHospital">
+                        {{queryPayResType}}
+                    </span>
+                </p>
+                <ul class="pad-l-14 qy-bg-white" ng-class="$last?'border-d':''"  ng-repeat="paidInfo in item.PAYMENT_INFO">
+                    <!--预约挂号记录-->
+                    <li class="row time_box" ng-if="paidInfo.DEPT_NAME" ng-class="$last?'':'border-d'" ng-click="goDetail(paidInfo)"
+                        kyee-operation-monitor-directive="registDetailOfAllHospitalAsHospital">
+                        <div class="box_l">
+                            <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                            <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                        </div>
+                        <div class="col pad-b-14 box_r">
+                            <p class="text-ellipsis qy-grey7 f14" ng-style="{'width':(KyeeEnv.innerSize.width-120)+'px'}">
+                                <span kyee-i18n-directive code="registFee" default="挂号费"></span>
+                                {{paidInfo.DEPT_NAME}}
+                            </p>
+                            <p class="fw-b qy-green f14">{{'¥'+paidInfo.ACTUAL_AMOUNT}}</p>
+                        </div>
+                        <i class="icon icon-arrow_right icon_arrow"></i>
+                    </li>
+                    <!--门诊记录-->
+                    <li class="row time_box" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD != '1'" ng-class="$last?'':'border-d'" ng-click="showRecord(paidInfo)"
+                        kyee-operation-monitor-directive="paidRecordOfAllHospitalAsHospital">
+                        <div class="box_l">
+                            <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                            <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                        </div>
+
+                        <div class="col pad-r-14 box_r">
+                            <p class="text-ellipsis qy-grey7 f14 pad-r-14">
+                                <span class="fl-l" kyee-i18n-directive code="payFee" default="诊间付费"></span>
+                                <span ng-if="paidInfo.IS_DISPLAY_ITEM_CLASS==1" ng-style="{'max-width':(KyeeEnv.innerSize.width-250)+'px'}" class="item_class text-ellipsis">&nbsp;{{paidInfo.ITEM_CLASS}}&nbsp;</span>
+                                <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                                <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                            </p>
+                            <p class="fw-b f14" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                                {{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}
+                            </p>
+                        </div>
+
+                        <i class="icon icon-arrow_right icon_arrow"></i>
+                    </li>
+
+                    <!--附加材料费-->
+                    <li class="row time_box" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD == '1'" ng-class="$last?'':'border-d'" ng-click="showRecord(paidInfo)"
+                        kyee-operation-monitor-directive="paidRecordOfAllHospitalAsHospital">
+                        <div class="box_l">
+                            <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                            <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                        </div>
+
+                        <div class="col pad-r-14 box_r">
+                            <p class="text-ellipsis qy-grey7 f14">
+                                <span kyee-i18n-directive code="payAdd" default="附加材料费"></span>
+                                <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                                <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                            </p>
+                            <p class="fw-b f14" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                                {{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}
+                            </p>
+                        </div>
+
+                        <i class="icon icon-arrow_right icon_arrow"></i>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!--空信息-->
+        <div ng-if="isEmpty" class="empty-text pad_top">
+            <i ng-if="emptyText!=undefined"  class="icon empty-icon" ng-class="{'icon-icon_2 ':isPermission==false,'icon-icon_3':isPermission==true}"></i>
+            <p  ng-bind-html="emptyText|kyee_to_html" id="clinicPaidEmptyId">{{emptyText}}</p>
+        </div>
+    </ion-content>
+    <div kyee-overlay-directive
+         location="top"
+         width="{{KyeeEnv.innerSize.width}}"
+         height="{{hospitalListHeight}}"
+         top="{{deviceTop}}"
+         backdrop-top="{{deviceTop}}"
+         data="hospitalData"
+         animate="{{false}}"
+         template="modules/business/my_wallet/clinic_payment/views/delay_views/paid_hospital_list.html"
+         bind="binds(params)"
+         on-hide="overHide()">
+    </div>
+</ion-view>

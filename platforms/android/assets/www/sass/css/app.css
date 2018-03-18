@@ -1,0 +1,16 @@
+/* line 1, ../modules/business/home/scss/home.scss */
+.kyee_icon {
+  width: 100px;
+  height: 90px;
+  padding: 5px;
+}
+
+/* line 7, ../modules/business/home/scss/home.scss */
+.kyee_icon_text {
+  color: #405579;
+}
+
+/* line 11, ../modules/business/home/scss/home.scss */
+.notification_bar {
+  top: 44px !important;
+}

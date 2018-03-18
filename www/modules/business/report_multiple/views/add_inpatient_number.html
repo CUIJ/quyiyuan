@@ -1,0 +1,25 @@
+<ion-view title="添加住院号" class="qy_inpatient_payment_query">
+    <ion-nav-bar class="qy-header " align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <!--中间空提示-->
+        <div class="row empty-box1">
+            <div class="mar-b-10">
+                <i class="icon empty-icon icon-icon_4"></i>
+            </div>
+            <div class="col empty_right">
+                <div kyee-i18n-directive code="promptInformation" default="当前医院需要您输入住院号来查询检查检验单"></div>
+            </div>
+        </div>
+        <ul>
+            <li class="qy-bg-white pad-b-14 border-td pad-td-10 f14" style="position: relative;padding-top: 9px;">
+                <span kyee-i18n-directive code="hospitalizedNum" default="住院号："></span>
+                <input ng-model="hosp.INP_NO" placeholder="{{hosNum}}" class="input_content f14">
+            </li>
+            <li class="mar-b-14 mar-t-20">
+                <button ng-click="submit()" class="button-size-l button button-block" kyee-i18n-directive code="nextStep" default="下一步"></button>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

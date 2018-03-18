@@ -1,0 +1,94 @@
+<ion-view class="qy_clinic_claim qy-bg-grey1">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="填写理赔资料"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('in_hospital_report')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false" ng-click="click()">
+        <div class="head qy-bg-white border-d">
+            <ul class="head_row">
+                <li class="left">
+                    <i class="icon icon-choose qy-green pad-t-20"></i>
+                    <div class="line_green line line_b"></div>
+                </li>
+                <li class="right">
+                    <div ng-if="selectReportNumbers!=0" class="qy-green right_cont" kyee-i18n-directive code="head0"
+                         default="门诊检查检验单信息提交成功" ></div>
+                    <div ng-if="selectReportNumbers!=0" class="f12">
+                        <span kyee-i18n-directive code="head2" default="共提交">
+                        </span>{{selectReportNumbers}}<span kyee-i18n-directive code="head3" default="条门诊检查检验单记录"></span>
+                    </div>
+                    <div ng-if="selectReportNumbers==0" class="qy-green right_cont" kyee-i18n-directive code="headw"
+                         default="未添加门诊检查检验单信息" ></div>
+                </li>
+            </ul>
+            <ul class="head_row">
+                <li class="left">
+                    <div class="line_grey line line_t"></div>
+                    <i class="icon icon-file qy-grey4"></i>
+                    <div class="line_grey line line_b"></div>
+                </li>
+                <li class="right">
+                    <div class="right_cont qy-grey7 mar-d-20" kyee-i18n-directive code="head4" default="补充住院检查检验单"></div>
+                </li>
+            </ul>
+        </div>
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height-227)+'px'}" class="container" id="in_hospital_report">
+            <p class="pad-b-14 container_head qy-bg-white border-t mar-t-10" kyee-i18n-directive code="contentHead" default="请勾选与本次理赔相关的检查检验单资料" ></p>
+            <ul class="pad-b-14 box border-d qy-bg-white">
+                <li class="box_item row" ng-class="isChooseFir?'qy-bg-grey1':''">
+                    <div class="item_l" ng-click="chooseItem('1')">
+                        <i class="icon f18 pad-r-14"
+                           ng-class="{'icon-choose qy-green': isChooseFir, 'icon-radiobox_2 qy-grey5': !isChooseFir}">
+                        </i>
+                    </div>
+                    <div class="col">
+                        <span kyee-i18n-directive code="contentHeadTip" default="无相关住院检查检验单" ></span>
+                    </div>
+                </li>
+                <li class="box_item row" ng-repeat="paid in reportData" ng-class="paid.checked?'qy-bg-grey1':''">
+                    <div class="item_l" ng-click="chooseItem('2',paid)">
+                        <i class="icon f18"
+                           ng-class="{'icon-choose qy-green': paid.checked, 'icon-radiobox_2 qy-grey5': !paid.checked}"></i>
+                    </div>
+
+                    <ul ng-click="clickItem(paid)">
+                        <li class="text-ellipsis" ng-style="{'width':(KyeeEnv.innerSize.width-85)+'px'}">
+                            <span class="text-ellipsis">{{paid.EXAM_CLASS}}
+                            </span>
+                            <span style="float: right">
+                                <span class="qy-grey5 f12">{{paid.formatREPORT_DATE}}</span>
+                                <i class="icon icon-arrow_right f14 qy-grey5"></i>
+                            </span>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+            </ul>
+            <div ng-if="isShow" class="ta-c bottom_tip">
+                <div class="box"></div>
+            </div>
+            <ion-infinite-scroll ng-if="noLoad"
+                                 on-infinite="loadMore()"
+                                 icon="ion-loading-c" immediate-check="false">
+            </ion-infinite-scroll>
+        </ion-scroll>
+
+        <div class="bar-footer pad-b-14">
+            <button class="button-size-l button button-block"
+                    kyee-operation-monitor-directive="goPay" ng-click="complete()">
+                <span kyee-i18n-directive code="nextBtnT" default="提交" ></span>
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
+<!--待缴费记录-->

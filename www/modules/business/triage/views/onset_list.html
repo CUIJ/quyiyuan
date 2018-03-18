@@ -1,0 +1,32 @@
+<!--症状列表-->
+<ion-view  cache-view="false" class="BGColor onset-list-main" >
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="病程"></span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('onSetList')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  has-bouncing="true" padding="false" class="onset-list-content">
+        <div class="row onset-row" >
+            <div class="col col-100 onset-col" >
+                <ion-scroll  has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 80)+'px'}">
+                    <ul class="border-td">
+                        <li  kyee-operation-monitor-directive="onOnSetItemClick" ng-class="{'border-d':($index) != onSetList.length -1}" ng-click="onOnSetItemClick(onSet.symptomCode,onSet.symptomName)" ng-repeat="onSet in onSetList" class="item pad-r-14 mar-l-14">
+                            {{onSet.symptomName}}
+                            <div class="ion-chevron-right fl-r qy-grey5 f12"></div>
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
+<!--症状列表-->
+
+

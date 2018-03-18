@@ -1,0 +1,65 @@
+<ion-view class="qy_navigation">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backView()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{floor}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content scroll="true" has-bouncing="true" class="qy-bg-white">
+        <div class="bar item-input-inset search pad-b-14 " ng-if="!isShowMessage">
+            <label class="item-input-wrapper search-item text-ellipsis">
+                <input type="search" placeholder="{{searchInfo}}" ng-change="searchDept()" ng-model="deptSearch.keywords"
+                       class="header_input">
+                <div class="div_search">
+                    <i class="icon icon-seach  mar-l-10 " kyee-operation-monitor-directive="goDeptInfo" ng-click="goDeptInfo()"></i>
+                </div>
+            </label>
+        </div>
+        <div ng-if="frontClick()" class="search_result2">
+            <ul class="pad-b-14 qy-bg-white list  ">
+                <li style="color: #5BAA8A;" class="item pad-td-10 border-next" ng-if="!floorinfo.isDeleted"
+                    kyee-operation-monitor-directive="onLocationSearch"
+                    ng-click="onLocationSearch($index)" ng-repeat="floorinfo in DeptInfo">
+                    <span style="width: 40%; display: inline-block;" class="f14 text-ellipsis">{{floorinfo.HOSPITAL_FLOOR_DEPT}}</span>
+                    <span class="float_b5 f14">{{floorinfo.HOSPITAL_BUILD_NUMBER}}&nbsp;{{floorinfo.HOSPITAL_FLOOR_NUMBER}}<span style="padding-left: 3px;" class="icon-arrow_right"></span></span>
+                </li>
+                <li class="list-summary center_empty">{{searchMsg}}</li>
+            </ul>
+        </div>
+        <ul ng-if="isShowSearch" class="list">
+            <li class="item qy-list pad-b-10"
+                kyee-operation-monitor-directive="onLocationSearch"
+                ng-click="onLocationSearch($index)" ng-repeat="floorinfo in DeptInfo">
+                <span class="f14">{{floorinfo.HOSPITAL_FLOOR_DEPT}}</span>
+                <span class="f14  qy-grey5 fl-r">{{floorinfo.HOSPITAL_BUILD_NUMBER}}&nbsp;{{floorinfo.HOSPITAL_FLOOR_NUMBER}}</span>
+            </li>
+            <li class="list-summary center_empty" ng-if="isShowFloorInfo"
+                kyee-i18n-directive code="showAll" default="已显示所有结果"></li>
+            <div ng-if="noShowFloorInfo" class="empty-text">
+                <i class="icon icon-icon_3 empty-icon"></i>
+                <li class="list-summary center_empty" kyee-i18n-directive
+                    code="noResult" default="暂无科室内容"></li>
+            </div>
+        </ul>
+        <div style="color: #5BAA8A;padding-bottom: 50px;" class="mar-t-10" ng-if="isShowClick && !deptSearch.keywords">
+            <div class="list pad-l-14 qy-bg-white mar-td-10 pad-r-14" ng-repeat="item in navigationFloorInfro">
+                <div class="f14 qy-grey7 pad_td border-d pad-r-14">
+                    {{item.HOSPITAL_FLOOR_NUMBER}}
+                </div>
+                <span style="line-height: 30px;" class="f14 pad-td-10 pad-r-14"
+                      ng-repeat="dept in item.HOSPITAL_FLOOR_DEPT"><span
+                        kyee-operation-monitor-directive="selectDeptJump"
+                        ng-click="selectDeptJump(dept)"
+                        ng-class="{'line_left':$index!=0}"
+                        style="color: #5BAA8A;">{{dept}}</span></span>
+            </div>
+        </div>
+        <div ng-if="isShowClick&&navigationFloorInfro.length==0" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+
+            <p class="center_empty" kyee-i18n-directive code="noDeptResult" default="暂无该科室配置信息"></p>
+        </div>
+    </ion-content>
+</ion-view>

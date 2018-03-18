@@ -1,0 +1,84 @@
+<div class="out_reim">
+    <div ng-if="dataEmpty.emptyType != 1 && dataEmpty.emptyType != 3">
+        <label class="item item-input ">
+            <span class="input-label zx_patient_name "
+                  kyee-i18n-directive code="patientName4" default="患者姓名："></span>
+            <button class="zx_patient_name_combination" ng-click="clickUpload()">{{name}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+        </label>
+        <div class="item item-input ">
+            <span class="input-label zx_date_of_visit "
+                  kyee-i18n-directive code="dateOfAdmission4" default="就诊日期："></span>
+            <button class="zx_year" ng-click="selectDate(0)">{{year}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+
+            <button class="zx_month" ng-click="selectDate(1)">{{month}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+
+            <button class="zx_day" ng-click="selectDate(2)">{{day}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png">
+            </button>
+        </div>
+        <div class="bar bar-footer pad-b-14 zx_query">
+            <button ng-click="query()" class="button button-block button-size-l"
+                    kyee-i18n-directive code="suber4" default="提 交"></button>
+        </div>
+    </div>
+    <div ng-if="dataEmpty.emptyType == 0">
+        <ion-scroll direction="y" scrollbar-y="false" ng-style="{'height':(KyeeEnv.innerSize.height - 279)+'px'}"
+                    has-bouncing="true">
+            <div class="repeat_style" ng-repeat="x in data">
+                <div class="item item-input">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="patientName4" default="患者姓名："></span>
+                    <span class="input-label">{{x.PATIENT_NAME}}</span>
+                </div>
+                <div class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="medicalCard4" default="医疗证/卡号："></span>
+                    <span class="input-label ">{{x.CARD_NO}}</span>
+                </div>
+                <div class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="medicalInstitution4" default="就医机构："></span>
+                    <span class="input-label ">{{x.MEDICAL_INSTITUTION}}</span>
+                </div>
+                <div class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="dateOfAdmission4" default="就诊日期："></span>
+                    <span class="input-label ">{{x.CLINIC_DATE}}</span>
+                </div>
+                <div class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="totalCost4" default="总费用（元）："></span>
+                    <span class="input-label ">{{x.CLINIC_TOTAL_COST}}</span>
+                </div>
+                <div class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="pormalCost4" default="合理费用（元）："></span>
+                    <span class="input-label ">{{x.REASONABLE_EXPENSE}}</span>
+                </div>
+                <div class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="giveCost4" default="补偿费用（元）："></span>
+                    <span class="input-label ">{{x.COMPENSATION}}</span>
+                </div>
+                <div class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="givedate4" default="补偿日期："></span>
+                    <span class="input-label ">{{x.COMPENSATION_DATE}}</span>
+                </div>
+            </div>
+        </ion-scroll>
+    </div>
+    <div class="empty-text" ng-if="dataEmpty.emptyType != 0">
+        <i class="icon icon-icon_3 empty-icon"></i>
+
+        <p>{{dataEmpty.emptyText}}</p>
+    </div>
+</div>
+
+<div kyee-compile-directive template="modules/business/ncms/views/dateSelecter/selecter.html"></div>
+
+
+

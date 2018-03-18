@@ -1,0 +1,145 @@
+<!--待缴费记录-->
+<ion-view class="qy_clinic_payment qy-bg-grey1" cache-view="false">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="门诊缴费"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="!otherHospital" class="button button-clear txt" kyee-operation-monitor-directive="clinicPaid" ng-click="toClinicPaid()" kyee-i18n-directive code="paidBtn" default="缴费记录">
+            </a>
+            <a ng-if="otherHospital" class="button button-clear" ng-click="openRightMenu('clinicPayment')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false" ng-click="click()">
+        <ion-scroll ng-style="{'height':ionScrollHeight}" id="clinic_payment_scroll_id" class="qy-bg-grey1 mar-t-10" delegate-handle="clinic_payment_content" >
+            <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+               refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(false)">
+            </ion-refresher>
+            <!--预约挂号-->
+            <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe" delegate-handle="appoint_paid">
+                <div ng-repeat="item in allPaymentData.REG" class="qy-bg-white">
+                <ion-item ng-if="!isEmpty" class="qy-bg-white ovf-h border-t"  style="padding: inherit;" id="appoint_item_{{$index}}" on-drag-end="dragAppointData($index)">
+                <h5 class="hospital_head" ng-click="showInfo('1',item,$index)">
+                    <span class="dis_inbl f14 text-ellipsis" ng-style="{'width':KyeeEnv.innerSize.width-141+'px'}">{{item.HOSPITAL_NAME}}</span>
+                    <i class="fl-r f12 qy-grey5"  ng-show="appoint_hidden_index != $index" ng-class="{'ion-chevron-up pad_l_up':rFirIndex == $index,'ion-chevron-right qy-green pad_l_right':rFirIndex != $index}"></i>
+                    <span class="fl-r f12">{{item.APPT_MADE_DATE.substr(0,10)}}</span>
+                </h5>
+                    <ion-option-button class="button-info" style="background-color:#e7e7e7;color: #fff">
+                        <span kyee-i18n-directive code="del" default="删除" ></span>
+                    </ion-option-button>
+                </ion-item>
+                <div ng-if="rFirIndex == $index" class="ovf-h mar-l-14 border-t">
+                    <div class="pay_box ovf-h choose_table pad-r-14">
+                        <div class="pad-r-10 choose_left"
+                             ng-click="chooseRegister(item,$index)">
+                            <i ng-class="{'icon-radiobox_1 qy-green': rSecIndex == $index, 'icon-radiobox_2 qy-grey4': rSecIndex != $index}"></i>
+                        </div>
+                        <div class="col choose_right f14" ng-style="{'width':KyeeEnv.innerSize.width-64+'px'}" ng-class="$last?'border_none':''">
+                            <h5>{{item.DEPT_NAME}}<span class="qy-blue "> {{item.DOCTOR_NAME}}</span></h5>
+
+                            <p>{{item.SHOW_NAME}}&nbsp;&nbsp;{{item.MARK_DESC}}&nbsp;&nbsp;{{'¥'+item.AMOUNT.toFixed(2)}}</p>
+
+                            <p><span kyee-i18n-directive code="actualAmount" default="自付款："></span>{{'¥'+item.ACTUAL_AMOUNT}}</p>
+                        </div>
+
+                    </div>
+                    <p class="qy-orange pad-r-14 pad-r-10 pad-td-10 border-t" style="margin-bottom: 0">
+                        <i class="icon icon-records f16"></i>
+                        <!--<span kyee-i18n-directive code="remainTime1" default="门诊挂号单在"></span>-->
+                        <span kyee-i18n-directive code="remainTime" default="剩余支付时间"></span>
+                        {{remainTime[$index]}}
+                        <!--<span kyee-i18n-directive code="remainTime2" default="后自动取消，请您继续支付"></span>-->
+                    </p>
+                </div>
+                <div ng-class="$last&&allPaymentData.PAY.length==0?'qy-bg-grey1':''" ></div>
+                </div>
+            </ion-list>
+            <!--门诊费用-->
+            <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe" delegate-handle="clinic_paid">
+                <div ng-repeat="paymentData in allPaymentData.PAY" class="qy-bg-white">
+                <ion-item ng-if="!isEmpty" class="qy-bg-white ovf-h out_box border-t"  style="padding: inherit;"  id="medical_item_{{$index}}" on-drag-end="dragPhysicalData($index)">
+                <h5 class="hospital_head" ng-class="{'border-d':pFirIndex!=$index&&$last}" ng-click="showInfo('2',paymentData,$index)">
+                    <span class="dis_inbl f14 text-ellipsis"  ng-style="{'width':KyeeEnv.innerSize.width-132+'px'}">{{paymentData.HOSPITAL_NAME}}</span>
+                    <i class="fl-r f12 qy-grey5" ng-show="medical_hidden_index != $index" ng-class="{'ion-chevron-up pad_l_up':pFirIndex == $index,'ion-chevron-right pad_l_right':pFirIndex != $index}"></i>
+                    <span class="fl-r f12">{{paymentData.VISIT_DATE}}</span>
+                </h5>
+                    <ion-option-button ng-if="paymentData.DELETE_FLAG == 0" class="button-info"  style="background-color:#e7e7e7;color: #fff"><span kyee-i18n-directive code="del" default="删除" ></span></ion-option-button>
+                    <ion-option-button ng-if="paymentData.DELETE_FLAG == 1" class="button-info" ng-click="delete($index,paymentData)" style="background-color:#fb5151;color: #fff"><span kyee-i18n-directive code="del" default="删除" ></span></ion-option-button>
+                </ion-item>
+                <div ng-if="pFirIndex == $index" class="ovf-h" ng-class="$last?'border-d':''">
+                    <div  ng-repeat="paymentDetail in paymentData.PAYMENT_INFO">
+                        <div class="pay_box ovf-h pad-l-14">
+                            <div class="row choose_table" ng-class="{'':!($last&&paymentDetail.MS_STATUS!='1'),'border-t':$first}">
+                                <div ng-if="paymentData.CHOOSE_MODEL == '0'" class="pad-r-10 pad-t-5 choose_left"
+                                     ng-click="choose(paymentDetail,paymentData.CHOOSE_MODEL,$index,paymentData)">
+                                    <i ng-class="{'icon-radiobox_1 qy-green': pSecIndex == $index, 'icon-radiobox_2 qy-grey4': pSecIndex != $index}"></i>
+                                </div>
+                                <div ng-if="paymentData.CHOOSE_MODEL == '1'" class="pad-r-10 pad-t-5 choose_left"
+                                     ng-click="choose(paymentDetail,paymentData.CHOOSE_MODEL,$index,paymentData)">
+                                    <i ng-class="{'icon-radiobox_1 qy-green':paymentDetail.checked,'icon-radiobox_2 qy-grey4':!paymentDetail.checked}"></i>
+                                </div>
+                                <div ng-if="paymentData.CHOOSE_MODEL == '2'" class="pad-r-10 pad-t-5 choose_left">
+                                    <i class="icon-radiobox_1 qy-grey4"></i>
+                                </div>
+                                <div class="col choose_right pad_d_14 f14" ng-style="{'width':KyeeEnv.innerSize.width-50+'px'}" ng-click="showDetail(paymentDetail)" ng-class="{'border-d':(paymentDetail.MS_STATUS != '1')&&!$last,'':(paymentDetail.MS_STATUS == '1')||$last}">
+                                    <div class="pad_t_14">
+                                        <span>{{paymentDetail.SHOW_NAME}}</span>
+                                    </div>
+                                    <p class="pad-d-10">
+                                    <span ng-if="paymentDetail.PATIENT_PAY_AMOUNT!=undefined && paymentDetail.CHOOSE_MODEL=='0'">
+                                        <span kyee-i18n-directive code="patientPayAmount" default="医保缴费："></span>
+                                        <span ng-if="paymentDetail.PATIENT_PAY_AMOUNT">¥</span>{{medPay(paymentDetail)}}&nbsp;
+                                    </span>
+                                        <span kyee-i18n-directive code="actualAmount" default="自付款："></span>
+                                        <span ng-if="paymentDetail.ACCOUNT_SUM">¥</span>{{userPay(paymentDetail)}}
+                                    </p>
+                                    <i class="qy-green ion-chevron-right right_arr"></i>
+                                </div>
+                            </div>
+                            <div ng-class="$last&&paymentDetail.MS_STATUS == '1'?'mar-d-10':''">
+                                <div ng-if="paymentDetail.MS_STATUS == '1'" class="pad-b-10 pad-td-10 qy-bg-grey1 border-t mar-r-14"
+                                     ng-class="{'qy-green':positivePrompt(paymentDetail) ,'qy-red':!positivePrompt(paymentDetail)}">
+                                    {{getPrompt(paymentDetail)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="$last?' qy-bg-grey1':''" class="qy-bg-grey1"></div>
+               </div>
+            </ion-list>
+            <div ng-if="isEmpty" class="empty-text">
+                <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+                <p>{{emptyText}}</p>
+            </div>
+        </ion-scroll>
+
+        <div class="bottom">
+            <div ng-if="!isEmpty" class="qy-bg-white btn_bottom pad-b-14">
+                <div class="bottom_left">
+                    <div class="qy-orange f14" ng-class="roundTip==undefined?'line_h':''">
+                        <span kyee-i18n-directive code="sum" default="合计："></span>
+                        ¥ {{sum}}
+                    </div>
+                    <div ng-if="roundTip" class="qy-grey5 f10"><i class="icon-icon_1"></i>{{roundTip}}</div>
+                </div>
+                <button class="button button-size-s fl-r button_mar button_mar_t" ng-class="buttonColor"
+                        kyee-operation-monitor-directive="goPay" ng-click="paySubmitBtn()">
+                    {{buttonT}}
+                </button>
+            </div>
+            <!--底部提示黑框-->
+            <div class="f14 footer_bar qy-fff row pad-l-14 pad-td-5" ng-hide="tips==undefined||hiddenBar" id="clinic_payment_footbar_id">
+                <i class="icon icon-cross fl-r mar-r-5" ng-click="closeTip()" kyee-operation-monitor-directive="closeTip"></i>
+                <p class="foot_bar_div" ng-bind-html="tips|kyee_to_html" id="clinicPaymentTipId">
+                    {{tips}}
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!--待缴费记录-->

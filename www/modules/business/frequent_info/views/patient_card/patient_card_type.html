@@ -1,0 +1,30 @@
+<ion-view class="patient_card_type qy-bg-grey1">
+	<ion-nav-bar class="qy-header" align-title="center">
+		<ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="selectCardType" default="选择卡类型"></span>
+        </ion-nav-title>
+	</ion-nav-bar>
+
+	<ion-content scroll="true" has-bouncing="true">
+		<div class="list">
+			<ion-item class="role_item" ng-repeat="item in types"
+					  kyee-operation-monitor-directive="typeSelected"
+					  ng-click="typeSelected(item.ITEM_VALUE,item.ITEM_NAME,item.CARD_URL)">
+				<div class="row">
+					<div class="col col-10">
+						<i ng-class="isSelected(item.ITEM_VALUE)"></i>
+					</div>
+					<span class="col f14">
+						{{item.ITEM_NAME}}
+					</span>
+				</div>
+			</ion-item>
+		</div>
+		<div ng-if="noType" class="empty-text">
+			<p kyee-i18n-directive code="noSelectCardType" default="没有支持的卡类型"></p>
+		</div>
+
+	</ion-content>
+
+</ion-view>

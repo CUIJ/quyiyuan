@@ -1,0 +1,105 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年9月2日11:26:01
+* 创建原因：我的钱包--住院业务缴费详细记录页面
+* 任务号：KYEEAPPC-3277
+* 修改者：程铄闵
+* 修改时间：2016年6月17日10:22:51
+* 修改原因：2.2.40版住院费用（医院首页入口）
+* 任务号：KYEEAPPC-6603
+-->
+<ion-view class="qy_inpatient_payment_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="每日费用明细"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1 pad-t-10">
+        <!--头部金额-->
+        <div class="qy-bg-white border-t f14" ng-if="!isEmpty">
+            <h5 class="mar-l-14 mar_td_0 border-d" style="padding: 13px 0 11px 0;">{{convertDate(detailData.BILLING_DATE_TIME)}}</h5>
+            <h5 class="pad-b-14 mar_td_0 qy-bg-white" style="padding: 12px 0 12px 14px;">
+                <span kyee-i18n-directive code="shouldPay" default="费用小结："></span><span>¥ {{convertMoney(detailData.SHOULD_PAY_FEE)}}</span> &nbsp;&nbsp;
+            </h5>
+            <h5 ng-if="detailData.REAL_PAY_FEE" class="pad-b-14 pad-d-10 mar_td_0 qy-bg-white" style="padding-bottom: 12px;">
+                <span kyee-i18n-directive code="realPay" default="自负金额："></span><span>¥ {{convertMoney(detailData.REAL_PAY_FEE)}}</span>
+            </h5>
+        </div>
+        <!--费用明细-->
+        <ul ng-if="!isEmpty">
+            <!--明细头部-->
+            <li class="row qy-bg-grey1 border-td pad-l-14 pad-td-5 relative_block" ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'detail':'no_real_detail'">
+                <span class="absolute_block" ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'col_cls_2 mar-r-5':'ta-r no_real_cls_2'">
+                    <!--->
+                    <span ng-if="isViewAmount && isShowAmount" kyee-i18n-directive code="money_new" default="金额/">
+                    </span><span ng-style="{'margin-left':(isViewAmount && isShowAmount)?'':'32px'}">
+                    <span  kyee-i18n-directive code="amount_new" class="price_padding" default="数量" ></span></span>
+                </span>
+                <span ng-if="detailData.REAL_PAY_FEE" class="col_cls_3 absolute_block ta-r" kyee-i18n-directive code="realFee" default="自负金额"></span>
+                <span class="col_cls_1 relative_block" kyee-i18n-directive code="itemName" default="项目名称"></span>
+            </li>
+            <!--无分类的记录-->
+            <li ng-if="!detailData.isGroup" ng-repeat="detailItem in detailData.DATA" class="pad-l-14 qy-bg-white f14">
+                <div class="row detail_item border-d relative_block" ng-click="showDetail(detailItem)"
+                     ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'detail':'no_real_detail'">
+                    <span class="absolute_block text-ellipsis"
+                          ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'col_cls_2 mar-r-5':'no_real_cls_2 ta-r'">
+
+                        <span ng-class="detailItem.AMOUNT && detailItem.AMOUNT >0?'':'my_style'"
+                              ng-if="detailItem.SHOULD_PAY_FEE" >¥{{convertMoney(detailItem.SHOULD_PAY_FEE)}}/</span>
+
+                         <span ng-if="detailItem.AMOUNT && detailItem.AMOUNT >0" class="price_padding">{{convertAmount(detailItem.AMOUNT)}}{{detailItem.UNITS}}</span>
+
+                    </span>
+                    <!--实付金额-->
+                    <span ng-if="detailData.REAL_PAY_FEE" class="col_cls_3 absolute_block ta-r text-ellipsis">
+                        <span ng-if="detailItem.REAL_PAY_FEE">¥</span>{{convertMoney(detailItem.REAL_PAY_FEE)}}
+                    </span>
+                    <span class="col_cls_1 relative_block">
+                        <span class="text-ellipsis cls_1_content absolute_block">
+                            <!--<i class="icon-icon_3 qy-green f14 icon_tip"></i>-->
+                            {{detailItem.ITEM_NAME}}
+                        </span>
+                    </span>
+                </div>
+            </li>
+            <!--有分类的记录-->
+            <li ng-if="detailData.isGroup" ng-repeat="detailGroup in detailData.DATA" class="pad-l-14 pad-d-5 qy-bg-white f14">
+                <!--分类名-->
+                <div class="relative_block row pad-td-10 border-d" ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'group_head':'no_real_group_head'">
+                    <span class="relative_block pad-r-10 qy-grey4">
+                       {{detailGroup.ITEM_CLASS}}
+                    </span>
+                    <!--<span class="absolute_block" ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'head_cls_2':'no_real_head_cls_2 ta-r'">-->
+                        <!--¥{{convertMoney(detailGroup.SUM)}}-->
+                    <!--</span>-->
+                </div>
+                <!--分类明细-->
+                <div ng-repeat="detailItem in detailGroup.GROUP_DATA" class="row detail_item">
+                    <div class="row relative_block" ng-click="showDetail(detailItem)" ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'detail':'no_real_detail'">
+
+                        <span class="text-ellipsis absolute_block" ng-class="(detailData.REAL_PAY_FEE!=undefined&&detailData.REAL_PAY_FEE!='')?'col_cls_2 mar-r-5':'ta-r no_real_cls_2'">
+
+                            <span ng-class="detailItem.AMOUNT && detailItem.AMOUNT >0?'':'my_style'" ng-if="detailItem.SHOULD_PAY_FEE" >¥{{convertMoney(detailItem.SHOULD_PAY_FEE)}}/</span>
+
+                            <span ng-if="detailItem.AMOUNT && detailItem.AMOUNT >0" class="price_padding">{{convertAmount(detailItem.AMOUNT)}}{{detailItem.UNITS}}</span>
+                        </span>
+
+                        <!--实付金额-->
+                        <span ng-if="detailData.REAL_PAY_FEE" class="col_cls_3 absolute_block ta-r text-ellipsis">
+                            <span ng-if="detailItem.REAL_PAY_FEE">¥</span>{{convertMoney(detailItem.REAL_PAY_FEE)}}
+                        </span>
+                        <span class="col_cls_1 relative_block text-ellipsis" ng-style="{'width':(KyeeEnv.innerSize.width-183)+'px'}">
+                            <span class="text-ellipsis cls_1_content absolute_block">
+                                <!--<i class="icon-icon_3 qy-green f14 icon_tip"></i>-->
+                                {{detailItem.ITEM_NAME}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

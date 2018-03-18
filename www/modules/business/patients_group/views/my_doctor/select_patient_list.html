@@ -1,0 +1,32 @@
+<ion-view class="select_patient_list">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title >{{title}}</ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a kyee-operation-monitor-directive="addPatient" ng-click="addPatient()" class="button button-clear txt"
+               kyee-i18n-directive code="add" default="添加">
+            </a>
+        </ion-nav-
+            buttons>
+    </ion-nav-bar>
+    <ion-content>
+        <ul class="f14">
+            <li class="line50 qy-bg-grey1 color_9 pad-lr-14" kyee-i18n-directive>{{pointMsg}}</li>
+            <ul class="border-td">
+                <li class="line50 row" ng-repeat="item in patientsList" ng-click="selectPatient(item);">
+                    <div class="f18 mar-r-20 mar-l-14" ng-class="{false:'ion-ios-circle-outline color_9',true:'ion-ios-checkmark qy-color'}[item == selectedObj]"></div>
+                    <div class="color_3 text-ellipsis pad-r-14 w100" ng-class="{'border-b':!$last}">{{item.OFTEN_NAME}}</div>
+                </li>
+            </ul>
+        </ul>
+        <div class="empty-text" ng-if="userInfo.isNot">
+            <i class="icon icon-calendar empty-icon"></i>
+            <p kyee-i18n-directive code="youNoInformation" default="您目前还没有就诊者信息"></p>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="pad-lr-14 mar-tb-10">
+        <button  class="button button-full button-size-l" ng-click="submit();"
+                 kyee-i18n-directive code="confirm" default="确定" >
+        </button>
+    </ion-footer-bar>
+</ion-view>

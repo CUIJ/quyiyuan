@@ -1,0 +1,50 @@
+<ion-view class="patient_card_hospital">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <a class="text-ellipsis select_city" ng-click=" selectCityClick();">
+                <span class="text-ellipsis city_name" ng-style="{'max-width':(KyeeEnv.innerSize.height-184)+'px'}">{{headerCityName}}</span>
+                <i class="ion-chevron-down f14 city_arrow" ng-if="canSelectHospital"></i>
+            </a>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false">
+        <!-- 所有医院数据-->
+        <div ng-if = "isAreaHospital == false " >
+        <ul class="pad-l-14">
+            <li class="border-d ovf-h" ng-repeat="hospital in hospitals"
+                kyee-operation-monitor-directive="hospitalSelected"
+                ng-click="hospitalSelected(hospital.HOSPITAL_ID, hospital.HOSPITAL_NAME,hospital,false)">
+                <img class="fl-l hos_img" width="32px" height="32px"
+                     ng-src="{{hospital.LOGO_PHOTO?hospital.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                <h5 ng-class="{'width_70':openBotten[$index]}" class="fl-l f14 hos_name text-ellipsis">
+                    {{hospital.HOSPITAL_NAME}}</h5>
+                <img ng-if="hospital.IS_ONLINE==1" class="net_hos_img" width="20px" height="20px" class="fl-l"
+                     src="resource/images/icons/shipin.png">
+                <img ng-if="hospital.HOSPITAL_OPEN == 0" style="height: 45px;position: absolute;right: 0px;" src="resource\images\hospital\weihuzhong.png">
+            </li>
+        </ul>
+        </div>
+        <!-- 分院区显示-->
+        <div ng-if = "isAreaHospital == true ">
+        <ul class="pad-l-14">
+            <li class="border-d ovf-h" ng-repeat="hospital in showHospital"
+                kyee-operation-monitor-directive="hospitalSelected"
+                ng-click="hospitalSelected(hospital.HOSPITAL_ID, hospital.HOSPITAL_NAME,hospital,true)">
+                <img class="fl-l hos_img" width="32px" height="32px"
+                     ng-src="{{hospital.LOGO_PHOTO?hospital.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                <h5 ng-class="{'width_70':openBotten[$index]}"
+                    class="fl-l f14 hos_name text-ellipsis"> {{hospital.HOSPITAL_NAME}}</h5>
+                <img ng-if="hospital.IS_ONLINE==1" class="net_hos_img" width="20px" height="20px" class="fl-l"
+                     src="resource/images/icons/shipin.png">
+                <img ng-if="hospital.HOSPITAL_OPEN == 0" style="height: 45px;position: absolute;right: 0px;" src="resource\images\hospital\weihuzhong.png">
+            </li>
+        </ul>
+        </div>
+    </ion-content>
+
+</ion-view>

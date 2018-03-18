@@ -1,0 +1,366 @@
+<!--产品名称：quyiyuan.-->
+<!--创建用户：杜巍巍-->
+<!--日期：2015年12月3日22:01:26-->
+<!--任务号：KYEEAPPC-4374-->
+<!--创建原因：就医记录主页面-->
+<ion-view class="quyiyuan_myquyi qy-bg-grey2" cache-view="false">
+    <div ng-style="{'display':listScrollOnly}" style="position:absolute;top: 0;width: 100%;z-index: 999;">
+        <ul class="pad-b-14 border-td qy-bg-white grid3 row ">
+            <li class="col ta-c" ng-click="appointRecord()"  kyee-operation-monitor-directive="appointRecord">
+                <i class="icon icon-records grid_img color_appointment"></i>
+                <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="appointmentRecord" default="预约记录"></p>
+            </li>
+            <li class="col ta-c" ng-click="outpatientPayment()" kyee-operation-monitor-directive="outpatientPayment">
+                <i class="icon icon-echoscope grid_img color_clinic"></i>
+                <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="clinicFee" default="门诊费用"></p>
+            </li>
+            <li class="col ta-c" ng-click="goInpaitentDetail()" kyee-operation-monitor-directive="goInpaitentDetail">
+                <i class="icon icon-hospital2 grid_img color_hospital"></i>
+                <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="inHospitalFee" default="住院费用"></p>
+            </li>
+            <li class="col ta-c" ng-click="report()" kyee-operation-monitor-directive="report">
+                <i class="icon icon-inspect grid_img color_check"></i>
+                <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="checkReport" default="检查检验单"></p>
+            </li>
+        </ul>
+        <div class="line_size_top qy-bg-grey2"></div>
+        <div class=" pad-b-14 pad-td-10 qy-bg-white border-td line_width ovf-h">
+            <i class="icon icon-introduce qy-grey5 ion_size"></i>
+            <span class="f14 qy-grey7" kyee-i18n-directive code="lastHospitalRecord" default="最近的就医记录"></span>
+             <span ng-if="refreshTime" class="f14 ta-c pad-td-10 refresh_span">
+                <span kyee-i18n-directive code="refreshTip" default="刷新于:"></span>
+                <span>{{refreshTime}}</span>
+                 <i kyee-operation-monitor-directive="doRefresh" class=" qy-green icon icon-plot refresh_img " ng-click="doRefresh()" ></i>
+                <!--<img src="resource\images\base\refresh.png"  class="refresh_img" ng-click="doRefresh()">-->
+            </span>
+            <span ng-if="!refreshTime && refreshTimeHide" class="f14 ta-c pad-td-10 refresh_span">
+                <span ng-if="!refreshTime && refreshTimeHide" kyee-i18n-directive code="refreshTip" default="刷新于:"></span>
+                <span ng-if="!refreshTime && refreshTimeHide">{{refreshTimeHide}}</span>
+                <i kyee-operation-monitor-directive="doRefresh"  class=" qy-green icon icon-plot refresh_img " ng-click="doRefresh()"></i>
+                <!--<img ng-if="!refreshTime && refreshTimeHide" src="resource\images\base\refresh.png"  class="refresh_img" ng-click="doRefresh()">-->
+            </span>
+            <span ng-if="!refreshTime && !refreshTimeHide" class="f14 ta-c pad-td-10 refresh_span">
+                <i kyee-operation-monitor-directive="doRefresh"  class=" qy-green icon icon-plot refresh_img " ng-click="doRefresh()"></i>
+                <!--<img src="resource\images\base\refresh.png"  class="refresh_img" ng-click="doRefresh()">-->
+            </span>
+
+
+        </div>
+    </div>
+    <ion-content has-bouncing="true" padding="false"  scrollbar-y="false" delegate-handle="businessList" class="has-footer" on-scroll="scrollListen()">
+        <div id="contentTop" >
+            <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                           refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh()">
+            </ion-refresher>
+            <div ng-if="havePeople" class="photo_head have_people border-d">
+                <div ng-if="isShowPatient" class="header_box">
+                    <div ng-click="editCurrentPatient()" class="header_images img_head" kyee-operation-monitor-directive="editCurrentPatient"
+                         ng-style="{'background':'url('+(IMAGE_PATH)+')'}">
+                    </div>
+                    <p class="font_w_size f_16 f16">{{currentCustomPatient.OFTEN_NAME}}</p>
+
+                    <div class="info_cust change_patient_icon" kyee-action-holder-directive="switch_patient"
+                         ui-sref="custom_patient" kyee-operation-monitor-directive="customPatient"
+                         ng-click="customPatient()">
+                        <span style="    font-size: 18px; position: relative; top: -3px;" class="icon-clip info_custom"></span>
+                        <span kyee-i18n-directive code="changePatient" default="切换就诊者"></span>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!havePeople" class="photo_head have_people border-d">
+                <div class="header_box">
+                    <div class="header_images img_head"
+                         ng-style="{'background':'url('+('resource/images/center/headM.png')+')'}">
+                    </div>
+                    <p class="font_w_size">
+                        <span kyee-i18n-directive code="noPatient" default="暂无就诊者，请"></span>
+                        <span ng-click="addPatient()" class="add_custom" kyee-i18n-directive code="addCustom" default="添加"></span></p>
+                </div>
+                <div class="info_cust no_patient" kyee-action-holder-directive="switch_patient" ui-sref="custom_patient" kyee-operation-monitor-directive="customPatient"
+                     ng-click="customPatient()">
+                    <span style="    font-size: 18px; position: relative; top: -3px;"class="icon-clip info_custom"></span>
+                    <span kyee-i18n-directive code="changePatient" default="切换就诊者"></span>
+                </div>
+            </div>
+            <!--<ul class="pad-b-14 border-td qy-bg-white line_size grid3 row" ng-style="{'padding-bottom':(refreshTime?'0px':'15px'),'margin-bottom':(refreshTime?'0px':'10px')}">-->
+            <ul class="pad-b-14 border-td qy-bg-white line_size grid3 row" style="padding-bottom:15px;margin-bottom:10px;">
+                <li class="col ta-c" ng-click="appointRecord()" kyee-operation-monitor-directive="appointRecord">
+                    <i class="icon icon-records grid_img color_appointment"></i>
+                    <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="appointmentRecord" default="预约记录"></p>
+                </li>
+                <li class="col ta-c" ng-click="outpatientPayment()" kyee-operation-monitor-directive="outpatientPayment">
+                    <i class="icon icon-echoscope grid_img color_clinic"></i>
+                    <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="clinicFee" default="门诊费用"></p>
+                </li>
+                <li class="col ta-c" ng-click="goInpaitentDetail()" kyee-operation-monitor-directive="goInpaitentDetail">
+                    <i class="icon icon-hospital2 grid_img color_hospital"></i>
+                    <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="inHospitalFee" default="住院费用"></p>
+                </li>
+                <li class="col ta-c" ng-click="report()" kyee-operation-monitor-directive="report">
+                    <i class="icon icon-inspect grid_img color_check"></i>
+                    <p class="qy-grey7 f14 text-ellipsis" kyee-i18n-directive code="checkReport" default="检查检验单"></p>
+                </li>
+            </ul>
+            <!--<div ng-if="refreshTime" class="f14 ta-c pad-td-10">-->
+                <!--<span kyee-i18n-directive code="checkReport" default="信息刷新于："></span>-->
+                <!--<span>{{refreshTime}}</span>-->
+                <!--<img src="resource\images\base\refresh.png"  class="refresh_img" ng-click="doRefresh()">-->
+            <!--</div>-->
+            <div style="position: relative;" class=" pad-b-14 pad-td-10 qy-bg-white border-td line_width ovf-h">
+                <i class="icon icon-introduce qy-grey5 ion_size"></i>
+                <span class="f14 qy-grey7" kyee-i18n-directive code="lastHospitalRecord" default="最近的就医记录"></span>
+                <span ng-if="refreshTime" class="f14 ta-c pad-td-10 re_span">
+                    <span kyee-i18n-directive code="refreshTip" default="刷新于:"></span>
+                    <span>{{refreshTime}}</span>
+                     <i kyee-operation-monitor-directive="doRefresh"  class=" qy-green icon icon-plot refresh_img " ng-click="doRefresh()"></i>
+                    <!--<img src="resource\images\base\refresh.png"  class="refresh_img" ng-click="doRefresh()">-->
+                </span>
+                <span ng-if="!refreshTime && refreshTimeHide" class="f14 ta-c pad-td-10 re_span">
+                    <span ng-if="!refreshTime && refreshTimeHide" kyee-i18n-directive code="refreshTip" default="刷新于:"></span>
+                    <span ng-if="!refreshTime && refreshTimeHide">{{refreshTimeHide}}</span>
+                    <i kyee-operation-monitor-directive="doRefresh"  class=" qy-green icon icon-plot refresh_img  " ng-click="doRefresh()"></i>
+                    <!--<img ng-if="!refreshTime && refreshTimeHide" src="resource\images\base\refresh.png"  class="refresh_img" ng-click="doRefresh()">-->
+                </span>
+                <span ng-if="!refreshTime && !refreshTimeHide" class="f14 ta-c pad-td-10 re_span">
+                    <i kyee-operation-monitor-directive="doRefresh"  class=" qy-green icon icon-plot refresh_img " ng-click="doRefresh()"></i>
+                    <!--<img src="resource\images\base\refresh.png"  class="refresh_img" ng-click="doRefresh()">-->
+                </span>
+            </div>
+        </div>
+        <!--<ion-scroll delegate-handle="myquyi_scroll_handle"  ng-style="{'height':(KyeeEnv.innerSize.height - 366)+'px'}">-->
+            <ion-list can-swipe="true">
+                <ion-item ng-repeat="item in allCloudData" class="qy-bg-white">
+                    <!--预约挂号-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==1"
+                             ng-click="goAppointRecord(item)" class="row qy_iconlist pad-b-10 list_height"
+                             kyee-operation-monitor-directive="goAppointRecordDetail">
+                            <div class="col col-80"
+                                 ng-class="{'pad-td-10':item.IS_REFERRAL != 2 || !item.REFERRAL_HOSPITAL_NAME ,'pad-td-5':item.IS_REFERRAL == 2 && item.REFERRAL_HOSPITAL_NAME}">
+                                <div ng-style="{'color':item.STATUS == 0 ? '#eb5412' :''}"
+                                     ng-class="{'pad-d-10':item.IS_REFERRAL != 2 || !item.REFERRAL_HOSPITAL_NAME}"
+                                     class="f14 text-ellipsis">
+                                    {{item.TEXT}}
+                                    <span class="f14" ng-if="item.STATUS_DESC">({{item.STATUS_DESC}})</span>
+                                </div>
+                                <!--<div class="row" style="width: 90%;">-->
+                                    <div  ng-if="item.IS_REFERRAL == 2 && item.REFERRAL_HOSPITAL_NAME">
+                                        <span style="display: block;" class="text-ellipsis hospital_name_length hos_color">{{item.REFERRAL_HOSPITAL_NAME}}</span>
+                                        <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                        <span class="text-ellipsis fl-r pad-r-10 hos_color doctor_name" >{{item.DOCTOR_NAME}}</span>
+                                    </div>
+                                    <i style="position: absolute;left: 57%;top: 36px; font-size: 20px; color: #5baa8a;" ng-if="item.IS_REFERRAL == 2 && item.REFERRAL_HOSPITAL_NAME" class="icon icon-referrals"></i>
+                                <!--</div>-->
+                                <span ng-if="item.IS_REFERRAL!=2 || !item.REFERRAL_HOSPITAL_NAME" class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span ng-if="item.IS_REFERRAL!=2 || !item.REFERRAL_HOSPITAL_NAME" class="text-ellipsis fl-r pad-r-10 hos_color doctor_name" >{{item.DOCTOR_NAME}}</span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i ng-style="{'color':item.STATUS == 0 ? '#eb5412' :'#8c8c8c'}"
+                                   class="icon ion-record dian_position"></i>
+                                <span ng-style="{'color':item.STATUS == 0 ? '#eb5412' :''}" class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--待缴费用-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==2" ng-click="goOutpatientNoPay(item)"
+                             class="row qy_iconlist pad-b-10 list_height"
+                             kyee-operation-monitor-directive="goOutpatientNoPay">
+                            <div class="col col-80 pad-td-10">
+                                <div style="color: #eb5412;" class="pad-d-10 f14">{{item.TEXT}}
+                                    <span class="fl-r pad-r-10 f12" kyee-i18n-directive code="waitPay" default="待缴费"></span>
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span style="color: #eb5412;" class="fl-r pad-r-10 ">¥{{item.AMOUNT}}</span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_red_position"></i>
+                                <span style="color: #eb5412;" class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--已缴费用-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==3" ng-click="goOutpatientPay(item)" class="row qy_iconlist pad-b-10 list_height"
+                             kyee-operation-monitor-directive="goOutpatientPay">
+                            <div class="col col-80 pad-td-10">
+                                <div class="pad-d-10 f14">{{item.TEXT}}
+                                    <span class="fl-r pad-r-10 f12" kyee-i18n-directive code="alreadyPay" default="已缴费"></span>
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span class="fl-r pad-r-10 qy-grey5">¥{{item.AMOUNT}}</span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_position"></i>
+                                <span class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--就诊卡充值-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==4" class="row qy_iconlist pad-b-10  list_height">
+                            <div class="col col-80 pad-td-10">
+                                <div class="pad-d-10 f14">{{item.TEXT}}
+                            <span class="fl-r pad-r-10 f12">
+                                <i kyee-i18n-directive code="patientCard" default="就诊卡："></i>{{item.PATIENT_CARD_NO}}
+                            </span>
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span class="fl-r pad-r-10 qy-grey5">¥{{item.AMOUNT}}</span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_position"></i>
+                                <span class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--每日清单-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==5" ng-click="goDayList()" class="row qy_iconlist pad-b-10  list_height"
+                             kyee-operation-monitor-directive="goDayList">
+                            <div class="col col-80 pad-td-10">
+                                <div class="pad-d-10 f14">{{item.TEXT}}
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                            <span class="fl-r pad-r-10 hos_color" kyee-i18n-directive code="hadBill"
+                                  default="账单已出"></span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_position"></i>
+                                <span class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--住院历史记录-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==6" ng-click="goHospitalHistoryRecord(item)"
+                             class="row qy_iconlist pad-b-10 list_height"
+                             kyee-operation-monitor-directive="goHospitalHistoryRecord">
+                            <div class="col col-80 pad-td-10">
+                                <div class="pad-d-10 f14">{{item.TEXT}}
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span class="fl-r pad-r-10 hos_color" kyee-i18n-directive code="hadBill" default="账单已出"></span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_position"></i>
+                                <span class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--住院预交金充值-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==7" ng-click="goHospitalAcceptPay()"
+                             class="row qy_iconlist pad-b-10  list_height"
+                             kyee-operation-monitor-directive="goHospitalAcceptPay">
+                            <div class="col col-80 pad-td-10">
+                                <div class="pad-d-10 f14">{{item.TEXT}}
+                            <span class="fl-r pad-r-10 f12">
+                                <i kyee-i18n-directive code="hospitalId" default="住院号："></i>{{item.INP_NO}}
+                            </span>
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span class="fl-r pad-r-10 hos_color">¥{{item.AMOUNT}}</span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_position"></i>
+                                <span class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--检查检验单-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==8" ng-click="report()" class="row qy_iconlist pad-b-10 list_height"
+                             kyee-operation-monitor-directive="report">
+                            <div class="col col-80 pad-td-10">
+                                <div class="pad-d-10 f14 text-ellipsis">{{item.TEXT}}
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span ng-if="item.HAVE_DETAIL == 1" class="fl-r pad-r-10 hos_color" kyee-i18n-directive code="hadResult" default="结果已出"></span>
+                                <span ng-if="item.HAVE_DETAIL == 0" class="fl-r pad-r-10 hos_color" kyee-i18n-directive code="notHadResult" default="结果未出"></span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_position"></i>
+                                <span class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--体检单-->
+                    <div ng-class="{'single_color':($index)%2 == 0,'double_color':($index)%2 !=0}">
+                        <div ng-if="item.TYPE ==9" ng-click="goPhysicalInfo(item)" class="row qy_iconlist pad-b-10 list_height"
+                             kyee-operation-monitor-directive="report">
+                            <div class="col col-80 pad-td-10">
+                                <div class="pad-d-10 f14">{{item.TEXT}}
+                                </div>
+                                <span class="text-ellipsis hospital_name_length hos_color">{{item.HOSPITAL_NAME}}</span>
+                                <span class="fl-r pad-r-10 hos_color" kyee-i18n-directive code="hadResult" default="结果已出"></span>
+                            </div>
+                            <div class="col col-20 date_position">
+                                <i class="icon ion-record dian_position"></i>
+                                <span class="f14 month_display">{{item.REG_DATE}}</span>
+                                <span class="hos_color">{{item.REG_DATE_YEAR}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ion-option-button class=" button" ng-class="item.DELETE_ABLE?'button-assertive':'qy-fff qy-bg-grey3'"
+                                       ng-click="deleteRecord(item,$index)" >
+                        <span class="del_span" kyee-i18n-directive code="delete" default="删除"></span>
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+        <!--</ion-scroll>-->
+        <div ng-if="allCloudData.length == 0" ng-style="{'height':divHeight+'px'}"  >
+            <div ng-if="allCloudData.length == 0" class="empty-text" ng-click="doRefresh()" kyee-operation-monitor-directive="goHospitalCheck" ng-style="{'padding-top':emptyPadTop+'px'}">
+                <!--<i class="icon icon-icon_3 empty-icon"></i>-->
+
+                <p class="pad-t-10" kyee-i18n-directive code="noHospitalRecord" default="暂无就医记录"></p>
+
+                <p kyee-i18n-directive code="refreshLastHospitalRecord" default="下拉刷新获取您最近的就医记录"></p>
+            </div>
+        </div>
+    </ion-content>
+    <div class="share_container_init tips_color tips_font tip_top" ng-class="share_container_class">
+
+        <i class="icon icon-cross fl-r mar-r-5 tip_position" ng-click="closeTip()" kyee-operation-monitor-directive="closeTip"></i>
+
+        <p ng-if="isHaveData ==1" class="pad-l-14 tips">
+            【{{hospitalName}}】<span kyee-i18n-directive code="successRefreshHospitalRecordEnd" default="就医记录已更新。没找到信息？"></span>
+            <a class="click_color_up qy-blue" ng-click="changeSetting()" kyee-operation-monitor-directive="changeSetting"  kyee-i18n-directive code="clickHere" default="点这里"></a>
+            <span kyee-i18n-directive code="checkAnotherHospitalRecord" default="试试。查看其它医院就医记录，"></span>
+            <a class="click_color qy-blue" ng-click="addHospital()" kyee-operation-monitor-directive="addHospital"  kyee-i18n-directive code="clickHere" default="点这里"></a>
+        </p>
+
+        <!--进入就医记录刷新云上数据，如用户选择的医院-->
+        <p ng-if="isHaveData ==2" class="f14 pad-l-14 tips">
+            【{{hospitalName}}】<span kyee-i18n-directive code="successRefreshHaveHospitalRecordEnd" default="就医记录已更新。查看其它医院就医记录，"></span>
+            <a class="click_color qy-blue" ng-click="addHospital()" kyee-operation-monitor-directive="addHospital" kyee-i18n-directive code="clickHere" default="点这里"></a>
+        </p>
+
+        <!--进入就医记录刷新云上数据或点刷新，如用户未选择的医院-->
+        <p ng-if="isHaveData ==3" class="pad-l-14 tips" >
+            <span kyee-i18n-directive code="successRefreshed" default="就医记录已刷新，查看其它医院就医记录，"></span>
+            <a class="click_color_up qy-blue click_position" ng-click="addHospital()" kyee-operation-monitor-directive="addHospital"  kyee-i18n-directive code="clickHere" default="点这里"></a>
+        </p>
+
+        <!--用户需要进行实名认证或者用户实名认证失败-->
+        <p ng-if="isHaveData ==4" class="pad-l-14 tips">
+            <span kyee-i18n-directive code="noAuthenticationTips" default="您还未完成实名认证，请"></span>
+            <a class="click_color_up qy-blue" ng-click="goAuthentication()" kyee-i18n-directive code="goAuthentication" default="实名认证"></a><span kyee-i18n-directive code="changeHospitalTips" default="。查看其它医院就医记录"></span>
+            <a class="click_color qy-blue" ng-click="addHospital()"  kyee-operation-monitor-directive="addHospital"  kyee-i18n-directive code="clickHere" default="点这里"></a>
+        </p>
+
+        <!--用户信息在实名认证审核中-->
+        <p ng-if="isHaveData ==5" class="pad-l-14 tips">
+            <span kyee-i18n-directive code="inAuthenticationTips" default="实名认证中，请稍后刷新查看就医记录。查看其它医院就医记录，"></span>
+            <a class="click_color qy-blue" ng-click="addHospital()" kyee-operation-monitor-directive="addHospital" kyee-i18n-directive code="clickHere" default="点这里"></a>
+        </p>
+    </div>
+</ion-view>

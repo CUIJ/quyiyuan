@@ -1,0 +1,77 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 杜巍巍
+* 创建日期:2015年9月28日16:13:30
+* 创建原因：就医记录住院业务首页
+* 任务号：KYEEAPPC-3438
+-->
+<ion-view class="qy_inpatient_business qy-bg-grey2" ng-style="{'top':deivce+'px'}">
+    <ion-content style="height: {{KyeeEnv.innerSize.height - deivce - 52}}px" has-bouncing="true" padding="false" class="has-subheader has-footer-home">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh()">
+        </ion-refresher>
+        <div class="qy-bg-white ovf-h">
+            <div ng-if="isShowHistroy" class=" pad-b-14 border-d qy-blue f14 mar-t-10 pad-d-10">
+                <i class="icon icon-hospitalized"></i>
+                <span  kyee-i18n-directive code="currentInPatient" default="当前住院信息"></span>
+            </div>
+            <ul ng-if="inPaymentData.PATIENT_ID != undefined" class="pad-td-10 mar-b-14" >
+                <li>
+                    <span kyee-i18n-directive code="inPatientNo" default="住院号："></span>
+                    {{inPaymentData.INP_NO}}
+                    <span ng-if="SHOW_INP" > / </span>
+                    <span ng-if="SHOW_INP" class="qy-green" ng-click="changeHospitalNo()"  kyee-i18n-directive code="changeInpatNo" default="切换住院号"></span>
+                    <span ng-if="SHOW_INP" class="qy-green" ng-click="changeHospitalNo()" > ></span>
+                </li>
+                <li class="hospital_dis">
+                    <h5 class="dis_inbl pad-r-10">{{inPaymentData.HOSPITAL_NAME}}</h5>
+                    <h5 class="dis_inbl pad-r-10">{{inPaymentData.DEPT_NAME}}</h5>
+                </li>
+                <li class="icon column_absolute qy-green ion-chevron-right pad-td-10 pad-b-10 " ng-click="goInpaitentDetail()"></li>
+                <li>
+                    <span kyee-i18n-directive code="patientName" default="患者姓名："></span>{{inPaymentData.PATIENT_NAME}}
+                    <span ng-if="inPaymentData.SEX">/</span>
+                    {{convertSex(inPaymentData.SEX)}}
+                    <span ng-if="inPaymentData.AGE">/</span>{{inPaymentData.AGE}}<span ng-if="inPaymentData.AGE" kyee-i18n-directive code="age" default="岁"></span>
+                </li>
+                <li>
+                    <span kyee-i18n-directive code="inpatientDate" default="入院时间："></span>{{convertDate(inPaymentData.INHOSPITAL_DATE)}}</li>
+                <li class="qy-green"><span kyee-i18n-directive code="currentCost" default="当前费用小结："></span>¥ {{convertMoney(inPaymentData.SHOULD_PAY_FEE)}}</li>
+                <li class="qy-green"><span kyee-i18n-directive code="lastcost" default="实际支付费用："></span>¥ {{convertMoney(inPaymentData.EXPENSE_FEE)}}</li>
+
+            </ul>
+            <ul ng-if="inPaymentData.PATIENT_ID == undefined && isShowHistroy" class="pad-td-10 pad-b-14 border-d">
+                <li>
+                    <div class="pad-r-10 font_position f12 " kyee-i18n-directive code="noInpatientRecord" default="您目前没有住院信息"></div>
+                    <a ng-if="SHOW_INP" class="pad-r-10  qy-blue" ng-click="goQueryView()" >
+                        <span kyee-i18n-directive code="inputInpatientNo" default="输入住院号查询住院信息"></span> >
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class=" qy-bg-white mar_t_14">
+            <div class="pad-b-14 border-td qy-blue pad-td-10 f14 my_history ">
+                <i class="icon icon-records"></i>
+                <span kyee-i18n-directive code="history" default="历史记录"></span>
+            </div>
+            <div class="row main_box pad-td-10 border-d">
+                <div class="col ta-c" ng-click="inpaitentPayment()">
+                    <img src="resource/images/icon/money.png">
+
+                    <p kyee-i18n-directive code="inpatientInfo" default="住院记录"></p>
+                </div>
+                <div class="col ta-c" ng-click="inpaitentReport()">
+                    <img src="resource/images/icon/analysis.png">
+
+                    <p kyee-i18n-directive code="inspeOrlaborat" default="检查检验单"></p>
+                </div>
+                <div class="col ta-c" ng-click="inpaitentSatisfication()">
+                    <img src="resource/images/icon/praise.png">
+
+                    <p kyee-i18n-directive code="satisfied" default="住院满意度"></p>
+                </div>
+            </div>
+        </div>
+        <div class="empty-text empty" ng-if="empty">{{emptyText}}</div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,32 @@
+<ion-view class="qy_bank_card">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="我的银行卡"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" ui-sref="editBankCardMsg"  kyee-i18n-directive code="addBtnText" default="添加"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false"   class="qy-bg-grey1">
+        <p class="pad-b-14 pad-t-10 " kyee-i18n-directive code="addCardApplication" default="添加的银行卡仅用于您的趣医账户余额提现">。</p>
+        <div class="box-container box_container_height box_position" ng-repeat="record in bankCardInfoList">
+            <i class="icon icon-credit-card left-content mar-l-10 card_icon"></i>
+            <div class="center-content mar-l-10 title_height" ng-click="onBankCardListTap(record)">
+                <span class="f14 qy-grey7 fw-b" >{{record.BANK_CARD_TYPE}}</span>
+                <p class="text-ellipsis card_no">{{record.BANK_CARD_TYPE_F}}</p>
+            </div>
+            <span class="icon right-icon-s delete_card" ng-click="doDeleteCard(record)" kyee-i18n-directive code="deleteBtnText" default="删除"></span>
+        </div>
+
+        <div class="box-container box_container_height box_position" ui-sref="editBankCardMsg">
+            <i class="icon ion-plus left-content mar-l-10 card_plus" style="color: #666666;"></i>
+            <div class="center-content mar-l-10 add_card">
+                <span class="f14 qy-grey7" kyee-i18n-directive code="addNewBtnText" default="添加新银行卡"></span>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

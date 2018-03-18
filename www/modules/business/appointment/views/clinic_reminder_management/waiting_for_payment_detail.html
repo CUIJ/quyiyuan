@@ -1,0 +1,77 @@
+<ion-view class="waiting_for_payment_detail">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backFromRushDetail()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>抢号详情</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a  class="button button-clear " ng-click="openRightMenu('waiting_for_payment_detail')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2 " delegate-handle="waiting_for_payment_detail">
+        <!--抢号基础信息-->
+        <ul class="list mar-t-10 border-td  qy-bg-white" style="margin-bottom: 10px !important;">
+            <li class="item pad_td20 mar-l-14 pad-r-14 border-d">
+                <div class="row f14 line-h30">
+                    <span class="fixed_width  qy-deepblue">医院：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.HOSPITAL_NAME}}</div>
+                </div>
+                <div class="row f14 line-h30">
+                    <span class="fixed_width  qy-deepblue" >科室：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.DEPT_NAME}}</div>
+                </div>
+                <div class="row f14 line-h30">
+                    <span class="fixed_width  qy-deepblue">医生：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.DOCTOR_NAME}}</div>
+                </div>
+                <div class="row f14 line-h30">
+                    <div class="qy-deepblue" style="width: 70px">预约时间：</div>
+                    <div class="col pad-d-10" style="margin-top: 6px; margin-left: 12px">
+                        <div class="clearfix">
+                            <span class="fl-l small_box qy-bg-orange qy-fff" ng-repeat="detailList in CLINIC_DATA.RUSH_DETAIL_LIST ">{{detailList.CLINIC_DATE}}<span class="mar-l-5" >{{detailList.CLINIC_DURATION}}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="item pad_td20 mar-b-14 ">
+                <div class="row f14 line-h30">
+                    <span class="fixed_width2  qy-deepblue">就诊人：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.PATIENT_NAME}}</div>
+                </div>
+                <div class="row f14 line-h30" ng-if="!isEmpty(CLINIC_DATA.CARD_NO)">
+                    <span class="fixed_width2  qy-deepblue">就诊卡：</span>
+                    <div class="col qy-grey7 text-ellipsis">{{CLINIC_DATA.CARD_NO}}</div>
+                </div>
+            </li>
+        </ul>
+        <!--抢号进度-->
+        <div class="qy-bg-white border-t">
+            <ul class="pad-t-15 pad-d-15">
+                <li class="item  mar-b-14 ">
+                    <div class="row f14 line-h30">
+                        <span class="qy-deepblue" style="margin-right: 14px">挂号费用：</span>
+                        <div class="col qy-grey7 text-ellipsis"><span>￥</span>{{CLINIC_DATA.ADVANCE_AMOUNT}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row f14 line-h30 position-r border-d qy-bg-white" ng-if="showPayment && CLINIC_DATA.STATUS != 6 && CLINIC_DATA.RUSH_PAY_STATUS == '0'">
+            <div class="position-a" style="width: 100%; height: 100%; background-color:#ff9900;opacity:0.1"></div>
+            <div style="color: #ff9900;">
+                <span class="pad-l-12">支付剩余时间：</span>
+                <span>请在</span><span ng-bind-html="CLINIC_DATA.payTime|kyee_to_html"></span><span>内完成支付</span>
+            </div>
+        </div>
+        <div ng-if="showPayment && CLINIC_DATA.STATUS != 6 && CLINIC_DATA.RUSH_PAY_STATUS == '0'" class="pad-b-14 qy-bg-grey2" ng-click="goToPay()">
+            <button class="button button-block button-size-l ">支付</button>
+        </div>
+        <div ng-if="!showPayment" class="pad-b-14 qy-bg-grey2">
+            <button class="button button-block button-color-grey button_size_l_grey ">支付</button>
+        </div>
+
+    </ion-content>
+
+</ion-view>
+<div kyee-compile-directive template="modules/business/appoint/views/delay_views/selected.html"></div>

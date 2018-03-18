@@ -1,0 +1,17 @@
+<ion-view class="qy_hospital">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="hospitalDetailsTitle" default="医院详情"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true" overflow-scroll="true" class="iframe-wrapper">
+
+        <iframe src='{{openUrl}}' data-tap-disabled="true">
+        </iframe>
+
+    </ion-content>
+
+</ion-view>

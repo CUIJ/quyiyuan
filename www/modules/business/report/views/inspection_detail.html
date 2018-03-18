@@ -1,0 +1,53 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: WangYuFei
+* 日期: 2015年5月8日16:33:03
+* 创建原因：KYEEAPPC-1957 报告单-检验单详情html
+* 修改时间：2015年8月21日14:12:58
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3097
+* 修改原因：报告单样式整改
+*/-->
+<ion-view title="检验单详情" class="qy_inspection_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <div class="titlebox pad-b-14 pad-td-10 qy-bg-white">
+            <h5>{{INSPECTION_DETAIL.ITEM_NAME}}检验报告单</h5>
+            <span class="qy-grey5">
+                {{getDate(INSPECTION_DETAIL.REQUESTED_DATE_TIME)}} 编号：{{INSPECTION_DETAIL.TEST_NO}}
+            </span>
+        </div>
+        <ul class="list" ng-style="{'display':displayPic==false?'block':'none'}">
+            <li class="item pad-b-14 pad-td-5 fw-b border-td qy-bg-grey1">
+                项目
+                <span class="fl-r">检验结果</span>
+            </li>
+            <li class="qy-bg-white" ng-repeat="inspectionDetail in INSPECTION_DETAIL_RESULT">
+                <div class="border-d pad-td-5 pad-b-14 wsp_in" ng-click="clickItem($index)">
+                    <span class="item_name">{{inspectionDetail.ITEM_NAME}}</span>
+                    <span class="{{HighOrLowColor(inspectionDetail.ABNORMAL_INDICATOR)}} ta-r w_39 fl-r">
+                        {{inspectionDetail.RESULT}}&nbsp;{{inspectionDetail.UNITS}}
+                         <span class="{{checkHighOrLow(inspectionDetail.ABNORMAL_INDICATOR)==-1?'ion-ios-arrow-thin-down':(checkHighOrLow(inspectionDetail.ABNORMAL_INDICATOR)==1?
+                            'ion-ios-arrow-thin-up':'ion-ios-minus-empty')}} pad_b_5">
+                         </span>
+                         <span ng-class="{'ion-arrow-up-b qy-grey6':isDisplay == $index,'ion-arrow-down-b qy-green':isDisplay != $index}">
+                         </span>
+                    </span>
+                </div>
+                <div class="border-d pad-td-5 pad-b-14 ta-r qy-grey5 qy-bg-grey1" ng-if="isDisplay == $index">
+                    正常参考值：{{inspectionDetail.REFERENCE_RANGE}}&nbsp;{{inspectionDetail.UNITS}}
+                </div>
+            </li>
+        </ul>
+        <ion-scroll ng-if="displayPic==true" zooming="true"  ng-style="{'height':(KyeeEnv.innerSize.height-97)+'px'}" direction="xy" class="w_100">
+            <img src="{{PHOTO_URL}}">
+        </ion-scroll>
+    </ion-content>
+</ion-view>

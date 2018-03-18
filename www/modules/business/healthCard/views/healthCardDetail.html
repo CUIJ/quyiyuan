@@ -1,0 +1,20 @@
+<ion-view class="price_jump">
+    <ion-content delegate-handle="mainScroll" style="padding-left: 14px;padding-right: 14px;"  scrollbar-y="false" has-bouncing="true">
+        <div>
+            <div style="padding-top: 12px" class="text-ellipsis b_align pad-d-10 ta-c pad-t-10">
+                <span class="f14">余额明细</span>
+            </div>
+            <div style="padding-top: 14px" class="p_t_8">
+                <div class="">
+                <span>通用余额:</span>
+                <span  class="left_position  text-ellipsis">{{data.platformBalance}}元</span><br>
+                </div>
+
+                <div class="" ng-repeat="detail in data.details">
+                    <span>{{detail.name}}可用余额:</span>
+                    <span  class="left_position">{{detail.balance}}元</span><br>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,30 @@
+<ion-view class="qy_select_appoint_date">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="selectAppointDateTitle" default="选择预约时间"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+
+        <div class="f14 mar-b-14 select_header">
+            <div ng-if="curCursor > 0" class="pre_month">
+                <i class="icon ion-arrow-left-b"></i>
+                <p kyee-operation-monitor-directive="changeDateMonth" ng-click="changeDateMonth(-1)" class="appoint-left-date" kyee-i18n-directive code="monthAgo" default="上一月"></p>
+            </div>
+            <span>{{DateMoth}}</span>
+            <div ng-if="curCursor <= 0" class="next_month">
+                <p kyee-operation-monitor-directive="changeDateMonth" ng-click="changeDateMonth(1)" class="appoint-right-date" kyee-i18n-directive code="nextMonth" default="下一月"></p>
+                <i class="icon ion-arrow-right-b"></i>
+            </div>
+        </div>
+        <div kyee-calendar-directive
+             mark="mark"
+             item-click="itemClick(params)"
+             bind="bind(params)"></div>
+
+    </ion-content>
+
+</ion-view>

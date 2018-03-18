@@ -1,0 +1,28 @@
+<!--症状列表-->
+<ion-view  class="auxiliary-symptom-list-main" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="伴随症状"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('auxiliarySymptomList')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="auxiliary-symptom-list-container" padding="false" has-bouncing="true" scrollbar-y="false">
+        <ul class="auxiliary-symptom-list">
+            <li style="line-height: 29px;margin-left: 14px;padding-left: 0px;" class="auxiliary-symptom-list-item  item border-d" ng-repeat="auxiliarySymptom in auxiliarySymptomList"
+                kyee-operation-monitor-directive="check"
+                ng-click="check($index,auxiliarySymptom.symptomCode,auxiliarySymptom.symptomName)">
+                <div ng-class="{'icon-checkmark green': isChecked[$index],'icon-checkmark2': !isChecked[$index]}" style="font-size:20px;line-height: 29px;"></div>
+                <div class="symptom-item-content">{{auxiliarySymptom.symptomName}}</div>
+            </li>
+        </ul>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button kyee-operation-monitor-directive="nextStep" class="button button-block button-size-l" ng-click="KAH($event) || nextStep()" kyee-i18n-directive code="next" default="下一步"></button>
+    </div>
+</ion-view>
+<!--症状列表-->

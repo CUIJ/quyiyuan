@@ -1,0 +1,65 @@
+<ion-view class="qy_patients_group_message" >
+
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="messageCenterTitle" default="消息中心"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" delegate-handle="message_list">
+
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       class="qy-refresh-icon" refreshing-text="{{$root.lang.refreshingText}}"
+                       on-refresh="doRefresh(false)">
+        </ion-refresher>
+        <div class="qy-bg-white pad-l-14 mar-t-10" ng-class="{'border-td':messages.length > 0}">
+            <ion-list>
+                <ion-item ng-repeat="message in messages" class="msg_item border-b">
+                    <span ng-if="message.READ_FLAG == 0" class="msg_flag fl-l"></span>
+                    <div class="pad-r-14" ng-click="messageClick($index)">
+                        <div class="line30">
+                            <img ng-if="message.MESSAGE_SOURCE==1 && message.MESSAGE_TYPE==14"
+                                 src="resource/images/patients_group/logo.png" class="logo_img fl-l"/>
+                            <span class="f14 fl-l">{{message.MESSAGE_TITLE}}</span>
+                            <span class="date fl-r f12 color_9">{{message.CREATE_DATE}}</span>
+                        </div>
+
+                        <p class="color_9" ng-bind-html="message.MESSAGE_DESCRIPTION|kyee_to_html">
+                            {{message.MESSAGE_DESCRIPTION}}
+                        </p>
+
+                        <a ng-if="message.URL_FLAG == 1" kyee-i18n-directive  class="qy-blue line20">
+                            {{message.ULR_TEXT}}>
+                        </a>
+                    </div>
+                    <ion-option-button style="border-color: #ccc;background-color: #ccc;" class="button-positive"
+                                       ng-click="changeStatus($index)" ng-if="message.READ_FLAG == 0">
+                        {{message.READ_FLAG == 0?setRead.name:setNoRead.name}}
+                    </ion-option-button>
+                    <ion-option-button class="button-info bg-color-red"
+                                       ng-click="delete($index)" ng-hide="message.hideDelete">
+                        <span kyee-i18n-directive code="deleteMessages" default="删除" class="qy-fff"></span>
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+
+        <!--无数据提示信息 start-->
+        <div ng-if="showEmpty" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyMsg" default="暂无消息">{{emptyText}}</span>
+        </div>
+        <!--无数据提示信息 end-->
+
+        <ion-infinite-scroll
+                ng-if="moreDataCanBeLoadedFlag"
+                immediate-check="false"
+                icon="ion-loading-c"
+                on-infinite="loadNextPage()">
+        </ion-infinite-scroll>
+
+    </ion-content>
+
+</ion-view>

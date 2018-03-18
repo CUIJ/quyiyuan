@@ -1,0 +1,106 @@
+<ion-view  class="dept_patient_relation" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-show="!(userAddType=='register_user'&&count==1)"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>录入患者信息</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" class="qy-bg-grey2">
+
+        <div class="qy-bg-white">
+            <div ng-if="count==1" class="item-input item_padding_0">
+                <span class="f14 fixed_width1 item-color">姓名：</span>
+                <input type="text" class="phone_input"
+                       ng-model="patientInfo.patientName"
+                       placeholder="请输入您的真实姓名">
+            </div>
+            <div ng-if="count==1&&deptType==0" class="item-input item_padding_0">
+                <span class="f14 fixed_width1 item-color">住院号：</span>
+                <input type="text" class="phone_input"
+                       ng-model="patientInfo.hospitalizationNo"
+                       placeholder="请输入您的住院号">
+            </div>
+            <div ng-if="count==1&&deptType==1" class="item-input item_padding_0">
+                <span class="f14 fixed_width1 item-color">门诊号：</span>
+                <input type="text" class="phone_input"
+                       ng-model="patientInfo.clinicNo"
+                       placeholder="请输入您的门诊号">
+            </div>
+            <div ng-if="count==2" class="item-input item_padding_0">
+                <span class="f14 fixed_width1 item-color">身份证号：</span>
+                <input type="text" class="phone_input"
+                       ng-model="patientInfo.idNoView"
+                       ng-change="idNoChangeSex(patientInfo.idNoView)"
+                       placeholder="请输入您的身份证号">
+            </div>
+            <div ng-if="count==2&&patientInfo.isChild==1" class="item-input item_padding_0">
+                <span class="f14 fixed_width1 item-color">出生日期：</span>
+                <div  ng-click="selectChildAge()" class="select_child_age" ng-disabled="patientInfo.idNoView">
+                    <span ng-class="textColor" class="zx_font_size">{{autoBirthday()}}</span>
+                    <i class="icon-calendar qy-green select_child_age_icon" ng-disabled="patientInfo.idNoView"></i>
+                </div>
+            </div>
+            <div ng-if="count==2" class="item-input item_padding_0">
+                <span class="f14 fixed_width1 item-color">手机号码：</span>
+                <input type="text" class="phone_input"
+                       ng-model="patientInfo.phoneNumber"
+                       ng-readonly="patientInfo.phoneNumberReadonly"
+                       ng-change="checkEmptyPhoneNumber(patientInfo.phoneNumber)"
+                       placeholder="请输入您的手机号码">
+            </div>
+            <div ng-if="count==2&&patientInfo.isNeedMessageCode" class="item-input item_padding_0 position_r"
+                 ng-class="{ 'border_none':isNeedAutoRegister=='1'}">
+                <span  class="f14 fixed_width1 item-color">验证码：</span>
+                <input type="text" style="padding-right: 94px;" ng-model="patientInfo.msgCode" placeholder="请输入验证码">
+                <button ng-disabled="!patientInfo.isNeedMessageCode" ng-click="getMsgCode()" class="button msg_button qy-grey6 qy-bg-grey3">
+                    {{msgText}}
+                </button>
+            </div>
+            <div ng-if="count==2&&patientInfo.isChild==1" class="item item-input-inset item-input button-bar child-top pad-l-14" style=" border-bottom: 1px solid white;">
+                <span class="input-label  child-centre zx_font_size"
+                      kyee-i18n-directive code="all:add_patient_info.sex" default="性别："></span>
+                <label class="item item-radio child-lower">
+                    <input  type="radio" name="group" ng-click="selectMen(); " ng-disabled="patientInfo.sexBox||patientInfo.idNoView">
+                    <div class="yes-or-no zx_font_size">
+                        <i ng-class="{'icon-radiobox_1 qy-green':patientInfo.sexView==1,'icon-radiobox_2':patientInfo.sexView!=1}"></i>
+                        <div class="zx_font_size zx_padding_left" kyee-i18n-directive code="all:add_patient_info.man" default="男"></div>
+                    </div>
+                </label>
+                <label class="item item-radio zx_font_size zx_border_background" >
+                    <input type="radio" name="group" ng-click="selectWomen();" ng-disabled="patientInfo.sexBox||patientInfo.idNoView">
+                    <div class="yes-or-no zx_font_size">
+                        <i ng-class="{'icon-radiobox_1 qy-green':patientInfo.sexView==2,'icon-radiobox_2':patientInfo.sexView!=2}"></i>
+
+                        <div class="zx_font_size zx_padding_left" kyee-i18n-directive code="all:add_patient_info.woman" default="女"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div ng-if="count==2" style="font-size: 12px ;color: gray ; padding-top: 10px;padding-left: 14px;padding-right:14px;">
+            <div class="zx_font_size">
+                <i style="font-size:18px" ng-click="isSelectChild()" ng-class="{'ion-android-checkbox-outline qy-green':patientInfo.isChild==1,'ion-android-checkbox-outline-blank':patientInfo.isChild!=1}"> </i>
+                <span style="color: #999999;padding-left: 2px"  >
+                    <span style="font-size: 14px;"  kyee-i18n-directive code="all:add_patient_info.child"  ng-click="isSelectChild()" default="儿童:" ></span>
+                    <span style="font-size: 14px;" kyee-i18n-directive code="all:add_patient_info.childTeail"  default="儿童身份证信息可以在户口本中查看获得，如果没有身份证，可为空"></span>
+                </span>
+            </div>
+        </div>
+        <div ng-if="count==1&&userAddType=='register_user'" class="qy-orange pad-b-14 row message_div">
+            <i class="icon-icon_1 f14 message_i"></i>
+            <span class="f12 ">趣医会自动为您注册账号，账号为您就诊预留的手机号，密码为手机号后6位。</span>
+        </div>
+        <div ng-if="count==2&&userAddType=='register_user'" class="qy-orange pad-b-14 row message_div">
+            <i class="icon-icon_1 f14 message_i"></i>
+            <span class="f12 ">为了确保您信息的准确，请进行信息完善。趣医会自动为您注册账号，账号为您的手机号，密码为手机号后6位。</span>
+        </div>
+        </div>
+        <div class="pad-b-14" ng-click="submitPatientData(count)">
+            <button class="button button-block button-size-l">
+                <span>提交</span>
+            </button>
+        </div>
+    </ion-content>
+    <div kyee-date-picker-directive year-range="{{yearRange}}" bind="bind(params)"
+         on-select-finash="onFinash(params)"></div>
+</ion-view>

@@ -1,0 +1,161 @@
+<ion-view title="视频问诊" class="qy_video_interrogation" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backToDoctorInfo()"></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('appointment_doctor_detail')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="false" padding="false" class="qy-bg-grey2  " ng-class="{'has-footer':!HAS_REG_ID}" delegate-handle="video_inteerogation_content" >
+        <div class="pad-b-14 ta-c circle_div" ng-style="{'width':KyeeEnv.innerSize.width+'px'}" ng-if="requestBack||!HAS_REG_ID">
+            <span class="circle_span"></span>
+        </div>
+        <div class="pad-t-10 qy-bg-white" kyee-compile-directive template="modules\business\consultation\views\template\consultation_status.html" ng-if="requestBack||!HAS_REG_ID" delay="0"></div>
+        <div  ng-if="!HAS_REG_ID||(HAS_REG_ID&&requestBack)">
+            <!--正文内容-->
+            <div class="card_cash pad-td-10 pad-b-14" ng-if="PROCESS_FLAG=='-1'&&!HAS_REG_ID&&NET_HOS_QUERY_CARD_CASH">
+                <span>温馨提示：问诊完成之后，相关费用将通过您在本院的就诊卡自动支付。</span>
+            </div>
+            <div class="qy-bg-white mar-d-10 border-d" ng-if="HAS_REG_ID">
+                <div class="pad-b-14 ta-c pad_div_24" ng-if="detailData.BUSINESS_STATUS_DESC">
+                    <i ng-if="iconColor=='2'"class="icon-status-fail img_size_80 qy-red"></i>
+                    <i ng-if="iconColor=='1'"class="icon-status-success img_size_80 qy-green"></i>
+                    <i ng-if="iconColor=='0'"class="icon-status-wait img_size_80 qy-green"></i>
+                    <div class="line_height_28 mar-t-15" ng-class="{'pad-d-20':(detailData.APPOINT_TYPE=='3'||detailData.APPOINT_TYPE=='4'||detailData.REGIST_TYPE=='4'||detailData.REGIST_TYPE=='5')}">{{detailData.BUSINESS_STATUS_DESC}}</div>
+                </div>
+                <div class="pad-b-14 pad_div_18" ng-if="detailData.PROMPT_MESSAGE||detailData.TIPS_MESSAGE">
+                    <div class=" line_height_28" ng-if="detailData.PROMPT_MESSAGE">{{detailData.PROMPT_MESSAGE}}</div>
+                    <div class="qy-orange line_height_28" ng-class="{'pad_div_message':detailData.PROMPT_MESSAGE}" ng-if="detailData.TIPS_MESSAGE">{{detailData.TIPS_MESSAGE}}</div>
+                </div>
+                <div class="row" ng-if="detailData.SUGGEST_FLAG||detailData.REFRESH_FALG||(detailData.CANCEL_FLAG&&detailData.CANCEL_ACTION=='0')||detailData.COMMENT_FLAG">
+                    <div class="col pad-b-14 "ng-if="detailData.SUGGEST_FLAG" ng-click="gofeedback()">
+                        <button class="button button_margin button-block button-size-l" ng-class="{true:'button-color-green'}[detailData.COMMENT_FLAG]">意见反馈</button>
+                    </div>
+                    <div  class="col pad-b-14  " ng-if="detailData.REFRESH_FALG" ng-click="initAppointDetail()">
+                        <button class="button button_margin button-block button-size-l">刷新</button>
+                    </div>
+                    <div class="col pad-b-14 " ng-if="detailData.CANCEL_FLAG&&detailData.CANCEL_ACTION=='0'" ng-click="toCancelClinic(detailData)">
+                        <button class="button button_margin button-block button-size-l">取消问诊</button>
+                    </div>
+                    <div class="col pad-b-14 " ng-if="detailData.COMMENT_FLAG" ng-click="goToComment(detailData)">
+                        <button class="button button_margin button-block button-size-l">{{detailData.COMMENT_BUTTON_NAME}}</button><!--评价医生-->
+                    </div>
+                </div>
+            </div>
+            <!--医院信息部分-->
+            <div class="qy-bg-white" ng-class="{'border-t':HAS_REG_ID}">
+                <div class="row pad-b-14 line_height_50">
+                    <div class="hosp_label_figure top_position" >
+                        <img class="hosp_img" width="32px" height="32px"
+                             ng-src="{{LOGO_PHOTO?LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                             onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                    </div>
+                    <div class="hosp_label_figcation col">
+                        <span class="f14">{{hospitalName}}</span>
+                        <span class="f12">{{deptData.DEPT_NAME}}</span>
+                    </div>
+                </div>
+                <div class="row border-td mar_14_import">
+                    <div  class="doctor_img_div">
+                        <img  ng-if="DOCTOR_SEX==1" class="doctor_img" ng-src="{{DOCTOR_PIC_PATH?DOCTOR_PIC_PATH:'resource/images/base/head_default_female.jpg'}}
+                     "onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+                        <img ng-if="!(DOCTOR_SEX==1)"class="doctor_img" ng-src="{{DOCTOR_PIC_PATH?DOCTOR_PIC_PATH:'resource/images/base/head_default_man.jpg'}}
+                     "onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+                    </div>
+                    <div class="col pad-t-10 pad-d-10"ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}" ng-class="{'border_top_none':$index==0}">
+                        <div ng-style="{'width':KyeeEnv.innerSize.width-112+'px'}" class="text-ellipsis pad-r-5 pad-td-15 qy-grey7">
+                            <span class="f16 qy-grey7">{{doctorName}} </span>
+                            <span class="qy-blue">{{doctorTitle}}</span>
+                        </div>
+                        <div class="doc_text pad-r-10 f12 qy-grey5">
+                            <span>挂号费用：</span>
+                            <span>{{appointAmount}}</span>
+                        </div>
+                        <div class=" text-ellipsis f12 qy-grey5">
+                            <span>就诊日期：</span>
+                            <span>{{clinicDate}}</span>
+                            <span ng-if="!HAS_REG_ID">{{clinicDuration}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+           <!-- 就诊人信息-->
+            <div class="user_vs_inf">
+                <div class="item item-input div_padding_0 item-icon-right border_top_none">
+                    <span class="f14 user_vs_inf_li qy-deepblue">就诊人：</span>
+                    <span class="f14 text-ellipsis pad-r-14">{{petientName}}</span>
+                    <div class="card_sel f14 qy-grey5" ng-click="changePatient()" ng-if="HAS_REG_ID == false">
+                        <span>切换</span>
+                        <i class="ico ion-chevron-right qy-grey5"></i>
+                    </div>
+                </div>
+                <div ng-show="!showCardNo&&!HAS_REG_ID" class="item item-input choose_card item-icon-right div_padding_0">
+                    <span class="f14 user_vs_inf_li qy-deepblue">就诊卡：</span>
+                    <input ng-readonly="trueOrfalse()" ng-class="{'canWrite':!trueOrfalse()}" type="text" ng-model="patientInf.CARD_SHOW"
+                           placeholder="{{placeholder}}" autocomplete="off" ng-change="inputCardNo()" class="pad-r-5">
+                    <i class="icon icon-icon_3 qy-green mar_r_0" ng-click="showChardNoInf()"></i>
+                    <div class="card_sel f14 qy-grey5" ng-click="showpatientCardNo()">
+                        <span>选择</span>
+                        <i class="ico ion-chevron-right "></i>
+                    </div>
+                </div>
+                <ul class="user_vs_inf_ul " ng-if="HAS_REG_ID">
+                    <li class="user_vs_inf_li qy-deepblue">就诊卡：</li>
+                    <li class="text-ellipsis pad-r-14" >{{CARD_NO_SHOW}}</li>
+                </ul>
+                <ul class="user_vs_inf_ul " ng-class="{'bottom_ul_no_border':!HAS_REG_ID}">
+                    <li class="user_vs_inf_li qy-deepblue">身份证：</li>
+                    <li class="text-ellipsis pad-r-14" ng-class="{'qy-grey5 ':!HAS_REG_ID}">{{ID_NO_STAR}}</li>
+                </ul>
+                <div class="row pad-td-15 bottom_ul_no_border line_flex" ng-if="HAS_REG_ID&&notEmpty(ADDRESS_SHOW)">
+                    <div class="user_vs_inf_li qy-deepblue">配送信息：</div>
+                    <div class="f14" ng-style="{width: (KyeeEnv.innerSize.width-28-70)+'px'}">
+                        <div class="pad-d-5">
+                            <span class="pad-r-5">{{detailData.DRUG_DELIVERY_INFO.NAME}}</span>
+                            <span>{{detailData.DRUG_DELIVERY_INFO.PHONE}}</span>
+                        </div>
+                        <div>{{ADDRESS_SHOW}}</div>
+                    </div>
+                </div>
+            </div>
+            <!--收货地址部分-->
+            <div class="notice_div"ng-if="!HAS_REG_ID&&isAdressPromoteShow()"  ng-click="choseNeedAddress(needAddress)">
+                <i class="notice_icon icon-choose" ng-class="{'qy-grey5':!needAddress,'qy-green':needAddress}"></i>
+                <span class="address_notice_span">如果产生药品订单，需要进行配送</span>
+            </div>
+            <div class="qy-bg-white div_relative"  ng-if="!HAS_REG_ID&&isAdressPromoteShow()&&isAddressShow()&&needAddress">
+                <div class="f16 qy-grey7 pad-l-14 pad_top_address"ng-style="{width: (KyeeEnv.innerSize.width-90)+'px'}">
+                    <span class="receive_patient_name">{{Clientinfo.ADDRESS_NAME}}</span>
+                    <span class="mar-l-10">{{Clientinfo.ADDRESS_PHONE_NUMBER}}</span>
+                </div>
+                <div class="pad-d-5 qy-grey5 pad-l-14 pad_bottom_address line_flex">
+                    <i class="icon-location font_i"></i>
+                    <span class="receive_address_span"ng-style="{width: (KyeeEnv.innerSize.width-110)+'px'}">{{Clientinfo.ADDRESS_DETAIL}}</span>
+                </div>
+                <div class="receive_address_i pad-l-14" ng-click="toAddAddress()">
+                    <span>切换</span>
+                    <i class="ion-chevron-right " ></i>
+                </div>
+                <div ng-if="!HAS_REG_ID&&isAdressPromoteShow()&&DISTRIBUTION_SCOPE_SWITCH&&isAddressShow()&&!IS_IN_DISTRIBUTION_RANGE" class="distribution_p mar-b-14">
+                    <span class="qy-orange">
+                        该地址不在配送范围，
+                    </span>
+                    <span ng-click="toSendAddress()" class="qy-blue">请查看配送范围</span>
+                </div>
+                <div class="backgrund_repeat"></div>
+            </div>
+            <div class="no_adress_div qy-bg-white"  ng-if="!HAS_REG_ID&&isAdressPromoteShow()&&!isAddressShow()&&needAddress" ng-click="toAddAddress()">
+                <span class="no_adress_span">您还没有收货地址，请<a class="qy-blue">选择收货地址</a></span>
+            </div>
+            <div class="backgrund_repeat"ng-if="!HAS_REG_ID&&isAdressPromoteShow()&&!isAddressShow()&&needAddress"></div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey1"ng-if="!HAS_REG_ID" ng-click="toAppoint()">
+        <button kyee-action-holder-directive="isAppoint" class="button button-block button-size-l"><!--disabled="false"-->
+            <span>确认预约</span>
+        </button>
+    </div>
+</ion-view>
+<div kyee-compile-directive template="modules/business/regist/views/delay_views/selected.html"></div>

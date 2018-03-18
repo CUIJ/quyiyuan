@@ -1,0 +1,119 @@
+.qy_coupons{
+  .money_box {
+    overflow: hidden;
+    margin: 20px 14px;
+    border-radius: 2px;
+    background-color: #fff;
+    border:1px solid #ddd;
+    background-color: #fff;
+    height:80px;
+    position:relative
+  }
+  .money {
+    float:left;
+    font-size: 30px;
+    margin-top:28px;
+    margin-right:5px;
+  }
+  .money_box .money_content {
+    float:left;
+    margin-top:20px;
+  }
+  .money_tips {
+    position:absolute;
+    font-size:20px;
+    color:#264557;
+    right:10px;
+    top:50%;
+    margin-top:-10px;
+    z-index:999;
+  }
+
+  .box-container .center-content{
+    width: 71%;
+    margin-left: 10px;
+  }
+  .b10_green {
+    border-left:10px solid #5baa8a;
+  }
+
+  .icon_rule{
+    line-height: 37px;
+    margin-left: 10px;
+  }
+
+  .clear_both{
+    clear: both
+  }
+  .submit_btn{
+    width: initial;
+  }
+  .empty_height{
+    padding-top: 30%;
+  }
+  .queue_opacity{
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .qy_coupons .left-content {
+    font-size: 26px;
+    letter-spacing: -2px;
+    margin-left: -2px;
+  }
+}
+
+.qy_coupons_records{
+  .border_l_color{
+    border-left: 1px solid  #f8bb3c;
+    margin: 10px 7px 10px 0px;
+  }
+  .border_l_grey{
+    border-left: 1px solid  #e7e7e7;
+    margin: 10px 7px 10px 0px;
+  }
+  h5{
+    margin-top: 0;
+  }
+  p{
+    margin: 0;
+  }
+  .wave{
+    width: 100%;
+    background-image: url('../../resource/images/myWallet/circle.png');
+    background-repeat: repeat-x;
+    background-size: 6px;
+    height: 6px;
+    position: absolute;
+    bottom: 28px;
+  }
+  .coupon_item{
+    position: relative;
+    .border_b{
+      border-left: 1px solid #e7e7e7;
+      border-right: 1px solid #e7e7e7;
+    }
+    .coupon_main{
+      display: table;
+      width: 100%;
+      .coupon_form{
+        display: table-cell;
+      }
+      .amount{
+        display: table-cell;
+        vertical-align: middle;
+        width: 90px;
+        .amount_value{
+          font-size: 35px;
+        }
+      }
+    }
+  }
+  .foot_bar{
+    line-height: 30px;
+    .detail_btn{
+      text-decoration: underline;
+    }
+  }
+}

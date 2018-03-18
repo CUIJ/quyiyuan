@@ -1,0 +1,64 @@
+<ion-modal-view class="qy_choose_at_members" id="choose_at_member" ng-controller="ChooseAtMembersController">
+    <ion-header-bar align-title="center" class="message_header qy-bg-white border-b">
+        <a ng-click="removePage()" class="button back-button buttons button-clear header-item">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+        <h2 class="title" kyee-i18n-directive  code="chooseMembers" default="选择提醒的人"></h2>
+    </ion-header-bar>
+
+    <ion-content class="has-header qy-bg-grey2" has-bouncing="true" padding="false" scrollbar-y="false" scroll="false">
+        <!--搜索框-->
+        <div class="mar-td-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="search_container position-r">
+                <input type="text" placeholder="搜索" class="text-ellipsis" ng-model="searchObj.searchKey" ng-change="repeatFinash()"/>
+                <i class="position-a icon-icon_6 f14 clear_close qy-grey4" ng-if="searchObj.searchKey.length>0"
+                   ng-click="clearInput()"></i>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 0px;margin: 0px;">
+            <ion-scroll delegate-handle="choose_member_list" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" style="width: 100%;" ng-style="{height: (KyeeEnv.innerSize.height - 100)+'px'}">
+                <!--医生成员列表 start-->
+                <ul class="qy-bg-white border-td pad-l-14" ng-if="doctorList.length>0">
+                    <li class="line50 border-b f14 pad-r-14 position-r" ng-repeat="doctor in doctorList | filter:{'doctorName': searchObj.searchKey}"
+                        ng-click="chooseMember(doctor)" ng-init="$last ? repeatFinash() : angular.noop()">
+                        <img class="user_icon fl-l" ng-if="doctor.user.gender == 2"
+                             ng-src="{{doctor.user.icon ? doctor.user.icon : 'resource/images/patients_group/doctor_female.png'}}"
+                             onerror="javascript:this.src='resource/images/patients_group/doctor_female.png'">
+                        <img class="user_icon fl-l" ng-if="doctor.user.gender != 2"
+                             ng-src="{{doctor.user.icon ? doctor.user.icon : 'resource/images/patients_group/doctor_male.png'}}"
+                             onerror="javascript:this.src='resource/images/patients_group/doctor_male.png'">
+                        <i class="icon icon-doctor-label position-a color-red qy-bg-white f12 doctor_mark"></i>
+                        <div class="item_info line50 mar-b-14 fl-l max-w60 text-ellipsis">
+                            <span>{{doctor.doctorName}}</span>
+                        </div>
+                    </li>
+                </ul>
+                <!--医生成员列表 end-->
+                <!--患者成员列表 start-->
+                <ul class="qy-bg-white border-td pad-l-14" ng-if="patientList.length > 0">
+                    <li class="line50 border-b f14 pad-r-14 position-r" ng-repeat="member in patientList | filter:{'patientName': searchObj.searchKey}"
+                        ng-click="chooseMember(member)" ng-init="$last ? repeatFinash() : angular.noop()">
+                        <img class="user_icon fl-l" ng-if="member.user.gender == 2"
+                             ng-src="{{member.user.icon ? member.user.icon : 'resource/images/patients_group/user_female.png'}}"
+                             onerror="javascript:this.src='resource/images/patients_group/user_female.png'">
+                        <img class="user_icon fl-l" ng-if="member.user.gender != 2"
+                             ng-src="{{member.user.icon ? member.user.icon : 'resource/images/patients_group/user_male.png'}}"
+                             onerror="javascript:this.src='resource/images/patients_group/user_male.png'">
+                        <div class="item_info line50 mar-b-14 fl-l max-w60 text-ellipsis">
+                            <span>{{member.patientName}}</span>
+                        </div>
+
+                    </li>
+                </ul>
+                <!--患者成员列表 end-->
+                <div ng-if="doctorList.length<1 && patientList.length<1" class="empty-text" >
+                    <i class="icon-icon_3 empty-icon"></i>
+                    <span kyee-i18n-directive  code="emptyDept" default="没有可选择提醒的群成员哦～"></span>
+                </div>
+                <!--无数据提示信息 end-->
+            </ion-scroll>
+        </div>
+
+    </ion-content>
+</ion-modal-view>

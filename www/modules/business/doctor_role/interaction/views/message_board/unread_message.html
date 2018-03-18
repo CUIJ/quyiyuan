@@ -1,0 +1,22 @@
+<ion-view class="qy_doctor_message_board">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="unreadMessagesTittle" default="未读留言"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true">
+
+        <div ng-repeat="unread in unreadList" ng-click="itemClick(unread)" class="border-d">
+            <div class="row">
+                <div class="col f16">{{unread.name}}：</div>
+                <div class="col tl_e">{{unread.time}}</div>
+            </div>
+            <div class="row unread_text">
+                {{unread.text}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

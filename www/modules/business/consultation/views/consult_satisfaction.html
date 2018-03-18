@@ -1,0 +1,41 @@
+<ion-view class="consult_satisfaction" cache-view="false" >
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{consultTypeName}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-grey2 f14 has_footer" scrollbar-y="false">
+        <!--头部状态栏-->
+        <div kyee-compile-directive template="modules\business\consultation\views\template\consultation_status.html" delay="0" class="border-d"></div>
+        <!--订单信息-->
+        <ul class="mar-t-10 pad-l-14 border-td qy-bg-white f14 order_info">
+            <li>订单信息:<span>{{displayOrderDetail.consultName}}</span></li>
+            <li class="border-t text-ellipsis">医生姓名:<span>{{displayOrderDetail.doctorName}}</span></li>
+            <li class="border-t">订单费用:<span>{{displayOrderDetail.payAmount}}</span></li>
+        </ul>
+        <!--评价信息-->
+        <div class="mar-t-10 qy-bg-white f14 border-td">
+            <div class="line_50 pad-l-14 border-d">评价医生</div>
+            <ul class="mar-l-14 pad_td_16 border-d">
+                <li class="flex line_22 satisfy_item" ng-repeat="item in items" ng-style="{'margin-top':$first?'0px':'16px'}">
+                    <span>{{item.ITEM_VALUE?item.ITEM_VALUE:item.ITEM_NAME}}</span>
+                    <i class="mar-l-16 " ng-click="clickStar($index,1)" ng-class="item.SCORE_VALUE>=1?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-click="clickStar($index,2)" ng-class="item.SCORE_VALUE>=2?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-click="clickStar($index,3)" ng-class="item.SCORE_VALUE>=3?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-click="clickStar($index,4)" ng-class="item.SCORE_VALUE>=4?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-click="clickStar($index,5)" ng-class="item.SCORE_VALUE>=5?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                </li>
+            </ul>
+            <textarea id="doctorSuggest" maxlength="200" placeholder="说说您的问诊体验吧，对其他患者也有帮助哦！" ng-model="displayOrderDetail.suggestValue"
+                      class="text_area mar-t-16 pad-b-14"></textarea>
+        </div>
+        <div class="mar-td-10 pad-l-14 f12 qy-orange flex ">
+            <i class="icon icon-icon_4 f14"></i>
+            <span class="pad-l-5">如有未评价项，则默认五星提交</span>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button class="button button-block button-size-l" ng-click="submit()">提交评价</button>
+    </div>
+</ion-view>

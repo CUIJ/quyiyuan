@@ -1,0 +1,26 @@
+<ion-view class="qy_group_announcement">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title >
+            <div class="f18 text-ellipsis" kyee-i18n-directive code="historyAnnouncement" default="历史公告"></div>
+        </ion-nav-title>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <ul class="pad-td-10">
+            <li class="mar-d-10 qy-bg-white pad-l-14 border-td" ng-if="0 < announcementList.length" ng-repeat="item in announcementList track by $index">
+                <div class="f16 pad-t-14 color_3 pad-r-14 mar-d-5 text-ellipsis">{{item.createTime}}</div>
+                <div class="f14 pad-b-12 color_9 border-b pad-r-14 text-ellipsis">{{item.creatorName}}</div>
+                <div class="f14 pad-td-10 color_3 pad-r-14" ng-bind-html="trustContent(item.declared)"></div>
+            </li>
+            <!-- <li class="mar-d-10 pad-l-14" ng-if="0 == announcementList.length">
+                    <div class="no_announcement color_6 f14 ta-c" kyee-i18n-directive code="noHistoryAnnouncement" default="暂无历史公告"></div>
+            </li> -->
+        </ul>
+         <!--无数据提示信息 start-->
+         <div ng-if="0 == announcementList.length" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyHisAnnounce" default="暂无历史公告"></span>
+        </div>
+    </ion-content>
+</ion-view>

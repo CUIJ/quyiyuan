@@ -1,0 +1,41 @@
+<ion-view class="qy_address_manage" >
+        <ion-nav-bar class="qy-header" align-title="center">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-title>
+                <span kyee-i18n-directive code="addAddress" default="新建收货地址"></span>
+            </ion-nav-title>
+        </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+        <div class="list mar-t-10 qy-bg-white border-td">
+            <label class="item item-input add_address_line">
+                <span class="f14" style="margin: 0 34px 0px 0;">
+                <span style="color: #224557;" kyee-i18n-directive code="receiver" default="收货人 :"></span>
+                </span><input type="text" style="line-height: 19px;" ng-model="addressModel.NAME"  placeholder="{{name}}">
+            </label>
+            <label class="item item-input add_address_line">
+                <span class="f14" style="margin: 0 20px 0px 0;">
+                <span style="color: #224557;" kyee-i18n-directive code="phoneNum" default="电话号码 :"></span>
+                </span><input type="text" style="line-height: 19px;" ng-model="addressModel.PHONE_NUMBER"  placeholder="{{phoneNumber}}">
+            </label>
+            <label class="item item-input add_address_line">
+                <span class="f14" style="margin: 0 20px 0px 0;">
+                <span style="color: #224557;" kyee-i18n-directive code="location" default="所在地区 :"></span>
+                </span><input type="text"  style="line-height: 19px;" readonly="true" style="background-color: white;" ng-model="addressModel.ADDRESS"    ng-click="go() ">  <!--placeholder="{{address}}" -->
+                <i class="icon  qy-grey4" ng-class="{'ion-chevron-right':true}" style="min-width:0px;"></i>
+            </label>
+            <label class="item item-input add_address_line last_line">
+                <span class="f14" style="margin: 0 20px 0px 0;">
+                <span style="color: #224557;" kyee-i18n-directive code="detailLocation" default="详细地址 :"></span>
+                </span><input type="text" style="line-height: 19px;" ng-model="addressModel.DETIL_ADDRESS"  placeholder="{{detailAddress}}">
+            </label>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2" style="margin-bottom: 20px;">
+    <div style="width: 100%;">
+        <a ng-click="saveAddress();" class="button button-block button-size-l">
+            <span kyee-i18n-directive code="save" default="保存"></span>
+        </a>
+    </div>
+    </div>
+    <div kyee-area-picker-directive allow="allow" mode="PCA" bind="bind(params)" title="" on-select-finash="onFinash(params)"></div>
+</ion-view>

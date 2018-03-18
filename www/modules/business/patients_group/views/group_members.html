@@ -1,0 +1,105 @@
+<ion-view class="qy_group_members">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <div class="text-ellipsis">{{groupName}}（{{memberCount}}人）</div>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" scrollbar-y="false" scroll="false">
+
+        <!--顶部搜索框-->
+        <div class="mar-td-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="search_container position-r">
+                <form ng-submit="searchInGroup(keywords.value)">
+                    <input type="text" ng-model="keywords.value" ng-change="searchInGroup(keywords.value)"
+                           placeholder="搜索昵称"
+                           class="text-ellipsis">
+                </form>
+                <i class="position-a icon-icon_6 f14 clear_icon qy-grey4" ng-if="keywords.value.length>0"
+                   ng-click="clearInput()"></i>
+                <button class="button-icon icon-seach grid_img color_search"
+                        ng-click="searchInGroup(keywords.value)"></button>
+            </div>
+        </div>
+
+        <!--群成员列表-->
+        <ion-scroll delegate-handle="group_member_list" has-bouncing="true" scrollbar-y="false" zooming="false"
+                    direction="y" class="w100"
+                    ng-style="{height: (KyeeEnv.innerSize.height - 100)+'px'}">
+            <!--医生列表-->
+            <div ng-if="doctorList.length > 0">
+                <div class="pad-l-14 mar-d-10">
+                    <span class="f14 color_9">医生成员</span>
+                </div>
+                <div class="qy-bg-white">
+                    <ul class="qy-bg-white border-td pad-l-14">
+                        <li ng-repeat="doctor in doctorList" class="line50 border-b f14 pad-r-14 position-r"
+                            ng-click="getDoctorDetail(doctor)">
+                            <img ng-if="doctor.doctorPhoto" ng-src="{{doctor.doctorPhoto}}"
+                                 class="head_img fl-l"
+                                 onerror="this.src='resource/images/patients_group/doctor_male.png'"/>
+                            <img ng-if="!doctor.doctorPhoto"
+                                 ng-src="{{doctor.doctorSex == 2 ? 'resource/images/patients_group/doctor_female.png':
+                                     'resource/images/patients_group/doctor_male.png'}} " class="head_img fl-l"/>
+                            <i class="icon icon-doctor-label position-a color-red qy-bg-white f12 doctor_mark"></i>
+                            <div class="item_info line50 mar-l-16 fl-l max-w60 text-ellipsis">
+                                <span class="qy-grey7" ng-bind-html="doctor.doctorName|kyee_to_html"></span>
+                            </div>
+                            <div ng-if="doctor.isOwner" class="position-a r35 qy-grey5">群主</div>
+                            <div ng-if="doctor.isManager && !doctor.isOwner" class="position-a r35 qy-grey5">管理员</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--患者列表-->
+            <div ng-if="patientList.length > 0">
+                <div class="mar-d-5 pad-l-14" ng-class="{'mar-t-10':doctorList.length > 0}">
+                    <span class="f14 color_9">患者成员</span>
+                </div>
+                <div id="{{'group_' + patients.showText}}" ng-repeat="patients in patientList">
+                    <div class="line20 f12 qy-grey5 fw-b pad-l-14 groupIndex">{{patients.showText}}</div>
+                    <ul class="qy-bg-white border-td pad-l-14">
+                        <li ng-repeat="patientItem in (patients.items)" class="line50 border-b"
+                            ng-click="getPatientDetail(patientItem)">
+                            <img class="head_img fl-l" ng-if="patientItem.photo" ng-src="{{patientItem.photo}}"
+                                 onerror="javascript:this.src='resource/images/patients_group/user_male.png'"/>
+                            <img class="head_img fl-l" ng-if="!patientItem.photo"
+                                 ng-src="{{patientItem.sex == 2 ? 'resource/images/patients_group/user_female.png':'resource/images/patients_group/user_male.png'}}">
+                            <div class="item_info line50 mar-l-16 fl-l max-w60 text-ellipsis">
+                                <span class="qy-grey7" ng-bind-html="(patientItem.groupPetname || patientItem.name)|kyee_to_html"></span>
+                            </div>                        
+                            <div ng-if="patientItem.isMyself==1"
+                                 class="position-a r35 qy-grey5" kyee-i18n-directive code="me"
+                                 default="我"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--无数据提示信息-->
+            <div ng-if="doctorList.length == 0 && patientList.length == 0" class="empty-text">
+                <i class="icon-icon_3 empty-icon"></i>
+                <span kyee-i18n-directive code="emptyDept" default="没有找到相关成员"></span>
+            </div>
+        </ion-scroll>
+
+        <!--文字图标-->
+        <span id="indexed_list_curr_word"
+              ng-show="showWordInfo.flag"
+              style="background-color: black;color: white;z-index: 9999;border-radius: 10px;font-size: 30px;padding: 12px;opacity:0.5;
+                  position: absolute;right: 50px;top: {{showWordInfo.top}}px;background-clip: padding-box; ">{{showWordInfo.text}}</span>
+
+        <!--侧边字母导航栏-->
+        <div id="indexed_list_words_bar"
+             ng-if="patientList.length>0 || doctorList.length>0"
+             on-drag="doIndexedBarDrag($event)"
+             on-release="doIndexedBarRelease($event)"
+             ng-click="doIndexedBarClick($event)" data-tap-disabled="true"
+             style="width:30px;line-height:{{wordHeight}}px; text-align: center;position: absolute;right: 0px; top: 60px;">
+            <div style="height: 10px;"></div>
+            <div style="font-family:Arial; font-size: 12px;margin: 0px;padding: 0px;color: #5baa8a"
+                 ng-repeat="word in words">{{word}}</div>
+        </div>
+
+    </ion-content>
+</ion-view>

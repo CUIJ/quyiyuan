@@ -1,0 +1,73 @@
+<ion-view class="qy_card_recharge_records qy-bg-grey2">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="充值记录"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a kyee-action-holder-directive="card_balance" class="button button-clear txt" ng-click="goCardBalance()" kyee-operation-monitor-directive="cardBalance">
+                <span kyee-i18n-directive code="balance" default="余额查询"></span>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="false" padding="false" class="qy-bg-grey2" ng-style="{'bottom':footerHeight}" delegate-handle="cardRechargeRecord">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="refresh()"></ion-refresher>
+        <ul>
+            <li ng-repeat = "record in records" class="qy-bg-white mar-td-10 pad-d-10 border-td">
+                <h5 class="mar-l-14 mar_td_0 pad-td-10 border-d" style="position: relative;">
+                    <span class="icon icon-redcross f20 qy-red mar-r-5 fl-l" style="position: relative;bottom: 1px;"></span>
+                    <span class="dis_inbl text-ellipsis" style="position:relative;top:1px;" ng-style="{'width':'58%'}">{{record.HOSPITAL_NAME}}</span>
+                    <span ng-if="record.STATUS" class="f12 qy-grey5 mar-l-14 head_time" ng-style="{'right':(record.DELETE_FLAG == 1)?'33px':'14px'}">{{record.CREATE_TIME}}</span>
+                    <span ng-if="record.ERROR_MSG" class="f12 qy-grey5 mar-l-14 head_time" ng-style="{'right':(record.DELETE_FLAG == 1)?'33px':'14px'}">{{record.PAY_TIME}}</span>
+                    <i ng-if="record.DELETE_FLAG == 1" ng-click="delCardRechargeRecords($index,record)" class="icon-trash del_icon" kyee-operation-monitor-directive="deleteRecord"></i>
+                </h5>
+                <div class="pad-b-14 pad-t-10">
+                    <span class="pad-r-10 col">
+                        <span class="qy-deepblue" kyee-i18n-directive code="patientName" default="姓名："></span>&emsp;&emsp;&emsp;{{record.PATIENT_NAME}}
+                    </span>
+                    <span class="col margin_top_4px">
+                        <span class="qy-deepblue" kyee-i18n-directive code="patientId" default="就诊卡号："></span>&emsp;{{record.CARD_NO}}
+                    </span>
+                    <span class="col margin_top_4px" ng-if="record.ERROR_MSG">
+                        <span class="qy-deepblue" kyee-i18n-directive code="rechargeTime" default="充值时间："></span>&emsp;{{record.PAY_TIME_DETAIL}}
+                    </span>
+                </div>
+                <!--充值记录-->
+                <div class="pad-b-14 row" ng-if="record.ERROR_MSG">
+                    <span class="col margin_top_4px"><span class="qy-deepblue" kyee-i18n-directive code="depoAmount" default="充值金额："></span>&emsp;¥ {{convertMoney(record.AMOUNT)}}</span>
+                    <span class="ta-r col margin_top_4px" ng-class="{'qy-red':record.RECORD_COLOR==2}">{{record.RECORD_STATUS}}</span>
+                </div>
+                <div class="mar-b-14 pad-t-10 border-t-dash" ng-if="(record.HIS_STATUS!=0 && record.HIS_STATUS!=1 && record.ERROR_MSG && record.HIS_STATUS) || (record.PAY_STATUS==3||record.PAY_STATUS==4)"
+                     ng-click="goRefundDetail(record)" kyee-operation-monitor-directive="refundDetail">
+                    <span kyee-i18n-directive code="refundDetail" default="退费详情"></span>
+                    <i class="ico ion-chevron-right fl-r qy-grey"></i>
+                </div>
+                <!--查询卡状态-->
+                <div class="mar-t-5 pad-b-14 row" ng-if="record.STATUS">
+                    <span ng-class="{'qy-red':record.QUERY_COLOR==2,'qy-green':record.QUERY_COLOR==1||record.QUERY_COLOR==0}" class="pad-r-10 col pad-t-10">{{record.QUERY_STATUS}}</span>
+                    <span class="col ta-r" ng-if="record.QUERY_COLOR==1">
+                        <button ng-click="nextStep(record)" class="button-size-s button-color-green" kyee-i18n-directive code="nextStep" default="继续支付" kyee-operation-monitor-directive="goOnPay"></button>
+                    </span>
+                    <span class="col ta-r" ng-if="record.QUERY_COLOR==0">
+                        <button class="mar-t-5 button-size-s button_color_grey" kyee-i18n-directive code="nextStep" default="继续支付"></button>
+                    </span>
+                </div>
+            </li>
+            <div class="pad-b-14 qy-grey4" ng-bind-html="tips|kyee_to_html" ng-style="{'display': noLoad==false? 'block':'none'};">{{tips}}</div>
+        </ul>
+        <ion-infinite-scroll ng-if="noLoad" on-infinite="loadMore()" icon="ion-loading-c">
+        </ion-infinite-scroll>
+        <div ng-if="isEmpty" class="empty-text" style="position: absolute;top: 0;width: 100%;">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+    <!--底部提示黑框
+    <ion-footer-bar class="f14 footer_bar qy-fff row pad-l-14 pad-td-5" ng-if="tips!=undefined&&!hiddenBar">
+        <i class="icon icon-cross fl-r mar-r-5" ng-click="closeTip()" kyee-operation-monitor-directive="closeTip"></i>
+        <p class="foot_bar_div" id="cardRechargeRecordsTipId">
+            {{tips}}
+        </p>
+    </ion-footer-bar>-->
+</ion-view>

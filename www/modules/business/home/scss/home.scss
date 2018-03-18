@@ -1,0 +1,611 @@
+
+.qy_home {
+
+  h4{
+    font-size: 16px;
+  }
+  .title{
+    margin: 0 50px;
+    font-size: 18px;
+    padding-top:1px;
+  }
+
+  .header_left{
+    position: absolute;
+    left: 14px;
+    top: 10px;
+    font-size: 24px;
+  }
+  .header_right{
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    font-size: 24px;
+  }
+  .msg_bage{
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    top: 10px;
+    border-radius: 50%;
+    right: 13px;
+    background-color: #ff0000;
+  }
+  .banner_img{
+    display: block;
+    width:100%;
+    max-height: 180px;
+    outline: none;
+  }
+  .content{
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .yuyue_content{
+    h4{
+      margin-top: 0;
+    }
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 0px;
+    }
+  }
+
+  .grid1{
+    padding-top: 23px;
+    padding-bottom:12px;
+  }
+
+  .grid3{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: -14px;
+    margin-right: -14px;
+    width: auto;
+    li{
+      border-right: 1px solid #e7e7e7;
+    }
+    li:last-child{
+      border-right: none;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .grid2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    li{
+      border-right: 1px solid #e7e7e7;
+    }
+    li:last-child{
+      border-right: none;
+    }
+    p {
+      margin-bottom: 0;
+    }
+
+    .relative{
+      padding-top: 5px;
+      padding-bottom: 5px;
+      position: relative;
+    }
+
+    .care_img{
+      right: 5px;
+      display: block;
+      width: 55px;
+      position: absolute;
+      top: 0;
+    }
+    .triage_img{
+      right: 0;
+      display: block;
+      width: 55px;
+      position: absolute;
+      top: 0;
+    }
+    .grid2_item_pad{
+      padding-right: 55px;
+    }
+  }
+
+  .grid4{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    li{
+      border-right: 1px solid #e7e7e7;
+    }
+    li:last-child{
+      border-right: none;
+    }
+    p {
+      margin-bottom: 0;
+    }
+
+    .relative{
+      padding-top: 5px;
+      padding-bottom: 5px;
+      position: relative;
+    }
+
+    .wangluo_img{
+      right: 7px;
+      display: block;
+      width: 55px;
+      position: absolute;
+      top: 0;
+    }
+    .zixun_img{
+      right: 2px;
+      display: block;
+      width: 55px;
+      position: absolute;
+      top: 0;
+    }
+    .grid4_item_pad{
+      padding-right: 55px;
+    }
+  }
+
+  .sec_title{
+    color: #35424b;
+    margin-top: 0;
+    margin-bottom: 7px;
+  }
+
+  .grid_img{
+    font-size: 35px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .color_date{
+    color: #7ea6e8;
+  }
+  .color_hospital{
+    color: #98c931;
+  }
+  .color_search{
+    color: #ffae36;
+  }
+  .footer{
+    background-color: cornflowerblue;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .wangluo{
+    position: relative;
+    padding-top: 15px;
+    padding-bottom: 5px;
+  }
+  .wangluo_img{
+    display: block;
+    width: 78px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .wangluo_item_pad{
+    padding-right: 78px;
+  }
+
+  .bar .button.button-clear {
+    font-size: 14px;
+    color: #666;
+    margin-left: 5px;
+    line-height: 40px;
+    width: 52px;
+  }
+  .ion-chevron-down {
+    color: #666;
+    font-size: 12px;
+    line-height: 44px;
+  }
+  .icon-personal {
+    border: none;
+    background: none;
+    font-size: 24px;
+    color: #666;
+    padding: 2px 0 0 10px;
+    margin: 0;
+  }
+  .icon-seach:before {
+    content: "\e61e";
+  }
+  .ion-chevron-right {
+    font-size: 10px;
+  }
+  .item-input-wrapper ~ .button {
+    margin-left: 0;
+  }
+  .icon-doctor:before {
+    content: "\e60e";
+    font-size: 38px;
+  }
+  .icon-calendar:before {
+    content: "\e608";
+    font-size: 38px;
+  }
+  .icon-redcross:before {
+    content: "\e61d";
+  }
+  .ion-home:before {
+    content: "\e611";
+  }
+  .icon-home:before {
+    content: "\e611";
+    font-size: 25px;
+  }
+  .icon-redcross:before {
+    content: "\e61d";
+    font-size: 38px;
+  }
+  .icon-medicalrecord:before {
+    content: "\e619";
+    font-size: 25px;
+  }
+  .icon-wallet:before {
+    content: "\e620";
+    font-size: 25px;
+  }
+  .icon-loudspeaker2:before {
+    font-size: 21px;
+    line-height: 20px;
+  }
+  .icon-loudspeaker3:before {
+    font-size: 21px;
+    line-height: 20px;
+    position: absolute;
+    left: 18px
+  }
+  .notice_icon_l {
+    position: absolute;
+    opacity: 0.7;
+    display: block;
+    height: 36px;
+    width: 40px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+  }
+  .notice_icon_r {
+    position: absolute;
+    opacity: 0.7;
+    display: block;
+    height: 36px;
+    width: 40px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+  }
+  .notice_icon_c {
+    position: absolute;
+    opacity: 0.7;
+    display: block;
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+    .sign_icon {
+      left: 8px;
+    }
+  }
+
+  .help_icon_l {
+    position: absolute;
+    display: block;
+    height: 40px;
+    width: 136px;
+  }
+  .help_icon_r {
+    position: absolute;
+    display: block;
+    height: 40px;
+    width: 136px;
+  }
+  .help_icon_c {
+    position: absolute;
+    display: block;
+    height: 40px;
+    width: 136px;
+    .sign_icon {
+      left: 10px;
+    }
+  }
+
+  .sign_icon {
+    font-size: 21px;
+    line-height: 36px;
+    position: absolute;
+    left: 11px
+  }
+
+  .grid3_con{
+    margin-top:2px;
+  }
+
+  @media (min-device-width: 321px)and (max-device-width: 376px) and (-webkit-min-device-pixel-ratio:2) {
+    //.has-footer-home{
+    //  bottom: 0px;
+    //}
+    .grid1{
+      //padding-top: 30px;
+      //padding-bottom: 20px;
+      padding-top: 13px;
+      padding-bottom: 3px;
+    }
+    .grid2{
+      //padding-top: 25px;
+      //padding-bottom: 25px;
+      padding-top: 12px;
+      padding-bottom: 16px;
+      .care_img{
+        width: 62px;
+        height: auto;
+        top: -3px;
+      }
+      .triage_img{
+        width: 62px;
+        height: auto;
+        top: -3px;
+      }
+      .grid2_item_pad{
+        padding-right: 62px;
+      }
+    }
+    .grid4{
+      //padding-top: 25px;
+      //padding-bottom: 25px;
+      padding-top: 12px;
+      padding-bottom: 16px;
+      .wangluo_img{
+        width: 62px;
+        height: auto;
+        top: -3px;
+      }
+      .zixun_img{
+        width: 62px;
+        height: auto;
+      }
+      .grid4_item_pad{
+        padding-right: 62px;
+      }
+    }
+    .grid3{
+      //padding-top: 20px;
+      //padding-bottom: 20px;
+      padding-top: 10px;
+      padding-bottom: 9px;
+    }
+    .wangluo{
+      //padding-top: 25px;
+      padding-top: 15px;
+      padding-bottom: 7px;
+    }
+    .grid3_con{
+      margin-top:8px;
+    }
+    .wangluo_img{
+      width: 100px;
+      height: auto;
+      top: 0;
+    }
+    .wangluo_item_pad{
+      padding-right: 100px;
+    }
+  }
+  @media (min-device-width: 376px) and (-webkit-min-device-pixel-ratio:3.0){
+    //.has-footer-home{
+    //  bottom: 0px;
+    //}
+    .grid1 {
+      //padding-top: 38px;
+      //padding-bottom: 28px;
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+    .grid2 {
+      //padding-top: 30px;
+      //padding-bottom: 30px;
+      padding-top: 21px;
+      padding-bottom: 21px;
+      .care_img {
+        width: 66px;
+        height: auto;
+        top: -5px;
+      }
+      .triage_img{
+        width: 66px;
+        height: auto;
+        top: -5px;
+      }
+      .grid2_item_pad{
+        padding-right: 66px;
+      }
+    }
+    .grid4 {
+      //padding-top: 30px;
+      //padding-bottom: 30px;
+      padding-top: 21px;
+      padding-bottom: 21px;
+      .wangluo_img {
+        width: 66px;
+        height: auto;
+        top: -5px;
+      }
+      .zixun_img{
+        width: 66px;
+        height: auto;
+        top: -5px;
+      }
+      .grid4_item_pad{
+        padding-right: 66px;
+      }
+    }
+    .grid3 {
+      //padding-top: 30px;
+      //padding-bottom: 30px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    .wangluo {
+      //padding-top: 30px;
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+    .wangluo_img{
+      width: 100px;
+      height: auto;
+      top: 0;
+    }
+
+    .wangluo_item_pad{
+      padding-right: 105px;
+    }
+
+  }
+  .backcls{
+    line-height: 43px;
+    padding-left: 15px;
+    font-size: 18px;
+    padding-right: 15px;
+  }
+  .msg_box{
+    width:50px;
+    height:43px;
+    position: absolute;
+    right:0;
+  }
+}
+
+.home_tabs {
+  display: none;
+  .tabs {
+    background-color: #eef3f2;
+    color: #aab2b1;
+    height: 50px;
+    background-size: 100% 0px;
+    .tab-item-active {
+      color: #00c177;
+    }
+  }
+
+  .tab-item .icon {
+    display: block;
+    margin: 0 auto;
+    height: 32px;
+    font-size: 30px;
+  }
+
+  .icon-hospitalize:before {
+    content: "\e9a9";
+    font-size: 20px;
+  }
+  .icon-redcross:before {
+    content: "\e61d";
+    font-size: 26px;
+  }
+  .icon-medical-history:before {
+    font-size: 20px;
+  }
+  .icon-wallet:before {
+    content: "\e620";
+    font-size: 20px;
+  }
+  .icon-person-hom:before {
+    content: "\e62e";
+    font-size: 20px;
+  }
+  .icon-serve:before {
+    content: " \e9ae";
+    font-size: 22px;
+    position: relative;
+    top: 13px;
+   }
+  .icon-me:before {
+    content: "\e9aa";
+    font-size: 20px;
+  }
+  .icon-quanzi:before {
+    content: "\e93d";
+    font-size: 20px;
+  }
+  .icon-serve{
+    position: relative;
+    top: -1px;
+  }
+  .icon-serve.icon{
+    height: 38px;
+    position: relative;
+    top: -6px;
+    margin-top: -6px;
+  }
+  .new_message_flag{
+    width: 7px;
+    height: 7px;
+    bottom: 31px;
+    left: 7px;
+    margin-left: 50%;
+    position: fixed;
+    z-index: 999;
+  }
+  .new_message_flag1{
+    width: 7px;
+    height: 7px;
+    bottom: 31px;
+    left: 7px;
+    margin-left: 37.5%;
+    position: fixed;
+    z-index: 999;
+  }
+}
+
+.qy_shownotice {
+  .padding{
+    padding: 14px 0px 14px 14px;
+  }
+  .lond_icon {
+    display: block;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 20px;
+  }
+  .qy_detail_green{
+    color:#5baa8a;
+  }
+}
+
+.qy_home_web{
+  .icon-share:before{
+    color:#fff;
+    font-size: 16px;
+  }
+}
+.qy_service_satisfaction{
+  .imgsty{
+    border:0.5px solid #cccccc;
+    width: 187px;
+    height: 187px;
+  }
+  .display-flex{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .mar-t-36{
+    margin-top: 36px;
+  }
+  .scroll{
+    padding:35px 25px 0 30px;
+  }
+  .mar-t-16{
+    margin-top: 16px;
+  }
+
+
+}

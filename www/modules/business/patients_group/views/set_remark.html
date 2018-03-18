@@ -1,0 +1,29 @@
+<!--修改好友备注页面-->
+<ion-view class="qy_set_remark qy-bg-grey2">
+
+  <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-title >
+      <span kyee-i18n-directive code="remarkName" class="f16" default="备注名称"></span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+      <a class="button button-clear qy-grey7" ng-click="saveRemark()" ng-if="canSave">
+        <span kyee-i18n-directive code="save" default="保存" class="f14"></span>
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2 f14">
+    <div class="row line50 mar-t-10 qy-bg-white">
+      <div class="item col pad-b-14 border-td">
+        <input type="text" ng-model="model.remark" maxlength="10"
+               placeholder="{{placeholder.addRemark}}"
+               ng-focus="showDeleteIcon()" ng-blur="hideDeleteIcon()"
+               class="remark w80 fl-l text-ellipsis mar-tb-8 ta-l"/>
+        <span class="position-a r14 f20 qy-grey5" ng-class="{'ion-android-close': isWrite}"
+              ng-click="clearRemark()"></span>
+      </div>
+    </div>
+  </ion-content>
+
+</ion-view>

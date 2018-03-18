@@ -1,0 +1,39 @@
+<ion-view title="未读留言详情" class="qy_doctor_message_board">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true">
+
+        <li class="row show_name_sec">
+            <div class="show_name">{{showName(word)}}：</div>
+            <div class="col words_text" ng-class="{'doctor_text':word.WORDS_FLAG == 1}" >
+                {{word.WORDS_TEXT}}
+            </div>
+        </li>
+        <div class="row show_operate_sec">
+            <div class="col words_operate_btn_noborder">
+                <span ng-click="deleteRootWord()" ng-if="showDeleteBtn($index)" kyee-operation-monitor-directive="deleteRootWord">删除&nbsp/</span>
+                <span ng-click="postResetWordBtn()" class="qy-green" kyee-operation-monitor-directive="postResetWord">回复</span>
+            </div>
+        </div>
+
+        <ion-list>
+            <ion-item ng-repeat="reset in word.RESET" class="words-div row show_operate_sec">
+                <div class="mar_60"></div>
+                <div ng-click="operateReset($index)" class="col operate_div">
+                    {{showSendName($index)}} <span class="qy-green">回复</span>
+                    {{showReceiveName($index)}}：{{reset.RESET_TEXT}}
+                </div>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+
+    <div ng-if="chatFlag" class="bar bar-footer footer_border">
+        <textarea ng-bind="reset" ng-model="reset" placeholder="{{getPlaceholderText()}}" class="text_area"></textarea>
+        <div ng-click="submitWords(reset)" class="submit_btn" kyee-operation-monitor-directive="submitWords">发送</div>
+    </div>
+
+</ion-view>

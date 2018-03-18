@@ -1,0 +1,129 @@
+.qy_doctor_login {
+
+  :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: lightgrey;
+  }
+  ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: lightgrey;
+  }
+  input:-ms-input-placeholder,
+  textarea:-ms-input-placeholder {
+    color: lightgrey;
+  }
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    color: lightgrey;
+  }
+
+  .login_content_div {
+    height: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    .account_login {
+      text-align: center;
+      color: white;
+    }
+    .phone_input {
+      margin-left: 30px;
+      font-size: 15px;
+      color: white;
+    }
+    .pwd_input {
+      margin-left: 30px;
+      font-size: 15px;
+      color: white;
+    }
+
+    .phone_label {
+      font-size: 23px;
+      background-color: #5baa8a;
+      color: white;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid #f4f4f4;
+      margin-bottom: 20px;
+      min-height: 47px;
+    }
+  }
+
+  .login_btn{
+    padding: 10px 50px 0 50px;
+  }
+
+  .tips {
+    color: white;
+    padding-left: 14px;
+    padding-top: 30px;
+  }
+
+  .experience_btn {
+    color: white;
+    text-align: center;
+  }
+  .experience_btn_position{
+    position: absolute;
+    bottom:20px;
+  }
+}
+
+
+.qy_doctor_pwd_init {
+  .login-number-button {
+    background-color: #f4f4f4;
+    border: none;
+    width: 120px;
+  }
+  .icon_btn_style{
+    border: none;
+    background-color: white;
+    padding-left: 0;
+  }
+  .icon_btn_style:before{
+    font-size: 30px;
+  }
+}
+
+
+.quyiyuan-doctor-auth {
+  background-color: #efeff4;
+  .find-password-content {
+    margin-top: 20px;
+    .phone-input {
+      background-color: white;
+    }
+    .login-number-span {
+      padding-left: 6px;
+    }
+    .login-number-label {
+      background-color: white;
+      padding: 0;
+    }
+    .login-number-button {
+      background-color: #e6e6e6;
+      color: #101010;
+      border: none;
+      width: 75px;
+      height: 40px;
+    }
+    .submit-div {
+      margin: 0 5%;
+      .submit-button {
+        background-color: #0F9D58;
+        color: white;
+        border-radius: 4px;
+        height: 42px;
+        min-height: 0;
+        line-height: 42px !important;
+        border: 0;
+      }
+    }
+    .loginNumDiv {
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-right: 0;
+    }
+  }
+}

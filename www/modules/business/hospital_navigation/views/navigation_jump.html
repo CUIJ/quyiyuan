@@ -1,0 +1,11 @@
+<ion-view class="qy_navigation">
+    <div class="float_box">
+        <ion-scroll direction="y" scrollbar-x="false" class="scroll_tab" delegate-handle="smartWin">
+            <a class="float_list border-next" ng-repeat="dept in data.DEPT" ng-click="data.SELECT($index)">
+                <i style="color: #5BAA8A;" class="icon ion-record mar-r-10"></i>
+                {{dept.HOSPITAL_FLOOR_DEPT}}
+            </a>
+        </ion-scroll>
+    </div>
+    </ion-scroll>
+</ion-view>

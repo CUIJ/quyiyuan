@@ -1,0 +1,59 @@
+<!--
+    产品名称：quyiyuan
+    创建人: 张家豪
+    创建日期:2015年7月1日15:01:55
+    创建原因：关注我的患者
+-->
+<ion-view class="qy_evaluation_record">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="evaluateRecordTittle" default="评价记录"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content>
+
+        <ul ng-repeat="item in all" class="pad-b-14 pad-td-10 border-d">
+            <li class="qy-bg-grey2 item_padding">
+                <span class="f14">{{ item.PATIENT_NAME }} </span>
+                <span class="name">{{ item.PATIENT_SEX }} / {{ item.PATIENT_AGE }} <span kyee-i18n-directive code="age" default="岁"></span></span>
+            </li>
+            <li class="item_padding">
+                <img class="star_img"
+                     ng-src="{{item.SUGGEST_SCORE >=1 ?'resource/images/icons/xingxing_2.png':'resource/images/icons/xingxing_1.png'}}" />
+                <img class="star_img"
+                     ng-src="{{item.SUGGEST_SCORE >=2 ?'resource/images/icons/xingxing_2.png':'resource/images/icons/xingxing_1.png'}}" />
+                <img class="star_img"
+                     ng-src="{{item.SUGGEST_SCORE >=3 ?'resource/images/icons/xingxing_2.png':'resource/images/icons/xingxing_1.png'}}" />
+                <img class="star_img"
+                     ng-src="{{item.SUGGEST_SCORE >=4 ?'resource/images/icons/xingxing_2.png':'resource/images/icons/xingxing_1.png'}}" />
+                <img class="star_img"
+                     ng-src="{{item.SUGGEST_SCORE >=5 ?'resource/images/icons/xingxing_2.png':'resource/images/icons/xingxing_1.png'}}" />
+            </li>
+            <div class="item_padding white_space">
+                {{item.SUGGEST_VALUE}}
+            </div>
+            <div class="item_padding white_space" ng-if="item.SUGGEST_APPEND">
+                <span kyee-i18n-directive code="addEvaluate" default="追加评价："></span>{{item.SUGGEST_APPEND}}
+            </div>
+            <div class="item_padding">
+                {{item.SUGGEST_DATE | date : 'yyyy/MM/dd HH:MM:ss'}}
+            </div>
+        </ul>
+
+        <ion-infinite-scroll
+                ng-if="moreDataCanBeLoaded()"
+                immediate-check="false"
+                icon="ion-loading-c"
+                on-infinite="queryDoctorSatisfactionRecord()">
+        </ion-infinite-scroll>
+
+        <div ng-if="showEmpty" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>
+                <span kyee-i18n-directive code="noEvaluateRecords" default="暂无评价记录"></span>
+            </p>
+        </div>
+    </ion-content>
+
+</ion-view>

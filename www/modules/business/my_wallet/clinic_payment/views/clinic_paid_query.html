@@ -1,0 +1,37 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年12月12日21:09:51
+* 创建原因：门诊费用增加切换医院的功能(2.1.10)
+* 任务号：KYEEAPPC-4451
+* 修改者：张婧
+* 修改时间：2016年7月26日18:21:38
+* 修改原因：添加单击按钮统计
+* 任务号：KYEEAPPC-6641
+-->
+<ion-view class="qy_clinic_paid_query">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span ng-if="resultMsg==undefined" kyee-i18n-directive code="title" default="查询门诊费用"></span>
+            <span ng-if="resultMsg!=undefined" kyee-i18n-directive code="title1" default="设置"></span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <ul ng-if="resultMsg==undefined">
+            <li kyee-i18n-directive code="headTitle" default="根据就诊卡号查询门诊费用" class="mar-b-14 pad-td-10"></li>
+            <li class="qy-bg-white pad-b-14 border-td pad-td-10 f14">
+                <span kyee-i18n-directive code="cardLabel" default="就诊卡号："></span>
+                <input placeholder={{placeholder.pHPatientId}} class="input_content f14" ng-model="queryObj.patientId">
+            </li>
+            <li class="mar-b-14 mar-t-20">
+                <button class="button-size-l button button-block" ng-click="submit()" kyee-i18n-directive code="submit" default="查询"
+                        kyee-operation-monitor-directive="paidQuery"></button>
+            </li>
+        </ul>
+        <div class="empty-text" ng-if="resultMsg!=undefined">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p ng-bind-html="resultMsg|kyee_to_html" id="clinicPaidQueryId">{{resultMsg}}</p>
+        </div>
+    </ion-content>
+</ion-view>

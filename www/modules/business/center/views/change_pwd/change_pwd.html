@@ -1,0 +1,40 @@
+<ion-view class="qy_change_pwd qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="changePassword" default="修改密码"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('change_pwd')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content animation="slide-left-right" scroll="true" has-bouncing="true"class="qy-bg-grey2" >
+
+        <div class="list mar-t-10  qy-bg-white new_item_border">
+            <label class="item item-input mar-l-14 new_item_div">
+                <!--<span class="input-label"-->
+                      <!--kyee-i18n-directive code="oldPwd" default="旧 密 码："></span>-->
+                <input class="text-ellipsis" type="password" ng-model="pwdInfo.old_pwd" id="oldPwd" placeholder="{{placeholderInfo.purInto}}" style="width: 100%;padding-left: 0px;">
+            </label>
+            <div class="item item-input-inset button-bar div_style1 pad-l-14">
+                <!--<span class="input-label"-->
+                      <!--kyee-i18n-directive code="newPwd" default="新 密 码："></span>-->
+                <label class="item-input-wrapper lable_style1">
+                    <input class="text-ellipsis" style="width: 95%;padding-left:0px;" type="password" ng-model="pwdInfo.new_pwd" id="newPwd"  placeholder={{placeholderInfo.purInto616}}>
+                </label>
+                <button style="margin-right: 8px;" class="ion-ios-eye icon_btn_style qy-grey5" ng-click="iconClick()"
+                        ng-class="{'changeChooseStyle':isActive}">
+                </button>
+            </div>
+        </div>
+        <div class="pad-b-14 mar-td-20">
+            <button kyee-operation-monitor-directive="submentClick" style="margin-right: 8px;" ng-click="submentClick()" class="button button-full button-size-l"
+                    kyee-i18n-directive code="submentClick" default="提交">
+            </button>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,60 @@
+<ion-view class="hospital_introduce">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>诊所简介</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" >
+        <div class="qy-bg-grey2">
+            <ul class="border-d qy-bg-white">
+                <li class="row pad-b-14">
+                    <img class="img-css" width="45px" height="45px"
+                         ng-src="{{LOGO_PHOTO?LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                    <div class=" col mar-l-14 hos_name_css">
+                        <h4 class="f16 text-ellipsis" style="width: 80%">{{HOSPITAL_NAME}}</h4>
+                        <p style="margin-top: -2px;color:#666666;">{{HOSPITAL_LEVEL}}
+                            <span style="position: absolute;right: 14px">
+                                <a ui-sref="hospital_web" ng-if="ADV_LOCAL">
+                                   诊所官网
+                                </a>
+                                <i class="ion-chevron-right list-ico qy-grey5" ng-if="ADV_LOCAL" style="padding-left: 7px;"></i>
+                            </span>
+                        </p>
+                    </div>
+
+                </li>
+            </ul>
+            <ul ng-if="SHOW_SCORE" class="border-td mar-t-10 qy-bg-white pad-b-14 hos_score">
+                <li class="hos_score_tip">
+                    <h4 class="f16">诊所评价：{{HOSPITAL_INFO.SCORE}}分</h4>
+                </li>
+                <li>
+                    <div class="qy-red qy-orange hos_score_icon" >
+                        <i class="icon" style="font-size: 15px;"
+                           ng-class="{'icon-favorite':SCORE<0.5,'icon-favorite1':SCORE>=0.5&&SCORE<1,'icon-favorite2':SCORE>=1 }"></i>
+                        <i class="icon" style="font-size: 15px;"
+                           ng-class="{'icon-favorite':SCORE<1.5,'icon-favorite1':SCORE>=1.5&&SCORE<2,'icon-favorite2':SCORE>=2 }"></i>
+                        <i class="icon" style="font-size: 15px;"
+                           ng-class="{'icon-favorite':SCORE<=2.5,'icon-favorite1':SCORE>=2.5&&SCORE<3,'icon-favorite2':SCORE>=3 }"></i>
+                        <i class="icon" style="font-size: 15px;"
+                           ng-class="{'icon-favorite':SCORE<=3.5,'icon-favorite1':SCORE>=3.5&&SCORE<4,'icon-favorite2':SCORE>=4 }"></i>
+                        <i class="icon" style="font-size: 15px;"
+                           ng-class="{'icon-favorite':SCORE<=4.5,'icon-favorite1':SCORE>=4.5&&SCORE<5,'icon-favorite2':SCORE>=5 }"></i>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-b mar-t-10 qy-bg-white pad-b-14" style="border-bottom-width: 0px;" >
+                <li class="mar-d-10">
+                    <div class="title" >
+                        <h4 style="color:#333333">诊所简介</h4>
+                    </div>
+                </li>
+                <li>
+                    <div ng-bind-html="ADV_HOSPITAL_INTRO|kyee_to_html"></div>
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>

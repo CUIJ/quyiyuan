@@ -1,0 +1,50 @@
+<ion-view class="qy_group_list">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="groupChat" default="群聊"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+        <div ng-if="groups.length > 0" class="qy-bg-white mar-t-10 pad-l-14 border-td">
+            <!--群聊列表-->
+            <ul>
+                <li class="line70 border-b f14 pad-r-14 position-r"
+                    ng-repeat="group in groups" ng-click="sendMessageToGroup(group)" ng-show="showGroup">
+                    <div class="line70 position-a left_0">
+                        <img class="head_img mar-td-10" ng-src="{{group.icon || 'resource/images/icons/logo_default.png'}}"
+                             onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                    </div>
+                    <div class="mar-td-10 mar-l-14 position-a r14 ta-l left50" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                        <div class="clear line30">
+                            <div class="fl-l max-w65 mar-r-10 text-ellipsis color_3">{{group.tname}}</div>
+                            <span class="max-w30 bg-label-blue groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==2">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 qy-bg-orange groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==1">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 bg-label-red groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==0">
+                                {{group.groupLabel}}
+                            </span>
+                        </div>
+                        <div class="f12 line20 color_9">
+                            <div class="w100 text-ellipsis">{{group.intro}}</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!--无数据提示信息 start-->
+        <div ng-if="groups.length == 0" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDept" default="您还没有加入的群组"></span>
+        </div>
+        <!--无数据提示信息 end-->
+    </ion-content>
+</ion-view>

@@ -1,0 +1,15 @@
+<ion-view class="qy_navigation">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{hosp}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content delegate-handle="mainContent" scroll="true" has-bouncing="true">
+        <div style="color: #5BAA8A;"  kyee-indexed-list-directive data="data" bind="bind(params)" itemclick="selectDept(params)" items-comparator="comparator(params)" height="{{KyeeEnv.innerSize.height-50}}"></div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,45 @@
+<ion-view cache-view="false" class="qy-bg-grey2 consultation_common qy_consult_pay">
+  <ion-nav-bar align-title="center" class="qy-header">
+    <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+    <ion-nav-title>
+      <span>{{title}}</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+      <a ng-if="!payIsHandlering" class="button button-clear txt text-ellipsis" style="width:5em;padding-top:2px;" ng-click="cancelOrder()">
+        <span class="text-ellipsis">取消订单</span>
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content>
+    <div ng-include="'modules/business/consultation/views/template/consultation_status.html'">
+    </div>
+    <div ng-if="tip && !payIsHandlering" class="border-t pad-lr-14 line_20 f12 pad-td-12 bg_color_orange ">
+      <span class="qy-orange">{{tip}}</span>
+    </div>
+    <ul class="qy-bg-white pad-l-14 border-t border-d order_info">
+      <li class="border-d f14 pad-r-14 line40 text-ellipsis qy-grey7">
+        订单信息： {{orderInfo.consultTypeText}}
+      </li>
+      <li class="border-d f14 pad-r-14 line40 text-ellipsis qy-grey7">
+        医生姓名： {{orderInfo.doctorName}}
+      </li>
+      <li class="border-d f14 pad-r-14 line40 text-ellipsis qy-grey7">
+        订单费用： {{orderInfo.payAmount.toFixed(2) + "元"}}
+      </li>
+    </ul>
+    
+    <div ng-if="payStyle.length > 0" class="qy-bg-white mar-t-10">
+      <div class="line40 pad-b-14 f16 qy-grey7 border-t">请选择支付方式</div>
+      <ul class="border-t pad-l-14 border-d order_info">
+        <li ng-repeat="payType in payStyle track by $index" ng-click="choosePayType(payType.ITEM_VALUE)" class="border-d position-r f14 pad-r-14 line40 text-ellipsis qy-grey7 pay_item">
+          <img class="position-r inline f20 pay_img" ng-src="{{payType.imgUrl}}"></i>
+          <!-- <span class="inline mar-l-16">{{payType.ITEM_NAME}}</span> -->
+          <i ng-class="{'icon-choose':payType.ITEM_VALUE == payTypeValue,'icon-none-choose':payType.ITEM_VALUE != payTypeValue}" class="inline f22 qy-green position-a choose_icon"></i>
+        </li>
+      </ul>
+    </div>
+    <div ng-if="payStyle.length > 0 && !payIsHandlering" class="pad-b-14 qy-bg-grey2">
+        <button class="button button-block button-size-l mar-t-20" ng-click="goPay()">{{confirmPayText}}</button>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,31 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年10月14日16:08:26
+* 创建原因：住院已结算详情弹框
+* 任务号：KYEEAPPC-3523
+ * 修改者：程铄闵
+ * 修改时间：2016年6月17日10:22:51
+ * 修改原因：2.2.40版住院已结算（医院首页入口）
+ * 任务号：KYEEAPPC-6605
+-->
+<div class="qy_paid_detail_popup">
+    <div class="ta-c f14">
+        {{detailPopup.ITEM_NAME}}
+        <!--<i class="icon icon-icon_2 icon_flo qy-red f16 fl-r" ng-click="closeDialog()"></i>-->
+    </div>
+
+    <ul class="fl-c ovf-h border-t-dash mar-t-10 pad-td-20" ng-style="{'width': (KyeeEnv.innerSize.width-56)+'px'}">
+        <li ng-if="detailPopup.INSUR_CLASS" class="row pad-d-5"><span kyee-i18n-directive code="popInsurClass" default="医保类别："></span>{{detailPopup.INSUR_CLASS}}</li>
+        <li ng-if="detailPopup.MYSELF_SCALE" class="row pad-d-5"><span kyee-i18n-directive code="popMyselfScale" default="自负比例："></span>{{detailPopup.MYSELF_SCALE}}</li>
+        <li ng-if="detailPopup.AMOUNT" class="row pad-d-5"><span kyee-i18n-directive code="popAmount" default="数量："></span>{{convertMoney(detailPopup.AMOUNT,1)}}</li>
+        <li ng-if="detailPopup.UNITS" class="row pad-d-5"><span kyee-i18n-directive code="popUnits" default="单位："></span>{{detailPopup.UNITS}}</li>
+        <li ng-if="detailPopup.ITEM_SPEC" class="row pad-d-5">
+            <div class="fee_div"><span kyee-i18n-directive code="popItemSpec" default="规格："></span>{{detailPopup.ITEM_SPEC}}</div>
+        </li>
+        <li ng-if="detailPopup.COSTS" class="row pad-d-5">
+            <div class="fee_div"><span kyee-i18n-directive code="popCost" default="金额："></span>{{convertMoney(detailPopup.COSTS)}}</div>
+        </li>
+    </ul>
+
+</div>

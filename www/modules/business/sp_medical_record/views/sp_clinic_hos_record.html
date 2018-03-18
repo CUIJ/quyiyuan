@@ -1,0 +1,70 @@
+
+<!--
+* 产品名称 quyiyuan.
+* 创建用户: yangmingsi
+* 日期: 2017年2月21日09:40:54
+* 任务号：KYEEAPPC-10018
+*/-->
+<ion-view class="medical_record">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-if="medicalRecordItem.type ==1 " >门诊记录</span>
+            <span ng-if="medicalRecordItem.type ==2 " >住院记录</span>
+        </ion-nav-title>
+        <!--<ion-nav-buttons side="right" >
+            <a class="button button-clear"ng-show="userSource!='3'"  ng-click="openRightMenu('my_health_archive')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>-->
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="">
+
+        <!--快速评价-->
+        <div ng-if="!isEmpty" class="list left_line" ng-repeat="medicalData in medicalDatas ">
+            <div class="big_circle" ng-class="getColor(1,medicalData.color)" ></div>
+            <div class="little_circle"  ng-class="getColor(2,medicalData.color)"></div>
+            <!--类型-->
+            <div class="type" ng-class="getColor(2,medicalData.color)" > {{medicalData.queryTypeName}}</div>
+            <span style="position: relative;top: -8px;left: 50px;" class="font16 qy-grey7">{{medicalData.doctorList[0].time}}</span>
+            <div class=" yisheng " style="margin-left: 15px;margin-right: 14px" ng-repeat=" content  in medicalData.doctorList ">
+                <div class="item_circle"  ng-class="getColor(3,medicalData.color)"></div>
+                <div class="item row border-t item_pos" ng-click="goToEvaluate(content,medicalData.queryType)" >
+                    <div class="mar-r-10 mar-l-14 ">
+                        <img style="width: 55px;height: 55px;position: relative;left: 10px;border-radius: 50%;"
+                             src="{{content.doctorImage}}" onerror="javascript:this.src='resource\\images\\sp_medical_record\\man.png'">
+                        <div>
+                        <span>
+                            <i class="star_img_2 star_font3" ng-class="getXingCls(content.doctorAvgScore, 1)" ></i>
+                            <i class="star_img_2 star_font3" ng-class="getXingCls(content.doctorAvgScore, 2)" ></i>
+                            <i class="star_img_2 star_font3" ng-class="getXingCls(content.doctorAvgScore, 3)" ></i>
+                            <i class="star_img_2 star_font3" ng-class="getXingCls(content.doctorAvgScore, 4)" ></i>
+                            <i class="star_img_2 star_font3" ng-class="getXingCls(content.doctorAvgScore, 5)" ></i>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="pad-r-10 text_height" style="width:70%">
+                        <div>
+                            <span  class="font16 qy-grey7"> {{content.doctorName}}</span>
+                            <span  class="f12 qy-grey5">{{content.gradeName}}</span>
+                        </div>
+                        <span  class="font14 qy-grey6 spanPosD hosName">{{medicalData.hospitalName}}</span>
+                        <div style="clear: both">
+                            <div  class="font14 qy-grey6 hosName">{{content.deptName}}
+                                <span ng-if="content.itemName" > -{{content.itemName}}</span>
+                            </div>
+                            <div ng-if="content.isEvaluated == 0" style="color:#2e9ee6;" class="f12 qy-grey5 float_r">去评价</div>
+                            <div ng-if="content.isEvaluated == 1" style="color: #2e9ee6;" class="f12 qy-grey5 float_r">查看评价</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div  ng-if="isEmpty" ng-style="{'padding-top':KyeeEnv.innerSize.height<481 ? '28%':'45%'}"  class="empty-text qy-grey5">
+        <img class="emptyImg"
+             src="resource\images\sp_medical_record\pic.png">
+        <p class="qy-grey4">暂无数据</p>
+    </div>
+</ion-view>

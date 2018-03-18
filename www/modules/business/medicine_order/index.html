@@ -1,0 +1,69 @@
+<ion-view class="qy_medical_order">
+
+    <ion-nav-bar class="qy-header" align-title="center" >
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="medicineOrderTitle" default="电子药品订单"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear "ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon" ></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey1" has-bouncing="true">
+
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefresh()"></ion-refresher>
+
+        <div class="list order_list" ng-repeat="order in ordersInfo.orders track by order.MASTER_ID">
+            <div class="item merchant_div">
+                <span class="f14 fw-b">{{order.MERCHANT_NAME}}</span>
+                <i class="icon icon-icon_1 supplier_icon" ng-click="getSupplierInfo(order)"></i>
+                <span class="f14 order_status_span">
+                    <!--{{getStatusName(order.ORDER_STATUS)}}-->
+                    {{order.ORDER_STATUS_DESC}}
+                </span>
+            </div>
+            <div ng-click="showDetail(order)" class="order_list_div white_background">
+                <div class="row white_background order_item_div" ng-repeat="orderDetail in order.DETAIL_LIST">
+                    <div class="col col-67 grey drug_name_div">{{orderDetail.DRUG_NAME}}</div>
+                    <div class="col grey price_div">￥{{orderDetail.UNIT_PRICE}} x {{orderDetail.QUANTITY}}</div>
+                </div>
+                <div ng-if="order.DETAIL_LIST.length > 3" class="row white_background">
+                    <div class="col more_div">......</div>
+                </div>
+                <div class="item f14 total_price_div">
+                    <span class="fw-b">
+                        <span kyee-i18n-directive code="totalCommodity" default="共{{order.DETAIL_LIST.length}}件商品，合计￥" params="order"></span>
+                        <span style="color: #54B181;">{{order.TOTAL_COST}}</span>，
+                            <span class="grey-1">
+                            <span kyee-i18n-directive code="includeFreight" default="（含运费￥{{order.SHIPPING_COST}}）" params="order"></span>
+                            </span>
+                    </span>
+                </div>
+            </div>
+            <div ng-if="getStatusCode(order.ORDER_STATUS) == 'WAIT_PAY'" class="item pay_div">
+                <button ng-click="showDetail(order)" class="button button-small pay_button">
+                    <span kyee-i18n-directive code="payment" default="付款"></span>
+                </button>
+            </div>
+            <div ng-if="['WAIT_PAY', 'COMPLETE_PAY'].indexOf(getStatusCode(order.ORDER_STATUS)) == -1" class="item logistics_div">
+                <button ng-click="showLogisticsInfo(order)" class="button button-small logistics_button">
+                    <span kyee-i18n-directive code="viewLogistics" default="查看物流"></span>
+                </button>
+            </div>
+        </div>
+
+        <ion-infinite-scroll ng-if="moreDataCanBeLoadedFlag" on-infinite="getMoreOrderInfo()"></ion-infinite-scroll>
+
+        <div ng-if="!ordersInfo.hasData" class="empty-text">
+            <i class="icon icon-calendar empty-icon"></i>
+            <p>
+                <span kyee-i18n-directive code="noOrderInformation" default="很抱歉，您目前还没有订单信息"></span>
+            </p>
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,87 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年10月21日15:08:01
+* 创建原因：退费历史页面
+* 任务号：KYEEAPPC-3596
+* 修改者：程铄闵
+* 修改时间：2015年11月4日14:28:15
+* 修改原因：国际化翻译
+* 任务号：KYEEAPPC-3801
+* 修改者：尹光文
+* 修改时间：2016-5-18 22:21:35
+* 修改原因：我的退费整改
+* 任务号：KYEEAPPC-6234
+-->
+<ion-view class="qy_refund_history qy-bg-grey1">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="退费历史"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear "  ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <ul ng-if="!isEmpty">
+            <li class="qy-bg-white mar-td-10 border-td" ng-repeat="refundItem in refundHistory">
+                <div class="row pad-b-14 border-d ">
+                    <div class="col col_60 info">
+                        <span class="icon icon-redcross f20 qy-red mar-r-5 fl-l lh_51"></span>
+                        <h5 class="dis_inbl lh_32">
+                            <div class="text-ellipsis">{{refundItem.HOSPITAL_NAME}}</div>
+                        </h5>
+                    </div>
+                    <div class="col ta-r" >
+                        <div class="mar-l-14 f12 head_style" ng-class="{'qy-red':refundItem.RESULT==2,'qy-green':refundItem.RESULT==1}">{{refundItem.BUSI_STATUS}}</div>
+                        <span >{{refundItem.RETURN_TIME}}</span>
+                    </div>
+                </div>
+                <div class="pad-b-14 pad-t-10 pad-d-10" ng-if="refundItem.MODEL_CODE==01 || refundItem.MODEL_CODE==03 || refundItem.MODEL_CODE==05">
+                    <span class="pad-r-10 col"><span kyee-i18n-directive code="deptName" default="科室："></span> <span style="margin-left: 23px;">{{refundItem.DEPT_NAME}}</span></span>
+                    <span class="col"><span kyee-i18n-directive code="appointTime" default="挂号时间："></span>{{refundItem.PAY_TIME}}</span>
+                    <span class="col row"><span kyee-i18n-directive code="returnAmount" default="退费金额："></span>
+                     <span style="margin-left: -4px;">¥{{refundItem.RETURN_AMOUNT}}</span><span ng-if="refundItem.ERROR_TYPE">({{refundItem.ERROR_TYPE}})</span></span>
+                </div>
+                <div class="pad-b-14 pad-t-10 pad-d-10" ng-if="refundItem.MODEL_CODE==02">
+                    <span class="pad-r-10 col" ng-if="refundItem.SERIAL_NO"><span kyee-i18n-directive code="serialNo" default="流水号："></span>&emsp;{{refundItem.SERIAL_NO}}</span>
+                    <span class="pad-r-10 col" ng-if="refundItem.PRESC_ATTR"><span kyee-i18n-directive code="prescAttr" default="处方号："></span>&emsp;{{refundItem.PRESC_ATTR}}</span>
+                    <span class="pad-r-10 col" ng-if="refundItem.PERFORMED_BY"><span kyee-i18n-directive code="performedBy" default="执行科室："></span>{{refundItem.PERFORMED_BY}}</span>
+                    <span class="pad-r-10 col" ng-if="refundItem.ITEM_CLASS"><span kyee-i18n-directive code="itemClass" default="项目类别："></span>{{refundItem.ITEM_CLASS}}</span>
+                    <span class="col"><span kyee-i18n-directive code="clinicTime" default="缴费时间："></span>{{refundItem.PAY_TIME}}</span>
+                    <span class="col row"><span kyee-i18n-directive code="returnAmount" default="退费金额："></span>
+                     <span style="margin-left: -4px;">¥{{refundItem.RETURN_AMOUNT}}</span><span ng-if="refundItem.ERROR_TYPE">({{refundItem.ERROR_TYPE}})</span></span>
+                </div>
+                <div class="pad-b-14 pad-t-10 pad-d-10" ng-if="refundItem.MODEL_CODE==04">
+                    <span class="pad-r-10 col"><span kyee-i18n-directive code="inpatientNo" default="住院号："></span>&emsp;{{refundItem.INPATIENT_NO}}</span>
+                    <span class="col"><span kyee-i18n-directive code="cardTime" default="充值时间："></span>{{refundItem.PAY_TIME}}</span>
+                    <span class="col row"><span kyee-i18n-directive code="returnAmount" default="退费金额："></span>
+                     <span style="margin-left: -4px;">¥{{refundItem.RETURN_AMOUNT}}</span><span ng-if="refundItem.ERROR_TYPE">({{refundItem.ERROR_TYPE}})</span></span>
+                </div>
+                <div class="pad-b-14 pad-t-10 pad-d-10" ng-if="refundItem.MODEL_CODE==06">
+                    <span class="pad-r-10 col"><span kyee-i18n-directive code="cardNo" default="就诊卡号："></span>{{refundItem.CARD_NO}}</span>
+                    <span class="col"><span kyee-i18n-directive code="cardTime" default="充值时间："></span>{{refundItem.PAY_TIME}}</span>
+                    <span class="col row"><span kyee-i18n-directive code="returnAmount" default="退费金额："></span>
+                         <span style="margin-left: -4px;">¥{{refundItem.RETURN_AMOUNT}}</span><span ng-if="refundItem.ERROR_TYPE">({{refundItem.ERROR_TYPE}})</span></span>
+
+                </div>
+                <div class="mar-b-14 pad-td-10 border-t-dash" ng-if="refundItem.PAYMENT_TYPE!=10"
+                     ng-click="goRefundDetail(refundItem)" kyee-operation-monitor-directive="refundDetail">
+                    <span kyee-i18n-directive code="refundDetail" default="退费详情"></span>
+                    <i class="ico ion-chevron-right fl-r qy-grey"></i>
+                </div>
+            </li>
+        </ul>
+        <div ng-if="!isEmpty" class="pad-b-14 f12 refund_tips qy-grey5">
+            <span kyee-i18n-directive code="warmTip" default="温馨提示"></span><br>
+            <span kyee-i18n-directive code="warmTips" default="如果您的退款处理失败，请联系趣医客服进行咨询，客服电话：400-080-1010"></span>
+        </div>
+        <div ng-if="isEmpty" class="empty-text">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

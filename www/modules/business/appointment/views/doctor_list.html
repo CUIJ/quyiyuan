@@ -1,0 +1,122 @@
+<ion-view  class="qy_doctor_list" cache-view="{{viewCatch}}">
+<!--    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span >{{deptName}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('appointment_doctor')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span >{{deptName}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+<!--            <a class="button button-clear" ng-click="getDoctorbyDate()">
+                <i class="icon icon-calendar2"></i>
+            </a>-->
+            <a ng-click="getDoctorbyDate()" class="button button-clear txt qy-fff"
+               kyee-i18n-directive code="ss" default="筛选">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" delegate-handle="doctor_list" >
+        <ion-refresher pulling-text="下拉即可刷新最新号源" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefreshBtn()">
+        </ion-refresher>
+        <div class="empty-text qy-bg-grey2 text-ellipsis" ng-if="sceduleIsEmpty">
+            <i class="icon icon-icon_3 empty-icon" ></i>
+            <p kyee-i18n-directive  code="noDoctorlist" default="暂无可预约的医生，请重新进行筛选"></p>
+            <!--<div class="ta-c margin_top__div_0">
+                <span  kyee-i18n-directive  code="otherDoctorList" default="以下为本院此科室其他日期的医生排班"></span>
+                <a kyee-i18n-directive  code="changeHospital" default="切换医院" ng-click="selectHospital()"></a>
+            </div>-->
+        </div>
+        <div ng-if="HID_REMIND && !sceduleIsEmpty" style="position: relative" class="doc_box">
+            <img src="resource\images\appoint\img_triangle.png" class="banner" style="width:14px;position:absolute; left:0px">
+            <div class="hid_remind">
+                <div class=" mar-l-24 doc_box" style="position:relative">
+                    <div class=" mar-td-12" style="position:absolute;">
+                        <div style="color:#333333">{{HID_REMIND.RELEASE_MSG}}</div>
+                        <div style="color:#999999; margin-top:6px;">{{HID_REMIND.APPOINT_DEADLINE_MSG}}</div>
+                    </div>
+                    <div ng-click="hidRemind(HID_REMIND_CARE)" style="position:absolute; right:0px; padding:10px 0px; width: 88px; text-align:center">
+                        <div style="border-left:#e7e7e7 solid 1px">
+                            <span  class="icon icon-remind" style="font-size:25px" ng-class="{'qy-bg-remindlight':HID_REMIND_CARE.CARE == 1,'qy-bg-remindgreen':HID_REMIND_CARE.CARE == 0}"></span>
+                            <div  ng-class="qy-bg-remindgreen" class="text-ellipsis" style="color:#999999; margin-top:2px">
+                                <span ng-if="HID_REMIND_CARE.CARE == 0" kyee-i18n-directive  code="newClinicRemind" default="放号提醒"></span>
+                                <span ng-if="HID_REMIND_CARE.CARE == 1" kyee-i18n-directive  code="cancelRemind" default="取消提醒"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="REFRESH_GUIDE==1 && !sceduleIsEmpty" class="qy-bg-white" style="padding: 12px 0px 12px 12px;position: relative;">
+            <p style="margin-bottom: 0px;margin-right: 33px;" class="f12" kyee-i18n-directive  code="noClinicRefresh" default="如果号源已满，您可下拉刷新页面，查询其他患者退号号源"></p>
+            <i ng-click="closeRefreshGuide()" class="icon ion-close-round" style="margin: 0px 14px;position: absolute;top: 12px;right: 0px;"></i>
+        </div>
+        <div class="qy-bg-white mar-t-10 border-td" ng-if="doctorarr.length>0">
+            <div ng-repeat="doctor in doctorarr"  class=" mar-l-14 pad-r-14 doc_box">
+                <div class="row row_rel" ng-click="showDoctorInfo(doctor, $index)">
+                    <div class="left_content">
+                            <div ng-if="doctor.DOCTOR_SEX == '1'" class="doc_img_box doctor_img" >
+                                <img class="head_image" ng-src="{{doctor.DOCTOR_PIC_PATH?doctor.DOCTOR_PIC_PATH:'resource/images/base/head_default_female.jpg'}} "onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+                            </div>
+                            <div ng-if="doctor.DOCTOR_SEX == '0' || doctor.DOCTOR_SEX == ''" class="doc_img_box">
+                                <img class="head_image" ng-src="{{doctor.DOCTOR_PIC_PATH?doctor.DOCTOR_PIC_PATH:'resource/images/base/head_default_man.jpg'}} "onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+                            </div>
+
+                         <!--   <img class="head_image" src="resource/images/base/head_default_female.jpg">-->
+                        <!--<div class="doc_img_box_default" ng-if="doctor.DOCTOR_SEX!=1"ng-class="{'doc_img_box ':doctor.DOCTOR_PIC_PATH!=undefined &&doctor.DOCTOR_PIC_PATH,'doc_img_box_default':(doctor.DOCTOR_PIC_PATH==undefined)||!doctor.DOCTOR_PIC_PATH}">-->
+                            <!--&lt;!&ndash;<img class="head_image" ng-src="{{doctor.DOCTOR_PIC_PATH?doctor.DOCTOR_PIC_PATH:'resource/images/base/doc_head_default_man.png'}} "&ndash;&gt;-->
+                                 <!--&lt;!&ndash;onerror="javascript:this.src='resource/images/base/doc_head_default_man.png'">-->
+                        <!--</div>-->
+                         <span class="qy-orange f12" ng-if="doctor.DOCTOR_SCORE != 0 && !isNaN(doctor.DOCTOR_SCORE) && showMYD">
+                             <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 1)"></i>
+                             <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 2)"></i>
+                             <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 3)"></i>
+                             <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 4)"></i>
+                             <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 5)"></i>
+                         </span>
+                        <i class="icon icon-arrow_right qy-grey4"></i>
+                    </div>
+                    <div class="col pad-td-15 doctor_list_box"ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}" ng-class="{'border_top_none':$index==0}">
+                        <h3 ng-style="{'width':KyeeEnv.innerSize.width-112+'px'}" class="text-ellipsis pad-r-5 qy-grey7"> {{removeSpace(doctor.DOCTOR_NAME)}}<span ng-if="doctor.HAS_REAL_DEPT == 1"class=""> ({{doctor.DEPT_NAME}})</span> <span class="doctoc_title"> {{doctor.DOCTOR_TITLE}}</span></h3>
+
+                        <p class="doc_text text-ellipsis-line pad-r-10 f12 qy-grey6">
+                            {{doctor.DOCTOR_DESC_SHOW?doctor.DOCTOR_DESC_SHOW:'暂无信息'}}
+                        </p>
+                        <p class=" text-ellipsis pad-r-40 p_b f12"> <!--pad-r-40-->
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='有号'&&doctor.DOCTOR_SPECIAL_CLINIC" kyee-i18n-directive  code="canReferal" default="转诊有号" class=" mar-r-5 doc_inline qy-bg-orange qy-fff"></span>
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='有号'&&!doctor.DOCTOR_SPECIAL_CLINIC" kyee-i18n-directive  code="canAppoint" default="可预约" class=" mar-r-5 doc_inline qy-bg-green qy-fff"></span>
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='暂不可约'&&doctor.RUSH_CLINIC=='1' && doctor.NO_SCHEDULE_FLAG == 0" kyee-i18n-directive  code="appointFullRush" default="暂不可约、可抢号" class=" mar-r-5 doc_inline appoint_blue qy-fff"></span>
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='暂不可约'&&doctor.RUSH_CLINIC=='0'" kyee-i18n-directive  code="appointTemporary" default="暂不可约" class=" mar-r-5 doc_inline qy-bg-grey4 qy-fff"></span>
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='已下班'&&doctor.RUSH_CLINIC=='0'  && doctor.NO_SCHEDULE_FLAG == 0" kyee-i18n-directive  code="goOfWork" default="已下班" class=" mar-r-5 doc_inline qy-bg-grey4 qy-fff"></span>
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='已下班'&&doctor.RUSH_CLINIC=='1'  && doctor.NO_SCHEDULE_FLAG == 0" kyee-i18n-directive  code="goOfWorkRush" default="已下班、可抢号" class=" mar-r-5 doc_inline appoint_blue qy-fff"></span>
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='无号' &&doctor.RUSH_CLINIC=='0'  && doctor.NO_SCHEDULE_FLAG == 0 " kyee-i18n-directive  code="appointFull" default="已约满" class=" mar-r-5 doc_inline qy-bg-grey4 qy-fff"></span>
+                            <span ng-if="arrisschudleTime[doctor.DOCTOR_CODE]=='无号' &&doctor.RUSH_CLINIC=='1' && doctor.NO_SCHEDULE_FLAG == 0 " kyee-i18n-directive  code="appointFullRush" default="已约满、可抢号" class=" mar-r-5 doc_inline appoint_blue qy-fff"></span>
+                            <span ng-if="doctor.NO_SCHEDULE_FLAG == 1" kyee-i18n-directive code="noSchedule" default="暂无排班" class="mar-r-5 doc_inline qy-bg-grey4 qy-fff"></span>
+                            <span class="number qy-blue">{{doctor.SCHEDULE_DATE}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div kyee-overlay-directive
+         location="top"
+         width="{{KyeeEnv.innerSize.width}}"
+         height = "{{datePanelStyle}}"
+         top="{{deviceTop}}"
+         data="overlayData"
+         animate="{{false}}"
+         content-background-color="transparent"
+         template="modules/business/appointment/views/delay_views/selectDactorDate.html"
+         bind="binds(params)">
+    </div>
+</ion-view>

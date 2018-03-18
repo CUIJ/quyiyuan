@@ -1,0 +1,321 @@
+.center{
+  background-color: #efeff4;
+
+  .div_style1{
+     padding-top: 10px;
+     font-size: 16px;
+   }
+  .div_style2{
+    padding-top: 20px;
+    border-left: none;
+    border-right: none;
+    font-size: 16px;
+  }
+  .a_style1{
+    border:none; border-top:1px solid #d9d9d9; background:#fff; width:100%; text-align:left; min-height:35px; line-height:35px; padding:5px 0 5px 10px;
+  }
+  .a_style2{
+    border:none; border-top:1px solid #d9d9d9; border-bottom:1px solid #d9d9d9; background:#fff; width:100%; text-align:left; min-height:35px; line-height:35px; padding:5px 0 5px 10px;
+
+  }
+
+  	
+  .arrow-right{
+    font-size: 1.5em;
+    line-height: 1.5em;
+    padding: 0 10px;
+    float: right;
+  }
+}
+
+/* authentication view style */
+.qy_authentication_cls{
+  .tip_cls{
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .content_main {
+    background-color: white;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .content-item{
+    padding-bottom: 10px;
+    padding-right: 10px;
+    .col{
+      padding:0 5px;
+    }
+  }
+  .has-footer {
+    bottom: 64px !important;
+  }
+  .bar-footer{
+    height: 65px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    border: none;
+    color: white;
+    background-color: white;
+    .button{
+      color: white;
+      border-radius: 4px;
+      width: 100%;
+    }
+  }
+  .auth_div{
+    padding: 0 10px 0 10px;
+  }
+  .auth_btn{
+    margin: 0 10px 0 10px;
+  }
+  .button-default{
+    background: #e7e7e7;
+  }
+  .id_background {
+    background-image: url('../../resource/images/center/id_background.png');
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    vertical-align: middle;
+    background-size: 100% 100%;
+    border: 1px dotted #5baa8a;
+  }
+  .circle {
+      position: relative;
+      right: 67px;
+      font-size: 14px;
+      top: 10px;
+  }
+  .input_item {
+    width: 75%;
+    text-align: right;
+    border: none;
+    padding-right: 0
+  }
+  .append_class {
+    height: 150px;
+    text-align: center;
+    margin: 40px 46px 30px 46px;
+  }
+  .f45 {
+    font-size: 45px;
+  }
+  .id_icon {
+    padding-top: 27.5px;
+  }
+  .id_icon_tip {
+    padding-top: 10px;
+    @at-root .tip_text {
+      font-size: 12px;
+      color:#5baa8a;
+    }
+  }
+  .exam_content_title {
+    font-size: 12px;
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 33px;
+    background: white;
+  }
+  .exam_photo_content{
+     margin-left:14px;
+     margin-right: 14px;
+     border: 1px solid #e7e7e7;
+    @at-root .exam_photo {
+      vertical-align:inherit;
+      padding-top: 20px;
+      padding-bottom:10px;
+      text-align: center;
+      @at-root .exam_photo_name {
+         padding-top: 10px;
+         font-size:12px;
+         color:#999999;
+      }
+    }
+
+  }
+  .love_tip {
+    color:#B5B5B5;
+    font-size:12px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-top: 10px;
+  }
+  .font_color_grey {
+    color :#B5B5B5 !important;
+  }
+  .font_color_black {
+    color :black !important;
+  }
+}
+
+
+//custom_patient.html style
+.qy_custom_patient{
+
+
+
+  .addressRadioSelStyle {
+    padding-right: 1%;
+    padding-top: 6px;
+    font-size: 20px;
+    color: #5baa8a;
+  }
+  .edit_arrow{
+    position: absolute;
+    color: #264557;
+    right: 10px;
+    padding-top: 32px;
+    z-index: 999;
+    width: 40px;
+    height: 80px;
+    text-align: right;
+  }
+  .tip_content{
+    padding: 20px 5px 5px 20px;
+  }
+  .phone_span{
+    padding-left: 10px;
+  }
+  .item-content{
+    padding: 0px 49px 16px 16px;
+  }
+}
+.set_up{
+  .span_not_change_row{
+    display: inline-flex;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .border_t{
+    border-top: 1px solid #e7e7e7;
+  }
+  .border_bottom{
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .phone_right{
+    position: absolute;
+    right: 13px;
+  }
+  .set_item_new {
+    vertical-align: sub;
+    float: right;
+    padding-left: 2px;
+   }
+  .set_item_nar{
+    display: inline-block;
+    width: 35%;
+    text-align: right;
+  }
+
+
+ .item_border_bot{
+   padding-bottom: 14px;
+   line-height: 22px;
+ }
+  .item_border_top{
+    padding-top: 14px;
+    height: 50px;
+  }
+.pad_l_t{
+  padding: 14px 14px;
+  height: 50px;
+}
+  .set_item{
+    border: none;
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+  .fz{
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+  }
+  .m_t_4{
+  padding-top: 20px;
+  }
+  .p_l_5{
+    padding-left: 5px;
+  }
+  .item_mar_left{
+    margin-left: 7px;
+  }
+  .m_r_3 {
+    margin-right: 3px;
+  }
+  .vf{
+    vertical-align: text-bottom;
+    font-size: 20px;
+    position: relative;
+    top: 0px;
+  }
+  .vt{
+    vertical-align: top;
+  }
+  .va_b{
+    font-size: 24px;
+    top:-3px;
+  }
+  .about_quyi_icon{
+    position: relative;
+    font-size: 19px;
+    color: #808080;
+    top: 1px;
+  }
+  .fc{
+    color: #989898
+  }
+  .trmdf{
+    display: inline-block;
+    font-size: 20px;
+    color: #666666;
+
+
+  }
+  .mfc{
+    font-size: 22px;
+    color: #666666;
+
+    position: relative;
+    //top: -2px;
+  }
+  .height_width{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 16px;
+  }
+}
+.new_custom_patient{
+  .tip{
+    padding: 55px 14px 0px 14px;
+    margin-bottom: -10px;
+
+  }
+  .custom_patient_list{
+    background:#fff;;
+    padding: 5px 10px 0px 10px;
+    margin-top: 25px;
+  }
+  .btn{
+    background-color:white;
+    float:right;
+    width:80px;
+  }
+  .color{
+    color:#5baa8a;
+  }
+
+}
+.qy_person_info{
+  .riskNewImg{
+    height: 33px;
+    float: right;
+    padding-right: 32px;
+    padding-top: 16px;
+  }
+}

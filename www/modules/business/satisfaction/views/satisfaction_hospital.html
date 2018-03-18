@@ -1,0 +1,58 @@
+<ion-content class="has-header" ng-class="{'has-footer': suggestStatus(0)}" scrollbar-y="false" has-bouncing="true" has-subheader="true" scroll="true">
+    <div class="row glb_div" ng-if="suggestStatus(1)">
+        <h5 class="pad-t-5 qy-grey6 col-20 text-ellipsis"  kyee-i18n-directive code="hos_zhengTiPingJia" default="整体评价"></h5>
+        <h5 class="col ta-r">
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 1)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 2)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 3)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 4)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 5)" ></i>
+        </h5>
+    </div>
+
+    <div class="pad-b-14" ng-repeat="item in items">
+        <h5 class="qy-grey6 line_height">{{$index+1}}、{{item.ITEM_VALUE?item.ITEM_VALUE:item.ITEM_NAME}}</h5>
+        <h5>
+            <i class="star_img" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 1)"
+               ng-class="item.SCORE_VALUE >=1 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 2)"
+               ng-class="item.SCORE_VALUE >=2 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 3)"
+               ng-class="item.SCORE_VALUE >=3 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 4)"
+               ng-class="item.SCORE_VALUE >=4 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 5)"
+               ng-class="item.SCORE_VALUE >=5 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+        </h5>
+    </div>
+
+    <div  ng-if="suggestStatus(0)" class="f12 pad-b-14 qy-grey6">
+        <h5 class="qy-grey6" kyee-i18n-directive code="hos_pingJiaNeiRong" default="评论内容"></h5>
+        <div>
+            <textarea class="suggest_input" id="hospitalSuggestId" ng-model="suggestInfo.suggest" placeholder="{{placeTxt}}" ng-change="writeSuggest()"></textarea>
+        </div>
+        <div class="mar-td-10 f12 qy-orange row">
+            <div>
+                <i style="position:relative;top: 1.5px;" class="icon icon-icon_4 f14 prompt"></i>
+            </div>
+            <div class="col">
+                <span style="padding-left: 6px;" kyee-i18n-directive code="review_commit" default="如有未评价项，则默认五星提交"></span>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="suggestStatus(1)" class="f12 pad-b-14 qy-grey6">
+        <h5 class="qy-grey6"  kyee-i18n-directive code="hos_pingJiaNeiRong" default="评论内容"></h5>
+        <span style="line-height: 2;display: table-cell;">
+            {{suggestInfo.suggest}}
+        </span>
+        <span class="f12 qy-grey4 ">{{SUGGEST_TIME}}
+        </span>
+    </div>
+
+</ion-content>
+
+<div class="bar bar-footer pad-b-14" kyee-action-holder-directive="suggest_commit_btn" ng-if="suggestStatus(0)">
+    <button class="button button-block button-size-l" kyee-operation-monitor-directive="submit"
+            ng-click="KAH($event) || submit()" kyee-i18n-directive code="hos_tiJiaoPingLun" default="提交评论"></button>
+</div>

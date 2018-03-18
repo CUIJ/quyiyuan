@@ -1,0 +1,153 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年9月2日11:26:01
+* 创建原因：我的钱包--住院业务待缴记录页面
+* 任务号：KYEEAPPC-3277
+* 修改者：程铄闵
+* 修改时间：2015年11月4日17:34:19
+* 修改原因：去掉住院记录展示
+* 任务号：KYEEAPPC-3870
+* 修改者：程铄闵
+* 修改时间：2016年6月17日10:22:51
+* 修改原因：2.2.40版住院费用（医院首页入口）
+* 任务号：KYEEAPPC-6603
+* 修改者：张婧
+* 修改时间：2016年7月27日11:06:25
+* 修改原因：添加单击钮统计
+* 任务号：KYEEAPPC-6641
+-->
+<ion-view class="qy_inpatient_payment_record qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="住院费用"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="permission.INHOSPITALHISTORY_PERMISSION==1&&permission.PRECHARGE_PERMISSION==1" class="button button-clear txt" ng-click="goPaidRecord()" kyee-operation-monitor-directive="paidRecord" kyee-i18n-directive code="rightBtn1" default="历史费用"></a>
+            <a ng-if="permission.INHOSPITALHISTORY_PERMISSION!=1&&permission.PRECHARGE_PERMISSION==1" class="button button-clear txt" ng-click="goPerpaidRecord()" kyee-operation-monitor-directive="perpaidRecord" kyee-i18n-directive code="rightBtn2" default="预缴历史"></a>
+            <a ng-if="permission.INHOSPITALHISTORY_PERMISSION==1&&permission.PRECHARGE_PERMISSION!=1" class="button button-clear txt" ng-click="goPaidRecord()" kyee-operation-monitor-directive="paidHistory" kyee-i18n-directive code="rightBtn3" default="住院历史"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1" delegate-handle="inpatient_payment_record" ng-style="{'margin-bottom':(!isEmpty&&inPaymentData.TOTAL>0)?'49px':'0'}" scrollbar-y="false">
+        <ion-refresher ng-if="!((inPaymentData.TOTAL==0&&inPaymentData.QUERY_PROGRESS=='DONE')||isfromPerpaid)"
+                       pulling-text="{{$root.lang.pullingText}}"  pulling-icon="" refreshing-icon=""
+            refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(true)">
+        </ion-refresher>
+
+        <!--每日清单-有数据-->
+        <div class="ovf-h qy-bg-white f14 pad-l-14 content_box border-d" ng-if="!isEmpty&&inPaymentData.TOTAL>0">
+            <h5 class="pad-d-10 border-d qy-grey7" style="margin-top: 0;padding: 12px 0;" kyee-i18n-directive code="record" default="住院详情"></h5>
+            <ul class="top_box pad-r-14 pad-d-10">
+                <li ng-if="inPaymentData.PATIENT_NAME"><span class="top_item" kyee-i18n-directive code="patientName" default="患者姓名："></span>{{inPaymentData.PATIENT_NAME}}</li>
+                <li ng-if="inPaymentData.INHOSPITAL_DATE"><span class="top_item" kyee-i18n-directive code="inHospitalDate" default="入院时间："></span>{{convertDate(inPaymentData.INHOSPITAL_DATE)}}</li>
+                <li ng-if="inPaymentData.INP_NO"><span class="top_item" kyee-i18n-directive code="hospitalCode" default="住院号："></span>{{inPaymentData.INP_NO}}</li>
+                <li ng-if="inPaymentData.DEPT_NAME"><span class="top_item" kyee-i18n-directive code="deptName" default="科室："></span>{{inPaymentData.DEPT_NAME}}</li>
+                <li ng-if="inPaymentData.BED_NO"><span class="top_item" kyee-i18n-directive code="bedNo" default="床位号："></span>{{inPaymentData.BED_NO}}</li>
+            </ul>
+
+            <ul class="amount_box qy-bg-grey2 pad-b-14 pad-t-10 pad-d-5 mar-r-14 mar-t-5 mar-d-20">
+                <li ng-if="inPaymentData.SHOULD_PAY_FEE"><span class="top_item" kyee-i18n-directive code="shouldPay" default="当前费用小结："></span><span class="qy-grey7 f16">¥ {{convertMoney(inPaymentData.SHOULD_PAY_FEE)}}</span></li>
+                <li ng-if="inPaymentData.PREPAYMENTS"><span class="top_item" kyee-i18n-directive code="prepayments" default="已预缴总金额："></span><span class="qy-grey7 f16">¥ {{convertMoney(inPaymentData.PREPAYMENTS)}}</span></li>
+                <li ng-if="IS_SHOW_BALANCE && inPaymentData.PREPAIED_BALANCE">
+                    <span class="top_item" kyee-i18n-directive code="prepaiedBalance" default="当前账户余额："></span><span class="f16" ng-class="inPaymentData.PREPAIED_BALANCE<0?'qy-red':'qy-green'">¥ {{convertMoney(inPaymentData.PREPAIED_BALANCE)}}</span>
+                </li>
+            </ul>
+
+            <h5 class="border-d pad-d-10 qy-grey7" style="margin-bottom: 0;" kyee-i18n-directive code="detail" default="每日费用明细"></h5>
+            <ul class="bottom_box">
+                <li class="ovf-h pad-td-10"  ng-class="$last?'':'border-d'"  ng-repeat="item in inPaymentData.ARRAYINFO" ng-click="goDetailRecord(item)" kyee-operation-monitor-directive="detailRecord">
+                    {{convertDate(item.BILLING_DATE_TIME)}}
+                    <span kyee-i18n-directive code="shouldFee" default="费用小结"></span>
+                    <span class="fl-r ta-r pay_fee">
+                        <span ng-if="item.SHOULD_PAY_FEE">¥</span>{{convertMoney(item.SHOULD_PAY_FEE)}}
+                        <i class="icon icon-arrow_right qy-grey5"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!--每日清单-无数据-->
+        <div ng-if="!isEmpty&&inPaymentData.TOTAL==0">
+            <!--验证中-->
+            <div class="result_box ta-c" ng-if="inPaymentData.QUERY_PROGRESS=='QUERYING'&&!isfromPerpaid">
+                <div class="top mar-d-15 qy-green">
+                    <i class="icon pad-r-5 icon-stop"></i>
+                    <span class="f16">{{inPaymentData.RESULT_TIP}}</span>
+                </div>
+                <div class="bottom ta-l">
+                    {{inPaymentData.KIND_TIP}}
+                </div>
+            </div>
+            <!--空提示-->
+            <div class="row empty-box1" style="padding-bottom: 5px;" ng-if="inPaymentData.QUERY_PROGRESS=='DONE'&&!isfromPerpaid">
+                <div class="mar-b-10">
+                    <i class="icon empty-icon icon-icon_3"></i>
+                </div>
+                <div class="col empty_right">
+                    <div ng-bind-html="inPaymentData.RESULT_TIP|kyee_to_html" id="inpatient_pay_tip_id">{{inPaymentData.RESULT_TIP}}</div>
+                </div>
+            </div>
+
+            <!--输入框-->
+            <div class="list qy-bg-white border-td list_line mar-t-10">
+                <div class="item item-input input_line"  ng-click="goCustomPatient()" kyee-operation-monitor-directive="customPatient">
+                    <span class="input-label input_l qy-deepblue" kyee-i18n-directive code="name1" default="姓名："></span>
+                    <div ng-bind="pagedata.name" class="text-ellipsis input_c f14"></div>
+                    <div class="ta-r qy-grey5 input_r">
+                    <span class="text-ellipsis" style="width:64px"  kyee-i18n-directive code="changePatient"
+                          default="切换就诊者">
+                    </span>
+                        <i class="icon icon-arrow_right"></i>
+                    </div>
+                </div>
+                <div class="item item-input input_line border-t" style="border-bottom:0;">
+                    <span class="input-label qy-deepblue" kyee-i18n-directive code="IdNo" default="身份证："></span>
+                    <input type="text" readonly="readonly" ng-model="pagedata.idNo" />
+                </div>
+                <div class="item item-input input_line border-t" style="border-bottom:0;" ng-if="inPaymentData.PRECHARGE_QUERYTYPE==1">
+                    <span class="input-label qy-deepblue" kyee-i18n-directive code="inHospitalNo" default="住院号："></span>
+                    <input type="text" ng-model="pagedata.inHospitalNo" placeholder="{{placeholder.pHInHospitalNo}}"  />
+                    <a class="col col-10 ta-r clear_icon" ng-show="pagedata.inHospitalNo">
+                        <i class="icon ion-close-circled  qy-grey4 f16" ng-click="clearNo()" ></i>
+                    </a>
+                </div>
+            </div>
+
+            <!--预缴按钮-->
+            <div class="pad-b-14 qy-bg-grey1">
+                <button class="button-size-l button button-block" style="margin-bottom: 0" ng-click="nextStep()" kyee-operation-monitor-directive="forNoDataPrepay">
+                    <span kyee-i18n-directive code="nextStep" default="住院预缴"></span>
+                </button>
+            </div>
+
+            <!--底部提示-->
+            <div class="mar-t-15 pad-b-14 qy-orange" >
+                {{inPaymentData.BOTTOM_TIP}}
+            </div>
+        </div>
+
+        <!--背景提示-->
+        <div class="empty-text" ng-if="isEmpty||permission.PRECHARGE_PERMISSION!=1">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p ng-bind-html="emptyText|kyee_to_html" id="inpatient_pay_bg_tip_id">
+                {{emptyText}}
+            </p>
+        </div>
+
+    </ion-content>
+    <!--底部住院预缴按钮-->
+    <div ng-if="(!isEmpty&&inPaymentData.TOTAL>0)" class="bar bar-footer pad-l-14 border-t bottom_btn">
+        <div class="qy-grey7 bottom_left">
+            <div ng-if="permission.PRECHARGE_PERMISSION==1">
+                <span kyee-i18n-directive code="balance" default="账户余额："></span>
+                <span class="f16" ng-class="inPaymentData.PREPAIED_BALANCE<0?'qy-red':'qy-green'">¥ {{convertMoney(inPaymentData.PREPAIED_BALANCE)}}</span>
+            </div>
+            <div ng-if="permission.PRECHARGE_PERMISSION!=1">{{inPaymentData.NO_PERMISSION}}</div>
+        </div>
+        <button class="button but" ng-class="permission.PRECHARGE_PERMISSION==1 ? 'button_color_green':'button_color_grey'" kyee-action-holder-directive="pre_payed"
+                ng-click="KAH($event)||goPerpaid()" kyee-operation-monitor-directive="forDataPrepay">
+            <span kyee-i18n-directive code="nextStep" default="住院预缴"></span>
+        </button>
+    </div>
+</ion-view>

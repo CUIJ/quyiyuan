@@ -1,0 +1,66 @@
+<!--
+产品名称：quyiyuan
+创建人: 董茁
+创建日期:2016/8/24
+创建原因：2.2.90版 申请退费页面
+任务号：KYEEAPPC-7611
+-->
+<ion-view class="qy_clinic_refund_apply" cache-view="false">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="申请退费"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false" >
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height-92)+'px'}">
+            <div class="qy-bg-white border-d">
+                <ul class="mar-l-14 pad-r-14 pad-d-15" ng-class="$last?'':'border-d'"  ng-repeat="item in refundInformation.rows">
+                    <li class="head" ng-class="item.CHECK_FLAG==0?'qy-grey7':'qy-grey4'">
+                        <i class="icon f16 mar-r-5" ng-click="isChecked(item)" ng-init="isCheckedOne(item)"
+                           ng-class="{'icon-radiobox_1 qy-green':item.checked, 'icon-radiobox_2 qy-grey5': !item.checked&&item.CHECK_FLAG==0, 'icon-radiobox_2 qy-grey4':!item.checked&&item.CHECK_FLAG!=0}"></i>
+                        <span class="f14">{{item.GROUP_MESSAGE}}</span>
+                        <span ng-if="item.RETURN_MESSAGE" ng-class="item.RETURN_STATUS == '2'?'qy-red':''" class="mar-l-5 mar-r-5"  ng-click="refundErrorInfo(item)">
+                            ({{item.RETURN_MESSAGE}})
+                        <i ng-if="item.RETURN_STATUS =='2'" ng-class="item.RETURN_STATUS == '2'?'qy-red':''" class="icon icon-icon_4 f16 prompt"></i>
+                        </span>
+
+                    </li>
+
+                    <ul class="container qy-bg-grey1 pad-b-14 pad-d-5">
+                        <li class="row mar-d-5" ng-repeat="detail in item.DETAILS ">
+                            <span class="container_item text-ellipsis">{{detail.ITEM_NAME}}：</span>
+                            <span class="qy-grey7 f16" >¥{{convertMoney(detail.ITEM_COSTS)}}</span>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+            <!--如果同一个订单包含多笔缴费信息 会提示一下信息-->
+            <div  ng-if="refundInformation.total > 0 && refundInformation.rows[0].ALERT_MESSAGE" class="pad-b-14 mar-td-10 f12 qy-orange row">
+                <div>
+                    <i class="icon icon-icon_4 f14 prompt"></i>
+                </div>
+                <div class="col">
+                    <p>{{refundInformation.rows[0].ALERT_MESSAGE}}</p>
+                </div>
+            </div>
+
+        </ion-scroll>
+
+        <div  class="bar bar-footer pad-l-14 border-t btn_bottom">
+            <div class="qy-grey7 bottom_left">
+                <div class="f14 line_h">
+                    <span kyee-i18n-directive code="num" default="退款金额："></span>
+                    <span class="f16">¥{{convertMoney(sum)}}</span>
+                </div>
+            </div>
+
+            <button ng-init="isButtonGrey()" class="button but" ng-class="isPay==1?'button-color-bg-green':'button_color_grey'"
+                    ng-click="KAH($event)||refundSubmitBtn()" kyee-operation-monitor-directive="refund">
+                <span kyee-i18n-directive code="refund" default="确 定"></span>
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,114 @@
+<ion-view class="health_serve" cache-view="false">
+
+    <ion-content has-bouncing="true" scroll="true" overflow-scroll="true"
+                 on-drag-up="onDragUp()"
+                 on-drag-down="onDragDown()"
+                 padding="false" class="qy-bg-grey1 pad-top-0" ng-class="{'isIos':DEVICE_IOS}"
+                 delegate-handle="health_serve_content"
+                 ng-style="{height: (KyeeEnv.innerSize.height - 50)+'px'}">
+
+        <div class="position_r">
+            <div>
+                <div
+                        kyee-slidebox-image-directive
+                        speed="5000"
+                        height="{{imgHeight+'px'}}"
+                        width ="{{imgWidth}}"
+                        is-set-hash="false"
+                        images="slideboxData"
+                        itemclick="viewHospitalDetail(params)"
+                        bind="bindSlideboxImageActions(params)">
+
+                </div>
+            </div>
+
+        </div>
+        <!--咨询医生、购药、护士服务-->
+        <div class="border-d flex flex-start qy-bg-white">
+            <div class="flex-42" ng-click="goToConsultDoctor()" kyee-operation-monitor-directive="consultDoctor">
+                <div class="img-center"><img width="100px" src="resource/images/icons/consultIcon.png"></div>
+                <div class="ta-c f12 color-subText">名医线上咨询解答疑问</div>
+            </div>
+            <div class="border-l flex-auto">
+                <div class="flex-item" ng-click="goToNetWorkClinic()" kyee-operation-monitor-directive="netWorkClinic">
+                    <div><img width="48px" src="resource/images/icons/onlinepharmacy.png"></div>
+                    <div class="mar-l-5">
+                        <div class="f14 qy-grey7">在线购药</div>
+                        <div class="f12 color-subText mar-t-5">足不出户、开单购药</div>
+                    </div>
+                </div>
+                <div class="border-t flex-item" ng-click="goNurseService()">
+                    <div><img width="48px" src="resource/images/icons/nurse.png"></div>
+                    <div class="mar-l-5">
+                        <div class="f14 qy-grey7">护士服务</div>
+                        <div class="f12 color-subText mar-t-5">咨询、陪诊护士上门</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--nav-->
+        <div class="nav qy-bg-white border-td flex flex-start mar-t-6" ng-class="getNavStyle()">
+            <div class="nav-item" ui-sref="triageMain"  kyee-operation-monitor-directive="triageMain">
+                <div><img class="icon-img" src="resource/images/icons/self-inspection.png"></div>
+                <div class="f14 qy-grey7">症状自查</div>
+            </div>
+
+            <div class="nav-item" ng-click="goToSurroundingHospital()" kyee-operation-monitor-directive="surroundingHospital">
+                <div><img class="icon-img" src="resource/images/icons/nearbyHospital.png"></div>
+                <div class="f14 qy-grey7">周边医院</div>
+            </div>
+            <div class="nav-item" ng-click="KAH($event) || HealthInsurance();" ng-if="!(userSource=='4001')&&withMyInsurance=='1'" kyee-operation-monitor-directive="myInsurance">
+                <div><img class="icon-img" src="resource/images/icons/healthInsurance.png"></div>
+                <div class="f14 qy-grey7">健康保险</div>
+            </div>
+
+            <div class="nav-item" ng-click="withTheDiagnosis()" ng-if="userSource=='4001'" kyee-operation-monitor-directive="withTheDiagnosisInto">
+                <div><img class="icon-img" src="resource/images/icons/healthEducation.png"></div>
+                <div class="f14 qy-grey7">健康教育</div>
+            </div>
+            <div class="nav-item" ui-sref="sp_medical_record" ng-if="userSource=='3'">
+                <div><img class="icon-img" src="resource/images/icons/reviewDoctor.png"></div>
+                <div class="f14 qy-grey7">就医评价</div>
+            </div>
+            <div class="nav-item" ng-click="goToHealthManage()" ng-if="userSource=='3'" kyee-operation-monitor-directive="healthManage">
+                <div><img class="icon-img" src="resource/images/icons/healthManagement.png"></div>
+                <div class="f14 qy-grey7">健康管理</div>
+            </div>
+            <div class="nav-item" ui-sref="careDoctors" ng-if="userSource=='4001'" kyee-operation-monitor-directive="myDoctor">
+                <div><img class="icon-img" src="resource/images/icons/doctorLinkman.png"></div>
+                <div class="f14 qy-grey7">我的医生</div>
+            </div>
+        </div>
+
+        <div class="qy-bg-white border-td mar-t-6">
+            <div class="row health_more" ng-click="healthMore()" kyee-operation-monitor-directive="healthMore">
+
+                <div class="f14 qy-grey7">
+                    <span class="qy-bg-green mar-r-5 green-box"></span>健康资讯
+                </div>
+                <div class="col qy-grey5 f12 text-right">
+                    <span>更多</span>
+                    <i class="icon ion-chevron-right qy-grey5 mar-l-5"></i>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:100%;-webkit-overflow-scrolling:touch;overflow:auto;" class="qy-bg-white"><!--ng-class="{'no_show_img':showHealthImg}"-->
+            <!--<iframe onload="hideLoadHealthServe()" ng-src='{{openUrl}}'style="width:100%;min-height:475px;overflow:hidden">-->
+            <iframe ng-src='{{openUrl}}'style="width:100%;min-height:475px;overflow:hidden">
+            </iframe>
+        </div>
+    </ion-content>
+    <!--<div-->
+            <!--ng-class="{'help_icon_l':bellLeft1==0,'help_icon_c':pressed1,'help_icon_r':bellLeft1!=0&&!pressed1}"-->
+            <!--ng-if="showHelpAtOnce == '1'"-->
+            <!--style="top:{{bellTop1+'px'}}; left:{{bellLeft1+'px'}};"-->
+            <!--ng-click="goForHelp()"-->
+            <!--on-drag-start="press1()"-->
+            <!--on-drag="drag1($event)"-->
+            <!--on-drag-end="leave1($event)"-->
+            <!--data-tap-disabled="true"-->
+            <!--draggable="true">-->
+        <!--<img src = "resource\images\home\yijianhujiu.png" style="height: 40px">-->
+    <!--</div>-->
+</ion-view>

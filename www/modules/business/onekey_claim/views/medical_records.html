@@ -1,0 +1,53 @@
+<ion-view class="qy_medical_records qy-bg-grey1">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="填写理赔资料"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear"  ng-click="openRightMenu('medical_records')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false">
+        <div class="head qy-bg-white border-d pad-d-20">
+            <ul class="head_row">
+                <li class="left">
+                    <i class="icon icon-file qy-grey4 pad-t-20"></i>
+                    <div class="line_grey line line_b"></div>
+                </li>
+                <li class="right">
+                    <div ng-if="true" class="right_cont" kyee-i18n-directive code="head0" default="请添加病历资料" ></div>
+                </li>
+            </ul>
+        </div>
+
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height-105)+'px'}">
+            <div class="qy-bg-white container border-d">
+                <p class="pad-b-14 pad-t-14 border-t mar-t-10" style="padding-bottom: 7px;" kyee-i18n-directive code="contentHead" default="请拍摄或在相册内选择本次理赔相关的病历资料证明等，供保险公司审核" ></p>
+                <ul class="row pad-b-14" ng-repeat="pic in pictures track by $index" id="imgContainer">
+                    <li class="img_box" ng-repeat="path in pic track by $index">
+                        <div ng-show="path != 'addImageBtn@'">
+                            <img ng-show="isAppPage" ng-src="{{path}}" />
+                            <!--如果是微信页面，用下面标签。ng-src会将大小写转换，因此微信不采用ng-src-->
+                            <img class="wxImgs" ng-show="!isAppPage" src="" />
+                            <div ng-click="deletePic($index)" class="del_div"><div class="del_btn"><i class="icon ion-close-round"></i></div></div>
+                        </div>
+                        <div ng-if="path == 'addImageBtn@'" class="add_box" ng-click="addPicture()">
+                            <div class="add"><i class="icon icon-add qy-grey3"></i></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pad-b-14 mar-t-20">
+                <button class="button-size-l button button-block"
+                        kyee-operation-monitor-directive="goPay" ng-click="nextStep()">
+                    <span kyee-i18n-directive code="nextBtn" default="下一步" ></span>
+                </button>
+            </div>
+        </ion-scroll>
+    </ion-content>
+</ion-view>

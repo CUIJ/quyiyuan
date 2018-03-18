@@ -1,0 +1,97 @@
+<ion-view class="add_information qy_regist_view" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{consultTypeName}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-grey2 f14 has_footer regist_content" scrollbar-y="false">
+        <!--头部状态栏-->
+        <div kyee-compile-directive template="modules\business\consultation\views\template\consultation_status.html"
+             delay="0"></div>
+        <!--补充信息主体-->
+        <div class="pad-lr-14 line_20 f12 pad-td-12 bg_color_orange ">
+            <span class="qy-orange">{{tip}}</span>
+        </div>
+        <!--提交出错时提示信息-->
+        <div ng-if="isSubmitError" class="pad-lr-14 pad-td-20 border-d qy-grey5 qy-bg-white">
+            <i class="icon-status-fail color_red block text-center f_60"></i>
+            <p class="f18 qy-grey7 text-center mar-t-16 mar-d-10">资料提交失败</p>
+            <p class="lineH_20 text-center margin_bottom_none">抱歉，您的信息提交失败，请重新提交。</p>
+        </div>
+        <!--患者信息模块-->
+        <div class="qy-bg-white border-d pad-l-14">
+            <div class="pad-r-14 line_50">
+                <span class="qy-grey7">{{currentPatientInfo.OFTEN_NAME}}&nbsp;&nbsp;{{currentPatientInfo.SEX_TEXT}}&nbsp;/&nbsp;{{currentPatientInfo.age}}</span>
+                <!-- <div class="flex qy-grey5 fl-r" ui-sref="custom_patient"> -->
+                <div ng-if="isShowSwitchBtn" class="flex qy-grey5 fl-r" ng-click="switchCP()">
+                    <span style="margin-left: 3px">切换</span>
+                    <i class="icon-arrow_right"></i>
+                </div>
+            </div>
+
+            <div class="qy-bg-white border-t line_40">
+                <span class="qy-deepblue">联系电话:</span>
+                <span class="mar-l-5">{{currentPatientInfo.contactPhone}}</span>
+            </div>
+        </div>
+
+        <!--允许使用抢单功能-->
+        <div ng-if="isOpenShare==1" class="flex flex_space_between qy-bg-white pad-lr-14 mar-t-10 border-td line_20">
+            <div class="pad-tb-20" ng-class="chooseShare?'qy-green':'qy-grey7'">{{shareReminder}}</div>
+            <div class="flex-70 mar-l-14 ta-r" ng-click="switchShare()">
+                <i ng-class="chooseShare?'icon-radio-checked qy-green':'icon-radio-unchecked qy-grey6'"
+                   class="f16 mar-r-6"></i>
+                <span ng-class="chooseShare?'qy-green':'qy-grey7'">允许</span>
+            </div>
+        </div>
+
+        <ul class="border-td qy-bg-white mar-t-10 pad-l-14">
+            <li class="pad-r-14">
+                <span class="line_50">疾病名称</span>
+                <input maxlength="50" class="block mar-d-16 border_none height_20" style="width:100%;" placeholder="请填写疾病名称，或病情主症状"
+                       ng-model="diseaseInfo.name"/>
+            </li>
+            <li class="pad-r-14 border-t">
+                <span class="line_50">病情描述</span>
+                    <textarea maxlength="200"  rows="2" placeholder="例：医生您好，我最近经常咳嗽，痰多发黄，睡眠质量差，请问如何改善？（至少20字）"
+                              class="text_area text_descript"
+                              ng-model="diseaseInfo.description" id="illDescript"></textarea>
+            </li>
+            <li class="pad-r-14 border-t">
+                <span class="line_50">疾病史</span>
+                    <textarea maxlength="200" placeholder="例：吸烟史5年"
+                              class="text_area text_ill_history"
+                              ng-model="diseaseInfo.history"  id="illHistory"></textarea>
+            </li>
+            <li class="border-t flex pad_tb_16 pad-r-14"
+                ng-class="{flex_wrap:IMGLIST.length>0}">
+                <div class="flex_inline" ng-repeat="img in IMGLIST">
+                    <img ng-src="{{img.imgUrl}}" ng-click="showBigPicture($index)"
+                         ng-style="{'margin-right':($index+1)%4==0?'0':'10px','margin-top':$index<4?'0':'10px'}"
+                         width="{{imageWidth}}" height="{{imageWidth}}"/>
+                        <span class="span_delete delete_btn"
+                              ng-style="{top:$index<4?'2px':'12px',left:(imageWidth-22)+'px'}"
+                              ng-click="doDeleteImg($index,$event)"></span>
+                </div>
+
+                <img ng-if="IMGLIST.length < 9" class="flex_none"
+                     src="resource/images/consultation/Increase-picture@2x.png"
+                     ng-style="{'margin-right':IMGLIST.length==3||IMGLIST.length==7?'0':'10px','margin-top':IMGLIST.length<4?'0':'10px'}"
+                     ng-click="choosePhoto()"
+                     width="{{imageWidth}}" height="{{imageWidth}}"/>
+                <span ng-if="IMGLIST.length == 0" class="qy-grey4">请上传病历、检查检验、服用药品或患处照片，帮助医生快速掌握您的病情。</span>
+            </li>
+        </ul>
+        <div class=" agreement_div agreement_position"
+             ng-show="true" ng-style="{'margin-top':'10px'}">
+            <i  class=" pad-r-10  agreement_icon "
+                ng-class="{'ion-android-checkbox-outline':isAgree,'ion-android-checkbox-outline-blank':!isAgree}"
+                ng-click="consultAgree();"></i>
+            <span class="agreement_span" ng-click="readConsultContract();"> 阅读并同意《趣医网在线咨询患者知情条款》</span>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button class="button button-block button-size-l" ng-click="doSubmit()">{{isSubmitError?'重新提交':'提交'}}</button>
+    </div>
+</ion-view>

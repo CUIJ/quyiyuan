@@ -1,0 +1,44 @@
+<!--
+* 任务号：KYEEAPPC-7817
+ * 修改者:董茁
+ * 修改时间：2016年8月03日10:57:30
+ * 修改原因：条形码展示
+ * 任务号：KYEEAPPC-7182
+-->
+<ion-view  class="fadeDown-enter qy_code_image" style="height: 313px;margin-top: -111px;">
+    <ion-content style="background-color: transparent;"  padding="true"  has-bouncing="false" scrollbar-y="false">
+      <!--  <ion-scroll zooming="false"  max-zoom="1" min-zoom="0.2" class="ta-c"
+                    on-drag-start="press()"
+                    on-drag="drag($event)"
+                    on-drag-end="leave($event)"
+                    draggable="true">-->
+
+           <div style="border: 1px solid #e7e7e7; margin:0 auto;height: 127px;width: 232px;position: relative;">
+               <img ng-src="{{paidInfo.BAR_CODE}}" style="width:{{imgWidth+'px'}};position: absolute;top:50%;left: 50%;margin-top:-{{height+'px'}};margin-left: -{{imgWidth/2+'px'}};">
+           </div>
+
+            <div  style="margin-top:28px;text-align: center;">
+                <span class="f14" style="font-weight:bold;">发票号：</span>
+                <span class="f14" style="font-weight:bold;"> {{paidInfo.RECEIPT_NO}}</span>
+            </div>
+    </ion-content>
+    <ion-footer-bar class="mar-b-14 img_footer">
+        <div class="ta-c img_wdt">
+            <span class="footer_block">
+                <span  class="ion_show mar-r-20 mar-l-20" ng-class="{'qy-green ion_border_green':greenIndex==1}" ng-click="oneSizeShow()">
+                    <div class="ion_number">1.0</div><div class="ion_font">倍</div>
+                </span>
+                <div class="footer_line"></div>
+            </span>
+            <span class="footer_block">
+                <span class="ion_show  mar-r-20 mar-l-20" ng-class="{'qy-green ion_border_green':greenIndex==2}" ng-click="twoSizeShow()">
+                    <div class="ion_number">0.5</div><div class="ion_font">倍</div>
+                </span>
+                <div class="footer_line"></div>
+            </span>
+            <span class="ion_show  mar-r-20 mar-l-20" ng-class="{'qy-green ion_border_green':greenIndex==3}" ng-click="threeSizeShow()">
+                <div class="ion_number">0.25</div><div class="ion_font">倍</div></span>
+            </span>
+        </div>
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,72 @@
+<ion-view title="{{detail}}" class="price_medical_detail">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1" delegate-handle="mainScroll">
+        <div style="margin: 10px 10px 0px 10px;" ng-if="state == 0" ng-repeat="medicine in all" class="box_container">
+            <div style="padding-top: 3px;"  kyee-operation-monitor-directive="open" ng-click="open($index)" class="row center-content mar-l-10 mar-td-5 with_95 f14"
+                 ng-class="{'botten_price':openBotten[$index]}">
+                    <span class=" spantext size p_right " title="{{medicine.ITEM_NAME}} ">
+                        {{ medicine.ITEM_NAME }}</span>
+                    <span class=" detail_price text-ellipsis" style="white-space: nowrap; width: 40%; text-align: right;">
+                        ￥{{ medicine.ITEM_PRICE }} / {{ medicine.ITEM_MEASURE_UNIT }}</span>
+            </div>
+            <div ng-show="openBotten[$index]" class="center-content mar-l-10 mar-td-5 with_80">
+                <div class=" text-ellipsis" >
+                    <span kyee-i18n-directive code="itemCategory" default="剂型："></span>
+                    <span class=" text-ellipsis">{{ medicine.ITEM_CATEGORY }}</span>
+                </div>
+                <div class=" text-ellipsis">
+                    <span kyee-i18n-directive code="fromarts" default="规格："></span>
+                    <span class=" text-ellipsis">{{ medicine.FORMATS }}</span>
+                </div>
+               <div class=" text-ellipsis">
+                   <span kyee-i18n-directive code="iteMeasureUnit" default="计量单位："></span>
+                   <span class=" text-ellipsis">{{ medicine.ITEM_MEASURE_UNIT }}</span>
+               </div>
+                <div  class=" text-ellipsis">
+                    <span kyee-i18n-directive code="manufactory" default="制药厂："></span>
+                    <span class=" text-ellipsis">{{ medicine.MANUFACTORY }}</span>
+                </div>
+               <div class=" text-ellipsis">
+                   <span kyee-i18n-directive code="itemPrice" default="零售价："></span>
+                   <span class=" text-ellipsis">{{ medicine.ITEM_PRICE }}</span>
+               </div>
+            </div>
+            <i kyee-operation-monitor-directive="open" ng-click="open($index)"
+               ng-class="{'icon-arrow_down':!openBotten[$index],'icon-arrow_up':openBotten[$index] }"
+               class="icon edit_arrow pad-t-10 top_pos qy-grey5" style="color: #999"></i>
+        </div>
+        <div style="margin: 10px 10px 0px 10px;" ng-if="state == 1" ng-repeat="medicine in all" class="box_container">
+            <div>
+                <div style="padding-top: 3px;" ng-click="open($index)" class="row center-content mar-l-10 mar-td-5 with_95 f14"
+                     ng-class="{'botten_price':openBotten[$index]}">
+                    <span class=" spantext size p_right" title="{{medicine.ITEM_NAME}} ">
+                        {{ medicine.ITEM_NAME }}</span>
+                    <span class=" detail_price text-ellipsis " style="white-space: nowrap; width: 40%;text-align: right;">￥{{ medicine.ITEM_PRICE }} / {{ medicine.ITEM_MEASURE_UNIT }}</span>
+                </div>
+                <div ng-show="openBotten[$index]" class="center-content mar-l-10 mar-td-5 with_80">
+                    <div class="text-ellipsis">
+                        <span kyee-i18n-directive code="itemPriceProject" default="价格："></span>
+                        <span>{{ medicine.ITEM_PRICE }}</span>
+                    </div>
+                   <div class="text-ellipsis">
+                       <span kyee-i18n-directive code="iteMeasureUnitProject" default="计价单位："></span>
+                       <span>{{ medicine.ITEM_MEASURE_UNIT }}</span>
+                   </div>
+                    <div class="text-ellipsis">
+                        <span kyee-i18n-directive code="instructions" default="说明："></span>
+                        <span>{{ medicine.INSTRUCTIONS }}</span>
+                    </div>
+
+                </div>
+                <i kyee-operation-monitor-directive="open" ng-click="open($index)"
+                   ng-class="{'icon-arrow_down':!openBotten[$index],'icon-arrow_up':openBotten[$index] }"
+                   class="icon edit_arrow pad-t-10 top_pos qy-grey5 " style="    color: #999"></i>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

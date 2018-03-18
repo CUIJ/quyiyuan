@@ -1,0 +1,421 @@
+.qy_my_refund{
+  .dis_inbl{
+    display: inline-block;
+  }
+  .info{
+    position: relative;
+    height: 50px;
+  }
+  .head_tip{
+    position: absolute;
+    top: 15px;
+    right:0;
+  }
+  .refund_btn{
+    bottom: -5px;
+    right: 8px;
+    background-color:#5baa8a;
+    border:1px solid #5baa8a;
+    color: white;
+  }
+
+  .lh_45{
+    line-height: 51px;
+  }
+
+  .lh_25{
+    line-height: 31px;
+    width:82%;
+  }
+  .col_70{
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 70%;
+    flex: 0 0 70%;
+    max-width: 70%;
+  }
+  .pad_t_14{
+    padding-top: 14px;
+  }
+  .list_top{
+    margin-bottom: 10px;
+  }
+  .right_box{
+    margin-left: 42px;
+    overflow: hidden;
+  }
+  .item-icon-left .icon {
+    left: 0;
+    font-size:26px;
+  }
+  .refund_tips{
+    margin-bottom: 20px;
+  }
+}
+
+.qy_refund_history{
+  .pad_t_14{
+    padding-top: 14px;
+  }
+  .refund_tips{
+    margin-bottom: 20px;
+  }
+  .qy_blue{
+    color:#357fbc !important;
+  }
+  .list_top{
+    margin-bottom: 10px;
+  }
+
+  .lh_51{
+    line-height: 52px;
+  }
+
+  .lh_32{
+    line-height: 33px;
+  }
+
+  .info{
+    position: relative;
+    height: 52px;
+  }
+
+  .dis_inbl{
+    display: inline-block;
+    width: 82%;
+  }
+
+  .head_style{
+    position: relative;
+    padding-top: 12px;
+    line-height: 13px;
+  }
+  .col_60{
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 60%;
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+}
+
+.qy_refund_detail {
+  .amount_box{
+    background-color: #e1f4ec;
+    .row{
+      padding: 0 31px;
+    }
+    .amount_content{
+      height: 170px;
+      position: relative;
+      margin:0 5px;
+      p{
+        margin: 0;
+      }
+      .box_top{
+        height: 40px;
+        line-height: 40px;
+      }
+      .box_middle{
+        height: 74px;
+        margin-bottom: 1px;
+        padding: 0 20px;
+        .mid_h{
+          padding: 6px 0 12px;
+        }
+        .amount{
+          font-size: 32px;
+        }
+      }
+      .time{
+        height: 28px;
+        padding: 8px 20px 0 20px;
+      }
+      .bott_lace{
+        background-image: url('../../resource/images/myWallet/lace.png');
+        background-repeat: repeat-x;
+        background-size: 150%;
+        height: 10px;
+      }
+      .circle{
+        width: 12px;
+        height: 12px;
+        border-radius: 12px;
+        background-color: #e1f4ec;
+        position: absolute;
+        top:108px;
+      }
+      .circle_l{
+        left: -6px;
+      }
+      .circle_r{
+        right: -6px;
+      }
+    }
+  }
+  .simple_amount{
+    height: 106px;
+    padding-top: 17px;
+  }
+  .status{
+    padding-bottom: 11px;
+    p{
+      margin-bottom: 0;
+    }
+    .icon-loading{
+      position: relative;
+      top: 1px;
+    }
+    .tip{
+      padding-bottom: 3px;
+      padding-top: 8px;
+    }
+  }
+  .detail_box{
+    .detail_head{
+      padding: 13px 0 15px;
+      .icon-lineup{
+        position: relative;
+        top: 3px;
+        padding-right: 8px;
+      }
+    }
+    .detail_item{
+      height: 40px;
+      line-height: 40px;
+    }
+    .container{
+      border: 1px solid #e7e7e7;
+      border-radius: 2px;
+      padding: 13px 22px 4px;
+      .row{
+        margin-bottom: 9px;
+      }
+      .icon{
+        padding-right: 3px;
+      }
+    }
+  }
+  .status_line{
+    .row{
+      padding-top: 13px;
+    }
+    .line{
+      position: relative;
+    }
+    .line_top{
+      margin-bottom: 3px;
+    }
+    .line_tip{
+      padding-bottom: 11px;
+    }
+  }
+  .circle_green{
+    width: 9px;
+    height: 9px;
+    background: #5baa8a;
+    border-radius: 9px;
+  }
+  .circle_grey{
+    width: 9px;
+    height: 9px;
+    background: #999;
+    border-radius: 9px;
+  }
+  .circle_current{
+    width: 11px;
+    height: 11px;
+    background: #5baa8a;
+    border-radius: 11px;
+    border: 2px solid #c5e1d5;
+    position: relative;
+    right: 1px;
+  }
+  .f30{
+    font-size: 30px;
+  }
+  .block{
+    height: 10px;
+  }
+  .pad-t-15{
+    padding-top: 15px!important;
+  }
+  .mar-r-22{
+    margin-right: 22px;
+    padding-top: 4px;
+  }
+  .dis_inBl{
+    display: inline-block;
+  }
+  .p_solid{
+    width: 1px;
+    height: 65px;
+    border-right: 1px solid;
+    position: absolute;
+    left: 4px;
+    top: -46px;
+  }
+  .green_solid{
+    border-right-color: #5baa8a;
+  }
+  .grey_solid{
+    border-right-color: #999;
+  }
+}
+
+.qy_refund_apply{
+  .border_bottom{
+    border-bottom: 0;
+  }
+  .list_top{
+    margin-bottom: 10px;
+    label{
+      padding-left: 0;
+    }
+  }
+}
+
+.qy_refund_detail_new{
+  .record_box{
+    position: relative;
+  }
+ .pad-t-15{
+   padding-top: 15px!important;
+ }
+  .mar-r-22{
+    margin-right: 22px;
+  }
+
+  .p_dash{
+    width: 1px;
+    height: 42px;
+    border-right: 1px solid #5baa8a;
+    position: absolute;
+    left: 5px;
+    top: -34px;
+  }
+
+  .p_solid{
+    width: 1px;
+    height: 42px;
+    border-right: 1px solid #5baa8a;
+    position: absolute;
+    left: 5px;
+    top: -34px;
+  }
+  .pad-td-14{
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+}
+.btn_bottom{
+  height: 41px;
+  .button_color_red{
+    border: 1px solid #f90;
+    color: #fff;
+    background: #f90;
+  }
+  .button_color_green{
+    border: 1px solid #5baa8a;
+    color: #fff;
+    background: #5baa8a;
+  }
+  .button_color_grey{
+    border: 1px solid #CCCCCC;
+    color: #f4f4f4;
+    background: #ccc;
+  }
+  .button_mar_t{
+    margin-top: 8px;
+  }
+  .bottom_left{
+    width: 65%;
+    margin: 0;
+    float: left;
+    .icon-icon_1{
+      font-size: 14px;
+      position: relative;
+      top: 1px;
+      padding-right: 2px;
+    }
+  }
+}
+
+.qy_clinic_refund_apply{
+  .head{
+    height: 40px;
+    line-height: 40px;
+    .icon{
+      position: relative;
+      top: 1px;
+    }
+  }
+  .container{
+    border: 1px solid #e7e7e7;
+    border-radius: 2px;
+    padding: 13px 20px 8px;
+    .row{
+      margin-bottom: 9px;
+    }
+    .container_item{
+      width: 60%;
+      color: #666;
+    }
+  }
+  .btn_bottom{
+    height: 50px;
+    .button_color_red{
+      border: 1px solid #f90;
+      color: #fff;
+      background: #f90;
+    }
+    .button_color_green{
+      border: 1px solid #5baa8a;
+      color: #fff;
+      background: #5baa8a;
+    }
+    .button_color_grey{
+      border: 1px solid #CCCCCC;
+      color: #f4f4f4;
+      background: #ccc;
+    }
+    .button_mar_t{
+      margin-top: 8px;
+    }
+    .bottom_left{
+      width: 100%;
+      margin: 0;
+      padding-top: 14px;
+      .icon-icon_1{
+        font-size: 14px;
+        position: relative;
+        top: 1px;
+        padding-right: 2px;
+      }
+    }
+    .but {
+      width: 65px;
+      border-radius: 0;
+      line-height: 50px;
+      font-size: 14px;
+      margin-left: -4px;
+      position: absolute;
+      right: 0;
+    }
+  }
+  .bar-footer{
+    height: 50px;
+  }
+  .prompt{
+    position: relative;
+    top: 2px;
+    padding-right: 5px;
+  }
+}
+
+.qy_clinic_refund_popup{
+  .icon_flo {
+    padding: 0 0 8px 8px;
+  }
+  .fee_div{
+    width: 100%;
+  }
+}

@@ -1,0 +1,27 @@
+<ion-modal-view ng-controller="ShowPicturesController">
+    <!--<ion-header-bar align-title="center" class="qy-bg-grey7">-->
+        <!--<button ng-click="REMOVEPICTUREMODEL()" class="button back-button buttons button-clear header-item" style="margin-left: 10px"><i class="icon ion-android-arrow-back icon-head"></i></button>-->
+        <!--<h2 class="title">{{INDEX}}/{{TOTAL}}</h2>-->
+    <!--</ion-header-bar>-->
+    <ion-content>
+        <div class="qy-bg-grey7 back-layout">
+            <button ng-click="REMOVEPICTUREMODEL()"
+                    class="button back-button buttons button-clear ta-l">
+                <i class="ion-android-arrow-back icon-head"></i>
+            </button>
+            <span class="title index-center">{{INDEX}}/{{TOTAL}}</span>
+        </div>
+        <ion-slide-box active-slide="ACTIVESLIDE" on-slide-changed="CHANGEPICTURE()" show-pager="false" delegate-handle = "show-picture-slide"
+                       class="qy-bg-grey7"
+                       ng-style="{height:KyeeEnv.innerSize.height + 'px'}">
+            <ion-slide ng-repeat="img in IMGLIST">
+                <ion-scroll direction="y" scrollbar-y="false" zooming="false" has-bouncing="false"
+                            ng-style="{height:windowHeight+'px'}">
+                    <div style="display: table-cell;vertical-align:middle;" ng-style="{height:windowHeight+'px'}">
+                        <img style="vertical-align: middle" ng-src="{{img.imgUrl}}" width="{{windowWidth}}"/>
+                    </div>
+                </ion-scroll>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-modal-view>

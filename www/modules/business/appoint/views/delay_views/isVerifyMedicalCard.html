@@ -1,0 +1,21 @@
+<div class=" list" >
+    <label class="item item-input" style="padding:9px 0px">
+        <span class="input-label" style="width:35%" kyee-i18n-directive  code="card" default="就诊卡号："></span>
+        <input ng-model="isVerifyMedicalCard.IN_CARDNO" type="text"
+               placeholder="请输入就诊卡号">
+    </label>
+    <label class="item item-input" style="padding:9px 0px">
+        <span class="input-label" style="width:35%" kyee-i18n-directive  code="cardPwd" default="就诊卡密码："></span>
+        <input ng-model="isVerifyMedicalCard.IN_CATDPWD"
+               type="password"
+               placeholder="请输入就诊卡密码">
+    </label>
+    <label class="item item-input" style="padding:9px 0px" ng-click="checked(isVerifyMedicalCard.MIND_CARD)">
+        <span class="input-label" style="width:35%" kyee-i18n-directive  code="remberCard" default="记住就诊卡号："></span>
+        <i class="icon mar-b-14 f28" ng-class="{'icon-radiobox_1 qy-green':isChecked,'icon-radiobox_2 qy-grey6':!isChecked}"></i>
+    </label>
+    <div style="padding-top:20px">
+        <span class="f14" kyee-i18n-directive  code="info" default="说明："></span>
+        <span class="f12" kyee-i18n-directive  code="cardInfo" default="就诊卡号由10位数字组成，不足10位时在前面用0补齐。就诊卡密码即为您本就诊卡对应密码。"></span>
+    </div>
+</div>

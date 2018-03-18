@@ -1,0 +1,119 @@
+<ion-view class="qy-bg-grey2 consolutionNote">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>我的会诊记录</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="toggleFilter()"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <header ng-if="MDT_AND_RPP === 'BOTH'" class="has-header position-a pad-td-10 qy-bg-white flex">
+        <div ng-click="toggleTab('MDT')" ng-class="{'on': activeTab === 'MDT'}" class="text-center flex-half tab">
+            <span class="inline">远程会诊</span>
+        </div>
+        <div ng-click="toggleTab('RPP')" ng-class="{'on': activeTab === 'RPP'}" class="text-center flex-half tab border-l">
+            <span class="inline">病理会诊</span>
+        </div>
+    </header>
+
+    <ion-content has-bouncing="true" padding="false" delegate-handle="consolutionNote" ng-class="{'has-subheader':MDT_AND_RPP === 'BOTH'}" class="qy-bg-grey1">
+        <div ng-show="activeTab === 'MDT'">
+            <ion-list ng-if="mdtList.length > 0" can-swipe="true">
+                <ion-item ng-repeat="mdt in mdtList track by $index" class="list_conent_item qy_consolution_list mar-t-10 border-td">
+                    <div class="qy-bg-white">
+                        <ul class="consolution_list_ul">
+                            <li class="clearfix">
+                                <span class="consolution_left_font">会诊日期：</span>
+                                <span class="consolution_right_font">{{mdt.date}}</span>
+                                <span ng-class="{'qy-red': mdt.statusText == '支付失败','qy-grey5':mdt.statusText != '支付失败'}" class="fl-r">{{mdt.statusText}}</span>
+                            </li>
+                            <li>
+                                <span class="consolution_left_font">会诊患者：</span>
+                                <span class="consolution_right_font">{{mdt.patientName}}</span>
+                                <span class="mar-l-10">{{mdt.sexText}}/{{mdt.patientAge}}</span>
+                            </li>
+                            <li>
+                                <span class="consolution_left_font">会诊类型：</span>
+                                <span class="consolution_right_font">{{mdt.type==='ORDINARY'||mdt.type===null||mdt.type===""?("普通会诊"):(mdt.type==='MDT'?("MDT会诊"):(""))}}</span>
+                            </li>
+                            <li class="flex">
+                                <span class="consolution_left_font self-start flex2">会诊专家：</span>
+                                <span class="consolution_right_font text-wrap mar-l-5">{{mdt.MDTTeam}}</span>
+                            </li>
+                            <li ng-if="mdt.AMOUNT" ng-click="goToAppointDetail(mdt)" class="clearfix">
+                                <span class="consolution_left_font">会诊费用：</span>
+                                <span class="consolution_right_font">￥{{mdt.AMOUNT}}</span>
+                                <span ng-if="mdt.subText" class="qy-grey7">({{mdt.subText}})</span>
+                                <i ng-if="mdt.showRightArrow" class="ion-chevron-right inline fl-r"></i>
+                            </li>
+                        </ul>
+                        <div ng-if="mdt.remainTimeShow" class="mar-l-14 border-d text-center qy-orange remain_time">
+                            <i class="inline line40 icon-records f16"></i>
+                            <span class="inline line40 ver-t">支付剩余时间: {{mdt.remainTimeShow}}</span>
+                        </div>
+                        <div class="qy-bottom">
+                            <button ng-if="mdt.btn" ng-click="handlerBtn(mdt)" class="button button-size-s mar-l-3  mar-r-10 button-color-green consolution-regist-button">
+                                {{mdt.btn}}
+                            </button>
+                            <button ng-click="goDetail(mdt)" class="button button-size-s mar-l-3 button-color-green consolution-regist-button">
+                                <span>查看详情</span>
+                            </button>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div ng-show="activeTab === 'RPP'">
+            <ion-list ng-if="rppList.length > 0" can-swipe="true">
+                <ion-item ng-repeat="rpp in rppList track by $index" class="list_conent_item qy_consolution_list mar-t-10 border-td">
+                    <div class="qy-bg-white">
+                        <ul class="consolution_list_ul">
+                            <li class="clearfix">
+                                <span class="consolution_left_font">申请日期：</span>
+                                <span class="consolution_right_font">{{rpp.date}}</span>
+                                <span ng-class="{'qy-red': rpp.statusText == '支付失败','qy-grey5':rpp.statusText != '支付失败'}" class="fl-r">{{rpp.statusText}}</span>
+                            </li>
+                            <li>
+                                <span class="consolution_left_font">申请患者：</span>
+                                <span class="consolution_right_font">{{rpp.patientName}}
+                                <span class="mar-l-10">{{rpp.sex}}/{{rpp.age}}</span>
+                            </span>
+                            </li>
+                            <li>
+                                <span class="consolution_left_font">会诊医院：</span>
+                                <span class="consolution_right_font">{{rpp.HOSPITAL_NAME}}</span>
+                            </li>
+                            <li ng-if="rpp.AMOUNT" ng-click="goToAppointDetail(rpp)" class="clearfix">
+                                <span class="consolution_left_font">病理会诊费用：</span>
+                                <span class="consolution_right_font">￥{{rpp.AMOUNT}}</span>
+                                <span ng-if="rpp.subText" class="qy-grey7">({{rpp.subText}})</span>
+                                <!-- <span class="qy-grey7">(rpp.subText)</span> -->
+                                <i ng-if="rpp.showRightArrow" class="ion-chevron-right inline fl-r"></i>
+                            </li>
+                        </ul>
+                        <div ng-if="rpp.remainTimeShow" class="mar-l-14 border-d text-center qy-orange remain_time">
+                            <!-- <div class="mar-l-14 border-d text-center qy-orange remain_time"> -->
+                            <i class="inline line40 icon-records f16"></i>
+                            <span class="inline line40 ver-t">支付剩余时间: {{rpp.remainTimeShow}}</span>
+                        </div>
+                        <div class="qy-bottom">
+                            <button ng-if="rpp.btn" ng-click="handlerBtn(rpp)" class="button button-size-s mar-l-3  mar-r-10 button-color-green consolution-regist-button">
+                                {{rpp.btn}}
+                            </button>
+                            <button ng-click="goDetail(rpp)" class="button button-size-s mar-l-3 button-color-green consolution-regist-button">
+                                <span>查看详情</span>
+                            </button>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
+
+        <div class="empty-text" ng-if="noData">
+            <i class="icon empty-icon icon-icon_3"></i>
+            <p>暂无会诊数据</p>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,52 @@
+<ion-view  class="qy_coupons">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="couponsTitle" default="优惠抵用"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('coupons')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <div class="bar bar-subheader item-input-inset search pad-b-14 pad-t-5">
+        <label class="item-input-wrapper search-item">
+            <input type="search" placeholder="{{placetxt}}" ng-model="coupons">
+        </label>
+        <button class="button submit_btn" ng-click="exchangeCoupons(coupons)" kyee-i18n-directive code="submitBtnText" default="提交">
+
+        </button>
+    </div>
+
+    <ion-content has-bouncing="true" padding="false" class="has-subheader">
+
+        <div class="pad-b-14 qy-bg-white" ng-if="data.couponsDesc" ng-click="showFundExplain()">
+            <h5 class="fl-l text-ellipsis" ng-style="{'max-width':activityRuleWidth}" kyee-i18n-directive code="activityRule" default="活动规则"></h5>
+            <i ng-class="{'icon-arrow_right':!showRule, 'icon-arrow_down':showRule}" class="ico qy-green icon_rule" ></i>
+            <div class="clear_both" ng-if="showRule" ng-bind-html="data.couponsDesc"></div>
+        </div>
+
+        <div class="box-container b10_green"  ng-repeat="item in data.LIST">
+            <span class="left-content olor_green">￥{{item.AMOUNT.toFixed(1)}}</span>
+            <div class="center-content">
+                <span  class=" ft14 fw-b mb10 color_grey3">{{item.ACTIVITY_NAME}}</span>
+                <p class="ft10 color_grezy1">
+                    <span kyee-i18n-directive code="validDate" default="有效期："></span>
+                    <span ng-if="item.START_DATE">{{item.START_DATE}} - {{item.END_DATE}}</span>
+                    <span ng-if="!item.START_DATE" kyee-i18n-directive code="noRecord" default="无"></span>
+                </p>
+            </div>
+            <i class="icon ion-ios-help-outline right-icon fw-b" ng-click="showActRule(item.BACK_AMOUNT)"></i>
+        </div>
+
+        <div class="empty-text empty_height" ng-if="showEmpty" >
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p class="ta-c" kyee-i18n-directive code="couponsEmptyTip" default="暂无抵用券兑换记录"></p>
+        </div>
+
+    </ion-content>
+
+</ion-view>

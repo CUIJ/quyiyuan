@@ -1,0 +1,68 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 董茁
+* 创建日期:2016年10月08日10:04:30
+* 创建原因：一键理赔首页
+* 任务号：
+-->
+<ion-view class="qy_quick_claim" cache-view="false">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="理赔"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('one_quick_claim')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false" >
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height)+'px'}" ng-if="isView" >
+
+            <div class="mar-t-20" style="margin-bottom:-14px;margin-left:{{wid+'px'}};" >
+            　　<img ng-src="resource\images\onekeyClaim\quick_claim.png" style="width:190px;height:160px;" />
+            </div >
+
+            <ul class="list mar_d_0 qy-bg-white border-t mar-t-10">
+                <li class="item item-input f14 pad-td-10 pad-r-14 head mar-l-14" ng-click="chooseInsuraceCompany()" >
+                    <span  kyee-i18n-directive code="company" style="margin-left: -14px;" default="保险公司："></span>
+                    <span  style="margin-left: 14px;" class="qy-grey5 text-ellipsis"    placeholder="请选择保险公司">{{companyName}}</span>
+                    <i class="icon icon-arrow_right qy-grey5" style="position: absolute;right:10px;top:18px;"></i>
+                </li>
+                <li class="item item-input f14 pad-td-10 pad-r-14 head mar-l-14" ng-click="chooseInsuracePeople()" >
+                    <span  kyee-i18n-directive code="people" style="margin-left: -14px;" default="出险人："></span>
+                    <span  style="margin-left: 28px;"  class="qy-grey5"  >{{currentPatient.OFTEN_NAME}}</span>
+                        <i  class="icon icon-arrow_right qy-grey5" style="position: absolute;right:10px;top:18px;"></i>
+                </li>
+                    <span class="item item-input f14 pad-td-10 pad-r-14 head mar-l-14">
+                        <span  kyee-i18n-directive code="telnum" style="margin-left: -14px;"  default="手机号码："></span>
+                        <span  class="qy-grey5" style="margin-left: 14px;">{{currentPatient.PHONE}}</span>
+                    </span>
+                </li>
+                <li class="item item-input f14 pad-td-10 pad-r-14 head " ng-click="chooseInsuranceDate()">
+                    <span  kyee-operation-monitor-directive="selectChildAge" class="select_child_age"
+                           kyee-i18n-directive code="date"    default="出险日期："></span>
+                    <div style="margin-left: 14px;" >
+                        <span class="qy-grey5">{{CLINIC_DATE}}</span>
+                    </div>
+                        <i class="icon icon-arrow_right qy-grey5"  style="position: absolute;right:10px;top:18px;" ></i>
+                </li>
+            </ul>
+
+            <div class="pad-b-14 qy-bg-grey2" >
+                <button class="button-size-l button button-block"  ng-class="isClick==1?'button-color-bg-green':'button_color_grey'" style="margin-bottom: 0px" ng-click="nextInsunrance()" kyee-operation-monitor-directive="goRecharge">
+                    <span kyee-i18n-directive code="nextStep" default="下一步"></span>
+                </button>
+            </div>
+
+
+        </ion-scroll>
+
+        <div kyee-date-picker-directive year-range="{{yearRange}}" bind="bind(params)"
+             on-select-finash="onFinash(params)"></div>
+
+    </ion-content>
+</ion-view>
+<div kyee-compile-directive template="modules/business/onekey_claim/views/delay_views/selected.html"></div>

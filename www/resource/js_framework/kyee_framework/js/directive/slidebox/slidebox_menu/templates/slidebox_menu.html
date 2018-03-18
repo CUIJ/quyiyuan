@@ -1,0 +1,22 @@
+<div class="row row-center" style="width: 100%;background-color: #efeff4;border: 1px solid #d9d9d9; padding: 0px;">
+
+    <div class="col col-10" style="text-align:left;">
+        <button ng-click="previousGroup()" class="button button-clear icon-left ion-ios-arrow-back"></button>
+    </div>
+
+    <ion-scroll class="col" delegate-handle="kyee_framework_slidebox_menu" paging="true" has-bouncing="true" zooming="false" direction="x" scrollbar-x="false" style="height: 80px;padding: 0px;">
+        <div style="width: {{innerData.length}}00%; margin: 0px; padding: 0px;" class="row">
+            <div ng-repeat="row in innerData" ng-click="onImageClick(image)" class="col" style="width: 100%;height: 80px;text-align: center;padding: 0px;">
+                <button kyee-action-holder-directive="shortcuts_to_{{item.href}}" ng-click="$root.KAH($event)||doItemclick(item)" ng-repeat="item in row" class="button button-outline button-light" style="width: {{menuBtnWidth}}%;height: 100%;border: none;">
+                    <img ng-src="{{item.image_url}}" width="50%"/>
+                    <div style="width:100%;line-height: 1px;font-size: 12px;color: #6F6F6F;white-space: nowrap;">{{item.name}}</div>
+                </button>
+            </div>
+        </div>
+    </ion-scroll>
+
+    <div class="col col-10" style="text-align: right;">
+        <button ng-click="nextGroup()" class="button button-clear icon-left ion-ios-arrow-forward"></button>
+    </div>
+
+</div>

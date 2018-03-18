@@ -1,0 +1,21 @@
+<ion-view class="diagnostic_info" title="疾病详情">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('diagnosticInfo')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <ul style="line-height: 1.5;" ng-repeat="item in dianosticDetail" class="border-all qy-bg-white mar-t-10 pad-t-20 pad-b-10 pad-l-14 pad-r-10 list-a ">
+            <div style="margin-bottom: 10px;font-size: 16px;">
+                {{item.cause}}
+            </div>
+            <div style="font-size: 14px;color: #666;" ng-bind-html="item.liInfo|kyee_to_html">
+            </div>
+
+        </ul>
+    </ion-content>>
+</ion-view>

@@ -1,0 +1,204 @@
+@charset "utf-8";
+.pay_order {
+
+  .list_line_new{
+    margin-left: 14px;
+    padding: 9px 14px 4px 0px;
+  }
+  .padding-fixed {
+    min-height: 0;
+  }
+
+  .pay_order_content {
+    margin-bottom: 40px;
+    .pay_money {
+      //position: absolute;
+      //right: 14px;
+      //top: 14px;
+    }
+    .mar-l-40{
+      margin-left: 40px;
+    }
+    .msg_bar {
+      height: 50px;
+      .input_text {
+        padding-right: 100px;
+      }
+      .send_msg_btn {
+        border: 0;
+        height: 100%;
+        min-height: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+    .pay_type_bar {
+      min-height:50px;
+      .arrow {
+        font-size: 14px;
+        right: 4px;
+      }
+    }
+    .pay_type_list {
+      min-height: 50px;
+      line-height: 49px;
+      position: relative;
+      .choose_pay_type {
+        height: 1.2em;
+        right: 12px;
+        top: 16px;
+        position: absolute;
+      }
+      .pay_type_img {
+        height: 22px;
+        position: relative;
+        top: 7px;
+        padding-right: 6px;
+      }
+    }
+  }
+  .small_pay{
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    .small_pay_icon{
+      position: relative;
+      top:3px;
+      right:-2px;
+    }
+  }
+  .item-input{
+    border-bottom: none;
+  }
+  .list_line{
+    margin-left: 14px;
+    padding:9px 14px 9px 0px;
+    border-bottom :1px solid #e7e7e7;
+  }
+  .list_line:last-child{
+    border-bottom: none;
+    }
+  .show_more_pay{
+    line-height: 50px;
+  }
+  .more_pay_font{
+    margin: 0px;
+  }
+  .more_pay_icon{
+    padding-left: 5px;
+  }
+  .cashBack_span {
+    border: 1px solid;
+    color: #ff9900;
+    padding: 1px 4px 1px 4px;
+    border-radius: 4px;
+    position: relative;
+  }
+  .go_recharge{
+    position: relative;
+    padding: 10px 74px 10px 0;
+    div{
+      line-height: 20px;
+    }
+    button{
+      min-width: 50px;
+      height: 30px;
+      line-height: 30px;
+      position: absolute;
+      top: 15px;
+      right: 14px;
+    }
+  }
+  .recharge_dou_h{
+    min-height: 61px;
+  }
+  .button_color_grey{
+    border: 1px solid #CCCCCC;
+    color: #f4f4f4;
+    background: #ccc;
+  }
+}
+
+.qy_new_payment {
+  .option_bar {
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+  }
+  .medical-pay {
+    padding: 5px 10px 5px 5px;
+  }
+  .personal-pay {
+    padding: 5px 5px 5px 10px;
+  }
+  .unpaidRecord_content {
+    margin-bottom: 40px;
+    .item_list {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .visit_date {
+      display: inline;
+      padding-left: 5px;
+    }
+    .check_icon {
+      position: relative;
+      top: 1px;
+    }
+    .md_fail {
+      text-decoration: underline;
+    }
+    .md_paying {
+      text-decoration: underline;
+    }
+    .arrow {
+      position: absolute;
+      right: 14px;
+      top: 9px;
+    }
+    .amount {
+      position: absolute;
+      right: 35px;
+      margin-left: 10px;
+    }
+    .detail_cost {
+      position: absolute;
+      right: 35px;
+    }
+    .prompt {
+      padding: 12px;
+    }
+  }
+  .total_count {
+    line-height: 50px;
+  }
+  .payment_submit {
+    width: 100px;
+    position: absolute;
+    right: 14px;
+    top: 0;
+  }
+  .empty-text{
+    padding-top: 0;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    position: absolute;
+    width: 100%;
+    top: 45%;
+  }
+}
+
+.qy_pay_confirm{
+  .msg_button{
+    min-height: 30px;
+    border-radius: 2px;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 11px;
+    line-height: 30px;
+    font-family: "微软雅黑";
+  }
+}

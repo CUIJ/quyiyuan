@@ -1,0 +1,34 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 张明
+* 创建日期:2015年12月23日11:22:33
+* 创建原因：报告单增加直接根据就诊卡查询的便捷方式
+* 任务号：KYEEAPPC-4621
+-->
+<ion-view class="qy_report_bycard_query">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span ng-if="setFlag==undefined"  kyee-i18n-directive code="title" default="查询检查检验单记录"></span>
+            <span ng-if="setFlag!=undefined"  kyee-i18n-directive code="title_sz" default="设置"></span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <ul ng-if="setFlag==undefined">
+            <li class="mar-b-14 mar-td-5"  kyee-i18n-directive code="title_card" default="根据就诊卡号查询检查检验单记录"></li>
+            <li class="qy-bg-white pad-b-14 border-td pad-td-10 f14">
+                <span kyee-i18n-directive code="card_no" default="就诊卡号"></span>
+                <input placeholder={{placeholder.pHPatientId}} class="input_content f14" ng-model="queryObj.card_no">
+            </li>
+            <li class="mar-b-14 mar-t-20">
+                <button class="button-size-l button button-block"
+                        kyee-operation-monitor-directive="submit"
+                        ng-click="submit()" kyee-i18n-directive code="submit_query" default="查询"></button>
+            </li>
+        </ul>
+        <div class="empty-text" ng-style="{'padding-top':KyeeEnv.innerSize.height<481 ? '35%':'45%'}" ng-if="setFlag!=undefined">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p ng-bind-html="setFlag|kyee_to_html" id="goPatientInfoId">{{setFlag}}</p>
+        </div>
+    </ion-content>
+</ion-view>

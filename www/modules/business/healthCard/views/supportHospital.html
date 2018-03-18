@@ -1,0 +1,20 @@
+<ion-view class="health_Card qy-bg-grey2">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>支持医院</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="has-footer qy-bg-grey2" >
+       <div class="pad_15_15 qy-grey5 f14">
+           {{tip}}
+       </div>
+        <ul class="border-t" ng-class="$last?'border-d':''" ng-repeat="item in supportHosList">
+            <li class="qy-grey7 line_height50 qy-bg-white pad-lr-14 text-ellipsis">
+                {{item.hospitalName}}
+            </li>
+        </ul>
+
+    </ion-content>
+</ion-view>

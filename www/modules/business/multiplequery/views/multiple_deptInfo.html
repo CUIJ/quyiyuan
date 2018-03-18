@@ -1,0 +1,18 @@
+<ion-view class="qy_multiple_dept">
+
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-white">
+        <div class="list qy-bg-white" style="margin-bottom: 0px;">
+            <a class="item dept_position" href="#" ng-click="selectMultipleDept(item)" collection-repeat="item in multipleDeptInfo">
+                <img class="hospital_img" ng-src="{{item.HOSPITAL_PICTURE ? item.HOSPITAL_PICTURE:'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                <div class="name_position">
+                <p class="col f14" ng-bind-html="item.showText|kyee_to_html" ></p>
+                <h3  class="f12">
+                    {{item.HOSPITAL_NAME}}
+                </h3>
+                <div  class="dept_address qy-grey4 text-ellipsis">{{item.HOSPITAL_ADDRESS}}</div>
+                    </div>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

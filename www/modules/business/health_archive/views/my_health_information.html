@@ -1,0 +1,95 @@
+<div has-bouncing="true" scrollbar-y="false" class="qy-bg-grey2 my_health_information"
+     delegate-handle="my_health_information"
+     ng-controller="MyHealthInformationController" ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-20+'px'}">
+    <div class="list qy-bg-white mar_t_10 mar_d_10 border" ng-if="isNotEmptyData(HealthInfo)">
+        <div class="border-d mar-l-14 height_50">
+            <i class="ico icon-heart color_heart f18" style="position: relative;top: 2px;"></i>
+            <span class="f14 mar-l-5 qy-grey7" kyee-i18n-directive code="basicHealthInformation"
+                  default="基本健康信息"></span>
+        </div>
+        <div class="item item-input height_0 item-icon-right border_bottom_none mar_l_0 pad_l_14"
+             style="padding-top: 18px">
+            <div style="width:50%" class="">
+                <span class="f14 list_textcolor" kyee-i18n-directive code="height" default="身高："></span>
+                <span class="f14 qy-grey5">{{HealthInfo.HEIGHT}}</span></div>
+            <div style="width:50%" class="">
+                <span class="f14 list_textcolor" kyee-i18n-directive code="weight" default="体重："></span>
+                <span class="f14 qy-grey5 ">{{HealthInfo.WEIGHT}}</span></div>
+        </div>
+        <div class="item item-input height_0 item-icon-right border_bottom_none mar_l_0 pad_l_14">
+            <div ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-24+'px'}" class="">
+                <span class="f14 list_textcolor" kyee-i18n-directive code="SystolicPressure" default="收缩压："></span>
+                <span class="f14 qy-grey5">{{HealthInfo.SYSTOLIC_PRESSURE}}</span></div>
+            <div ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-24+'px'}" class="">
+                <span class="f14 list_textcolor" kyee-i18n-directive code="DiastolicPressure" default="舒张压："></span>
+                <span class="f14 qy-grey5">{{HealthInfo.SIASTOLIC_PRESSURE}}</span></div>
+        </div>
+        <div class="item item-input height_0 item-icon-right border_bottom_none mar_l_0 pad_l_14">
+            <div style="width:50%" class="">
+                <span class="f14 list_textcolor" kyee-i18n-directive code="fastingBloodGlucose" default="空腹血糖："></span>
+                <span class="f14 qy-grey5">{{HealthInfo.FAST_BLOOD_PRESSURE}}</span></div>
+            <div style="width:50%" class="">
+                <span class="f14 list_textcolor" kyee-i18n-directive code="postprandialBloodGlucose"
+                      default="餐后血糖："></span>
+                <span class="f14 qy-grey5">{{HealthInfo.POSTPRANDIAL_BLOOD_PRESSURE}}</span></div>
+        </div>
+        <div class="item item-input height_0 item-icon-right border_bottom_none mar_l_0 pad_l_14"
+             style="padding-bottom: 18px">
+            <div style="width:50%" class="">
+                <span class="f14 list_textcolor">{{"BMI："}}</span>
+                <span class="f14 qy-grey5">{{HealthInfo.BMI}}</span></div>
+            <div style="width:50%" class="">
+                <span class="f14 list_textcolor" kyee-i18n-directive code="pulse" default="脉搏："></span>
+                <span class="f14 qy-grey5">{{HealthInfo.HEART_RATE}}</span></div>
+        </div>
+    </div>
+    <ul class="list qy-bg-white border mar_d_10" ng-if="isNotEmptyData(HealthInfo)">
+        <div class="border_top_none border-d mar-l-14 height_50">
+            <i class="ico icon-heart color_heart f18" style="position: relative;top: 2px;"></i>
+            <span class="f14 mar-l-5 qy-grey7" kyee-i18n-directive code="historyOfPast" default="既往史"></span>
+        </div>
+        <li class="item item-input item_padding_0 item-icon-right">
+            <span class="f14 fixed_width1" kyee-i18n-directive code="historyOfDisease" default="疾病史："></span>
+            <span ng-if="isNotEmpty(HealthInfo.DIS_NAMES)" ng-click="showHistoryOfDiseaseInf()"
+                      class="f14 text-ellipsis span_dis_block" style="width: 55%">{{HealthInfo.DIS_NAMES}}</span>
+            <i ng-if="isNotEmpty(HealthInfo.DIS_NAMES)" ng-click="showHistoryOfDiseaseInf()"
+               class="ion-chevron-right right_arrow qy-grey5"></i>
+        </li>
+        <li class="item item-input item_padding_0 item-icon-right">
+            <span class="f14 fixed_width1" kyee-i18n-directive code="historyOfFamily" default="家族史："></span>
+            <span ng-if="isNotEmpty(HealthInfo.FW)" ng-click="showHistoryOfFamilyInf()"
+                  class="f14 text-ellipsis span_dis_block" style="width: 55%">{{HealthInfo.FW}}</span>
+            <i ng-if="isNotEmpty(HealthInfo.FW)" ng-click="showHistoryOfFamilyInf()"
+               class="ion-chevron-right right_arrow qy-grey5" ng-click="showHistoryOfFamilyInf()"></i>
+        </li>
+        <li class="item item-input item_padding_0 item-icon-right">
+            <span class="f14 fixed_width1 " kyee-i18n-directive code="historyOfOperation" default="手术史："></span>
+            <span ng-if="isNotEmpty(HealthInfo.IS_OPS)" ng-click="showHistoryOfOperationInf()" style="width: 55%"
+                  class="f14 text-ellipsis span_dis_block" style="width: 55%">{{HealthInfo.IS_OPS}}</span>
+            <i ng-if="isNotEmpty(HealthInfo.IS_OPS)" ng-click="showHistoryOfOperationInf()"
+               class="ion-chevron-right right_arrow qy-grey5"></i>
+        </li>
+        <li class="item item-input item_padding_0 item-icon-right">
+            <span class="f14 fixed_width1 " kyee-i18n-directive code="historyOfBloodTransfusion" default="输血史："></span>
+             <span ng-if="isNotEmpty(HealthInfo.IS_BLOOD)" ng-click="showHistoryOfBloodTransfusionInfo()"
+                   class="f14 text-ellipsis span_dis_block" style="width: 55%">{{HealthInfo.IS_BLOOD}}</span>
+            <i ng-if="isNotEmpty(HealthInfo.IS_BLOOD)" ng-click="showHistoryOfBloodTransfusionInfo()"
+               class="ion-chevron-right right_arrow qy-grey5"></i>
+        </li>
+        <li class="item item-input item_padding_0 item-icon-right">
+            <span class="f14 fixed_width1 " kyee-i18n-directive code="historyOfExpose" default="暴露史："></span>
+             <span ng-if="isNotEmpty(HealthInfo.EXPOSED_DES)" ng-click="showHistoryOfExposeInfo()"
+                      class="f14 text-ellipsis span_dis_block" style="width: 55%">{{HealthInfo.EXPOSED_DES}}</span>
+            <i ng-if="isNotEmpty(HealthInfo.EXPOSED_DES)" ng-click="showHistoryOfExposeInfo()"
+               class="ion-chevron-right right_arrow qy-grey5"></i>
+        </li>
+        <li class="item item-input item_padding_0 item-icon-right border_bottom_none">
+            <span class="f14 fixed_width1 " kyee-i18n-directive code="historyOfAllergy" default="过敏史："></span>
+            <span ng-if="isNotEmpty(HealthInfo.ALLERGY_DES)" ng-click="showHistoryOfAllergyInfo()"
+                      class="f14 text-ellipsis span_dis_block" style="width: 55%">{{HealthInfo.ALLERGY_DES}}</span>
+            <i ng-if="isNotEmpty(HealthInfo.ALLERGY_DES)" ng-click="showHistoryOfAllergyInfo()"
+               class="ion-chevron-right right_arrow qy-grey5"></i>
+        </li>
+    </ul>
+</div>
+

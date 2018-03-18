@@ -1,0 +1,28 @@
+<ion-view class="qy_multiple_dept">
+
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-white">
+
+        <div class="list qy-bg-white">
+            <div ng-repeat="item in multipleHospitalInfo" class="hospital_tittle mar-b-14 pad-t-10">
+                <img   ng-click="selectMultipleHospital(item)" class="hospital_img" ng-src="{{item.HOSPITAL_PICTURE ? item.HOSPITAL_PICTURE:'resource/images/icons/logo_default.png'}}"
+                       onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                <div class="border-d name_position">
+                    <div ng-click="selectMultipleHospital(item)" >
+                        <h3  class="f14">
+                            <p class="hospital_name" ng-bind-html="item.showText|kyee_to_html"></p>
+                        </h3>
+                        <div class="qy-grey4 text-ellipsis pad-d-5">{{item.HOSPITAL_ADDRESS?item.HOSPITAL_ADDRESS:noHospitalAddress.name}}</div>
+                    </div>
+
+                    <p ng-if="item.SPECIAL_DEPT.length >0" class="special_dept">
+                        <span class="qy-grey4" kyee-i18n-directive code="featureDept" default="特色科室："></span>
+                    <span  ng-click="goFeatureDept(item,items)" class="qy-blue" ng-repeat="items in item.SPECIAL_DEPT" >
+                        <a class="pad-l-5 qy-blue special_line">{{items.DEPT_NAME}}</a>
+                        <span ng-if="!$last">/  </span>
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

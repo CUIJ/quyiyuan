@@ -1,0 +1,35 @@
+<ion-view class="msg_select_patients">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="search_friends" default="选择就诊者"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content>
+		<ul class="f14">
+			<li class="line50 qy-bg-grey1 color_9 pad-lr-14" kyee-i18n-directive
+				code="select_patients" default="请选择在该医生科室有就医记录的就诊者">
+			</li>
+			<ul class="border-td">
+				<li class="line50 row" ng-repeat="item in patientsList" ng-click="selectPatient(item);">
+					<div class="f18 mar-r-20 mar-l-14" ng-class="{false:'ion-ios-circle-outline color_9',true:'ion-ios-checkmark qy-color'}[item == selectedObj]"></div>
+					<div class="color_3 text-ellipsis pad-r-14 w100" ng-class="{'border-b':!$last}">{{item.OFTEN_NAME}}</div>
+				</li>
+			</ul>
+			<li class="border-b line50 qy-bg-grey1 color_9 pad-lr-14" kyee-i18n-directive
+				code="verification_application" default="您需要发送验证申请,等待医生通过">
+			</li>
+			<li class="border-b line50 color_9 pad-lr-14 text-ellipsis">
+				<span>{{selectedMessage}}</span>
+				<!--<span kyee-i18n-directive code="hello_message" default="您好, {{doctorInfo.doctorName}}我是"></span>
+				<span>{{selectedObj.OFTEN_NAME}}</span>-->
+			</li>
+      	</ul>
+    </ion-content>
+    <ion-footer-bar class="pad-lr-14 mar-tb-10">
+		<button  class="button button-full button-size-l" ng-click="submit();"
+				kyee-i18n-directive code="confirm" default="确定" >
+		</button>
+    </ion-footer-bar>
+</ion-view>

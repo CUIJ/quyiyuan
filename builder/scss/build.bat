@@ -1,0 +1,1 @@
+sass --style compressed ../../www/build/scss/base.scss ../../www/build/scss/base.css --sourcemap=none

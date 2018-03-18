@@ -1,0 +1,188 @@
+<ion-view class="qy_login_view quick_login_view qy-bg-grey2">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backToHome()"></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-title>
+        <span ng-if="isQuickLogin=='1'|| isQuickLogin=='0'" kyee-i18n-directive code="all:regist.myAccount" default="登录"></span>
+        <span ng-if="isQuickLogin!='1'&&isQuickLogin!='0'&&THIRD_LOGIN_TYPE=='0'"  kyee-i18n-directive code="all:regist.WeiMyAccount" default="微信登录"></span>
+        <span ng-if="isQuickLogin!='1'&&isQuickLogin!='0'&&THIRD_LOGIN_TYPE=='1'"  kyee-i18n-directive code="all:regist.QQmyAccount" default="QQ登录"></span>
+
+    </ion-nav-title>
+    <!--<ion-nav-buttons side="right">
+        <a ng-if="isQuickLogin=='1'|| isQuickLogin=='0'"  kyee-operation-monitor-directive="doRegist" ng-click="doRegist()" class="button button-clear txt qy-fff"
+           kyee-i18n-directive code="all:regist.newRegist" default="注册">
+        </a>
+    </ion-nav-buttons>-->
+    <ion-content class=" qy-bg-grey2">
+        <!--密码登录页面-->
+        <div ng-if="isQuickLogin=='0'" >
+            <div ng-if="isShowLogo" style="text-align: center;padding-top: 30px;padding-bottom: 30px;">
+                <img style="height: 54px;vertical-align: bottom" src="./resource/images/center/login_logo.png">
+            </div>
+            <div ng-if="!isShowLogo" style="height: 85px;"></div>
+            <div ng-class="{ 'bounceRight':isQuickLogin==false}">
+                <div class="list qy-bg-white  phone_input_div" >
+                    <label class="item item-input-inset   mar-l-14 item_height">
+                        <input type="text" class="phone_input"   style="width: 90%" ng-model="userInfo.user" ng-change="userChange()"
+                               placeholder="{{hintPhone}}">
+                    </label>
+
+                    <div class="item item-input-inset mar-l-14  item_height" style=" border-top: 1px solid #e7e7e7;">
+                        <label class="item-input-wrapper login_number_label">
+                            <input style="padding-left: 0px;" type="password" ng-model="userInfo.pwd" class="pwd_input text-ellipsis"
+                                   placeholder="{{hintPass}}">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="pad-b-14 mar-t-20">
+                <button ng-click="doLogin('0');" class="button button-full button-size-l "
+                        kyee-i18n-directive code="all:login.login" default="登  录">
+                </button>
+            </div>
+            <div ng-if="isShowRegist" class="qy-green ta-c pad-l-14 f14 " style="float: left;margin-top: 5px">
+                <!--<span ng-click="findPassword();" kyee-i18n-directive code="all:login.newforgetPass" default="忘记密码"></span>-->
+                <span ng-click="doRegist()" kyee-i18n-directive code="all:regist.newRegist" default="注册"></span>
+            </div>
+            <div ng-class="{ 'bounceRight':isQuickLogin==false}"class=" ta-c f14 pad-r-14" style="float: right;margin-top: 5px" >
+               <span class="qy-green " ng-click="findPassword();" kyee-i18n-directive code="all:login.newforgetPass" default="忘记密码"></span>
+                <!--<span class="qy-green " kyee-operation-monitor-directive="quickLogin" ng-click="quick_login()"
+                     kyee-i18n-directive code="all:login.quickLogin" default="短信快捷登录"></span>-->
+            </div>
+        </div>
+        <!--快捷登录页面-->
+        <div ng-if="isQuickLogin=='1'" >
+            <div ng-if="isShowLogo" style="text-align: center;padding-top: 30px">
+                <img style="height: 54px;" src="./resource/images/center/login_logo.png">
+            </div>
+            <div ng-if="!isShowLogo" style="height: 85px;"></div>
+            <div  ng-class="{ 'bounceLeft':isQuickLogin==true}">
+                <div class="pad-l-14 pwd_div " >
+                    <span  class="qy-grey5" kyee-i18n-directive code="all:login.newMessageLogin" default="短信快捷登录"></span>
+                </div>
+                <div class="list quick_login_div qy-bg-white"
+                     style=" margin-bottom: 0px;">
+                    <label class="item item-input-inset button-bar mar-l-14 pwd_item_height " >
+                        <input type="tel" class="phone_input" id="login.phoneNumInput" style="width: 90%"
+                               ng-disabled="user.phoneNumDisabled"
+                               ng-model="user.phone"
+                               placeholder="{{user.hintPhone}}">
+                    </label>
+
+                    <div class="item item-input-inset mar-l-14 item_border pwd_item_height" >
+                        <label class="item-input-wrapper login_number_label">
+                            <input id="males" type="tel" class="phone_input" ng-model="user.checkCode" placeholder="{{user.hintCode}}" style="padding-left: 0px" >
+                        </label>
+                        <button kyee-operation-monitor-directive="getValiteCode"  id="login.validateMsgBtn" ng-click="getValiteCode();"
+                                ng-disabled="user.validateBtnDisabled"
+                                class="button  login_number_button mar-r-14 min_height min_lin" >{{user.btnShow}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pad-b-14 mar-t-20 ">
+                <button ng-click="doLogin('1')" class="button button-full button-size-l "
+                        kyee-i18n-directive code="all:login.login" default="登  录">
+                </button>
+            </div>
+            <div  ng-class="{ 'bounceLeft':isQuickLogin==true}"  class=" ta-c f14  pad-r-14" style="clear: both;float: right;margin-top: 5px"
+                  ng-style="{'top':(KyeeEnv.innerSize.height - 80)+'px'}">
+            <span kyee-operation-monitor-directive="loginByPwd" class="qy-green " ng-click="loginByPwd() "
+                  kyee-i18n-directive code="all:login.pwdAndsubmit" default=" 密码登录模式"></span>
+            </div>
+        </div>
+        <div ng-if="isQuickLogin=='2'" >
+            <div  class = "third_login">
+                <img ng-src="{{userIcon}}"  class="third_login_img" >
+            </div>
+            <div  ng-class="{ 'bounceLeft':isQuickLogin==true}">
+                <div class="pad-l-14 f12" >
+                    <span ng-if="THIRD_LOGIN_TYPE=='0'" class ="f14 third_co" kyee-i18n-directive code="all:login.newMessageLogin" default="亲爱的微信用户"></span>
+                    <span ng-if="THIRD_LOGIN_TYPE=='1'"  class ="f14 third_co"   kyee-i18n-directive code="all:login.newMessageLogin" default="亲爱的QQ用户"></span>
+                    <div  class ="f14 third_co" kyee-i18n-directive code="all:login.newMessageLogin" default="为了接受APP挂号通知等短信，请绑定您的电话号码"></div>
+                </div>
+                <div class="list qy-bg-white"
+                     style=" margin-top: 12px;border-bottom: 1px solid #e7e7e7; border-top: 1px solid #e7e7e7;">
+                    <div class="item item-input-inset mar-l-14  pwd_item_height " >
+
+                        <lable class="pad-l-14 item-input-wrapper login_number_label">
+                            <input type="tel" class="" id="third_party_user.phoneNumInput"
+                                   style="padding-left: 0px;width: 90%;"
+                                   ng-disabled="user.thirdPhoneNumDisabled"
+                                   ng-model="user.thirdPhone"
+                                   ng-change="phoneChange()"
+                                   placeholder="{{user.thirdHintPhone}}">
+                        </lable>
+                    </div>
+
+                    <div class="item item-input-inset mar-l-14 item_border pwd_item_height" >
+
+                        <label class="item-input-wrapper login_number_label">
+                            <input id="males" type="tel" class="phone_input"
+                                   ng-model="user.thirdCheckCode"
+                                   placeholder="{{user.thirdHintCode}}"
+                                   style="padding-left: 0px"
+                                   ng-change="codeChange()">
+                        </label>
+                        <button
+                                id="third_party_user.validateMsgBtn"
+                                ng-click="getValiteCodeOnWeixin()"
+                                ng-disabled="user.thirdValidateBtnDisabled"
+                                class="button  login_number_button mar-r-14 min_height min_lin" >{{user.thirdBtnShow}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="pad-b-14 mar-t-20 ">
+                <button ng-click="getAPPuserOrRegister()" class="button button-full button-size-l "
+                        ng-disabled="user.isLogin"
+                        kyee-i18n-directive code="all:login.sub" default="确  认">
+                </button>
+            </div>
+            <div class="f14 third_div_tip ">
+                <span  >将此手机号注册为趣医账号</span>
+            </div>
+        </div>
+        <div ng-if="isQuickLogin=='3'" >
+            <div  class="third_login">
+                <img ng-src="{{userIcon}}" class="third_login_img">
+            </div>
+            <div class="f16 third_div"  >
+                    <span  kyee-i18n-directive code="all:login.phoneNu" default="账号：">
+                    </span>
+                     <span >{{phoneNumber}}
+                    </span>
+            </div>
+            <div style=" padding-top: 14px;color: #b5b5b5;text-align: center;"class="f14" kyee-i18n-directive code="all:login.newMessageLogin" default="此手机号已是趣医账号">
+            </div>
+            <div class="pad-b-14" style="    margin-top: 50px;">
+                <button ng-click="thirdPartyLogin()" class="button button-full button-size-l "
+                        ng-disabled="user.isLogin"
+                        kyee-i18n-directive code="all:login.bindUser" default="绑定账号">
+                </button>
+            </div>
+            <div class="f14 third_div_tip ">
+                <span ng-if="isQuickLogin=='3'&&THIRD_LOGIN_TYPE=='0'">绑定后微信和趣医院账号均可登录</span>
+                <span ng-if="isQuickLogin=='3'&&THIRD_LOGIN_TYPE=='1'" >绑定后QQ和趣医院账号均可登录</span>
+            </div>
+        </div>
+
+        <div ng-if="isAndOrIos=='1' ">
+            <div ng-if="isQuickLogin=='1'|| isQuickLogin=='0' "class="bar bar-footer qy-bg-grey2"
+                 style="display: inline;"
+                 ng-style="{'top':(KyeeEnv.innerSize.height-168)+'px'}"   >
+                <div class="">
+                    <hr style="white-space: nowrap;" class="hr_1"
+                        ng-style="{'width':(KyeeEnv.innerSize.width-118)/2+'px'} " />
+                    <span  class="f14 third_span" style=" width: 110px;text-align: center; white-space: nowrap;" >其他方式登录</span>
+                    <hr  class="hr_2" style="white-space: nowrap;" ng-style="{'width':(KyeeEnv.innerSize.width-118)/2+'px'} " />
+                </div>
+                <div  class="third_div_last">
+                    <span ng-if="isShowWeixin=='1'" class="icon-weixin third_span1" ng-click="loginByWeixin()" ></span>
+                    <span ng-if="isShowQQ=='1'" class="icon-qq third_span2" ng-click="loginByQQ() " ></span>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

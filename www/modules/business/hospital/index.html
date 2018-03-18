@@ -1,0 +1,199 @@
+<ion-view class="qy_hospital qy-bg-grey2"cache-view="false">
+
+
+    <div ng-style="{'display':listScrollOnly}" class="qy-bg-grey2" style="position: absolute;top: 0;width: 100%;z-index: 999">
+        <div class="row navbox border-d qy-bg-white">
+            <div class="col"ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}"ng-click="openModule(sudokuData[0],true)" kyee-operation-monitor-directive="{{sudokuData[0].elementCode}}">
+                <img ng-if="sudokuData[0].image_new_url_next" class="img_size"ng-src="{{sudokuData[0].image_new_url_next}}">
+                <img ng-if="!(sudokuData[0].image_new_url_next)&&sudokuData[0].image_new_url"class="img_size"ng-src="{{sudokuData[0].image_new_url}}">
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[0].name}}
+                </p>
+            </div>
+            <div class="col" ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}" ng-click="openModule(sudokuData[1],true)" kyee-operation-monitor-directive="{{sudokuData[1].elementCode}}">
+                <img ng-if="sudokuData[1].image_new_url_next" class="img_size"ng-src="{{sudokuData[1].image_new_url_next}}">
+                <img ng-if="!(sudokuData[1].image_new_url_next)&&sudokuData[1].image_new_url"class="img_size"ng-src="{{sudokuData[1].image_new_url}}">
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[1].name}}
+                </p>
+            </div>
+            <div class="col"  ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}"ng-click="openModule(sudokuData[2],true)" kyee-operation-monitor-directive="{{sudokuData[2].elementCode}}">
+                <img ng-if="sudokuData[2].image_new_url_next" class="img_size"ng-src="{{sudokuData[2].image_new_url_next}}">
+                <img ng-if="!(sudokuData[2].image_new_url_next)&&sudokuData[2].image_new_url"class="img_size"ng-src="{{sudokuData[2].image_new_url}}">
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[2].name}}
+                </p>
+            </div>
+            <div class="col"  ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}"ng-click="openModule(sudokuData[3],true)" kyee-operation-monitor-directive="{{sudokuData[3].elementCode}}">
+                <img ng-if="sudokuData[3].image_new_url_next" class="img_size"ng-src="{{sudokuData[3].image_new_url_next}}">
+                <img ng-if="!(sudokuData[3].image_new_url_next)&&sudokuData[3].image_new_url"class="img_size"ng-src="{{sudokuData[3].image_new_url}}">
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[3].name}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <ion-content has-bouncing="true" padding="false" scrollbar-y="false" delegate-handle="businessList"
+                 class="has-footer" on-scroll="scrollListen()" on-scroll-complete="onScrollComplete()"
+                 on-drag-down="onDragDown()">
+        <div class="search_div scan_icon"  ng-click="goScan()">
+            <i class="icon icon-scan2 f20 line30"></i>
+        </div>
+        <div class="search_div" style="height:30px;width:30px;border-radius: 15px 15px 15px 15px;position:absolute;right:50px;top:20px;" ng-click="goToMultipleQuery()">
+            <i class="icon icon-seach f20 line30"></i>
+        </div>
+        <div class="qy-fff backBZ_div_first android_margin" ng-click="backToBoZhou()" ng-show="branchVerCode=='03'" ng-class="{'ios_margin':showPage.isIos}">
+
+            <i ng-if="branchVerCode=='03'" class="backBZ icon-arrow_left f26 line30 backcls"></i>
+        </div>
+
+
+        <!--广告-->
+        <div
+                kyee-slidebox-image-directive
+                speed="5000"
+                height="{{imgHeight}}"
+                width ="{{imgWidth}}"
+                is-set-hash="false"
+                images="slideboxData"
+                itemclick="viewHospitalDetail(params)"
+                bind="bindSlideboxImageActions(params)"  style="position: relative"></div>
+        <img style="position: absolute;-webkit-transform: translate3d(0px, 0px, 0px);"
+             ng-style="{'width': (KyeeEnv.innerSize.width)+'px',top: (backgrundHeight)+'px'}" ng-src="resource/images/hospital/ware.png">
+        <!--切换医院-->
+        <div class="titlebox ovf-h qy-bg-white border-d hospital_margin" ng-click="selectHospital()"kyee-operation-monitor-directive="selectHospital">
+            <div class="hospital_name position-r" >
+                <span class="text-ellipsis f14 qy-grey7"style="display: inline-block" ng-style="{'max-width': (KyeeEnv.innerSize.width-140)+'px'}">
+                    {{hospitalInfo.name}}
+                </span>
+                <span class="icon icon-location qy_green1 map_icon" kyee-operation-monitor-directive="toMap" ng-if="hospitalInfo.showMapIcon" ng-click="toMap($event)"></span>
+            </div>
+            <!--医院等级-->
+            <div ng-style="{'max-width': (KyeeEnv.innerSize.width-130)+'px'}" class="text-ellipsis hospital_level_margin" ng-if="hospitalInfo.level">
+                <span  class="hospital_level qy-grey5 text-ellipsis ">{{hospitalInfo.level}}</span>
+            </div>
+            <div ng-style="{'max-width': (KyeeEnv.innerSize.width-130)+'px'}" class="text-ellipsis hospital_level_margin"  ng-if="!(hospitalInfo.level)">
+                <span  class="hospital_level qy-grey5 text-ellipsis " kyee-i18n-directive code="home->MAIN_TAB.pleaseSelectHospital"  default="请选择一家医院进行就诊"></span>
+            </div>
+            <div class="switch_hos f14 qy-grey7" ng-if="canBeSelect">
+                <i class="icon icon-hospital-cut f16" style="position: relative;top: 2px;padding-right: 5px"></i>
+                <p class="text-ellipsis font_length">{{hospitalInfo.changeHospitalButton}}
+                </p>
+            </div>
+        </div>
+        <!--中间四个功能入口-->
+        <div class="row navbox border-td qy-bg-white">
+            <div class="col"ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}"ng-click="openModule(sudokuData[0],true)" kyee-operation-monitor-directive="{{sudokuData[0].elementCode}}">
+                <img ng-if="sudokuData[0].image_new_url_next" class="img_size"ng-src="{{sudokuData[0].image_new_url_next}}">
+                <img ng-if="!(sudokuData[0].image_new_url_next)&&sudokuData[0].image_new_url"class="img_size"ng-src="{{sudokuData[0].image_new_url}}">
+
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[0].name}}
+                </p>
+            </div>
+            <div class="col" ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}" ng-click="openModule(sudokuData[1],true)" kyee-operation-monitor-directive="{{sudokuData[1].elementCode}}">
+                <img ng-if="sudokuData[1].image_new_url_next" class="img_size" ng-src="{{sudokuData[1].image_new_url_next}}">
+                <img ng-if="!(sudokuData[1].image_new_url_next)&&sudokuData[1].image_new_url"class="img_size"ng-src="{{sudokuData[1].image_new_url}}">
+
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[1].name}}
+                </p>
+            </div>
+            <div class="col"  ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}"ng-click="openModule(sudokuData[2],true)" kyee-operation-monitor-directive="{{sudokuData[2].elementCode}}">
+                <img ng-if="sudokuData[2].image_new_url_next" class="img_size"ng-src="{{sudokuData[2].image_new_url_next}}">
+                <img ng-if="!(sudokuData[2].image_new_url_next)&&sudokuData[2].image_new_url"class="img_size"ng-src="{{sudokuData[2].image_new_url}}">
+
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[2].name}}
+                </p>
+            </div>
+            <div class="col"  ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}"ng-click="openModule(sudokuData[3],true)" kyee-operation-monitor-directive="{{sudokuData[3].elementCode}}">
+                <img ng-if="sudokuData[3].image_new_url_next" class="img_size"ng-src="{{sudokuData[3].image_new_url_next}}">
+                <img ng-if="!(sudokuData[3].image_new_url_next)&&sudokuData[3].image_new_url"class="img_size"ng-src="{{sudokuData[3].image_new_url}}">
+                <p kyee-i18n-directive class="text-ellipsis f14 qy-grey7">
+                    {{sudokuData[3].name}}
+                </p>
+            </div>
+        </div>
+        <!--剩余其他功能入口-->
+        <div class="list border-t first_list">
+            <div ng-if="controllerPage.CAN_REFERRAL" class="item hos_func_list row " ui-sref="tiered_medical" kyee-operation-monitor-directive="referralChannel">
+                <img class="pad-b-14 icon_height item_size" ng-src="resource/images/hospital/classification.png">
+
+                <div class="col pad-r-10 border-d div_left">
+                    <div style="display: inline-block;" class="text_size_one qy-grey7" kyee-i18n-directive code="referralChannel" default="分级诊疗通道"></div>
+                    <div  class="div_referral">
+                        <p class="referral_p" kyee-i18n-directive code="singleSource" default="独享号源"></p>
+                    </div>
+                    <div class="f12 qy-grey5" kyee-i18n-directive code="referralInfo"  default="患者医院转诊，一切只为您的健康"></div>
+                </div>
+                <!--<i class="icon ion-chevron-right qy-grey5"></i>-->
+            </div>
+            <div class="item hos_func_list row" ng-class="{'border-d ':$index==sudokuDataList.length-1}" ng-repeat="item in sudokuDataList track by $index" ng-click="openModule(item)" kyee-operation-monitor-directive="{{item.elementCode}}">
+                <img class="pad-b-14 icon_height item_size" ng-src="{{item.image_new_url}}" ng-class="{'icon_opacity':item.enable != '1'}">
+
+                <div class="col pad-r-10 div_left" ng-class="{'border-d ':$index!=sudokuDataList.length-1}">
+                    <div kyee-i18n-directive  class="text_size_one" ng-class="{'qy-red':item.red,'qy-grey7':!item.red}">{{item.name}}</div>
+
+                    <div kyee-i18n-directive class="f12 qy-grey5">{{item.shortcuts_image_url}}</div>
+                </div>
+                <!--<i ng-if="item.enable == '1'" class="icon ion-chevron-right qy-grey5"></i>-->
+                <img ng-if="item.enable != '1'&&noHospital" class="forbid_img"
+                     ng-src="resource\images\hospital\not-open.png">
+            </div>
+        </div>
+    </ion-content>
+    <!--健康资讯在首页预加载-->
+    <div style="display: none;height: 0px">
+        <iframe ng-src='{{openUrl}}'>
+        </iframe>
+    </div>
+    <div class="qy-bg-orange qy-fff"
+         ng-class="{'notice_icon_l':bellLeft==0,'notice_icon_c':pressed,'notice_icon_r':bellLeft!=0&&!pressed}"
+         ng-if="noticeNum > 0"
+         style="top:{{bellTop+'px'}}; left:{{bellLeft+'px'}};"
+         ng-click="showNotice()"
+         kyee-operation-monitor-directive="showNotice"
+         on-drag-start="press()"
+         on-drag="drag($event)"
+         on-drag-end="leave($event)"
+         data-tap-disabled="true"
+         draggable="true">
+        <i class="icon-ding sign_icon wobble"></i>
+    </div>
+    <div kyee-overlay-directive
+         location="{{msgDirection}}"
+         on-hide="onHide(params)"
+         data="notices"
+         template="modules/business/home/views/shownotice.html"
+         bind="bind(params)">
+    </div>
+    <div
+            class="evaluateDiv qy-fff"
+            ng-class="{'ios_margin':showPage.isIos}"
+            ng-if="branchVerCode=='03'"
+            style="bottom:150px; right:14px; position: absolute; width: 56px; height: 56px; border-radius:50%; opacity: 0.8;"
+            ng-click="goToSat()"
+            on-drag-start="press1()"
+            on-drag="drag1($event)"
+            on-drag-end="leave1($event)"
+            data-tap-disabled="true"
+            draggable="true">
+        <div ng-if="branchVerCode=='03'" class="icon star_img icon-favorite2"></div>
+        <div ng-if="branchVerCode=='03'" class="evaluateFont">评价</div>
+    </div>
+    <img ng-if="surroundingGoBack" ng-src="resource\images\hospital\goback.png" class="surroundBtn" ng-click="goBack()">
+    <div
+            ng-class="{'help_icon_l':bellLeft1==0,'help_icon_c':pressed1,'help_icon_r':bellLeft1!=0&&!pressed1}"
+            ng-if="showHelpAtOnce == '1'"
+            style="top:{{bellTop1+'px'}}; left:{{bellLeft1+'px'}};"
+            ng-click="goForHelp()"
+            on-drag-start="press1()"
+            on-drag="drag1($event)"
+            on-drag-end="leave1($event)"
+            data-tap-disabled="true"
+            draggable="true">
+        <img src = "resource\images\home\yijianhujiu.png" style="height: 40px">
+    </div>
+</ion-view>

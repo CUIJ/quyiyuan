@@ -1,0 +1,59 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2016年6月26日20:19:40
+* 创建原因：就医记录底部记录到每日清单页面
+* 任务号：KYEEAPPC-6607
+* 修改者：张婧
+* 修改时间：2016年7月27日9:58:43
+* 修改原因：添加单击钮统计
+* 任务号：KYEEAPPC-6641
+-->
+<ion-view class="qy_inpatient_payment_record qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="住院费用"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1" delegate-handle="inpatient_payment_record">
+        <!--每日清单-有数据-->
+        <div class="ovf-h qy-bg-white f14 pad-l-14 content_box border-d" ng-if="!isEmpty">
+            <h5 class="pad-d-10 border-d qy-grey7" style="margin-top: 0;padding: 12px 0;" kyee-i18n-directive code="inHospital1" default="住院详情"></h5>
+            <ul class="top_box pad-r-14 pad-d-10">
+                <li ng-if="inPaymentData.PATIENT_NAME"><span class="top_item" kyee-i18n-directive code="patientName" default="患者姓名："></span>{{inPaymentData.PATIENT_NAME}}</li>
+                <li ng-if="inPaymentData.INHOSPITAL_DATE"><span class="top_item" kyee-i18n-directive code="inHospitalDate1" default="入院时间："></span>{{convertDate(inPaymentData.INHOSPITAL_DATE)}}</li>
+                <li ng-if="inPaymentData.INP_NO"><span class="top_item" kyee-i18n-directive code="hospitalCode" default="住院号："></span>{{inPaymentData.INP_NO}}</li>
+                <li ng-if="inPaymentData.DEPT_NAME"><span class="top_item" kyee-i18n-directive code="deptName" default="科室："></span>{{inPaymentData.DEPT_NAME}}</li>
+                <li ng-if="inPaymentData.BED_NO"><span class="top_item" kyee-i18n-directive code="bedNo" default="床位号："></span>{{inPaymentData.BED_NO}}</li>
+            </ul>
+
+            <ul class="amount_box qy-bg-grey2 pad-b-14 pad-t-10 pad-d-5 mar-r-14 mar-t-5 mar-d-20">
+                <li ng-if="inPaymentData.SHOULD_PAY_FEE"><span class="top_item" kyee-i18n-directive code="shouldPay1" default="当前费用小结："></span><span class="qy-grey7 f16">¥ {{convertMoney(inPaymentData.SHOULD_PAY_FEE)}}</span></li>
+                <li ng-if="inPaymentData.PREPAYMENTS"><span class="top_item" kyee-i18n-directive code="prepayments1" default="已预缴总金额："></span><span class="qy-grey7 f16">¥ {{convertMoney(inPaymentData.PREPAYMENTS)}}</span></li>
+                <li ng-if="inPaymentData.PREPAIED_BALANCE && IS_SHOW_BALANCE">
+                    <span class="top_item" kyee-i18n-directive code="prepaiedBalance1" default="当前账户余额："></span><span class="f16" ng-class="inPaymentData.PREPAIED_BALANCE<0?'qy-red':'qy-green'">¥ {{convertMoney(inPaymentData.PREPAIED_BALANCE)}}</span>
+                </li>
+            </ul>
+
+            <h5 class="border-d pad-d-10 qy-grey7" style="margin-bottom: 0;" kyee-i18n-directive code="detail1" default="每日费用明细"></h5>
+            <ul class="bottom_box">
+                <li class="ovf-h pad-td-10"  ng-class="$last?'':'border-d'"  ng-repeat="item in inPaymentData.ARRAYINFO" ng-click="goDetailRecord(item)" kyee-operation-monitor-directive="detailRecord">
+                    {{convertDate(item.BILLING_DATE_TIME)}}
+                    <span kyee-i18n-directive code="shouldFee1" default="费用小结"></span>
+                    <span class="fl-r ta-r pay_fee">
+                        <span class="qy-grey7 f16"><span ng-if="item.SHOULD_PAY_FEE">¥</span>{{convertMoney(item.SHOULD_PAY_FEE)}}</span>
+                        <i class="icon icon-arrow_right qy-grey5"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!--背景提示-->
+        <div class="empty-text" ng-if="isEmpty">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+
+    </ion-content>
+</ion-view>

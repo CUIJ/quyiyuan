@@ -1,0 +1,41 @@
+.multiple_query_city {
+    .navigate-btn{
+        margin-top: 4px;
+    }
+    .navigate-btn-img{
+        font-size:16px;
+    }
+    .navigate-btn-txt{
+        font-size:16px;
+        color: white;
+        margin-left: -5px;
+    }
+
+    .quyiyuan-multiple-city_selector_list_province {
+        .unactive_province {
+            background-color: #efeff4 !important;
+            color: #666666 !important;
+            border: none !important;
+            border-left: 1px double white !important;
+            line-height: 24px !important;
+        }
+        .active_province {
+            background-color: white !important;
+        }
+    }
+
+    .quyiyuan-multiple-city_selector_list_city {
+
+        margin-left: 25px;
+
+        .city_item {
+            border-top: none !important;
+            border-right: none !important;
+            border-left: none !important;
+            border-bottom: 1px solid #d9d9d9 !important;
+            color:#666666 !important;
+            margin: 1px;
+            padding-left: 0px !important;
+        }
+    }
+}

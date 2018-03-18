@@ -1,0 +1,73 @@
+<!--
+    产品名称：quyiyuan
+    创建人: 张家豪
+    创建日期:2015年5月4日10:16:55
+    创建原因：切换就诊者界面
+-->
+<ion-view class="qy_custom_patient">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="commonClinic" default="就诊者管理"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a kyee-operation-monitor-directive="addPatient" ng-click="addPatient()" class="button button-clear txt"
+               kyee-i18n-directive code="add" default="添加">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div class="tip_content" style="padding: 10px 14px 0px 14px">
+            <span kyee-i18n-directive code="hasAdd" default="您已添加"></span>
+            <span style="color:#5baa8a">{{patientsCount}}</span>
+            <span kyee-i18n-directive code="people"default="人"></span>
+            <span ng-if="NotShowWhenSuperType==true">
+                <span kyee-i18n-directive code="elseAdd" default="，还可添加"></span>
+                <span style="color:#5baa8a">{{canAddPatientCount}}</span>
+                <span kyee-i18n-directive code="people" default="人"></span>
+            </span>
+
+        </div>
+        <ul class="list-b pad-b-14 pad-d-10 mar-t-10" ng-repeat="patient in allPatients">
+            <li kyee-operation-monitor-directive="choosePatient" class="row qy-deepblack" style="margin-top: 5px;" ng-click="choosePatient(patient)">
+                <div class="f14 text-ellipsis">{{patient.OFTEN_NAME }}</div>
+                <div class="pad-l-10 f14" ng-if="patient.customPhoneShow">{{patient.customPhoneShow}}</div>
+            </li>
+            <li kyee-operation-monitor-directive="choosePatient" class="qy-grey5" style="border-bottom:1px solid #EEEEEE;padding-bottom: 10px;margin-top: -8px;" ng-click="choosePatient(patient)">
+                <span>{{patient.SEX_TEXT}}</span> / <span>{{patient.age}}</span>
+                <span class="pad-l-5" ng-if="patient.customIdNoShow" kyee-i18n-directive code="idTittle" default="身份证："></span><span class="pad-l-5">{{patient.customIdNoShow}}</span>
+            </li>
+            <li class="item_btn qy-deepblack" style="height: 34px; padding-top: 7px;">
+                <i kyee-operation-monitor-directive="choosePatient" ng-click="choosePatient(patient)" style="position: relative;top: 5px;font-size: 16px;"
+                   ng-class="{'ion-android-radio-button-on addressRadioSelStyle': patient.IS_SELECTED == 1, 'ion-android-radio-button-off addressRadioNoSelStyle': patient.IS_SELECTED == 0}"></i>
+                <span kyee-operation-monitor-directive="choosePatient" ng-if="patient.IS_SELECTED == 1" ng-click="choosePatient(patient)" style="position: relative;top:3px;" kyee-i18n-directive
+                      code="nowHosPeople" default="当前就诊人"></span>
+                <span kyee-operation-monitor-directive="choosePatient" ng-if="patient.IS_SELECTED != 1" ng-click="choosePatient(patient)" style="padding-left: 2px;position: relative;top:3px;" kyee-i18n-directive
+                      code="updatePatient" default="切换就诊者"></span>
+                <button class="button button-size-s"
+                        kyee-operation-monitor-directive="removePatient"
+                        style="background-color:#fff;border: 1px solid #ccc;float:right;width:80px;margin-left: 10px;position: relative;top: 2px;"
+                        nav-direction="forwad"
+                        ng-click="removePatient(patient)">
+                    <span class="ion-close qy-grey5" style=" padding-right: 2px;height: 20px;vertical-align: middle;width: 20px;position: relative;top: 0px;"></span>
+                    <span class="qy-grey5" kyee-i18n-directive code="delete" default="删除"></span>
+                </button>
+                <button class="button button-size-s "
+                        style="border-color: #5baa8a;background-color:#fff; width:80px;float: right;position: relative;top: 2px;"
+                        nav-direction="forwad"
+                        kyee-operation-monitor-directive="editPatient"
+                        ng-click="editPatient(patient)">
+                    <span class="ion-edit qy-grey5" style="color: #5baa8a; padding-right: 2px; height: 20px;vertical-align: middle;width: 20px;position: relative;top: 0px;"></span>
+                    <span class="qy-grey5">
+                    <span style="color: #5baa8a;" kyee-i18n-directive code="edit" default="编辑"></span>
+                    </span>
+                </button>
+            </li>
+        </ul>
+        <div class="empty-text" ng-if="userInfo.isNot">
+            <i class="icon icon-calendar empty-icon"></i>
+
+            <p kyee-i18n-directive code="youNoInformation" default="您目前还没有就诊者信息"></p>
+        </div>
+    </ion-content>
+</ion-view>

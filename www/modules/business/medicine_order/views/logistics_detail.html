@@ -1,0 +1,48 @@
+<ion-view class="qy_logistics_detail">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="logisticsDetails" default="物流详情"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear "ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon" ></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey1" has-bouncing="true">
+        <div class="white_background express_div">
+            <i class="icon icon-file-text2"></i>
+            <span class="f14 fw-b express_span">
+            <span kyee-i18n-directive code="logisticsState" default="物流状态"></span>
+            </span>
+            <span class="f14 express_status_span">
+                <!--{{getStatusName(order.ORDER_STATUS)}}-->
+                {{order.ORDER_STATUS_DESC}}
+            </span><br>
+            <div class="info_div">
+                <span class=""><span kyee-i18n-directive code="waybillNumber" default="运单号:"></span>{{order.logisticsInfo.expressNo}}</span><br>
+                <span class=""><span kyee-i18n-directive code="informationSources" default="信息来源:"></span>{{order.logisticsInfo.expressCompany}}</span>
+            </div>
+        </div>
+        <div class="white_background info_content_div">
+            <div class="white_background info_content_inner_div">
+                <div ng-repeat="trackingInfo in order.logisticsInfo.trackingInfoList" class="white_background">
+<!--                    <div class="track_div">
+                        <i class="icon icon-radio-checked logistics_icon"></i>
+                        <span class="track_span">{{trackingInfo.content}}</span><br>
+                        <span class="update_time_span">{{trackingInfo.updateTime}}</span>
+                    </div>-->
+                    <ul>
+                        <i class="icon icon-radio-checked logistics_icon"></i>
+                        <li class="track_span" >{{trackingInfo.content}}</li>
+                        <li class="track_span">{{trackingInfo.updateTime}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

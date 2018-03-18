@@ -1,0 +1,35 @@
+<ion-view class="consult_order_detail" cache-view="false" >
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>患者信息</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-grey2 f14" scrollbar-y="false">
+        <!--患者信息模块-->
+        <div class="qy-bg-white border-td pad-b-14 line_50">
+            <span class="qy-grey7">{{patientInfo.patientName}}      {{patientInfo.patientSex}}{{patientInfo.patientAge}}</span>
+        </div>
+        <ul class="border-td qy-bg-white mar-t-10 pad-l-14">
+            <li class="mar-t-16 border-d-dash">
+                <span class="qy-grey7 inline line_15 col_line">疾病名称</span>
+                <p class="text-ellipsis mar-r-14 mar-td-16 qy-grey5 line_14">{{diseaseInfo.diseaseName}}</p>
+            </li>
+            <li class="mar-t-16 border-d-dash pad-r-14">
+                <span class="qy-grey7 inline line_15 col_line">病情描述</span>
+                <p class="mar-td-15 qy-grey5">{{diseaseInfo.diseaseDescription}}</p>
+            </li>
+            <li class="mar-t-16 pad-r-14">
+                <span class="qy-grey7 inline line_15 col_line">疾病史</span>
+                <p class="mar-td-15 qy-grey5">{{diseaseInfo.diseaseHistory || '暂无'}}</p>
+            </li>
+            <li ng-if="IMGLIST.length>0" class="flex flex_wrap border-t-dash pad_td_16 pad-r-14">
+                <div class="flex_inline" ng-repeat="img in IMGLIST">
+                    <img ng-src="{{img.imgUrl}}" ng-click="showBigPicture($index)"
+                         ng-style="{'margin-right':($index+1)%4==0?'0':'10px','margin-top':$index<4?'0':'10px'}"
+                         width="{{imageWidth}}" height="{{imageWidth}}"/>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

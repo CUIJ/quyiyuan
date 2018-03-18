@@ -1,0 +1,29 @@
+<ion-view>
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="chooseBranch" default="选择支行"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <div class="bar bar-subheader item-input-inset search pad-b-14 qy-bg-grey2">
+        <label class="item-input-wrapper search-item">
+            <i class="icon icon-seach placeholder-icon mar-l-10 "></i>
+            <input type="search" ng-change="onInputBankSearch()" ng-model="inputData.bankSearch"  placeholder="{{palceHolderText}}">
+        </label>
+    </div>
+
+    <ion-content has-bouncing="true" padding="false" class="has-subheader qy-bg-grey1">
+
+        <ul>
+            <li class="pad-td-10 pad-b-14 border-d" ng-click="onBranchListTap(record)" ng-repeat="record in result|filter:inputData.bankSearch">
+                {{record.BANK_BRANCH_NAME}}
+            </li>
+        </ul>
+
+        <div class="empty-text" ng-if="result.length<=0" >
+            <p class="ta-c" kyee-i18n-directive code="noBranchMsg" default="没有支行信息"></p>
+        </div>
+    </ion-content>
+
+</ion-view>

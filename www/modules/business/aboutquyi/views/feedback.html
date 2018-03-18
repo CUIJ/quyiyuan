@@ -1,0 +1,28 @@
+<ion-view class="qy_aboutquyi_feedback">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="feedTitle" default="意见反馈"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" ng-init="querySuggest();" class="qy-bg-grey1">
+        <div>
+            <textarea kyee-i18n-directive rows="10" maxlength="200" class="suggest_text_area feedbackcontent" type="text" placeholder="{{placeholderText}}" ng-model="suggest.EditText"></textarea>
+        </div>
+        <div class="pad-b-14">
+            <button kyee-i18n-directive code="submitBtn" default="提交" class="button button-block button-size-l mar_t_20 " ng-click="submitSuggest();"></button>
+        </div>
+        <div style="text-align: center;padding-top: 10px;" >
+            <span>服务时间： </span>
+            <span>{{serviceTime}} </span>
+        </div>
+    </ion-content>
+
+</ion-view>

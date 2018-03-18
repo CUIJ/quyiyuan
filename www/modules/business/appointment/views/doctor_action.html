@@ -1,0 +1,46 @@
+<ion-view  class="qy_doctor_info" cache-view="true">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span >医生动态</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-white" delegate-handle="doctor_action_content" >
+
+        <!--医生动态-->
+        <div class="line22">
+            <div ng-repeat="action in doctorActionList"
+                 class="pad-l-10">
+                <div class="pad-r-10 pad-td-16" ng-class="$index>0?'border-t':''">
+                    <div class="f14 qy-grey7 mar-d-5 text-hidden text-wrap"
+                         ng-class="(!(action.lines > 3) || action.isShowAll)?'height-auto':'height-66'"
+                         ng-if="action.content != ''">{{action.content}}</div>
+                    <div class="qy-blue f14 mar-d-5"
+                         ng-if="action.lines > 3"
+                         ng-click="toggleShowAll(action)">{{action.isShowAll?'收起':'全文'}}</div>
+                    <div class="mar-d-10 pad-t-5" ng-if="action.pictureArray.length > 0">
+
+                        <div ng-repeat="img in action.pictureArray track by $index"
+                             ng-click="preview(action.pictureArray,$index)"
+                             ng-style="{'background-image':'url(\''+img.imgUrl+'\')'}"
+                             class="mar-r-10 fl-l actionImg" ng-class="$index > 2?'mar-t-10':''">
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="qy-grey5 f12">{{action.createTime}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- 上拉加载更多 start-->
+        <ion-infinite-scroll ng-if="doctorActionList.length > 0 && isShowLoadMore" spinner="ios-small" on-infinite="loadMore()" distance='1%' immediate-check="false">
+        </ion-infinite-scroll>
+        <!-- 上拉加载更多 end-->
+
+        <!-- 分页加载了所有数据 start-->
+        <div ng-if="doctorActionList.length > 0 && !isShowLoadMore" class="text-center f12 qy-grey5 lineh40">
+            已加载全部数据
+        </div>
+        <!-- 分页加载了所有数据 end-->
+    </ion-content>
+</ion-view>

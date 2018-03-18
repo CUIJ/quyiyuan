@@ -1,0 +1,144 @@
+<!--住院充值 支付状态信息-->
+<ion-view class="qy_perpaid_pay_info">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="住院预缴"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" delegate-handle="perpaidPay">
+
+        <!--下拉刷新-->
+        <ion-refresher ng-if="isEmpty || status=='querying'" pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefresh(true)" disable-pulling-rotation="true"></ion-refresher>
+
+        <!--验证结果-->
+        <div class="result_box ta-c" ng-if="!isEmpty &&(status=='querySuccess'||status=='queryFail'||status=='querying')">
+            <div class="top mar-d-15" ng-class="status=='queryFail'?'qy-red':'qy-green'">
+                <i class="icon pad-r-5" ng-class="{'icon-radiobox_1 qy-green':status=='querySuccess','icon-icon_4 qy-red':status=='queryFail','icon-stop qy-green':status=='querying'}"></i>
+                <span class="f16">{{payInfo.RESULT_TIP}}</span>
+            </div>
+            <div class="bottom" ng-class="status=='querying'?'ta-l':''">
+                {{payInfo.KIND_TIP}}
+            </div>
+        </div>
+
+        <!--切换医院-->
+        <div class="qy-bg-white hospital_bar pad-14 border-td mar-d-10" ng-if="!isEmpty && status=='queryFail'&& !isFromInpat">
+            <div class="row bar_cont">
+                <div class="mar-r-5 bar_cont_l">
+                    <img width="32px" height="32px" style="vertical-align: top;"
+                         ng-src="{{hospitalLogo?hospitalLogo:'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                </div>
+                <ul class="col f14 mar-r-10">
+                    <li class="qy-deepblack text-ellipsis">{{payInfo.HOSPITAL_TIP}}</li>
+                    <li class=" qy-green text-ellipsis">
+                        {{hospitalName}}
+                    </li>
+                </ul>
+                <button ng-click="changeHospital();" class="button button-size-s button-color-bg-green bar_cont_r" kyee-operation-monitor-directive="changeHospital">
+                    <span kyee-i18n-directive code="changeHospital" default="切换医院"></span>
+                </button>
+            </div>
+        </div>
+
+        <!--查到个人信息确认-->
+        <div class="qy-bg-white border-td pad-l-14 main_box f14 mar-d-10 mar-t-10" ng-if="!isEmpty && (status=='querySuccess'||status=='existed')"
+                ng-class="status=='querySuccess'?'border-t':''">
+            <div class="item item-input f14" style="padding-left: 0;min-height: 40px;">
+                <div class="text-ellipsis qy-grey7">{{hospitalName}}</div>
+            </div>
+            <ul class="pad-t-10 pad-d-5">
+                <li><span class="head_left" kyee-i18n-directive code="patientName" default="患者姓名："></span>{{payInfo.DATA.PATIENT_NAME}}</li>
+                <li><span class="head_left" kyee-i18n-directive code="inHospitalDate" default="入院时间："></span>{{payInfo.DATA.ADMISS_DATE}}</li>
+                <li><span class="head_left" kyee-i18n-directive code="inpatientNo" default="住院号："></span>{{payInfo.DATA.INPATIENT_NO}}</li>
+                <li><span class="head_left" kyee-i18n-directive code="bedNo" default="床位号："></span>{{payInfo.DATA.BED_NO}}</li>
+                <li style="height: 25px;"><span class="head_left text-ellipsis" kyee-i18n-directive code="deptName" default="科室："></span>
+                    <div ng-style="{'width':(KyeeEnv.innerSize.width-93)+'px'}" style="display: inline-block;position: relative;left: -4px;"><div class="text-ellipsis pad-r-14" >{{payInfo.DATA.WARD_NAME}}</div></div>
+                </li>
+            </ul>
+            <label class="item main_bottom f14 ta-r border-t">
+                <span kyee-i18n-directive code="balance" default="余额："></span>
+                <span class="f16" ng-class="payInfo.DATA.BALANCE<0?'qy-red':'qy-green'">{{convertMoney(payInfo.DATA.BALANCE)}}</span>
+            </label>
+        </div>
+
+        <!--个人信息输入框-->
+        <div class="list qy-bg-white border-td perpaid_input" ng-if="!isEmpty && status=='queryFail'">
+            <div class="item item-input input_line"  ng-click="goCustomPatient();">
+                <span class="input-label input_l" kyee-i18n-directive code="name" default="姓名："></span>
+                <div ng-bind="pagedata.name" class="text-ellipsis input_c f14"></div>
+                <div class="ta-r qy-grey5 input_r">
+                    <span class="text-ellipsis" style="width:64px"  kyee-i18n-directive code="changePatient"
+                          default="切换就诊者">
+                    </span>
+                    <i class="icon icon-arrow_right"></i>
+                </div>
+            </div>
+            <div class="item item-input input_line border-t" style="border-bottom:0px;">
+                <span class="input-label" kyee-i18n-directive code="IdNo" default="身份证："></span>
+                <input type="text" readonly="readonly" ng-model="pagedata.idNo" />
+            </div>
+            <div class="item item-input input_line border-t" style="border-bottom:0;" ng-if="payInfo.QUERY_TYPE==1">
+                <span class="input-label" kyee-i18n-directive code="inHospitalNo" default="住院号："></span>
+                <input type="text" ng-model="pagedata.inHospitalNo" placeholder="{{placeholder.pHInHospitalNo}}"  />
+                <a class="col col-10 ta-r clear_icon" ng-show="pagedata.inHospitalNo">
+                    <i class="icon ion-close-circled  qy-grey4 f16" ng-click="clearNo()" ></i>
+                </a>
+            </div>
+        </div>
+
+        <!--金额-->
+        <div class="list qy-bg-white border-t amount_list" ng-if="!isEmpty && (status=='querySuccess'||status=='existed'||status=='querying')">
+            <label class="item item-input single_input">
+                <span class="input-label qy-deepblue amount_label" kyee-i18n-directive code="amount" default="金额："></span>
+                <input style="background: #fff;" class="amount_input" type="number" ng-model="payInfo.prePayedMoney" ng-disabled="status=='querying'"
+                       placeholder={{placeholder.pHCharge}} />
+            </label>
+        </div>
+
+        <!--下一步按钮-->
+        <div class="pad-b-14 qy-bg-grey2" ng-if="!isEmpty && (status=='querySuccess'||status=='existed')">
+            <button ng-click="paySubmit();" class="button button-block button-size-l" kyee-operation-monitor-directive="paySubmit">
+                <span kyee-i18n-directive code="nextStep" default="下一步"></span>
+            </button>
+        </div>
+        <!--下一步按钮(失败)-->
+        <div class="pad-b-14 qy-bg-grey2" ng-if="!isEmpty && status=='queryFail'">
+            <button ng-click="goRecharge();" class="button button-block button-size-l" kyee-operation-monitor-directive="goRecharge">
+                <span kyee-i18n-directive code="nextStep" default="下一步"></span>
+            </button>
+        </div>
+
+        <!--双按钮-->
+        <div class="bar qy-bg-grey2" style="border: 0;" ng-if="!isEmpty && status=='querying'">
+            <div class="col pad-l-14">
+                <button kyee-action-holder-directive="cancel" ng-click="KAH($event) || cancel()"  kyee-operation-monitor-directive="cancel"
+                        class="button button-block button-size-l button-color-green" style="margin-top: 0;">
+                    <span  kyee-i18n-directive  code="cancel" default="取消验证"></span>
+                </button>
+            </div>
+            <div class="col pad_l_8 pad-r-14">
+                <button kyee-action-holder-directive="returnToVisitTree"
+                        class="button button-block button-size-l button_color_grey" style="margin-top: 0;">
+                    <span kyee-i18n-directive  code="nextStep" default="下一步"></span>
+                </button>
+            </div>
+        </div>
+
+        <!--底部提示-->
+        <div class="pad-b-14 qy-orange" ng-if="!isEmpty && status=='queryFail'">
+            {{payInfo.BOTTOM_TIP}}
+        </div>
+
+        <!--背景提示-->
+        <div class="empty-text" ng-if="isEmpty && emptyText!=undefined">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+
+    </ion-content>
+
+</ion-view>
+<!--住院预交 支付信息-->

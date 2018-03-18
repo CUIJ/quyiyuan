@@ -1,0 +1,55 @@
+<ion-view class="medication_prescription_detail" >
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span kyee-i18n-directive  code="isMedicationPrescriptionDetailTitle" default="用药及处方"></span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right" >
+            <a class="button button-clear" ng-show="userSource!='3'"  ng-click="openRightMenu('medication_prescription_detail')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  has-bouncing="true" scrollbar-y="false" class="qy-bg-grey2"
+                 delegate-handle="confirm_appoint_content">
+        <div class="mar-t-10" ng-if="!noMediPresDetail">
+            <ul ng-repeat="mediPresDetail in mediPresDetaiList" class="qy-bg-white text-ellipsis border-d titlebox"
+                    ng-class="{'border-t':$index == 0}">
+                <li ng-if="DetailsRecipeIndex!=$index|| DetailsRecipeIndex==-1" style="position: relative">
+                    <div class="row item-input item-icon-right border_bottom_none">
+                        <div class="col" ng-click="showMediPresDetail($index)">
+                            <span class="text-ellipsis f14 fixed_width1 pad-l-14" ng-style="{'max-width':KyeeEnv.innerSize.width-38+'px'}">
+                                {{mediPresDetail.RECIPE_ID_TEXT}}</span>
+                            <!--<span style="position: absolute;right: 41px; color: #264557" kyee-i18n-directive code="open" default="查看"></span>-->
+                            <i class="right_arrow qy-grey5 ion-chevron-right"></i>
+                        </div>
+                    </div>
+                </li>
+                <div ng-if="DetailsRecipeIndex==$index">
+                    <div class="row item-input item-icon-right border_bottom_none qy-bg-white" style="position: relative">
+                        <div class="col" ng-click="hideMediPresDetail($index)">
+                            <span class="text-ellipsis f14 fixed_width1 pad-l-14"
+                                  ng-style="{'max-width':KyeeEnv.innerSize.width-38+'px'}">{{mediPresDetail.RECIPE_ID_TEXT}}</span>
+                            <!--<span style="position: absolute;right: 41px; color: #264557" kyee-i18n-directive code="open" default="收回"></span>-->
+                            <i class="right_arrow qy-grey5 ion-chevron-up"></i>
+                        </div>
+                    </div>
+                    <div ng-class="{'mar-d-10':$index == mediPresDetaiList.length-1}" class=" qy-bg-grey1 pad-t-14 pad_d_14">
+                        <div ng-repeat="mediName in mediPresDetail.DETAIL_LIST" class="pad-b-14"
+                             ng-class="{'pad_d_8':$index != mediPresDetail.DETAIL_LIST.length-1}">
+                            <div class="f14 height_40 item-input item-icon-right border_bottom_none back_color height_0">
+                                <span class="fixed_width1 color_grey_6"  kyee-i18n-directive  code="drugName" default="药品名称:"></span>
+                                <span class="text-ellipsis span_dis_block mar_l_16 qy-grey6" ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}">
+                                    {{mediName.DOCTOR_ADVICE_PROJECT_NAME}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <div  ng-if="noMediPresDetail" ng-style="{'padding-top':KyeeEnv.innerSize.height<481 ? '35%':'45%'}" class="empty-text qy-grey5">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p class="report_empty_font">未查询到您的用药及处方信息</p>
+        </div>
+    </ion-content>
+</ion-view>

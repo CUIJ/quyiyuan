@@ -1,0 +1,26 @@
+<ion-view class="qy_doctor_home" cache-view="false">
+
+    <ion-content scroll="false" padding="false" has-bouncing="true"  class="has-footer-home qy-bg-grey1">
+
+        <div kyee-slidebox-image-directive
+                speed="5000"
+                images="slideboxData"
+                itemclick="viewHospitalDetail(params)"
+                bind="bindSlideboxImageActions(params)"></div>
+
+        <ion-scroll scrollbar-y="false" direction="y" has-bouncing="true"ng-style="{'height':(KyeeEnv.innerSizeSource.height - 150)+'px'}">
+
+            <div class="list">
+                <div ng-repeat="menu in menuList" ng-click="onMenuClick(menu)" class="item qy-iconlist">
+                    <img src="{{menu.image_url}}"/>
+                    <h3>{{menu.name}}</h3>
+                    <p>{{menu.description}}</p>
+                    <i class="ico ion-chevron-right" ></i>
+                </div>
+            </div>
+
+        </ion-scroll>
+
+    </ion-content>
+
+</ion-view>

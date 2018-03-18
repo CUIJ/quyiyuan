@@ -1,0 +1,136 @@
+<ion-view class="weight_manage qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button  ng-click="goToHealth()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{userInfo.showType == 'weight'?'体重管理':(userInfo.showType == 'pressure'?'血压管理':(userInfo.showType == 'sugar'?'血糖管理':'运动管理'))}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right"><span ng-click="addManage(userInfo.showType,false)" class="f14 mar-t-8 qy-fff">添加</span></ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content animation="slide-left-right" scroll="true" has-bouncing="true" class="qy-bg-grey1">
+        <div class="pad-t-20 pad-l-30 row qy-bg-white" ng-class="userInfo.showType=='sport'?'':'pad-b-40'">
+            <div ng-if="userInfo.showType=='weight'">
+                <div class="fl-l width90 border_we font_color_we pad-t-25 dis-in-b">
+                    <div><span class="f30 fw-500">{{userInfo.weight[dataLength]}}</span><span class="f12">kg</span></div>
+                    <div class="f12">体重</div>
+                </div>
+                <div class="fl-l mar-l-40 dis-in-b f14 qy-grey7 line_h24 mar-t-8">
+                    <div><span>身高：</span>{{userInfo.height}}cm</div>
+                    <div><span>BMI：</span>{{userInfo.BMI}}</div>
+                    <div><span>测量日期：</span>{{userInfo.weightDataNew}}</div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div ng-if="userInfo.showType=='pressure'">
+                <div class="width90 fl-l border_we font_color_we pad-t-18 dis-in-b">
+                    <div class=" bor-b lineh18 height28 width-75 mar-0"><span class="f12">收缩压</span><span class="f18 fw-500">{{userInfo.pressureHeight[dataLength]}}</span></div>
+                    <div class=" lineh18 height28 width-75 mar-0 pad-t-4"><span class="f12">舒张压</span><span class="f18 fw-500">{{userInfo.pressureLow[dataLength]}}</span></div>
+                </div>
+                <div class="mar-l-40 fl-l dis-in-b f14 qy-grey7 mar-t-18 line_h24">
+                    <div><span>心率：</span>{{userInfo.heartRate}}bpm</div>
+                    <div><span>测量日期：</span>{{userInfo.pressureDataNew}}</div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div ng-if="userInfo.showType=='sugar'">
+                <div class="width90 fl-l border_we font_color_we pad-t-25 dis-in-b">
+                    <div><span class="f30 fw-500">{{userInfo.sugarNew}}</span><span class="f12">mmol/L</span></div>
+                    <div class="f12">血糖</div>
+                </div>
+                <div class="mar-l-40 fl-l dis-in-b f14 qy-grey7 mar-t-18 line_h24">
+                    <div><span>类型：</span>{{userInfo.measureTimeNew}}</div>
+                    <div><span>测量日期：</span>{{userInfo.sugarDataNew}}</div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div ng-if="userInfo.showType=='sport'">
+                <div class="width90 fl-l border_we font_color_we pad-t-25 dis-in-b">
+                    <div><span class="f30 fw-500">{{userInfo.sportTimeNew}}</span><span class="f12">min</span></div>
+                    <div class="f12">运动时长</div>
+                </div>
+                <div class="mar-l-40 fl-l dis-in-b f14 mar-t-8 qy-grey7 line_h24">
+                    <div class="text-ellipsis max-width"><span>运动类型：</span>{{userInfo.sportType[userInfo.sportType.length-1].join(",")}}</div>
+                    <div><span>运动强度：</span>{{userInfo.sportLevel}}</div>
+                    <div><span>测量日期：</span>{{userInfo.sportDataNew}}</div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+        </div>
+        <div class="pad-b-10 pad-lr-16 qy-bg-white pad-b-16 border-d">
+            <div ng-if="userInfo.showType =='weight'" class="level">
+                <div class="level1"><div ng-style="tagPos" ng-if="userInfo.weightValue==1" class="tag pos-a"></div><span class="textWidth1 flevel1 dis-in-b">偏瘦</span></div>
+                <div class="level2"><div ng-style="tagPos" ng-if="userInfo.weightValue==2" class="tag pos-a"></div><span class="textWidth1 flevel2 dis-in-b">正常</span></div>
+                <div class="level3"><div ng-style="tagPos" ng-if="userInfo.weightValue==3" class="tag pos-a"></div><span class="textWidth1 flevel3 dis-in-b">偏胖</span></div>
+                <div class="level4"><div ng-style="tagPos" ng-if="userInfo.weightValue==4" class="tag pos-a"></div><span class="textWidth1 flevel4 dis-in-b">肥胖</span></div>
+                <div class="level7"><div ng-style="tagPos" ng-if="userInfo.weightValue==7" class="tag pos-a"></div><span class="textWidth1 flevel7 dis-in-b">重度肥胖</span></div>
+            </div>
+            <div ng-if="userInfo.showType =='pressure'" class="level f12">
+                <div class="level1"><div ng-style="tagPos" ng-if="userInfo.pressureLevel==1" class="tag pos-a"></div><span class="textWidth3 flevel1 dis-in-b">偏低</span></div>
+                <div class="level2"><div ng-style="tagPos" ng-if="userInfo.pressureLevel==2" class="tag pos-a"></div><span class="textWidth3 flevel2 dis-in-b">正常</span></div>
+                <div class="level3"><div ng-style="tagPos" ng-if="userInfo.pressureLevel==3" class="tag pos-a"></div><span class="textWidth3 flevel3 dis-in-b">偏高</span></div>
+                <div class="level4"><div ng-style="tagPos" ng-if="userInfo.pressureLevel==4" class="tag pos-a"></div><span class="textWidth3 flevel4 dis-in-b">轻度高压</span></div>
+                <div class="level5"><div ng-style="tagPos" ng-if="userInfo.pressureLevel==5" class="tag pos-a"></div><span class="textWidth3 flevel5 dis-in-b">中度高压</span></div>
+                <div class="level6"><div ng-style="tagPos" ng-if="userInfo.pressureLevel==6" class="tag pos-a"></div><span class="textWidth3 flevel6 dis-in-b">重度高压</span></div>
+                <div class="level7"><div ng-style="tagPos" ng-if="userInfo.pressureLevel==7" class="tag pos-a"></div><span class="textWidth2 flevel7 dis-in-b">单纯收缩期高压</span></div>
+            </div>
+            <div ng-if="userInfo.showType =='sugar'" class="level">
+                <div class="level1"><div ng-style="tagPos" ng-if="userInfo.sugarLevel==1" class="tag pos-a"></div><span class="textWidth1 flevel1 dis-in-b">低血糖</span></div>
+                <div class="level2"><div ng-style="tagPos" ng-if="userInfo.sugarLevel==2" class="tag pos-a"></div><span class="textWidth1 flevel2 dis-in-b">偏低</span></div>
+                <div class="level3"><div ng-style="tagPos" ng-if="userInfo.sugarLevel==3" class="tag pos-a"></div><span class="textWidth1 flevel3 dis-in-b">正常</span></div>
+                <div class="level4"><div ng-style="tagPos" ng-if="userInfo.sugarLevel==4" class="tag pos-a"></div><span class="textWidth1 flevel4 dis-in-b">偏高</span></div>
+                <div class="level7"><div ng-style="tagPos" ng-if="userInfo.sugarLevel==7" class="tag pos-a"></div><span class="textWidth1 flevel7 dis-in-b">过高</span></div>
+            </div>
+        </div>
+        <div ng-if="userInfo.showType =='weight'" class="qy-bg-white mar-t-8 pad-tb-16 border-t border-d">
+            <div class="align-center f14 mar-lr-14 mar-b-10 qy-grey7">我的体重曲线</div>
+            <div class="data-choose align-center">
+                <div class="flex-grow height-22 bor-r" ng-class="userInfo.dataShow =='day'?'selected':'noSelected'" ng-click="turn('day')">日</div>
+                <div class="flex-grow height-22" ng-class="userInfo.dataShow =='week'?'selected':'noSelected'" ng-click="turn('week')">周</div>
+            </div>
+            <span class="mar-l-35 f12 qy-grey5">单位：kg</span>
+            <div id="containerW" class="mar-t-10" style="width:100%;height:220px">
+            </div>
+        </div>
+        <div ng-if="userInfo.showType =='pressure'" class="qy-bg-white mar-t-8 pad-tb-16 border-t border-d">
+            <div class="line14 align-center f14 mar-lr-14 mar-b-10 qy-grey7">我的血压曲线</div>
+            <div class="line12 align-center qy-grey5 f12 mar-t-16">
+                  <div class="put-r"><span>收缩压</span><span class="dis-in-b mar-l-4 mar-b-4 mid-line "></span><span class="mar-l-16">收缩压正常范围：90-140mmHg</span></div>
+                  <div class="put-r mar-t-10"><span>舒张压</span><span class="dis-in-b mar-l-4 mar-b-4 mid-line2 "></span><span class="mar-l-16">舒张压正常范围：&nbsp&nbsp60-90mmHg</span></div>
+            </div>
+            <div id="containerP" class="mar-t-10" style="width:100%;height:220px"></div>
+        </div>
+        <div ng-if="userInfo.showType =='sugar'" class="qy-bg-white mar-t-8 pad-tb-16 border-t border-d">
+            <div class="line14 align-center f14 mar-lr-14 mar-b-8 qy-grey7">我的血糖曲线</div>
+            <div class="time-box">
+                <span ng-click="turnSugar(1)"  ng-class="userInfo.sugarTime==1?'selected':''">空腹</span>
+                <span ng-click="turnSugar(2)"  ng-class="userInfo.sugarTime==2?'selected':''">早餐后</span>
+                <span ng-click="turnSugar(3)"  ng-class="userInfo.sugarTime==3?'selected':''">午餐前</span>
+                <span ng-click="turnSugar(4)"  ng-class="userInfo.sugarTime==4?'selected':''">午餐后</span>
+                <span ng-click="turnSugar(5)"  ng-class="userInfo.sugarTime==5?'selected':''">晚餐前</span>
+                <span ng-click="turnSugar(6)"  ng-class="userInfo.sugarTime==6?'selected':''">晚餐后</span>
+                <span ng-click="turnSugar(7)"  ng-class="userInfo.sugarTime==7?'selected':''">睡前</span>
+
+            </div>
+            <div id="containerSu" class="mar-t-10" style="width:100%;height:220px"></div>
+        </div>
+        <div ng-if="userInfo.showType =='sport'" class="qy-bg-white mar-t-8 pad-tb-16 border-t border-d">
+            <div class="align-center f14 mar-lr-14 mar-b-10 qy-grey7">我的运动曲线</div>
+            <span class="mar-l-35 f12 qy-grey5">单位：min</span>
+            <div id="containerSp" class="mar-t-10" style="width:100%;height:220px"></div>
+        </div>
+
+        <div class="flex-center" ng-if="userInfo.showType=='sugar'" ng-click="gotoBloodSugarStandard()">
+            <i class="f20 icon icon-help-nav qy-green"></i>
+            <span class="f14 mar-l-5">血糖分析参考标准</span>
+        </div>
+        <div class="f20 flex-center " ng-if="userInfo.showType=='pressure'" ng-click="gotoBloodPressureStandard()">
+            <i class="icon icon-help-nav qy-green"></i>
+            <span class="f14 mar-l-5">血压分析参考标准</span>
+        </div>
+        <div class="f20 flex-center " ng-if="userInfo.showType=='weight'" ng-click="gotoWeightStandardStandard()">
+            <i class="icon icon-help-nav qy-green"></i>
+            <span class="f14 mar-l-5">体重分析参考标准</span>
+        </div>
+    </ion-content>
+
+</ion-view>

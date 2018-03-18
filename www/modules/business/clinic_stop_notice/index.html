@@ -1,0 +1,38 @@
+<ion-view class="qy_notice">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="clinicStopNotice" default="停诊通知"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+             refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon"  on-refresh="onRefresh()">
+        </ion-refresher>
+
+        <ul ng-repeat="notice in allNotices" class="qy-bg-white pad-b-14 mar-td-10 border-td">
+            <h4 class="f14 mar-td-10">{{notice.noticeDate}}</h4>
+            <ul ng-repeat="(dept, doctorInfoArr) in notice.noticeDetail" class="border-t pad-t-10 pad-d-10">
+                <li class="f14">{{dept}}：</li>
+                <span ng-repeat="doctorInfo in doctorInfoArr" class="qy-deepblue">
+                    <span class="qy-orange">{{doctorInfo.DOCTOR_NAME}}</span>
+                    <span style="margin: 0 5px;">({{doctorInfo.CLINIC_DURATION}})</span>
+                </span>
+                </li>
+            </ul>
+        </ul>
+
+        <div ng-if="!hasData" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>
+                <span kyee-i18n-directive code="noDataNotice" default="今日无医生停诊"></span>
+            </p>
+        </div>
+    </ion-content>
+
+</ion-view>
+
+

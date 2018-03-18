@@ -1,0 +1,397 @@
+@charset "utf-8";
+/* Scss Document */
+.qy_hospital {
+  .android_margin{
+    margin-top: 9px;
+  }
+  .search_div_first{
+    position: fixed;
+    right: 0px;
+    z-index: 1000;
+  }
+  .search_div{
+    background-color: rgba(0,0,0,0.3);
+    width: 40px;
+    height: 30px;
+    z-index: 1000;
+    position: relative;
+    border-radius: 15px 0 0 15px;
+    .line30{
+      height: 30px;
+      line-height: 30px;
+      padding-left: 7px;
+      position: absolute;
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+  .ios_margin{
+    margin-top: 29px !important;
+  }
+  .scan_icon{
+    height:30px;
+    width:30px;
+    border-radius: 15px 15px 15px 15px;
+    position:absolute;
+    right:10px;
+    top:20px
+  }
+  .w100p{width: 100%;}
+  .position-r{ position: relative; }
+  .position-a{ position: absolute; }
+  .search_box_container{
+    z-index: 1000;
+    top: 0;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    .scroll_bg{
+      height: 48px;
+    }
+    .user_photo{
+      left: 10px;
+    }
+    .search_box{
+      margin: 0 auto;
+      width: 75%;
+      i{
+        left: 8px;
+      }
+      input{
+        width: 100%;
+        height: 30px;
+        /* line-height: 30px; */
+        padding-top: 6px;
+        padding-bottom: 6px;
+        background-color: rgba(00,00,00,0.3);
+        border: none;
+        border-radius: 15px;
+        padding-left: 38px;
+        align-items: center;
+        &::-webkit-input-placeholder{
+          color: #ffffff;
+          font-size: 15px;
+        }
+        &::-moz-input-placeholder{
+          color: #ffffff;
+          font-size: 15px;
+        }
+        &::-ms-input-placeholder{
+          color: #ffffff;
+          font-size: 15px;
+        }
+        &::-o-input-placeholder{
+          color: #ffffff;
+          font-size: 15px;
+        }
+        &::input-placeholder{
+          color: #ffffff;
+          font-size: 15px;
+        }
+      }
+    }
+    &.scrolling{
+      background-color: rgba(32,189,120,0.8);
+      input{
+        background-color: rgba(255,255,255,0.2);
+      }
+    }
+    &.ios_padding{
+      padding-top: 29px !important;
+    }
+
+    .unread_MsgCount_top{
+      position: absolute;
+      left: 26px;
+      top: -4px;
+      width: 14px;
+      height: 14px;
+      line-height:14px;
+      font-size: 9px;
+      font-weight: bold;
+    }
+
+  }
+  .notice_icon_l {
+    position: absolute;
+    opacity: 0.7;
+    display: block;
+    height: 36px;
+    width: 40px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+  }
+  .notice_icon_r {
+    position: absolute;
+    opacity: 0.7;
+    display: block;
+    height: 36px;
+    width: 40px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+  }
+  .notice_icon_c {
+    position: absolute;
+    opacity: 0.7;
+    display: block;
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+    .sign_icon {
+      left: 8px;
+    }
+  }
+  .sign_icon {
+    font-size: 21px;
+    line-height: 36px;
+    position: absolute;
+    left: 11px
+  }
+  .hospital_backg{
+    background-image: url(../../resource/images/hospital/ware.png);
+    height: 80px;
+    background-repeat: repeat-x;
+  }
+  .icon_opacity{
+    opacity: 0.5;
+  }
+  .item.activated{
+    background-color: #f0fff7;
+  }
+  .titlebox {
+    position: relative;
+    left: 0px;
+    right: 0px;
+    padding: 0px 14px 0;
+    height: 52px;
+    h5 {
+      margin-right: 85px;
+      margin-bottom: 5px;
+      font-size: 17px;
+    }
+    .switch_hos {
+      position: absolute;
+      top: 16px;
+      right: 0px;
+      display: -webkit-box;
+      p {
+        padding-right: 14px;
+        margin: 0;
+      }
+    }
+  }
+  .map_icon{
+    font-size: 18px;
+    position: absolute;
+    top: 1px;
+    padding: 10px 25px 10px 5px;
+    margin: -10px 0 0 0;
+  }
+  .hospital_level{
+    background: #ffc822;
+    color: white;
+    border-radius: 2px;
+    font-size: 10px;
+    padding: 2px 5px 1px 5px ;
+    position: relative;
+    top: -1px;
+  }
+  .hospital_level_margin{
+    margin-right: 85px;
+    margin-bottom: 8px
+  }
+  .hospital_name{
+    margin-right: 85px;
+    line-height: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+  }
+
+  .navbox {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    .col {
+      text-align: center;
+    }
+    .col:last-child {
+      border-right: 0;
+    }
+    .col i {
+      font-size: 35px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .col p {
+      margin-bottom: 0;
+    }
+    .img_size{
+      height: 46px;
+      width: 50px;
+    }
+
+  }
+  .first_list{
+    margin-top: 6px;
+  }
+  .hospital_margin{
+    margin-bottom: 6px;
+  }
+  .hos_func_list {
+    position: relative;
+    .icon-doctor, .icon-inspect, .icon-loudspeaker2, .icon-doctor2, .icon-feature, .icon-line,
+    .icon-doctors, .icon-nav, .icon-drug, .icon-news, .icon-xnh, .icon-examination3, .icon-good,
+    .icon-register, .icon-redcross, .icon-stop, .icon-card2, .icon-hospital2, .icon-echoscope {
+      font-size: 35px;
+    }
+    //.ion-chevron-right {
+    //  line-height: 40px;
+    //}
+    .ion-chevron-right {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      margin-top: -9px;
+    }
+
+    p {
+      font-size: 12px;
+      color: #999;
+    }
+    .div_referral{
+      display: inline-block;
+      font-size: 10px;
+      background-color: #ffc822;
+      border-radius: 2px;
+      line-height: 15px;
+      position: absolute;
+      top: 13px;
+      margin-left: 5px;
+    }
+    .referral_p{
+      margin: 0 5px;
+      color: white;
+    }
+  }
+  .text_height{
+    margin-top: 3px;
+  }
+  .icon_height{
+    margin-top: 13px;
+    margin-bottom: 13px;
+  }
+  .text_size_one{
+    font-size: 14px;
+    margin-bottom: 3.5px
+  }
+  .div_left{
+    padding-top: 11.5px;
+    padding-bottom: 10px
+  }
+  .item_size{
+    width: 68px !important;
+    height: 40px !important;
+  }
+  .forbid_img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+  }
+  .font_length{
+    max-width: 75px;
+  }
+
+  .iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+  }
+  .to_map{
+    position:relative;
+    top: -30px;
+    line-height: 30px;
+    height: 0;
+    z-index: 1;
+    opacity: 0.9;
+    .address{
+      margin: 0;
+      height: 30px;
+    }
+    .to_map_btn{
+      height: 30px;
+      width: 100%;
+      padding-right: 14px;
+      display: -webkit-box;
+      .to_map_btn_text{
+        margin: 0;
+        padding-right: 5px;
+        -webkit-box-flex: 1;
+      }
+    }
+  }
+  .go_here_bg{
+    background:#000000;
+    opacity:0.4
+   }
+  .f35{
+    font-size: 35px;
+  }
+  .p_pos{
+    position: relative;
+    top: 0;
+  }
+  .backBZ_div_first{
+    position: fixed;
+    left: 5px;
+    z-index: 1000;
+    opacity: 1;
+    text-shadow:0px 0px 3px rgba(0, 0, 0, 0.2);
+  }
+  .f26{
+    font-size: 26px;
+  }
+  .backBZ{
+
+  }
+  .star_img{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 9px;
+  }
+  .evaluateFont{
+    font-size: 12px;
+    text-align: center;
+    height: 17px;
+  }
+  .evaluateDiv{
+    background: #ffc13d;
+    box-shadow: 0px 6px 9px rgba(255, 192, 0, 0.4);
+  }
+  .surroundBtn{
+    position: absolute;
+    bottom: 70px;
+    right:20px;
+    width: 50px;
+    height: 50px;
+  }
+}
+.help_icon_l {
+  position: absolute;
+  display: block;
+  height: 40px;
+  width: 136px;
+}
+.help_icon_c {
+  position: absolute;
+  display: block;
+  height: 40px;
+  width: 136px;
+  .sign_icon {
+    left: 10px;
+  }
+}
+.help_icon_r {
+  position: absolute;
+  display: block;
+  height: 40px;
+  width: 136px;
+}
+

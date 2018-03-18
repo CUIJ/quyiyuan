@@ -1,0 +1,524 @@
+.qy_clinic_paid{
+  .showTip{
+    color: #ff9900;
+    background-color: #ffebcc;
+    display: flex;
+  }
+  .right_34{
+    right: 34px;
+  }
+  .bottom_tip{
+    padding:40px 14px;
+    .box{
+      position: relative;
+      height: 71px;
+      background-size: 208px;
+      width: 210px;
+      margin: 0 auto;
+      background-repeat:no-repeat;
+      background-image: url('../../resource/images/myWallet/bottom_change_condition.png');
+      .box_t{
+        font-size: 12px;
+        position: absolute;
+        bottom: 43px;
+        left: 84px;
+      }
+      .box_b{
+        position: absolute;
+        bottom: 10px;
+        left: 84px;
+      }
+    }
+  }
+  .h_42{
+    height:42px;
+  }
+  .month_line{
+    height: 41px;
+    position: relative;
+    .month{
+      width: 38px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      height: 18px;
+      line-height: 18px;
+      color: #fff;
+      border-radius: 2px;
+      position: absolute;
+      bottom: 8px;
+    }
+    .line{
+      height: 8px;
+      border-left: 1px solid #ccc;
+      position: absolute;
+      bottom: 0;
+      left: 31px;
+    }
+    .top_line{
+      height: 15px;
+      border-left: 1px solid #ccc;
+      position: absolute;
+      top: 0;
+      left: 31px;
+    }
+    .year{
+      position: absolute;
+      right: 14px;
+      bottom: 8px;
+    }
+    .bg_grey{
+      background-color: #d8d8d8;
+    }
+  }
+  .pad_top{
+    padding-top:30%;
+  }
+  .time_box{
+    position: relative;
+    padding: 10px 0;
+    .box_l{
+      color: #333;
+      width: 49px;
+      border-right: 1px solid #e7e7e7;
+      height: 40px;
+      .f12{
+        font-size: 12px !important;
+      }
+    }
+    .box_r{
+      padding-left: 16px;
+    }
+    p{
+      margin-bottom: 0;
+    }
+  }
+  .item_class{
+    display: inline-block;
+    float:left;
+    margin-right: 5px;
+  }
+  .mar_l_4{
+    margin-left:4px;
+  }
+  .content_head{
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-top: 0;
+  }
+  p{
+    margin-bottom:3px;
+  }
+  .single_header{
+    margin-top: 70px;
+  }
+  .double_header{
+    margin-top: 40px;
+  }
+  .button .icon-arrow_right:before {
+    float: right;
+    padding-right: 0;
+    padding-left: .2em;
+  }
+  .button.icon-right:before, .button.icon:before {
+    display: inline-block;
+    vertical-align: inherit;
+    font-size: 12px;
+    line-height: 24px;
+  }
+
+  .icon_arrow{
+    position: absolute;
+    right:14px;
+    top: 50%;
+  }
+  .current{
+    border-bottom: 2px solid #5baa8a;
+    color: #5baa8a !important;
+  }
+  .switchtable{
+    height: 41px;
+    line-height: 38px;
+  }
+  .ion_arr{
+    position: relative;
+    top: 2px;
+    color: #5baa8a;
+  }
+  .text_hos{
+    display: block;
+    position: absolute;
+  }
+  .bar_isAllHospital{
+    height: 70px;
+  }
+  .head{
+    position: relative;
+    padding-left: 46px;
+    padding-right: 90px;
+    .head_l{
+      position: absolute;
+      left: 0;
+      top: 4px;
+    }
+    .head_r{
+      position: absolute;
+      right: 0;
+      bottom: 4px;
+      height: 31px;
+      line-height: 31px;
+    }
+  }
+}
+
+.qy_clinic_paid_message{
+  .month_line{
+    height: 41px;
+    position: relative;
+    .month{
+      width: 38px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      height: 18px;
+      line-height: 18px;
+      color: #fff;
+      border-radius: 2px;
+      position: absolute;
+      bottom: 8px;
+    }
+    .line{
+      height: 8px;
+      border-left: 1px solid #ccc;
+      position: absolute;
+      bottom: 0;
+      left: 31px;
+    }
+    .top_line{
+      height: 15px;
+      border-left: 1px solid #ccc;
+      position: absolute;
+      top: 0;
+      left: 31px;
+    }
+    .year{
+      position: absolute;
+      right: 14px;
+      bottom: 8px;
+    }
+    .bg_grey{
+      background-color: #d8d8d8;
+    }
+  }
+  .pad_top{
+    padding-top:30%;
+  }
+  .time_box{
+    position: relative;
+    padding: 10px 0;
+    .box_l{
+      color: #333;
+      width: 49px;
+      border-right: 1px solid #e7e7e7;
+      height: 40px;
+      .f12{
+        font-size: 12px !important;
+      }
+    }
+    .box_r{
+      padding-left: 16px;
+    }
+    p{
+      margin-bottom: 0;
+    }
+  }
+  .item_class{
+    display: inline-block;
+    float:left;
+    margin-right: 5px;
+  }
+  p{
+    margin-bottom:3px;
+  }
+  .icon_arrow{
+    position: absolute;
+    right:14px;
+    top: 50%;
+    margin-top: -6px;
+    color: #999999;
+  }
+  .current{
+    border-bottom: 2px solid #5baa8a;
+    color: #5baa8a !important;
+  }
+}
+
+/* paid_record view zhangjing  KYEEAPPC-6169*/
+.qy_paid_record {
+  .top_box{
+    padding-top: 17px;
+    position: relative;
+    .amount{
+      font-size: 30px;
+      position: absolute;
+      top: 50px;
+      left: 14px;
+      height: 30px;
+      line-height: 30px;
+    }
+    .tip{
+      position: absolute;
+      bottom: 16px;
+    }
+    .pay_sum{
+      position: absolute;
+      bottom: 21px;
+    }
+    .refund{
+      position: absolute;
+      top:55px;
+      right: 14px;
+      .icon-arrow_right{
+        position: relative;
+        top: 1px;
+        padding-left: 3px;
+      }
+    }
+  }
+  .hospital_line{
+    min-height: 40px;
+    line-height: 40px;
+    padding: 0 14px 0 0;
+  }
+  .container{
+    padding-top: 17px;
+    padding-bottom: 9px;
+    dd{
+      padding-bottom: 8px;
+      padding-left: 14px;
+    }
+    .container_item{
+      width: 72px;
+      display: inline-block;
+      color: #264557;
+    }
+  }
+
+  .pay_box{
+    position: relative;
+    .pay_head{
+      padding:10px 0;
+    }
+    ul{
+      padding-top: 16px;
+      padding-left: 22px;
+    }
+    .pay_detail{
+      .detail_head{
+        height: 47px;
+        padding: 20px 0 7px 0;
+        i{
+          padding-right: 6px;
+        }
+        span{
+          position: relative;
+          bottom:2px;
+        }
+      }
+      .detail_item{
+        height: 40px;
+        line-height: 40px;
+        .icon-icon_1{
+          font-size: 16px;
+          position: relative;
+          top: 2px;
+          padding-right: 6px;
+        }
+        .col_30{
+          -webkit-box-flex: 0;
+          -webkit-flex: 0 0 30%;
+          -moz-box-flex: 0;
+          -moz-flex: 0 0 30%;
+          -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
+          max-width: 30%;
+        }
+        .col_20{
+          -webkit-box-flex: 0;
+          -webkit-flex: 0 0 20%;
+          -moz-box-flex: 0;
+          -moz-flex: 0 0 20%;
+          -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+          max-width: 20%;
+        }
+        .col_70{
+          -webkit-box-flex: 0;
+          -webkit-flex: 0 0 70%;
+          -moz-box-flex: 0;
+          -moz-flex: 0 0 70%;
+          -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
+          max-width: 70%;
+        }
+      }
+    }
+  }
+  .detail_box{
+    .detail_head{
+      height: 40px;
+      line-height: 40px;
+    }
+    .container{
+      border: 1px solid #e7e7e7;
+      border-radius: 2px;
+      padding: 13px 22px 4px;
+      .row{
+        margin-bottom: 9px;
+      }
+      .container_item{
+        width: 100px;
+        color: #666;
+      }
+    }
+  }
+  .tip_img{
+    position: absolute;
+    width: 70px;
+    height: auto;
+    top: -30px;
+    transform: rotate(-30deg);
+    -webkit-transform: rotate(-30deg);
+    right: 11px;
+  }
+  .refund_block{
+    height: 41px;
+    line-height: 41px;
+    .icon-arrow_right{
+      padding-top: 12px;
+    }
+    .icon-remind{
+      position: relative;
+      top: 3px;
+      padding-right: 2px;
+    }
+  }
+  .allChooseFont{
+    color: #ccc;
+  }
+}
+
+.qy_paid_detail {
+  .icon_flo {
+    padding: 0 0 8px 8px;
+  }
+  .wd_100{
+    width: 100%;
+  }
+}
+
+.qy_ms_choose{
+  .icon_flo {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    padding: 5px;
+  }
+}
+
+.qy_paid_hospital_list{
+  .tip{
+    padding: 9px 14px;
+  }
+  .list .item-input{
+    padding-left: 0;
+  }
+}
+
+.qy_clinic_paid_query{
+  .input_content{
+    width: 73%;
+    border: 0;
+    padding-left: 15px;
+  }
+}
+
+
+.detail_msg {
+  margin-bottom: 0;
+  word-break: break-all;
+  padding:10px;
+}
+.quhao_information {
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #e7e7e7;
+  background-color: #ffffff;
+  // color: #4293c8;
+  line-height: 24px;
+  .margin_bottom_list {
+    .see_doctor_div {
+      color: #5baa8a;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    .see_doctor_hospital {
+      padding-right: 24px;
+    }
+  }
+}
+.fn-break {
+  word-break: normal;
+}
+
+
+.qy_code_image{
+  border-radius: 4px;
+  .ion_border_green{
+    border: 1px solid #5baa8a !important;
+  }
+  .f_s_30{
+    font-size: 30px;
+  }
+  .img_footer{
+    margin-left: 14px;
+    margin-right: 14px;
+    border-top: 1px solid #ccc;
+    line-height: 65px;
+    height: 65px;
+    width: auto;
+  }
+  .img_wdt{
+    width: 100%;
+  }
+  .ion_show{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-top: 15px;
+    border-radius: 50%;
+    border: 1px solid #b5b5b5;
+  }
+  .ion_number{
+    line-height: 25px;
+    height: 20px;
+  }
+  .ion_font{
+    line-height: 15px;
+    height: 20px;
+  }
+  .footer_block{
+    position: relative;
+    display: inline-block;
+  }
+  .footer_line{
+    width: 24px;
+    position: absolute;
+    top: 34px;
+    left: 69px;
+    border-bottom: 1px solid #ccc;
+  }
+
+}

@@ -1,0 +1,201 @@
+.qy_doctor_interaction {
+
+  .bar-subheader{
+    top:44px !important;
+  }
+
+  .linear {
+    background: -moz-linear-gradient(top, #fff, #DEDADB); /*firefox*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#DEDADB)); /* Safari 4-5, Chrome 1-9*/
+    background: -webkit-linear-gradient(top, #fff, #DEDADB); /*Safari5.1 Chrome 10+*/
+    background: -o-linear-gradient(top, #fff, #DEDADB); /*Opera 11.10+*/
+
+    margin-top: 44px;
+    height: 88px;
+  }
+
+  .header_name{
+    padding-top: 20px;
+    padding-left: 30px;
+  }
+
+  .header_sex{
+    padding-left: 30px;
+  }
+
+  .header_right{
+    float: right;
+    padding-right: 10px;
+    min-width: 9em;
+    text-align: right;
+  }
+
+  .header_img{
+    width: 20px;vertical-align: sub;
+  }
+
+  .chat_content {
+    top: 188px !important;
+  }
+
+  .subheader_sec {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 10px;
+    margin-top: 88px;
+    height: 56px;
+    background: #8b8b99;
+
+    .two {
+      padding: 0 4em;
+    }
+    .tab_button {
+      border-radius: 0;
+      border: 2px solid white;
+      color: #fff;
+      background-color: #8b8b99;
+    }
+
+    .button-bar > .button {
+      padding: 0
+    }
+    .button-bar > .button:first-child {
+      border-radius: 4px 0 0 4px;
+      border-right: none;
+      background-clip: padding-box !important;
+    }
+    .button-bar > .button:last-child {
+      border-radius: 0 4px 4px 0;
+      border-left: none;
+      border-right-width: 2px;
+      background-clip: padding-box !important;
+    }
+    .tab_button_active {
+      background: #fff;
+      color: #333;
+    }
+  }
+
+  .record_content {
+    top: 188px !important;
+    .record_list {
+      margin-top: 10px;
+      .last_item{
+        border-bottom: 0 !important;
+      }
+      .list_head {
+        background-color: white;
+        border-bottom: 1px solid #e7e7e7;
+        .list_head_label {
+          padding: 5px;
+          padding-right: 0;
+        }
+        .list_head_text {
+          padding-left: 0;
+          line-height: 24px;
+        }
+      }
+      .appoint_regist_list_head {
+        background-color: white;
+        border-bottom: 1px solid #e7e7e7;
+        padding: 10px;
+        .arrowIcon {
+          position: absolute;
+          right: 10px;
+        }
+      }
+      .appoint_regist_record_list_container {
+        padding: 0 5px;
+        background-color: white;
+        border-bottom: 1px solid #e7e7e7;
+        .appoint_regist_record_list {
+          background-color: white;
+          border-bottom: 1px solid #e7e7e7;
+          .list_head_label {
+            padding: 5px;
+            padding-right: 20px;
+          }
+          .list_head_right {
+            padding: 5px;
+            padding-right: 20px;
+          }
+          .list_head_text {
+            padding-left: 0;
+            line-height: 24px;
+          }
+        }
+      }
+      .lab_head {
+        background-color: white;
+        border-bottom: 1px solid #e7e7e7;
+        padding: 10px;
+        .arrowIcon {
+          position: absolute;
+          right: 10px;
+        }
+      }
+      .lab_list_container {
+        padding: 0 5px;
+        background-color: white;
+        border-bottom: 1px solid #e7e7e7;
+        .lab_list {
+          background-color: white;
+          border-bottom: 1px solid #e7e7e7;
+          .lab_list_item_name{
+            padding: 5px;
+            padding-right: 0;
+            width: 65%;
+          }
+          .date_text {
+            position: absolute;
+            right: 10px;
+            padding: 5px;
+          }
+        }
+      }
+      .exam_head {
+        background-color: white;
+        border-bottom: 1px solid #e7e7e7;
+        padding: 10px;
+        .arrowIcon {
+          position: absolute;
+          right: 10px;
+        }
+      }
+
+
+        .exam_list_container {
+        padding: 0 5px;
+        background-color: white;
+        
+        .exam_list {
+          background-color: white;
+          border-bottom: 1px solid #e7e7e7;
+          .exam_master {
+            background: #fff;
+            margin-bottom: 0;
+            padding: 10px 4px 10px 4px;
+          }
+          .date_text {
+            position: absolute;
+            right: 10px;
+            padding: 5px;
+          }
+          .exam_detail_table {
+            padding: 0;
+            font-size: 14px;
+            table td {
+              border-left: 1px solid #e1e1e1;
+              border-top: 1px solid #e1e1e1
+            }
+            table th {
+              border-left: 1px solid #e1e1e1;
+              border-top: 1px solid #e1e1e1
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,101 @@
+.qy_apply_cash {
+  .top_box {
+    padding-right: 14px;
+    padding-top: 20px;
+    border-bottom: 1px solid #e7e7e7;
+    span {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+  .main_content {
+    .balance_label{
+      line-height: 26px;
+    }
+    li {
+      border-bottom: 1px solid #e7e7e7;
+      overflow: hidden;
+      h5 {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .apply_type_tittle {
+    position: relative;
+    .apply_tips {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      display: -webkit-box;
+      p{
+        margin: 0;
+        padding-left: 5px;
+      }
+    }
+  }
+  .empty-text {
+    padding-top: 30%;
+  }
+  .record_pad{
+    padding-right: 5px;
+  }
+  .detail_label {
+    display: -webkit-box;
+    .detail_icon {
+      position: relative;
+      top: 1px;
+      padding: 4px;
+    }
+  }
+  .img_label {
+    width: 100px;
+  }
+  .img_text {
+    text-align: center;
+    margin-top: -26px;
+    width: 100px;
+  }
+  .icon_position{
+    position: relative;
+    top:2px;
+  }
+  .empty_text_height{
+    padding-top: 20%;
+  }
+  .operate_type{
+    position: relative;
+    height: 25px;
+    padding-top: 10px;
+  }
+}
+
+.qy_phone_fee_charging{
+  .top_box {
+    padding-right: 14px;
+    padding-top: 20px;
+    span {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+  .row + .row{
+    padding-top: 15px;
+  }
+  h6{
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  p{
+    margin: 0;
+  }
+  .active_color{
+    color: #ffffff;
+    background-color: #5baa8a !important;
+  }
+  .disable_btn{
+    color: #bbb;
+    background-color: #e7e7e7 !important;
+    border: 0;
+  }
+}

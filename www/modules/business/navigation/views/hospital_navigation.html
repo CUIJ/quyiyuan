@@ -1,0 +1,28 @@
+     <ion-view title="院外导航" class="quyiyuan-navigation-out">
+        <ion-nav-bar align-title="center" class="qy-header">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="right">
+                <a class="button button-clear"  ng-click=" openRightMenu('more->MAIN_TAB')">
+                    <i class="icon ion-navicon"></i>
+                </a>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+
+    <ion-content has-bouncing="true" has-subheader="true" scroll="false" padding="false">
+        <div class="bar bar-footer near-hospital" ng-if="isShow" >
+            <div class="button submit-btn near-hospital-txt"
+                 ng-click="onNearByTap()" kyee-i18n-directive code="nearbyHospital" default="附近医院">
+            </div>
+        </div>
+        <div class="bar bar-footer near-hospital" ng-if="!isShow" >
+            <div class="button submit-btn near-hospital-txt"
+                 ng-click="onShowRouteTap()" kyee-i18n-directive code="backNav" default="返回导航">
+            </div>
+        </div>
+        <div id="l-map" ng-hide="false" style="height: 300px;width: 100%;padding-bottom: 0.5em">
+        </div>
+        <ion-content style="top: 300px;" scroll="true">
+            <div id="r-result" style="width: 100%;"></div>
+        </ion-content>
+    </ion-content>
+</ion-view>

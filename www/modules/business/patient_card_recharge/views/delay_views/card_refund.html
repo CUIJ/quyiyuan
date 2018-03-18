@@ -1,0 +1,54 @@
+<ion-view class="qy_patient_card_records qy-bg-grey1" cache-view="false">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span >退费信息</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false">
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height)+'px'}">
+            <!--退费记录-->
+            <div class="qy_card_recharge_refund_record">
+                <div class="qy-bg-white border-td pad-b-14 pad-d-10 mar-d-20 mar-t-10" ng-repeat="item in refundRecord.rows" style="height:50%"  > <!--ng-if="!isEmpty&&isPaidEmpty"-->
+                    <div class="mar-d-10 mar-t-10">
+                        <span class="f14">{{item.HOSPITAL_NAME}}</span>
+                <span style="position: absolute; right: 14px;">
+                    <span  class="f12 qy-grey5 mar-l-14">{{item.CREATE_TIME}}</span>
+                </span>
+                    </div>
+                    <div class="information qy-bg-grey1" ng-repeat="items in item.refundDetailJSONArray">
+                        <ul class="col f14 mar-t-10" >
+                            <li class="border-d pad-b-10 pad_tb" style="padding-bottom: 5px;">
+                        <span class="row mar-d-5" >
+                            <span kyee-i18n-directive code="cardNum" default="就诊卡号："></span>
+                            <span class="f14" >{{items.CARD_NO}}</span>
+                        </span>
+                        <span class="row mar-d-5" >
+                              <span kyee-i18n-directive code="refundChannel" default="退款渠道："></span>
+                            <span class="f14">{{items.REFUND_TITLE}}</span>
+                        </span>
+                            </li>
+                            <li class="pad-b-10 pad-td-10" ng-click="showDetail($index,item.refundDetailJSONArray,item.REFUND_SERIAL_NO,item.REFUND_APPLY_STATUS)" >
+                                <span class="f16  fw-b" >¥{{convertMoney(items.REFUND_AMOUNT)}}</span>
+                                <span class="f14 mar-l-14" style="color:{{items.DETAIL_DISPLAY_COLOUR}}">{{items.REFUND_MESSAGE}}</span>
+                                 <span class="qy-grey5" style="position: absolute;right: 35px;" ng-if="item.REFUND_APPLY_STATUS==1" >
+                                     <span kyee-i18n-directive code="showDetail" default="详情" class="qy-grey5"></span>
+                                       <i class="icon ion-chevron-right qy-grey5"></i>
+                                 </span>
+                            </span>
+                        </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mar-t-10  mar-l-10">
+                        <span kyee-i18n-directive code="totalMoney" default="合计金额："></span>
+                        <span class="f14">¥{{convertMoney(item.REFUND_TOTAL_FEE)}}</span>
+                        <span class="f14 mar-l-10" style="color:{{item.DISPLAY_COLOUR}}" ng-if="item.REFUND_APPLY_STATUS!=1" ng-class="{'qy-red':item.REFUND_APPLY_STATUS==2,'qy-green':item.REFUND_APPLY_STATUS==0}">{{item.REFUND_MESSAGE}}</span>
+                        <i class="icon icon-icon_1 qy-red"    style="position: relative;top: 1px;"  ng-if="item.REFUND_APPLY_STATUS==2&&item.REFUND_FAIL_MESSAGE" ng-click="alertFailue(item.REFUND_FAIL_MESSAGE)"></i>
+                    </div>
+                </div>
+            </div>
+        </ion-scroll>
+    </ion-content>
+</ion-view>

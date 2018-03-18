@@ -1,0 +1,72 @@
+<!--已缴费记录-->
+<ion-view class="qy_clinic_paid_message qy-bg-grey1" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="历史缴费"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey1">
+        <div ng-if="!isEmpty">
+            <!--日期头部-->
+            <div class="pad-b-14 f14 border-d month_line">
+                <div class="month" ng-class="isCurrentMonth(headDate)?'qy-bg-green':'bg_grey'">{{headDate.substr(5,2)}}月</div>
+                <div class="line"></div>
+                <span class="qy-grey4 year">{{headDate.substr(0,4)}}</span>
+            </div>
+
+            <ul class="pad-l-14 qy-bg-white" ng-class="$last?'border-d':''"  ng-repeat="paidInfo in paidData" >
+                <!--门诊记录-->
+                <li class="row time_box" ng-class="$last?'':'border-d'" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD != '1'"  ng-click="showRecord(paidInfo)"
+                    kyee-operation-monitor-directive="paidRecordOfOneHospital">
+                    <div class="box_l">
+                        <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                        <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                    </div>
+
+                    <div class="col pad-r-14 box_r">
+                        <p class="text-ellipsis qy-grey7 f14 pad-r-14">
+                            <span class="fl-l" kyee-i18n-directive code="payFee" default="诊间付费"></span>
+                            <span ng-if="paidInfo.IS_DISPLAY_ITEM_CLASS==1" ng-style="{'max-width':(KyeeEnv.innerSize.width-250)+'px'}" class="item_class text-ellipsis">&nbsp;{{paidInfo.ITEM_CLASS}}&nbsp;</span>
+                            <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                            <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                        </p>
+                        <p class="fw-b f14" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                            {{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}
+                        </p>
+                    </div>
+
+                    <i class="icon icon-arrow_right icon_arrow"></i>
+                </li>
+                <!--附加材料费-->
+                <li class="row time_box" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD == '1'" ng-class="$last?'':'border-d'" ng-click="showRecord(paidInfo)"
+                    kyee-operation-monitor-directive="paidRecordOfAllHospitalAsHospital">
+                    <div class="box_l">
+                        <p class="f14">{{paidInfo.DAY_OF_WEEK}}</p>
+                        <p class="f12">{{paidInfo.FORMAT_DATE.substr(5,10)}}</p>
+                    </div>
+
+                    <div class="col pad-r-14 box_r">
+                        <p class="text-ellipsis qy-grey7 f14">
+                            <span kyee-i18n-directive code="payAdd" default="附加材料费"></span>
+                            <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                            <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                        </p>
+                        <p class="fw-b f14" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                            {{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}
+                        </p>
+                    </div>
+
+                    <i class="icon icon-arrow_right icon_arrow"></i>
+                </li>
+            </ul>
+        </div>
+
+        <!--空信息-->
+        <div ng-if="isEmpty" class="empty-text pad_top">
+            <i ng-if="emptyText!=undefined"  class="icon empty-icon icon-icon_3"></i>
+            <p  ng-bind-html="emptyText|kyee_to_html" id="clinicPaidEmptyId">{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

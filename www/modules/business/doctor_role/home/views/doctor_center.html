@@ -1,0 +1,26 @@
+<ion-view class="qy_doctor_center">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="personalCenterTitle" default="个人中心"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="has-footer-home qy-bg-grey1" has-bouncing="true" padding="false">
+
+        <div kyee-action-holder-directive="change_pwd" ng-click="KAH($event) || onChangePwdBtnClick()" class="item center_item mar-t-10">
+            <h2 class="fl-l"><span kyee-i18n-directive code="changePassword" default="修改密码"></span></h2>
+            <i class="ico ion-chevron-right fl-r"></i>
+        </div>
+
+        <div kyee-action-holder-directive="switch_role" ui-sref="role_view" ng-click="KAH($event) || changeRole()" class="item center_item mar-t-10">
+            <h2 class="fl-l"><span kyee-i18n-directive code="switchRoles" default="切换角色"></span></h2>
+            <i class="ico ion-chevron-right fl-r" ></i>
+        </div>
+
+        <div class="pad-b-14 btn_logout">
+            <button ng-click="logoutDoctor()" class="button button-block button-size-l"><span kyee-i18n-directive code="exitDoctorAccount" default="退出医生帐号"></span></button>
+        </div>
+
+    </ion-content>
+</ion-view>

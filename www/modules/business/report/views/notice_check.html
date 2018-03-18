@@ -1,0 +1,65 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: WangYuFei
+* 日期: 2015年5月7日13:46:40
+* 创建原因：C端首页公告跳转检查单
+* 修改时间：2015年8月21日14:12:58
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3097
+* 修改原因：报告单样式整改
+*/-->
+<ion-view title="检查单" class="qy_report">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  has-bouncing="true" padding="false" scroll="false" class="report_footer qy-bg-grey1">
+        <div class="report_subfilter ta-c qy-bg-grey3 f14">
+            <span kyee-action-holder-directive="check_all_btn" class="subfilter_btn" ng-click="$root.isCheckTabActive = '0'"ng-class="{'qy-green': $root.isCheckTabActive == '0'}">全部</span>
+            <span kyee-action-holder-directive="check_week_btn" class="subfilter_btn" ng-click="$root.isCheckTabActive = '1'"ng-class="{'qy-green': $root.isCheckTabActive == '1'}">本周</span>
+            <span kyee-action-holder-directive="check_month_btn" class="subfilter_btn" ng-click="$root.isCheckTabActive = '2'"ng-class="{'qy-green': $root.isCheckTabActive == '2'}">本月</span>
+        </div>
+        <div class="report_head qy-bg-white border-d" ng-style="{display:patientEmpty}">
+            <span class="f14 mar-r-10">{{USER_NAME}}</span>
+            <span class="f12">{{SEX}}<span ng-if="!sexEmpty&&!ageEmpty"> / </span>{{AGE}}<span ng-if="!ageEmpty">岁</span></span>
+        </div>
+        <div ng-if="isShowMarkedWords" class="marked_words qy-red">{{markedWords}}</div>
+        <ion-scroll ng-if="!isEmpty" ng-style="{'height':((KyeeEnv.innerSize.height)-150)+'px'}">
+            <ul>
+                <li class="report_li qy-bg-white border-t" ng-repeat="checkDetailData in checkData | filter:filterData">
+                    <div ng-click="clickItem(checkDetailData)">
+                        <p class="mar-d-5">
+                            <span class="item_name">{{checkDetailData.EXAM_CLASS}}</span>
+                        <span ng-style="{'display':checkDetailData.EXAM_SUB_CLASS!=null
+                            && checkDetailData.EXAM_SUB_CLASS !=''?'inline':'none'}">/{{checkDetailData.EXAM_SUB_CLASS}}
+                        </span>
+                            <span class="qy-grey5 fl-r">{{getDate(checkDetailData.EXAM_DATE_TIME)}}</span>
+                        </p>
+                        <p class="mar-d-5">印象及建议：
+                            <span class="item_name">{{checkDetailData.IMPRESSION}}</span>
+                        <span ng-style="{'display':checkDetailData.RECOMMENDATION!=null
+                            && checkDetailData.RECOMMENDATION !=''?'inline':'none'}">/{{checkDetailData.RECOMMENDATION}}
+                        </span>
+                        <span class="fl-r" ng-class="{'ion-arrow-up-b':isDisplay == $index,
+                              'ion-arrow-right-b qy-green':isDisplay != $index}">
+                        </span>
+                        </p>
+                    </div>
+                </li>
+                <li class="ta-c qy-grey4" ng-style="{'display':noLoad==false && isDisplayAll==true ? 'block':'none'}">已加载全部数据</li>
+            </ul>
+            <ion-infinite-scroll ng-if=noLoad on-infinite="loadMore()" distance="1%"  icon="ion-loading-c">
+            </ion-infinite-scroll>
+        </ion-scroll>
+        <div ng-if="isEmpty" class="empty-text">
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="report_footer_bar qy-grey5">
+        检验、检查数据仅供参考，以院方实际数据为准
+    </ion-footer-bar>
+</ion-view>

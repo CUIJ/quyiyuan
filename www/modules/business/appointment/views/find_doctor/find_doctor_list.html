@@ -1,0 +1,85 @@
+<ion-view   class="qy_find_doctor_list">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title>
+            <span >{{deptName}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt text-ellipsis" style="width:100px;" ng-click=" switchToProvince();">
+                <span class="text-ellipsis "style="float: left; width: 68px;">{{cityeName}}</span>
+                <i class="ion-chevron-down qy-fff"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false"  >
+        <div class="row pad-td-10 qy-bg-white border-td ta-c doctor_height_50"  ng-if="showHospitalEmpty">
+            <a class="col f14 doctor_height_28"  ng-click="KAH($event) || chooseHospital()" style="border-right: 1px solid #efefef;"ng-class="{'qy-green':componentData.showChoseDate == '2'}">
+                <span kyee-i18n-directive code="chooseHospital" default="选择医院"></span>
+                <i ng-class="{'ion-chevron-down':!showHospitalUp,'ion-chevron-up':showHospitalUp}"></i>
+            </a>
+            <a class="col f14 doctor_height_28" ng-click="KAH($event) || getDoctorbyDate()"ng-class="{'qy-green':componentData.showChoseDate == '1'}">
+                <span kyee-i18n-directive code="choseTime" default="选择时间"></span>
+                <i ng-class="{'ion-chevron-down':!showDateUp,'ion-chevron-up':showDateUp}"></i>
+            </a>
+        </div>
+        <ion-scroll has-bouncing="true" scrollbar-y="false" style="margin-top: 1px" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 94)+'px'}" delegate-handle="find_doctor_list" >
+            <div class="empty-text qy-bg-grey2 text-ellipsis" ng-if="empty">
+                <i class="icon icon-icon_3 empty-icon" ></i>
+                <p>{{noDataReminder}}</p>
+            </div>
+            <div class="mar-t-10 qy-bg-white border-td" ng-if="doctorarr.length>0">
+                <div ng-repeat="doctor in doctorarr"  class="mar-l-14 pad-r-14 doc_box">
+                    <div class="row row_rel" ng-click="showDoctorInfo(doctor, $index)">
+                        <div class="left_content">
+                            <div class="doc_img_box"ng-if="doctor.DOCTOR_SEX==1" >
+                                <img class="head_image" style="height: 85px" ng-src="{{doctor.DOCTOR_PIC_PATH?doctor.DOCTOR_PIC_PATH:'resource/images/base/head_default_female.jpg'}} "
+                                     onerror="javascript:this.src='resource/images/base/head_default_female.jpg'">
+                            </div>
+                            <div class="doc_img_box"ng-if="doctor.DOCTOR_SEX!=1" >
+                                <img class="head_image" style="height: 85px" ng-src="{{doctor.DOCTOR_PIC_PATH?doctor.DOCTOR_PIC_PATH:'resource/images/base/head_default_man.jpg'}} "
+                                     onerror="javascript:this.src='resource/images/base/head_default_man.jpg'">
+                            </div>
+                             <span class="qy-orange" ng-if="doctor.DOCTOR_SCORE != 0 && !isNaN(doctor.DOCTOR_SCORE)">
+                                 <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 1)"></i>
+                                 <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 2)"></i>
+                                 <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 3)"></i>
+                                 <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 4)"></i>
+                                 <i ng-class="getXingClass(doctor.DOCTOR_SCORE, 5)"></i>
+                             </span>
+                            <i class="icon icon-arrow_right qy-grey4"></i>
+                        </div>
+                        <div class="col pad-td-15 doctor_list_box"ng-style="{'width':KyeeEnv.innerSize.width-112+'px'}" ng-class="{'border_top_none':$index==0}">
+                            <h3 ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}" class="text-ellipsis pad-r-5 qy-grey7"> {{removeSpace(doctor.DOCTOR_NAME)}}<span class="doctoc_title"> {{doctor.DOCTOR_TITLE}}</span></h3>
+
+                            <p class="doc_text text-ellipsis-line pad-r-10">
+                                {{doctor.DOCTOR_DESC_SHOW?doctor.DOCTOR_DESC_SHOW:'暂无信息'}}
+                            </p>
+                            <div class="text-ellipsis ">
+                                <div ng-if="doctor.HAS_COUNT" kyee-i18n-directive  code="canAppoint" default="可预约" class=" mar-r-5 doc_inline qy-bg-green qy-fff fl-l"></div>
+                                <div ng-if="!doctor.HAS_COUNT" kyee-i18n-directive  code="appointFull" default="已约满" class=" mar-r-5 doc_inline qy-bg-grey4 qy-fff fl-l"></div>
+                                <div class=" text-ellipsis mar-r-10 qy-blue fl-l " ng-style="{'max-width':(KyeeEnv.innerSize.width-98-70)*0.6+'px'}">{{doctor.HOSPITAL_NAME}}</div>
+                                <div class="text-ellipsis qy-blue fl-l " ng-style="{'max-width':(KyeeEnv.innerSize.width-113-70)*0.4+'px'}">{{doctor.DEPT_NAME}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-scroll>
+        <!--下拉加载-->
+        <ion-infinite-scroll icon="ion-loading-c" ng-if="hasmore" on-infinite="loadMoreList()" immediate-check="false" >
+        </ion-infinite-scroll>
+    </ion-content>
+    <div kyee-overlay-directive
+         location="top"
+         width="{{KyeeEnv.innerSize.width}}"
+         height="{{KyeeEnv.innerSize.height/2}}"
+         top="{{deviceTop}}"
+         backdrop-top="{{deviceTop}}"
+         data="componentData"
+         animate="{{false}}"
+         content-background-color="transparent"
+         template="modules/business/appointment/views/find_doctor/delay_views/selectHospitalDateComponent.html"
+         bind="binds(params)"
+         on-hide="doThingForHide()">
+    </div>
+</ion-view>

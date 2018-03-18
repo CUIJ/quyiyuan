@@ -1,0 +1,7 @@
+<div class="modify_nickName mar-t-10">
+    <div class="remarks_content border-all border_radius_4">
+        <input placeholder="最多可输入10字" maxlength="10" class="pad-l-5 pad-r-5 pad-td-5 border-none" ng-model="nickNameObj.remarkValue"/>
+    </div>
+    <div class="color-red f12 mar-td-10" ng-if="nickNameObj.showTips">{{nickNameObj.validTips}}</div>
+    <div class="remarks_title f12 color_9" ng-class="{'pad-t-10': !nickNameObj.showTips}">{{nickNameObj.remarkTitle}}</div>
+</div>

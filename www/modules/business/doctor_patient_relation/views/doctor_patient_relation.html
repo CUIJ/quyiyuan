@@ -1,0 +1,66 @@
+<ion-view  class="doctor_patient_relation" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span>录入患者信息</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" class="qy-bg-grey2">
+            <div  ng-if="businessType==1" class="pad-td-10 pad-b-14 qy-grey5">请输入您的真实信息，趣医会为您匹配到对应的医生。</div>
+            <div  ng-if="businessType==2 || businessType==3 || businessType==4 || businessType==5 ||isNeedAutoRegister=='1'" class="pad-td-10 pad-b-14 qy-grey5">为了确保信息安全，我们需要对您的身份进行验证！请确保您录入的信息与医院预留信息一致。</div>
+            <div class="qy-bg-white">
+                <div class="item item-input item_padding_0">
+                    <span class="f14 fixed_width1">姓名：</span>
+                    <input type="text" class="phone_input"
+                           ng-model="patientInfo.patientName"
+                           ng-readonly="patientInfo.patientNameReadonly"
+                           placeholder="请输入您的真实姓名">
+                </div>
+                <div class="item item-input item_padding_0">
+                    <span class="f14 fixed_width1">手机号码：</span>
+                    <input type="text" class="phone_input"
+                           ng-model="patientInfo.phoneNumber"
+                           ng-readonly="patientInfo.phoneNumberReadonly||btnDisabled"
+                           placeholder="请输入您的手机号码">
+                </div>
+                <div class="item item-input item_padding_0">
+                    <span class="f14 fixed_width1">身份证号：</span>
+                    <input type="text" class="phone_input"
+                           ng-readonly="patientInfo.idNoReadonly"
+                           ng-model="patientInfo.idNo"placeholder="请输入您的身份证号码">
+                </div>
+                <div ng-if="notCheckCode!=1" class="item item-input item_padding_0 position_r"
+                  ng-class="{ 'border_none':isNeedAutoRegister=='1'}">
+                    <span  class="f14 fixed_width1">验证码：</span>
+                    <input type="text" style="padding-right: 94px;" ng-model="patientInfo.msgCode" placeholder="请输入验证码">
+                    <button ng-disabled="btnDisabled" ng-click="getMsgCode()" class="button msg_button qy-grey6 qy-bg-grey3">
+                        {{msgText}}
+                    </button>
+                </div>
+                <div ng-if="(businessType==2&&reportAdditionalCard==1)||(businessType==4&&paymentAdditionalCard)" class="item item-input item_padding_0">
+                    <span class="f14 fixed_width1">就诊卡：</span>
+                    <input type="text" class="phone_input"ng-model="patientInfo.cardNo"placeholder="请输入您的就诊卡号">
+                </div>
+                <div ng-if="(businessType==2&&reportAdditionalInpNo==1)||(businessType==5&&paymentAdditionalInpNo)" class="item item-input item_padding_0">
+                    <span class="f14 fixed_width1">住院号：</span>
+                    <input type="text" class="phone_input"ng-model="patientInfo.inpNo"placeholder="{{hintPass}}">
+                </div>
+            </div>
+            <div class="qy-orange pad-b-14 row message_div">
+                <i class="icon-icon_1 f18 message_i"></i>
+                <span class="f12 ">如果您是新用户，趣医会自动为您注册账号，账号为手机号，初始密码为手机号后六位。</span>
+            </div>
+        </div>
+        <div class="pad-b-14" ng-click="submitPatientData()">
+            <button class="button button-block button-size-l">
+                <span>提交</span>
+            </button>
+        </div>
+        <div ng-if="isNeedAutoRegister=='1'" class="pad-b-14" style="text-align: center;padding-top: 10px;font-size: 14px" >
+                <span style="    color: #999999;">已有账号，</span>
+                <span style="color: #5baa8a;"
+                      ng-click="toGoLogin()">直接登录</span>
+        </div>
+
+    </ion-content>
+</ion-view>

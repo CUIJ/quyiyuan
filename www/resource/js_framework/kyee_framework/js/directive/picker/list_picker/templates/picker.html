@@ -1,0 +1,40 @@
+<div class="kyee_framework_picker">
+    <div id="{{id}}_backdrop" ng-click="cancel()" class="pickerBackdrop" style="width: 100%;height:{{$root.KyeeEnv.innerSizeSource.height}}px;z-index: 9000;display: none;position: absolute;top: 0px;left: 0px;background-color: rgba(0, 0, 0, 0.4);"></div>
+    <div id="{{id}}" ng-style="{'left':posi.left,'width':posi.width,'bottom':bottom + 'px'}" style="height:{{height}}px;z-index: 9999;display: none;position: absolute;">
+
+        <ion-view>
+            <div class="bar" style="border: 1px solid #d9d9d9;background-color: #efeff4;background-clip: padding-box;">
+                <button ng-if="!(type=='radio' && hideMode == 'AUTO')" style="color: #333;font-size: 14px;position: absolute;top: 5px;left: 10px;bottom: 5px;font-family: '微软雅黑';" class="button button-clear" ng-click="cancel()"
+                        kyee-i18n-directive code="all:commonText.cancelMsg" default="取消">
+                </button>
+                <h1 class="title" style="padding-right: 90px;padding-left: 90px;font-size: 14px;" kyee-i18n-directive>{{title}}</h1>
+                <button ng-if="!(type=='radio' && hideMode == 'AUTO')" style="color: #333;font-size: 14px;font-family: '微软雅黑';" class="button button-clear" ng-click="finash(type)"
+                        kyee-i18n-directive code="all:commonText.ensureMsg" default="确定">
+                </button>
+            </div>
+            <ion-content class="content-position" delegate-handle="kyee_framework_picker_content" scrollbar-y="false" has-bouncing="true" padding="false" style="margin-top: -10px;" ng-style="{'bottom':contentBottom + 'px'}">
+                <!-- 单选列表（没有使用 ion-radio 指令，因为其在 ios9 下存在 bug） -->
+                <ul ng-if="type=='radio'" class="list">
+                    <li ng-click="itemClick(type, item)" class="item item-icon-right" ng-class="item.center ? 'text-center': ''" style="font-size:14px;padding: 14px;border-bottom: 1px solid #e7e7e7;" ng-repeat="item in data">
+                        <div ng-if="item.name||item.name==''" style="display: inline-block;width: 25%;margin-right: 14px;">
+                            <span ng-if="item.name" style="max-width: 100%;overflow: hidden;display: inline-flex;border: 1px solid;color: #5baa8a;padding: 1px 2px 1px 2px;border-radius: 2px;">{{item.name}}</span>
+                        </div>
+                        <span>{{item.text}}</span>
+                        <i ng-show="currRadioValue == item.value" class="icon ion-checkmark" style="font-size: 25px;color:#5baa8a;"></i>
+                    </li>
+                </ul>
+                <!-- 复选列表 -->
+                <div ng-if="type=='checkbox'" class="list">
+                    <ion-checkbox ng-model="item._kyee_checked" ng-checked="item._kyee_checked" collection-repeat="item in data" item-width="100%" item-height="55px">
+                        <div style="margin: 20px;margin-left: 50px;">
+                            {{item.text}}
+                        </div>
+                    </ion-checkbox>
+                </div>
+            </ion-content>
+            <div ng-if="footerBar" ng-bind-html="footerBar|kyee_to_html" ng-click="footerBarTap()" style="bottom: 0;height: 64px;" class="bar position-a border-none">
+            </div>
+        </ion-view>
+
+    </div>
+</div>

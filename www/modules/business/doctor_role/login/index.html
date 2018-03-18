@@ -1,0 +1,43 @@
+<ion-view class="qy_doctor_login">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+
+
+    <ion-content scrollbar-y="false" has-bouncing="true" padding="false" class="qy-bg-green"
+                 ng-style="{'height':((KyeeEnv.innerSize.height)-42)+'px'}">
+        <div class="scroll" ng-style="{'height':((KyeeEnv.innerSize.height)-42)+'px'}">
+            <div class="login_content_div">
+                <h3 class="account_login" style="margin-bottom: 50px;">
+                    <span kyee-i18n-directive code="doctorLogin" default="医生登录"></span>
+                </h3>
+
+                <label class="item item-input ion-ios-person-outline phone_label">
+                    <input type="text" ng-model="userInfo.userName" class="phone_input"
+                           placeholder="{{placeholderDoctorCode}}">
+                </label>
+
+                <label class="item item-input ion-ios-locked-outline phone_label ">
+                    <input type="password" ng-model="userInfo.passWord" class="pwd_input"
+                           placeholder="{{placeholderDoctorPassword}}">
+                </label>
+
+                <div class="login_btn">
+                    <button ng-click="doLogin()" class="button button-block button-size-l button-light">
+                        <span class="fw-b" kyee-i18n-directive code="login" default="登  录"></span>
+                    </button>
+                </div>
+
+                <div class="tips ta-c">
+                    <span kyee-i18n-directive code="warmTips" default="温馨提示：请在您的所属医院下完成登录。"></span>
+                </div>
+                <div ng-style="{'width':((KyeeEnv.innerSize.width)-80)+'px'}" class="experience_btn experience_btn_position ta-c" ng-click="goExperience()">
+                    <span kyee-i18n-directive code="experience" default="体验一下 >>"></span>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

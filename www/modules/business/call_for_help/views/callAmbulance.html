@@ -1,0 +1,49 @@
+<ion-view class="quyiyuan_call_ambulance" >
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>一键呼救</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="false" scrollbar-y="false" class="qy-bg-white"
+                 delegate-handle="confirm_appoint_content">
+        <div class="mar-d-10 qy-bg-white">
+            <img src="resource\images\home\hujiu.png" class="w_100">
+            <div class="pad-td-10 ta-c" >
+                <i class="icon ion-location icon_local qy-green f20 icon_loc"></i>
+                {{address}}
+            </div>
+            <div class="qy-bg-white ta-c pad-lr-14" ng-click="callForHelp()">
+                <button class="button button-block call_button">
+                    紧急呼救
+                </button>
+            </div>
+        </div>
+        <div class="qy-bg-grey2 h_14"></div>
+        <div class="qy-bg-white pad-lr-14 h_100">
+            <div class="qy-orange focus">
+                <i class="icon icon-icon_4 qy-orange f20 icon_focus"></i>
+                <span style="padding-left: 6px" >注意事项</span>
+            </div>
+            <ul class="pad-lr-14">
+                <li class="row line_30">
+                    <span>1</span>
+                    <span class="mar-l-4">点击“紧急呼救”，选择就诊者后，将会为您拨打急救中心电话。</span>
+                </li>
+                <li class="row line_30">
+                    <span>2</span>
+                   <span class="mar-l-4">呼救结束后，请保持APP开启并耐心等待。</span>
+                </li>
+                <li class="row line_30">
+                    <span>3</span>
+                    <span class="mar-l-4">救护车出动后会及时给您推送信息，之后即可与出救医生进行在线交流。</span>
+                </li>
+            </ul>
+
+        </div>
+    </ion-content>
+
+</ion-view>
+<div class="text-center" kyee-compile-directive template="modules/business/call_for_help/views/selected.html"></div>

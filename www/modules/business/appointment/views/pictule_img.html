@@ -1,0 +1,46 @@
+<!--<ion-scroll zooming="true"  max-zoom="1" min-zoom="0.2"
+            style="top:{{data.bellTop+'px'}}; left:{{data.bellLeft+'px'}};"
+            on-drag-start="press()"
+            on-drag="drag($event)"
+            on-drag-end="leave($event)"
+            draggable="true">
+    <div       >
+
+        <img   src="{{data.codeUrl}}">
+    </div>
+
+</ion-scroll>-->
+<!--<div   image-zoom >
+    <img  src="{{codeUrl}}">
+</div>-->
+<!--<div ng-if="data.MES_NUMBER != undefined" style="height: 28px;text-align: center;" class = "fontBB">{{data.MES_NUMBER}}</div>    style="background: transparent"     {{(data.width- 40*2)+'px'}}-->
+
+<ion-view  class="fadeDown-enter qy_code_image" style="margin-top: 20px">
+    <ion-content style="background-color: transparent;"  padding="true"  has-bouncing="false" scrollbar-y="false">
+       <ion-scroll zooming="false"  max-zoom="1" min-zoom="0.2" class="ta-c"
+                    on-drag-start="press()"
+                    on-drag="drag($event)"
+                    on-drag-end="leave($event)"
+                    draggable="true">
+            <img style="width:{{data.imgWidht+'px'}}" src="{{data.codeUrl}}">
+
+            <div ng-if="data.MES_NUMBER != undefined" style="line-height: 20px;text-align: center;" class = "fontBB">{{data.MES_NUMBER}}</div>
+
+            <!--        <div width="{{data.width+40}}" style="position: relative">
+                        <img  style="margin-left: 10px;" width="{{data.width}}" src="resource/images/appoint/signfree.png" ng-click="sign()" >
+                        <img style="position: absolute;width: 30px;right: 3px;top: -10px;"  src="resource/images/appoint/sign_cancel.png" ng-click="cancelsign()">
+                    </div>-->
+    </ion-content>
+    <ion-footer-bar class="mar-b-14 img_footer">
+        <div class="ta-c img_wdt">
+            <span  class="ion_show mar-r-20 mar-l-20" ng-class="{'qy-green ion_border_green':data.greenIndex==1}" ng-click="oneSizeShow()">
+                <div class="ion_number">1.0</div><div class="ion_font">倍</div></span>
+            <span class="ion_show  mar-r-20 mar-l-20" ng-class="{'qy-green':data.greenIndex==2}" ng-click="twoSizeShow()">
+                <div class="ion_number">0.5</div><div class="ion_font">倍</div></span>
+            </span>
+            <span class="ion_show  mar-r-20 mar-l-20" ng-class="{'qy-green':data.greenIndex==3}" ng-click="threeSizeShow()">
+                <div class="ion_number">0.25</div><div class="ion_font">倍</div></span>
+            </span>
+        </div>
+    </ion-footer-bar>
+</ion-view>

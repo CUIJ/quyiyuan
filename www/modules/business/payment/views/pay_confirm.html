@@ -1,0 +1,40 @@
+<ion-view class="qy_pay_confirm" cache-view="false">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="确认支付"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true">
+        <label class="item item-input">
+            <span kyee-i18n-directive code="amount" default="支付金额" class="input-label"></span>
+            <span>{{payInfo.AMOUNT}}</span>
+        </label>
+        <label class="item item-input">
+            <span kyee-i18n-directive code="pwd" default="支付密码" class="input-label"></span>
+            <input type="password" ng-model="payInfo.pswd" placeholder="placeholder.pHPwd">
+        </label>
+        <div class="item item-input">
+            <span kyee-i18n-directive code="msgCode" default="验证码" class="input-label"></span>
+            <input type="text" style="padding-right: 80px;" ng-model="payInfo.msgCode" placeholder="placeholder.pHMsgCode">
+            <button ng-disabled="btnDisabled" ng-click="getMsgCode()" class="button msg_button qy-grey6 qy-bg-grey3">
+                {{msgText}}
+            </button>
+        </div>
+        <p class="ta-c mar-td-10 qy-grey5"><span kyee-i18n-directive code="use" default="使用" class="input-label"></span>{{CARD_SHOW}}<span kyee-i18n-directive code="pay" default="付款，" class="input-label"></span>
+            <span ng-click="showCardList()" kyee-i18n-directive code="change" default="更换"  class="qy-green"></span>
+        </p>
+        <div class="pad-b-14">
+            <button ng-click="paySubmit()" class="button button-full button-size-l" kyee-operation-monitor-directive="goPay">
+                <span kyee-i18n-directive code="payBtn" default="立即支付" class="input-label"></span>
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
+<div kyee-list-picker-directive
+     title={{title}}
+     data="pickerItems"
+     select-finash="selectItem(params)"
+     bind="bind(params)"></div>

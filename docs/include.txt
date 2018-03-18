@@ -1,0 +1,8 @@
+<link type="text/css" rel="stylesheet" href="resource/js_framework/ionic/css/ionic.min.css"/>
+<link type="text/css" rel="stylesheet" href="build/scss/base.css"/>
+
+<!-- dev -->
+<script type="text/javascript" src="build/js/kyee.build.js"></script>
+
+<!-- deployment -->
+<script type="text/javascript" src="build/js/kyee.build.all.min.js"></script>

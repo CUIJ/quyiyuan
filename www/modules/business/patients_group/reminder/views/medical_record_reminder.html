@@ -1,0 +1,83 @@
+<ion-view class="medical_record_reminder">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="medicalRecordReminder" default="病历提醒"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2 scroll-content ionic-scroll has-header">
+        <!--患者详细信息-->
+        <div class="mar-t-10 qy-bg-white border-td">
+            <div class="mar-l-14 pad-r-14 pad-td-10 border-d">
+                <span class="f14 qy-grey7" kyee-i18n-directive code="patientInformation" default="患者信息"></span>
+                <span class="ta-r f14 qy-grey7 position_absolute rt_name">{{data.PATIENT_NAME}}</span>
+                <span class="qy-grey5 f12 pad_l_2 position_absolute rt_sex">{{data.SEX}}</span>
+            </div>
+            <div class="mar-b-14 pad_td_13">
+                <ul class="f14">
+                    <li class="line_h30">
+                        <span class="qy-deepblue" kyee-i18n-directive code="hospitalName" default="就诊医院："></span>
+                        <span class="qy-grey6">{{data.HOSPITAL_NAME}}</span>
+                    </li>
+                    <li class="line_h30">
+                        <span class="qy-deepblue" kyee-i18n-directive code="admissionTime" default="入院时间："></span>
+                        <span class="qy-grey6">{{formatAdmissionTime(data.ADMISSION_TIME)}}</span>
+                    </li>
+                    <li class="line_h30">
+                        <span class="qy-deepblue" kyee-i18n-directive code="deptName" default="就诊科室："></span>
+                        <span class="qy-grey6">{{data.DEPT_NAME}}</span>
+                    </li>
+                    <li class="line_h30">
+                        <span class="qy-deepblue" kyee-i18n-directive code="doctorName" default="就诊医生："></span>
+                        <span class="qy-grey6">{{data.DOCTOR_NAME}}</span>
+                        <span class="qy-grey5 f12">{{data.DOCTOR_TITLE}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--病历概述-->
+        <div class="mar-t-10 qy-bg-white border-td">
+            <div class="mar-l-14 pad-r-14 pad-td-10 border-d">
+                <span class="f14 qy-grey7" kyee-i18n-directive code="caseReportSummary" default="病历概述"></span>
+            </div>
+            <div class="pad_td_18 mar-b-14">
+                <div ng-if="!recordDescShow">
+                    <div class="report_summary f14 qy-grey6">
+                        {{nowRecord}}
+                    </div>
+                    <div class="report_summary f14 qy-grey6">
+                        {{agoRecord}}
+                    </div>
+                </div>
+                <div ng-if="recordDescShow && hideNow">
+                    <span class="report_summary f14 qy-grey6">
+                        {{nowRecord | limitTo: maxShowLength}}...
+                    </span>
+                </div>
+                <div ng-if="recordDescShow && hideAgo">
+                    <div class="report_summary f14 qy-grey6">
+                        {{nowRecord}}
+                    </div>
+                    <div class="report_summary f14 qy-grey6">
+                        {{agoRecord | limitTo: (maxShowLength-nowRecord.length)}}...
+                    </div>
+                </div>
+                <div ng-if="!showAllReport" ng-click="showRecordDesc()" ng-class="{'ion-chevron-down': recordDescShow, 'ion-chevron-up': !recordDescShow}" class="line_h10 text_c mar-t-15"></div>
+            </div>
+        </div>
+        <!--温馨提示-->
+        <div class="mar-t-10 qy-bg-white border-td">
+            <div class="mar-l-14 pad-r-14 pad-td-10 border-d">
+                <span class="f14 qy-grey7" kyee-i18n-directive code="tips" default="温馨提示"></span>
+            </div>
+            <ul class="mar-b-14 pad_td_13" style="min-height: 40px;">
+                <li class="f14 qy-grey5" style="line-height: 30px;" ng-repeat="message in messageList">{{message}}</li>
+            </ul>
+        </div>
+        <div class="send_time ta-c f12">
+            <span kyee-i18n-directive code="sendTime" default="发送时间: "></span>
+            <span>{{data.PUSH_DATE}}</span>
+        </div>
+    </ion-content>
+</ion-view>

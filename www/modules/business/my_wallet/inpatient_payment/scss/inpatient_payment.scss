@@ -1,0 +1,268 @@
+.qy_inpatient_payment_query{
+  .input_content{
+    width: 75%;
+    border: 0;
+    padding-left: 15px;
+    height: 20px;
+  }
+  .empty-box1{
+    .empty_right{
+      display: table;
+      height: 70px;
+      width: 70%;
+    }
+    .empty_right div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .empty-icon {
+      font-size: 60px;
+      line-height: 70px;
+      //margin-top: 5px;
+    }
+  }
+  .clear_icon{
+    position: absolute;
+    right: 14px;
+    top: 10px;
+  }
+}
+
+/* inpatient_payment_record view */
+.qy_inpatient_payment_record {
+  .result_box{
+    padding-top: 40px;
+    padding-bottom: 30px;
+    .top{
+      height: 30px;
+      i{
+        font-size: 30px;
+      }
+      span{
+        position: relative;
+        bottom: 7px;
+        padding: 0 5px;
+      }
+    }
+    .bottom{
+      padding: 0 20px;
+    }
+  }
+  .clear_icon{
+    position: absolute;
+    right: 15px;
+    top: 16px;
+  }
+  .list_line{
+    .input_line{
+      color: #264557;
+      margin-left: 14px;
+      padding:9px 14px 9px 0;
+      border-bottom: 0;
+      position: relative;
+      .input-label{
+        width: 59px;
+      }
+      .input_l{
+        position: absolute;
+        left: 0;
+        top: 15px;
+      }
+      .input_c{
+        position: relative;
+        left: 59px;
+        overflow: hidden;
+        padding-right: 138px;
+      }
+      .input_r{
+        position: absolute;
+        right: 14px;
+        top: 15px;
+        width: 74px;
+        .icon{
+          position: relative;
+          top: 1px;
+        }
+      }
+    }
+  }
+  .empty-box1{
+    .empty_right{
+      display: table;
+      height: 70px;
+      width: 70%;
+    }
+    .empty_right div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .empty-icon {
+      font-size: 60px;
+      line-height: 70px;
+      //margin-top: 5px;
+    }
+  }
+  .bottom_btn{
+    height: 50px;
+    padding-right: 90px;
+    .button_color_red{
+      border: 1px solid #f90;
+      color: #fff;
+      background: #ff9900;
+    }
+    .button_color_green{
+      border: 1px solid #5baa8a;
+      color: #fff;
+      background: #5baa8a;
+    }
+    .button_color_grey{
+      border: 1px solid #b5b5b5;
+      color: #f4f4f4;
+      background: #b5b5b5;
+    }
+    .but{
+      width: 80px;
+      border-radius: 0;
+      line-height: 50px;
+      font-size: 14px;
+      margin-left: -4px;
+      position: absolute;
+      right: 0;
+    }
+    .bottom_left{
+      width: 100%;
+      margin: 0;
+      line-height: 50px;
+    }
+  }
+  .top_box{
+    li{
+      line-height: 24px;
+    }
+    .top_item{
+      width: 73px;
+      display: inline-block;
+      color: #264557;
+    }
+  }
+  .amount_box{
+    border: 1px solid #e7e7e7;
+    border-radius: 2px;
+    li{
+      padding-bottom: 5px;
+    }
+  }
+  .bottom_box{
+    li{
+      position: relative;
+      .pay_fee{
+        display: inline-block;
+        width: 90px;
+        text-align: right;
+        position: absolute;
+        right:12px;
+        .icon-arrow_right{
+          position: relative;
+          top: 1px;
+        }
+      }
+    }
+  }
+  .empty-text{
+    padding-top:35%;
+  }
+}
+
+/* inpatient_payment_detail view */
+.qy_inpatient_payment_detail {
+  .mar_td_0{
+    margin-bottom: 0;
+    margin-top: 0;
+    position: relative;
+    top: 1px;
+  }
+  .my_style{
+    position: relative;
+    left: 26px;
+  }
+  .mar-32{
+    margin-left: 32px;
+  }
+  .icon_tip{
+    padding-top: 2px;
+    position: relative;
+    top: 2px;
+  }
+  .relative_block{
+    position: relative;
+    display: block;
+  }
+  .price_padding{
+    position: relative;
+    left: -4px;
+  }
+  .absolute_block{
+    position: absolute;
+    display: block;
+  }
+  .detail_item{
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+  }
+  .group_head{
+    padding-right: 177px;
+    .head_cls_2{
+      width: 157px;
+      right: 14px;
+      top: 11px;
+    }
+  }
+  .no_real_group_head{
+    padding-right: 100px;
+    .no_real_head_cls_2{
+      width: 90px;
+      right: 14px;
+      top: 11px;
+    }
+  }
+  .detail{
+    padding-right: 177px;
+  }
+  .no_real_detail{
+    padding-right: 104px;
+  }
+  .col_cls_1{
+    height: 20px;
+    width: 100%;
+    .cls_1_content{
+      width: 80%;
+      top: -1px;
+      left: 0;
+    }
+  }
+  .col_cls_2{
+    width: 94px;
+    right: 72px;
+  }
+  .no_real_cls_2{
+    width: 94px;
+    right: 14px;
+  }
+  .col_cls_3{
+    width: 67px;
+    right: 14px;
+  }
+}
+
+/* payment_detail_popup view*/
+.qy_payment_detail_popup {
+  .icon_flo {
+    padding: 0 0 8px 8px;
+  }
+  .fee_div{
+    width: 100%;
+  }
+  .icon_size{
+    font-size: 18px;
+  }
+}

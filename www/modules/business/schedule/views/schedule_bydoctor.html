@@ -1,0 +1,121 @@
+<ion-view  title="{{deptData.DEPT_NAME}}">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('appointment')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  class="quyiyuan-schedule-doctor " ng-class="{'qy-bg-white':!empty,'qy-bg-grey2 ':empty}" has-bouncing="true" has-header="true" padding="false" delegate-handle="doctor_schedule_content">
+    <div class="qy-bg-grey2 deptInfo pad-d-10" ng-if="!!deptData.DEPT_DIC">
+        <ul class="pad-b-14 qy-bg-white pad-d-10">
+            <li class="qy-deepblue f14 pad-td-10 dept">
+                <span kyee-i18n-directive  code="deptIntroduce" default="科室介绍"></span>
+            </li>
+            <li ng-class="{'dept-dic':deptDisplay==0}" class=" f14 " ng-bind-html="deptData.DEPT_DIC|kyee_to_html"></li>
+            <li ng-if="deptDisplay==0 &&deptData.DEPT_DIC.length>78" class="dept-dic-all pad-t-10 qy-green" ng-click="getMoreDeptDic(deptDisplay)">
+                <span>
+                    <span kyee-i18n-directive  code="more" default="更多"></span>
+                </span>
+                <i class="ion-ios-arrow-down"></i>
+            </li>
+            <li ng-if="deptDisplay!=0" class="dept-dic-all pad-td-10 qy-green" ng-click="getMoreDeptDic(deptDisplay)">
+                <span>
+                    <span kyee-i18n-directive  code="close" default="收起"></span>
+                </span>
+                <i class="ion-ios-arrow-up"></i>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="empty" class="empty-text">
+            <i ng-if="!deptData.DEPT_DIC" class="icon-icon_3 empty-icon"></i>
+            <div>
+                <span kyee-i18n-directive  code="noMoreDeptInfo" default="该科室暂无相关数据"></span>
+            </div>
+        </div>
+    <div  ng-if="!empty" class="pad-t-10" ng-class="{'pad-d-10':doctorSchedule.length<=1}">
+        <h class="qy-deepblue pad-b-14 f14 pad-td-10 dept">
+            <span kyee-i18n-directive  code="doctorSchedule" default="医生排班"></span>
+        </h>
+        <div class="doctor-score">
+           <!-- <i ng-show="doctorpage!=0&&doctorSchedule.length>0" class="ion-chevron-left doctor-left" ng-click="toleftDoctor()"></i>-->
+            <ion-scroll  class="pad-t-10 " delegate-handle="doctor_list" zoom="false" scrollbar-x="false"  scrollbar-y="false" paging="true" direction="x" on-drag-start="start()" on-scroll="lestionScroll()">
+                <div class="row" style="width:{{(doctorSchedule.length*(KyeeEnv.innerSize.width - 15*2))+'px'}}">
+                    <div  style="width:{{(KyeeEnv.innerSize.width- 15*2)+'px'}}" ng-repeat="page in doctorSchedule">
+                        <div  ng-repeat="rows in page" class="doctorshow" ng-class="{'mar-d-10':$index!=page.length-1}">
+                           <!-- <div ng-repeat="col in rows" class="doctorcol ">-->
+                                <ul class="doctorcol-box doctorcol"  ng-repeat="col in rows" ng-class="{'qy-bg-green qy-fff doctorcol_border':$index==doctor_z&&$parent.$index==doctor_y&&$parent.$parent.$index==doctor_x}" ng-click="chooseDoctor($index,$parent.$index,$parent.$parent.$index,col)">
+                                    <li class="f14">{{col.DOCTOR_NAME}}</li>
+                                    <li class="f12" ng-class="{'qy-fff':$index==doctor_z&&$parent.$index==doctor_y&&$parent.$parent.$index==doctor_x,'doctorclinic':$index!=doctor_z||$parent.$index!=doctor_y||$parent.$parent.$index!=doctor_x}">{{col.DOCTOR_TITLE}}</li>
+                                </ul>
+                           <!-- </div>-->
+                        </div>
+                    </div>
+                </div>
+            </ion-scroll>
+          <!--  <i ng-show="doctorpage!=doctorSchedule.length-1"class="ion-chevron-right doctor-right" ng-click="torightDoctor()"></i>-->
+           <i ng-if="doctorSchedule.length>1" class="circle" ng-class="{'ion-record ionchecked':doctorpage==$index,'ion-ios-circle-outline':doctorpage!=$index}" ng-repeat="page in doctorSchedule"></i>
+        </div>
+    </div>
+    <div  ng-if="!empty" class="qy-bg-grey2 mar-b-14  mar-d-10 pad-t-10">
+        <div class="mar-l-10">
+            <h class="qy-deepblue f16">{{doctor.DOCTOR_NAME}}</h>
+            <span class="qy-blue doctortitle">{{doctor.DOCTOR_TITLE}}</span>
+        </div>
+        <div class="mar-l-10 mar-t-10">
+           <span class="f14">{{doctor.DOCTOR_DESC}}</span>
+            <span ng-if="doctorDisplay==0 && doctor.DOCTOR_DIC.length>45" class=" pad-td-10 qy-green" ng-click="getMoreDoctorDic(doctorDisplay)">
+                <span>
+                    <span kyee-i18n-directive  code="more" default="更多"></span>
+                </span>
+            </span>
+            <span ng-if="doctorDisplay!=0" class=" pad-td-10 qy-green" ng-click="getMoreDoctorDic(doctorDisplay)">
+                <span><span kyee-i18n-directive  code="close" default="收起"></span></span>
+            </span>
+        </div>
+        <div class="calendar_box mar-t-10" >
+            <ul class="row qy-bg-green calendar_height">
+                <li  class="col ta-l mar-l-10 qy-fff " ng-class="{'qy-green':schedulepage==0&&pageArr.length>0}"  ng-click="lastWeekSchedule()">
+                    <i class=" icon ion-chevron-left " ></i>
+                    <span  kyee-i18n-directive  code="lastWeek" default="上一周"></span>
+                </li>
+                <li class="f12 fw-b qy-fff ta-c">{{weekMouthDate}}</li>
+                <li  class="col ta-r mar-r-10 qy-fff"  ng-class="{'qy-green':schedulepage==pageArr.length-1}" ng-click="nextWeekSchedule()">
+                    <span class="text-ellipsis" kyee-i18n-directive  code="nextWeek" default="下一周"></span>
+                    <i class=" icon ion-chevron-right" ></i>
+                </li>
+            </ul>
+            <ul class="body">
+                <ion-scroll delegate-handle="doctor_schedule" zoom="false" scrollbar-x="false"  scrollbar-y="false" paging="true" direction="x" on-drag-start="startSchedule()" on-scroll="lestionScheduleScroll()">
+                    <div class="row doctorcol-box" style="width:{{(pageArr.length*(KyeeEnv.innerSize.width - 14*2))+'px'}}">
+                        <div class="col"  style="width:{{(KyeeEnv.innerSize.width- 14*2)+'px'}}">
+                            <li class="row week-date" >
+                                <a class="col doctor-box"  ng-repeat="date in weekDateList track by $index" >
+                                    <ul class="weekDate" ng-if="!(getweeklist($index)=='今天')">
+                                        <li>{{getweeklist($index)}}</li>
+                                        <li>{{date}}</li>
+                                    </ul>
+                                    <ul class="weekToday" ng-if="(getweeklist($index)=='今天')">
+                                        <li>{{getweeklist($index)}}</li>
+                                        <li>{{date}}</li>
+                                    </ul>
+                                </a>
+                            </li>
+                            <li class="row rowday">
+                                    <a class="col doctor-box qy-fff"  ng-repeat="amScedule in amScheduleArr track by $index"  ng-class="{'days':(amScedule=='上午'||amScedule=='白班'),'qy_bg_grey1':(amScedule!='上午'&& amScedule!='白班')}" >{{amScedule}}</a>
+                            </li>
+                            <li class="row rowday" >
+                               <a class="col doctor-box qy-fff"  ng-repeat="pmSchedule in pmScheduleArr track by $index"  ng-class="{'days':(pmSchedule=='下午'||pmSchedule=='晚班'),'qy_bg_grey1':(pmSchedule=='下午'||pmSchedule=='晚班')}" >{{pmSchedule}}</a>
+                            </li>
+                        </div>
+                    </div>
+                </ion-scroll>
+            </ul>
+        </div>
+        <div class="qy-bg-white doctor-schedule-page">
+            <i ng-if="pageArr.length>1" class="circle" ng-class="{'ion-record ionchecked':page==schedulepage,'ion-ios-circle-outline':page!=schedulepage}" ng-repeat="page in pageArr"></i>
+        </div>
+    </div>
+    </ion-content>
+</ion-view>

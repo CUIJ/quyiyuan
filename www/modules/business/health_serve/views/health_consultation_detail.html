@@ -1,0 +1,18 @@
+<ion-view class="health_consultation_detail">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>健康资讯</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true" overflow-scroll="true">
+
+        <div style="height:100%; width:100%;">
+            <iframe onload="hideLoadHealthDetail()" ng-src='{{openUrl}}' style=" min-height: 100%; width:100%;">
+            </iframe>
+        </div>
+
+    </ion-content>
+</ion-view>

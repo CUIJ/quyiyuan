@@ -1,0 +1,52 @@
+.qy_bank_card{
+  .open_icon{
+    position: absolute;
+    right: -1px;
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 8px;
+  }
+  .box_container_height{
+    height:61px;
+  }
+  .add_card{
+    margin-top:20px;
+    margin-bottom: 20px;
+  }
+  .delete_card{
+    margin-top: -11px;
+    right:10px;
+  }
+  .card_no{
+    margin-bottom: 0px;
+  }
+  .title_height{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .box_position{
+    margin: 10px 14px 10px 14px;
+  }
+  .card_plus{
+    margin-right: 11px;
+    line-height: 60px;
+    margin-top: 0px;
+  }
+  .card_icon{
+    line-height: 60px;
+    margin-top: 0px;
+  }
+  .add_card_line{
+    margin-left: 14px;
+   // padding:9px 14px 9px 0px;
+    padding:8px 14px 8px 0;
+  }
+  .last_line{
+    border-bottom: 0px;
+  }
+  .list_top{
+    margin-top: 0.8333em;
+  }
+}

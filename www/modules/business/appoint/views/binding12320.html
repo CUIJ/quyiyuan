@@ -1,0 +1,40 @@
+<ion-view class="appoint-doctor-schedulebydoctor">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive  code="isNjTitle" default="南京卫生12320网账号绑定"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear"  ng-click="openRightMenu('binding12320')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="appoint-binding12320 qy-bg-grey1">
+        <div class="mar-t-20 qy-bg-white appoint-binding">
+            <label class="item item-input">
+                <span class="f14 input-label" kyee-i18n-directive  code="name" default="姓名："></span>
+                <span class="f14">{{NAME}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="f14 input-label" kyee-i18n-directive  code="idNo" default="身份证："></span>
+                <span class="f14">{{ID_NO}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="all:regist.phone" default="手机号码："></span>
+                <input type="tel"  class="phone_input  text-ellipsis"  ng-model="USER.PHONE_NUMBER" placeholder="{{placeholderPhone}}">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive  code="userName" default="用户名："></span>
+                <input type="text"  class="phone_input  text-ellipsis"  ng-model="USER.USER_CODE" placeholder="{{placeholderUser}}">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive  code="passWord" default="密码："></span>
+                <input type="password"  class="phone_input  text-ellipsis"  ng-model="USER.USER_PWD" placeholder="{{placeholderPwd}}">
+            </label>
+        </div>
+        <div class="mar-t-20  pad-b-14" >
+            <button kyee-action-holder-directive="binding" ng-click="KAH($event) || bindingUser()" class="button button-block button-size-l">绑定</button>
+        </div>
+    </ion-content>
+</ion-view>

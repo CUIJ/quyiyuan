@@ -1,0 +1,42 @@
+.qy_change_pwd{
+
+  .icon_btn_style{
+    border: none;
+    background-color: white;
+    padding-left: 0;
+    margin-right: 5px;
+  }
+  .btn_style{
+    background-color: #0F9D58;
+    color: white;
+    border-radius: 4px;
+    height: 42px;
+    min-height: 0;
+    line-height: 42px !important;
+    border: 0;
+  }
+  .div_style1{
+    border-right: none;
+    height: 50px;
+  }
+  .new_item_border{
+    border-bottom: 1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
+  }
+  .new_item_div{
+    padding: 9px 14px 9px 0;
+  }
+
+
+  .lable_style1{
+    background-color: white;
+    padding-right: 0;
+  }
+  .ion-ios-eye:before {
+    content: "\f425";
+    font-size: 30px;
+  }
+  .changeChooseStyle {
+    color: #0F9D58;
+  }
+}

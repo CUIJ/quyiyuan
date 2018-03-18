@@ -1,0 +1,133 @@
+<ion-view class="qy-bg-grey2 qy_medication_push  ">
+  <ion-nav-bar class="qy-header" align-title="center">
+    <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+    <ion-nav-title>
+      <span kyee-i18n-directive code="medicationReminder" default="用药提醒"></span>
+    </ion-nav-title>
+
+    <!-- 取消用药提醒功能暂时不做 -->
+    <!-- <ion-nav-buttons side="right">
+        <a class="button button-clear" ng-click="showMenu()">
+            <i class="icon ion-more qy-fff"></i>
+        </a>
+    </ion-nav-buttons> -->
+  </ion-nav-bar>
+
+  <ion-content class="qy_bg_grey2 scroll-content ionic-scroll has-header padding-d-10" delegate-handle="medication_push_content">
+    <div class="pad_lr_20 qy-bg-white medication_content cure_information">
+      <div class="content_header">
+        <h4 class="line40 f16 qy-grey7 qy-grey7 content_title" kyee-i18n-directive code="cureInformation" default="就诊信息"></h4>
+      </div>
+      <div class="content_body">
+        <ul class="pad-t-10">
+          <li class="line30">
+            <p><span class="w5e display_ib qy-deepblue" kyee-i18n-directive code="hospitalName" default="就诊医院:"></span><span class="display_ib qy-grey6">{{data.hospitalName}}</span></p>
+          </li>
+          <li class="line30" ng-if="data.visitDate && date.visitDate!='null'">
+            <p><span class="w5e display_ib qy-deepblue" kyee-i18n-directive code="visitDate" default="就诊日期:"></span><span class="display_ib qy-grey6">{{data.visitDate}}</span></p>
+          </li>
+          <li class="line30" ng-if="data.visitDeptName && data.visitDeptName!='null'">
+            <p><span class="w5e display_ib qy-deepblue" kyee-i18n-directive code="visitDeptName" default="就诊科室:"></span><span class="display_ib qy-grey6">{{data.visitDeptName}}</span></p>
+          </li>
+          <li class="line30" ng-if="data.doctorName && data.doctorName!='null'">
+            <p>
+              <span class="w5e display_ib qy-deepblue" kyee-i18n-directive code="doctorName" default="主治医生:"></span><span class="display_ib qy-grey6">{{data.doctorName}}</span>
+              <span class="mar-l-10 display_ib qy-grey6" ng-if="data.doctorTitle && data.doctorTitle!='null'">{{data.doctorTitle}}</span>
+            </p>
+          </li>
+          <li  ng-if="data.pharmacist && data.pharmacist!='null'">
+            <p class="mar-t-10 position_relative  medicine_p lineh50"><span class="w5e display_ib qy-deepblue" kyee-i18n-directive code="pharmacist" default="临床药师:"></span><span class="display_ib qy-grey6">{{data.pharmacist}}</span>
+               <span class="height30 mar-l-10 consult_doctor ta-c position_absolute" ng-if="data.chat =='true'" ng-click="chatWithDoctor(data.pharmacist)"><span class="lineh_30 qy-green f14">咨询医生</span></span>
+            </p>
+          </li>
+          <li class="lineh_30" ng-if="data.diagnosis && data.diagnosis!='null'">
+            <p>
+              <span class="w5e display_ib qy-deepblue position-a" kyee-i18n-directive code="diagnosis"
+                    default="疾病诊断:"></span>
+              <span ng-style="{'width': (KyeeEnv.innerSize.width - 150)+'px'}"
+                    ng-class="{'qy-grey6 display_ib mar_l_5em diagnosis_content_extend':displayMoreDiagnosis == 0,
+                    'qy-grey6 display_ib mar_l_5em diagnosis_content_collapse':displayMoreDiagnosis != 0}">{{data.diagnosis}}</span>
+              <span class="r14 position-a qy-deepblue" ng-if="displayMoreDiagnosis == 0"
+                    ng-click="extendDiagnosis(displayMoreDiagnosis)">
+                    <span kyee-i18n-directive code="extend" default="展开"></span>
+                    <i class="ion-ios-arrow-down"></i>
+              </span>
+              <span class="r14 position-a qy-deepblue " ng-if="displayMoreDiagnosis == 1"
+                    ng-click="extendDiagnosis(displayMoreDiagnosis)">
+                    <span kyee-i18n-directive code="fold" default="收起"></span>
+                    <i class="ion-ios-arrow-up"></i>
+              </span>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="pad_lr_20 qy-bg-white medication_content medication_plan">
+      <div class="position-r clearfix content_header">
+        <h4 class="line40 f16 fl-l qy-grey7 qy-grey7 content_title" kyee-i18n-directive code="medicationPlan" default="用药计划"></h4>
+        <h4 class="f12 fl-r line40 qy-grey5 content_sub_title ">
+          <span class="display_ib" kyee-i18n-directive code="adviceTime" default="建议用药时间:"></span>
+          <span class="mar-l-5 display_ib">{{data.adviceTime}}</span>
+        </h4>
+      </div>
+      <div class="content_body">
+        <ul class="medicine_list">
+          <li class="border-d pad_d_13 medicine" ng-repeat="medicine in data.medicineList">
+            <div class="mar-t-5 medicine_name clearfix">
+              <i class="icon icon-new-drug line40 fl-l f20 display_ib color_7ea6e8"></i><h5 class="line40 fl-l qy-grey7">{{medicine.medicineName}}</h5>
+            </div>
+            <ul class="pad_l_25 medicine_info">
+              <!--<li class="lineh_25">-->
+                <!--<div class="position-r">-->
+                  <!--<span class="position-a w5e display_ib qy-deepblue" kyee-i18n-directive code="usageAndDosage" default="用法用量:"></span>-->
+                  <!--<span class="display_ib qy-grey6 mar_l_5em">{{medicine.usageAndDosage}}</span>-->
+                <!--</div>-->
+              <!--</li>-->
+              <li class="lineh_25">
+                <div class="position-r">
+                  <span class="position-a w5e display_ib qy-deepblue" kyee-i18n-directive code="takeMedicinePath" default="给药途径:"></span>
+                  <span class="display_ib qy-grey6 mar_l_5em">{{medicine.takeMedicinePath}}</span>
+                </div>
+              </li>
+              <li class="lineh_25">
+                <div class="position-r">
+                  <span class="position-a w5e display_ib qy-deepblue" kyee-i18n-directive code="singleDosage" default="单次用量:"></span>
+                  <span class="display_ib qy-grey6 mar_l_5em">{{medicine.singleDosage}}</span>
+                </div>
+              </li>
+              <li class="lineh_25">
+                <div class="position-r">
+                  <span class="position-a w5e display_ib qy-deepblue" kyee-i18n-directive code="medicationSpecifications" default="药品规格:"></span>
+                  <span class="display_ib qy-grey6 mar_l_5em">{{medicine.medicationSpecifications}}</span>
+                </div>
+              </li>
+              <li class="lineh_25">
+                <div class="position-r">
+                  <span class="position-a w5e display_ib qy-deepblue" kyee-i18n-directive code="medicationPurpose" default="用药目的:"></span>
+                  <span class="display_ib qy-grey6 mar_l_5em">{{medicine.medicationPurpose}}</span>
+                </div>
+              </li>
+              <li class="lineh_25" ng-if="medicine.attentionItem && medicine.attentionItem!='null'">
+                <div class="position-r">
+                <span class="position-a w5e display_ib qy-deepblue" kyee-i18n-directive code="warmTip" default="温馨提示:"></span>
+                  <span class="display_ib qy-grey6 mar_l_5em">{{medicine.attentionItem}}</span>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="line40 warning_tip">
+          <span class="icon-exclamation-mark color_orange_ff9900 line40 f20 display_ib"></span><span class="mar-l-5 line40 qy-orange display_ib" kyee-i18n-directive code="warningTip" default="为了您的健康，请按时按量服药。"></span>
+        </div>
+      </div>
+    </div>
+    <div class="pad_lr_20 qy-bg-white medication_content warm_tip" ng-if="data.remark && data.remark!='null'">
+      <div class="content_header">
+        <h4 class="line40 f16 qy-grey7 qy-grey7 content_title" kyee-i18n-directive code="medicationRemark" default="备注"></h4>
+      </div>
+      <div class="pad-td-15 pad_r_14 content_body">
+        <p class="lineh24">{{data.remark}}</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

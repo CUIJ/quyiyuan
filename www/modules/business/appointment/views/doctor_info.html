@@ -1,0 +1,393 @@
+<ion-view title="{{deptName}}" class="qy_doctor_info" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backToDoctorList()"></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('appointment_doctor_detail')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" delegate-handle="doctor_info_content" >
+
+        <div class="row doctorbox pad-l-14">
+            <div ng-if="pageData.DOCTOR_SEX == 1" class="doc_img_box">
+                <img class="head_image" ng-src="{{pageData.DOCTOR_PIC_PATH?pageData.DOCTOR_PIC_PATH:'resource/images/base/head_default_man.jpg'}} "onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+            </div>
+            <div ng-if="pageData.DOCTOR_SEX != 1" class="doc_img_box">
+                <img class="head_image" ng-src="{{pageData.DOCTOR_PIC_PATH?pageData.DOCTOR_PIC_PATH:'resource/images/base/head_default_female.jpg'}} "onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+            </div>
+            <ul class="col-50 doctor_info_box mar-t-20">
+                <li class="text-ellipsis mar-d-15 f16 qy-grey7">{{pageData.DOCTOR_NAME}}</li>
+                <li class="text-ellipsis qy-grey6 f12">
+                    {{pageData.HOSPITAL_NAME}}
+                </li>
+                <li class="qy-grey6 f12">
+                    {{pageData.DOCTOR_TITLE}}
+                </li>
+            </ul>
+            <div class="favorite_box doctoc_care" ng-click="careDoctor()">
+                <i class="qy-orange f20"  ng-class="{'icon-favorite2':CARE,'icon-favorite':!CARE}"></i>
+                <p kyee-i18n-directive  code="care" default="关注"></p>
+            </div>
+        </div>
+
+        <!-- edit by wangsannv start 新增预约挂号和方便门诊页签  -->
+        <ul class="pad-b-14 mar-t-10 tab_div" id="tab_div" ng-if="CONSULT_DOCTOR=='1'||NETWORK_CLINIC=='1'">
+            <li class="tab_common" ng-class="{'tab_on': activeTab == 0}" ng-click="switchTab(0)" ng-if="CONSULT_DOCTOR=='1'||NETWORK_CLINIC=='1'">
+                <div class="text-center tab_content">
+                    <i class="inline icon-appointment"></i>
+                    <span class="inline mar-l-6">预约挂号</span>
+                </div>
+            </li>
+            <li class="tab_common" ng-class="{'tab_on': activeTab == 1}" ng-click="switchTab(1)" ng-if="CONSULT_DOCTOR=='1'">
+                <div class="text-center tab_content">
+                    <i class="inline icon-text-consult"></i>
+                    <span class="inline mar-l-6">咨询医生</span>
+                </div>
+            </li>
+            <li class="tab_common" ng-class="{'tab_on': activeTab == 2}" ng-click="switchTab(2)" ng-if="NETWORK_CLINIC=='1'">
+                <div class="text-center tab_content">
+                    <i class="inline icon-outpatient-service"></i>
+                    <span class="inline mar-l-6">网络门诊</span>
+                </div>
+            </li>
+        </ul>
+        <!-- edit by wangsannv end  新增预约挂号和方便门诊页签  -->
+        <!--预约挂号-->
+        <div ng-show="activeTab==0">
+            <!--- 医生排班 -->
+          <div class="titlebox" ng-class="{'schedule_margin':CONSULT_DOCTOR=='1'||NETWORK_CLINIC=='1'}" id="docotor_schedule_conent">
+             <!--<div class="row qy-blue titlebar-icon" ng-click="showDoctorSchedule()">
+                <span class="icon icon-calendar" ng-class="{'qy-blue':doctorDescShow}" ></span> <span kyee-i18n-directive>{{pageData.showTitle}}</span>
+                <i class="icon qy-grey4" ng-class="{'ion-chevron-up':doctorScheduleShow,'ion-chevron-right':!doctorScheduleShow}"></i>
+             </div>-->
+             <div ng-show="doctorScheduleShow " class="date_box_margin">
+                 <div ng-if="!emptySchedule" class="date_box_pad">
+                     <div class="calendar_box mar-t-10 " ng-class="{'position-r':SHOW_CLINIC_NUMBER==1}">
+                         <ul class="row qy-bg-green calendar_height">
+                             <li  class="col ta-l mar-l-10 qy-fff " ng-class="{'qy-green':(schedulepage==0&&pageArr.length>0) ||emptySchedule}"  ng-click="lastWeekSchedule()">
+                                 <i class=" icon ion-chevron-left " ></i>
+                                 <span  kyee-i18n-directive  code="lastWeek" default="上一周"></span>
+                             </li>
+                             <li class="f12 fw-b qy-fff ta-c">{{weekMouthDate}}</li>
+                             <li  class="col ta-r mar-r-10 qy-fff"  ng-class="{'qy-green':(schedulepage==pageArr.length-1)|| emptySchedule}" ng-click="nextWeekSchedule(1,true)">
+                                 <span kyee-i18n-directive  code="nextWeek" default="下一周"></span>
+                                 <i class=" icon ion-chevron-right" ></i>
+                             </li>
+                         </ul>
+                         <ul class="body" ng-class="{'pad-l-20':SHOW_CLINIC_NUMBER==1}" >
+                             <ion-scroll delegate-handle="doctor_schedule" zoom="false" scrollbar-x="false"  scrollbar-y="false" paging="true" direction="x" on-drag-start="startSchedule()" on-scroll="lestionScheduleScroll()">
+                                 <div class="row doctorcol-box"  ng-style="{'width':DOCTOR_COL_BOX_WIDTH}">
+                                     <div class="col" ng-style="{'width':DOCTOR_COL_WIDTH}" >
+                                         <li class="row week-date" >
+                                             <a class="col doctor-box"  ng-repeat="date in weekDateList track by $index" >
+                                                 <ul class="weekDate" ng-if="!(getweeklist($index)=='今天')">
+                                                     <li>{{getweeklist($index)}}</li>
+                                                     <li>{{date}}</li>
+                                                 </ul>
+                                                 <ul class="weekToday" ng-if="getweeklist($index)=='今天'">
+                                                     <li>{{getweeklist($index)}}</li>
+                                                     <li>{{date}}</li>
+                                                 </ul>
+                                             </a>
+                                         </li>
+                                         <li class="row rowday" >
+                                               <a ng-repeat="morningSchedule in morningScheduleArray track by $index"
+                                                ng-click="appiontMent(morningSchedule,$index,1)" class="col doctor-box qy-fff"
+                                                ng-class="{'qy-bg-green':(morningSchedule&&(morningSchedule.showShedule=='上午'||morningSchedule.showShedule=='全天'||morningSchedule.showShedule=='白天'||morningSchedule.showShedule=='昼夜')),'qy_bg_grey4':(morningSchedule&&morningSchedule.showShedule!='上午'&& morningSchedule.showShedule!='全天'&& morningSchedule.showShedule!='白天'&& morningSchedule.showShedule!='昼夜')}" >
+                                                 <span ng-switch="morningSchedule.ISTIME" >
+                                                     <span  ng-switch-when="3" >
+                                                         <div style="line-height: 23px; height: 20px;">暂不</div>
+                                                         <div  style="line-height: 17px; height: 20px;">可约</div>
+                                                     </span>
+                                                      <span ng-switch-when="1" >
+                                                         <div ng-if="SHOW_CLINIC_NUMBER=='1'"  style="line-height: 23px; height: 20px;">余号</div>
+                                                         <div ng-if="SHOW_CLINIC_NUMBER=='1'"   style="line-height: 17px; height: 20px;">
+                                                             <span ng-if="morningSchedule.BUSSINESS_TYPE=='0'">{{morningSchedule.APPOINT_COUNT}}</span>
+                                                             <span ng-if="morningSchedule.BUSSINESS_TYPE!='0'">{{morningSchedule.REG_COUNT}}</span>
+                                                         </div>
+                                                          <span  ng-if="SHOW_CLINIC_NUMBER!='1'" > {{morningSchedule.showShedule}}</span>
+                                                     </span>
+                                                     <span ng-switch-default >
+                                                         {{morningSchedule.showShedule}}
+                                                     </span>
+                                                 </span>
+                                             </a>
+
+                                       <!--      <a class="col doctor-box qy-fff" ng-repeat="morningSchedule in morningScheduleArray track by $index" ng-class="{'qy-bg-green':(morningSchedule&&(morningSchedule.showShedule=='上午'||morningSchedule.showShedule=='全天'||morningSchedule.showShedule=='白天'||morningSchedule.showShedule=='昼夜')),'qy_bg_grey4':(morningSchedule&&morningSchedule.showShedule!='上午'&& morningSchedule.showShedule!='全天'&& morningSchedule.showShedule!='白天'&& morningSchedule.showShedule!='昼夜')}" ng-click="appiontMent(morningSchedule)">{{morningSchedule.showShedule}}</a>
+                                             -->
+                                         </li>
+                                         <li class="row rowday" >
+                                             <a ng-repeat="afternoonSchedule in afternoonScheduleArray track by $index" ng-click="appiontMent(afternoonSchedule,$index,2)" class="col doctor-box qy-fff" ng-class="{'qy-bg-green':(afternoonSchedule&&afternoonSchedule.showShedule=='下午'),'qy_bg_grey4':(afternoonSchedule&&afternoonSchedule.showShedule!='下午')}" >
+                                                 <span ng-switch="afternoonSchedule.ISTIME">
+                                                     <span  ng-switch-when="3" >
+                                                         <div style="line-height: 23px; height: 20px;">暂不</div>
+                                                         <div style="line-height: 17px; height: 20px;">可约</div>
+                                                     </span>
+                                                      <span ng-switch-when="1" >
+                                                         <div ng-if="SHOW_CLINIC_NUMBER=='1'"  style="line-height: 23px; height: 20px;">余号</div>
+                                                         <div ng-if="SHOW_CLINIC_NUMBER=='1'"   style="line-height: 17px; height: 20px;">
+                                                             <span ng-if="afternoonSchedule.BUSSINESS_TYPE=='0'">{{afternoonSchedule.APPOINT_COUNT}}</span>
+                                                             <span ng-if="afternoonSchedule.BUSSINESS_TYPE!='0'">{{afternoonSchedule.REG_COUNT}}</span>
+                                                         </div>
+                                                          <span  ng-if="SHOW_CLINIC_NUMBER!='1'" > {{afternoonSchedule.showShedule}}</span>
+                                                     </span>
+                                                     <span ng-switch-default >
+                                                         {{afternoonSchedule.showShedule}}
+                                                     </span>
+                                                 </span>
+                                             </a>
+                                            <!-- <a class="col doctor-box qy-fff" ng-repeat="afternoonSchedule in afternoonScheduleArray track by $index"  ng-class="{'qy-bg-green':(afternoonSchedule&&afternoonSchedule.showShedule=='下午'),'qy_bg_grey4':(afternoonSchedule&&afternoonSchedule.showShedule!='下午')}" ng-click="appiontMent(afternoonSchedule)">{{afternoonSchedule.showShedule}}</a>-->
+                                         </li>
+                                     </div>
+                                 </div>
+                             </ion-scroll>
+                         </ul>
+                         <ul ng-if="SHOW_CLINIC_NUMBER==1" class="show_little_box">
+                             <li class="little_box_week">周次</li>
+                             <li class = "little_box_morning">上午</li>
+                             <li class="little_box_afternoon">下午</li>
+                         </ul>
+                     </div>
+                     <div class="qy-bg-white  ta-c" ng-class="{'doctor-schedule-page':pageArr.length>1,'doctor-schedule-no-page':pageArr.length<=1}">
+                         <i ng-if="pageArr.length>1" class="circle" ng-class="{'ion-record ionchecked':page==schedulepage,'ion-ios-circle-outline':page!=schedulepage}" ng-repeat="page in pageArr"></i>
+                     </div>
+                 </div>
+                 <div ng-if="emptySchedule" class="emptyText" kyee-i18n-directive  code="notSchedule" default="该医生暂无排班，您可以选择其他医生进行预约！">
+                 </div>
+             </div>
+         </div>
+        <!-- 抢号-->
+        <div class="grab_box pad-b-14" ng-if="pageData.RUSH_CLINIC=='1'">
+            <img src="resource/images/appoint/grab.png" class="grab_img">
+            <ul class="row mar_t_14">
+                <li class="col border-r pad_l_6" ng-click="goToAddClinic(1)">
+                    <i class="icon icon-qianghao f30 fl-l "
+                       ng-class="{'blue':(showRush!='0'),'qy-grey5':(showRush=='0')}"></i>
+                    <div class="fl-l mar-l-14" kyee-operation-monitor-directive="autoRush">
+                        <p class="f14 mar_b_2" ng-class="{'qy-grey7':(showRush!='0'),'qy-grey5':(showRush=='0')}"
+                           kyee-i18n-directive  code="autoRush" default="自动抢号" ></p>
+                        <p class="f12 qy-grey5 mar_d_0" kyee-i18n-directive  code="autoAppoint" default="有号自动预约"></p>
+                    </div>
+                </li>
+                <li class="col pad_l_16" ng-click="goToAddClinic(0)">
+                    <i class="icon icon-remind f30 fl-l qy-orange"></i>
+                    <div class="fl-l mar-l-14" kyee-operation-monitor-directive="hidRemind">
+                        <p class="f14 mar_b_2 qy-grey7" kyee-i18n-directive code="numberReminder" default="有号提醒"></p>
+                        <p class="f12 qy-grey5 mar_d_0" kyee-i18n-directive code="numberReminderFast" default="有号快速提醒"></p>
+                    </div>
+                </li>
+            </ul>
+         </div>
+        </div>
+
+        <!-- 咨询医生 start add by dangliming -->
+        <div ng-show="activeTab==1" class="pad-b-14 pad-td-10 border-b qy-bg-white consulation">
+          <p class="mar-d-5 qy-grey6 f12 inline">
+              <span class="inline">总服务人数：</span>
+              <span class="inline qy-grey6 f16">{{consultation.doctorCousultCount || 0}}</span>
+              <span class="inline">人</span>
+          </p>
+            <span class="inline fl-r" ng-show="isShowConsultTip" ng-click="showConsultTip()">
+                <i class="icon-icon_3 icon_style"></i>
+                <span class="tips pad-l-5 f12">咨询小贴士</span>
+            </span>
+
+            <ul class="pad-t-5 clearfix">
+            <li class="fl-l text-center consu_item" ng-click="chooseConsultItem(1)">
+                <div class="radius4 pad-t-5 pad-d-5 position-r item_box" ng-class="{choosed: consultation.choosedItem == 1, unchoosed:consultation.choosedItem != 1}">
+                  <p class="f14 lineh24 title">
+                    <i class="icon-choose mar-r-5"></i>
+                    <span kyee-i18n-directive code="consultIm" default="图文咨询"></span>
+                  </p>
+                  <p class="item_icon">
+                    <i ng-class="{un_open:!consultation.imState,lineh61:!consultation.isShowImOriPrice}" class="inline icon-wx-chat"></i>
+                  </p>
+                  <p ng-if="consultation.isShowImOriPrice" class="mar-t-5 line16">
+                    <del ng-if="consultation.imState === 1 || consultation.imState === 5" class="f12 qy-grey4">{{consultation.priceIm}}</del>
+                    <span ng-if="consultation.imState !== 1 && consultation.imState !== 5" class="f10 qy-bg-orange qy-fff line16 notOnSchedule">{{consultation.priceIm}}</span>
+                  </p>
+                  <p class="f14 mar-t-5 lineh24 price">{{consultation.imRealPrice}}</p>
+                </div>
+            </li>
+            <li class="fl-l text-center consu_item" ng-click="chooseConsultItem(2)">
+                <div class="radius4 pad-d-5 position-r item_box" ng-class="{choosed: consultation.choosedItem == 2, unchoosed:consultation.choosedItem != 2}">
+                  <p class="f14 mar-t-5 lineh24 title">
+                    <i class="icon-choose mar-r-5"></i>
+                    <span kyee-i18n-directive code="phoneConsult" default="电话咨询"></span>
+                  </p>
+                  <p class="item_icon">
+                    <i ng-class="{un_open:!consultation.phoneState,lineh61:!consultation.isShowPhoneOriPrice}" class="inline icon-telephone"></i>
+                  </p>
+                  <p ng-if="consultation.isShowPhoneOriPrice" class="mar-t-5 line16">
+                    <del class="f12 qy-grey4" ng-if="consultation.phoneState === 1 || consultation.phoneState === 5">{{consultation.pricePhone}}</del>
+                    <span ng-if="consultation.phoneState !== 1 && consultation.phoneState !== 5 " class="f10 qy-bg-orange qy-fff line16 notOnSchedule">{{consultation.pricePhone}}</span>
+                  </p>
+                  <p class="f14 mar-t-5 lineh24 price">{{consultation.phoneRealPrice}}</p>
+                </div>
+            </li>
+            <li class="fl-l text-center consu_item" ng-click="chooseConsultItem(3)">
+                <div class="radius4 pad-t-5 pad-d-5 position-r item_box" ng-class="{choosed: consultation.choosedItem == 3, unchoosed:consultation.choosedItem != 3}">
+                  <p class="f14 lineh24 title">
+                    <i class="icon-choose mar-r-5"></i>
+                    <span kyee-i18n-directive code="consulVideo" default="视频咨询"></span>
+                  </p>
+                  <p class="item_icon">
+                    <i ng-class="{un_open:!consultation.videoState,lineh61:!consultation.isShowVideoOriPrice}" class="inline icon-video"></i>
+                  </p>
+                  <p ng-if="consultation.isShowVideoOriPrice" class="mar-t-5 line16">
+                    <del class="f12 qy-grey4" ng-if="consultation.videoState==1 || consultation.videoState==5">{{consultation.priceVideo}}</del>
+                    <span ng-if="consultation.videoState!=1 && consultation.videoState!=5" class="f10 qy-bg-orange qy-fff line16 notOnSchedule">{{consultation.priceVideo}}</span>
+                  </p>
+                  <p class="f14 mar-t-5 lineh24 price">{{consultation.videoRealPrice}}</p>
+                </div>
+            </li>
+          </ul>
+        </div>
+        <!-- 咨询医生 end -->
+
+        <!--add by chenyanting 方便门诊-->
+        <div ng-show="activeTab==2" class="clinic_video pad-t-10">
+            <p class="mar-d-5 qy-grey6 f12 inline pad-b-14">
+                <span class="inline">总服务人数：</span>
+                <span class="inline qy-grey6 f16">{{patientCount}}</span>
+                <span class="inline">人</span>
+            </p>
+            <!--方便门诊-->
+            <figure ng-click="visitDoctor('VIDEO')" class="network_flex">
+                <div class="network_model_div bg-yellow" ><i class="icon-outpatient clinic_left_icon "></i></div>
+                <figcaption class="" ng-style="{width: (KyeeEnv.innerSize.width-100)+'px'}">
+                    <p class="font_size_16" >
+                        <span>视频问诊</span>
+                        <span ng-if="!videoStatusData.flag && videoStatusData.statusName!=''" class="video_clinic_flag">{{videoStatusData.statusName}}</span>
+                    </p>
+                    <div>
+                        <div>
+                            <span class="">
+                                <i class="icon-completion small_right_icon "
+                                   ng-class="{'qy-grey5':!videoStatusData.flag,'qy-blue':videoStatusData.flag}"></i><span class="right_icon_span">{{videoTips[0].tipName}}</span>
+                            </span>
+                            <span class="">
+                                <i class="icon-completion small_right_icon"
+                                   ng-class="{'qy-grey5':!videoStatusData.flag,'qy-blue':videoStatusData.flag}"></i><span  class="right_icon_span">{{videoTips[1].tipName}}</span>
+                            </span>
+                        </div>
+                         <div class="li_inline_block">
+                            <i class="icon-completion small_right_icon"
+                               ng-class="{'qy-grey5':!videoStatusData.flag,'qy-blue':videoStatusData.flag}"></i><span class="right_icon_span">{{videoTips[2].tipName}}</span>
+                         </div>
+                    </div>
+                </figcaption>
+            </figure>
+
+            <!--远程购药-->
+            <figure class="medicine_figure network_flex" ng-click="visitDoctor('PURCHASE')">
+               <div class="network_model_div bg-blue" ><i class="icon-medicine clinic_left_icon " ></i></div>
+                <figcaption class="" ng-style="{width: (KyeeEnv.innerSize.width-100)+'px'}">
+                    <p class="font_size_16" >
+                        <span>远程购药/开单</span>
+                        <span ng-if="!purchaseStatusData.flag  && purchaseStatusData.statusName!=''" class="video_clinic_flag">{{purchaseStatusData.statusName}}</span>
+                    </p>
+                    <ul>
+                        <li >
+                            <i class="icon-completion small_right_icon"
+                               ng-class="{'qy-grey5':!purchaseStatusData.flag,'qy-blue':purchaseStatusData.flag}"></i><span class="right_icon_span">{{purchaseTips[0].tipName}}</span>
+                        </li>
+                        <li >
+                            <i class="icon-completion small_right_icon"
+                               ng-class="{'qy-grey5':!purchaseStatusData.flag,'qy-blue':purchaseStatusData.flag}"></i><span class="right_icon_span">{{purchaseTips[1].tipName}}</span>
+                        </li>
+                    </ul>
+                </figcaption>
+            </figure>
+            <span class=""></span>
+        </div>
+        <!-- 医生简介 -->
+        <div class="titlebox" id="docotor_desc_conent">
+            <div class="row qy-blue titlebar-icon" ng-class="doctorDescShow?'border-d':''"  ng-click="showDoctorDesc()">
+                <span class="icon icon-introduce" ng-class="{'qy-blue':doctorDescShow}"></span>
+                <span kyee-i18n-directive  code="doctorDesc" default="医生介绍"></span>
+                <i class="icon qy-grey4"  ng-class="{'ion-chevron-up':doctorDescShow,'ion-chevron-down':!doctorDescShow}"></i>
+            </div>
+            <p class="hiddenbox" ng-show="doctorDescShow" >{{pageData.DOCTOR_DESC}}</p>
+        </div>
+        <!--医生动态-->
+        <div class="titlebox" id="docotor_action" ng-if="doctorActionList.length>0">
+            <div class="row qy-blue titlebar-icon" ng-class="doctorActionDes?'border-d':''" ng-click="showDoctorAction()">
+                <span class="icon icon-compass"></span>
+                <span>医生动态</span>
+                <i class="icon qy-grey4"  ng-class="{'ion-chevron-up':doctorActionDes,'ion-chevron-down':!doctorActionDes}"></i>
+            </div>
+            <div class="line22" ng-show="doctorActionDes">
+                <div ng-repeat="action in doctorActionList"
+                     class="pad-l-10">
+                    <div class="pad-r-10 pad-td-16" ng-class="$index>0?'border-t':''">
+                        <div class="f14 qy-grey7 mar-d-5 text-hidden text-wrap"
+                             ng-class="( !(action.lines > 3) || action.isShowAll)?'height-auto':'height-66'"
+                             ng-if="action.content && action.content != ''">{{action.content}}</div>
+                        <div class="qy-blue f14 mar-d-5"
+                             ng-if="action.lines > 3"
+                             ng-click="toggleShowAll(action)">{{action.isShowAll?'收起':'全文'}}</div>
+                        <div class="mar-d-10 pad-t-5" ng-if="action.pictureArray.length > 0">
+
+                            <div ng-repeat="img in action.pictureArray track by $index"
+                                 ng-click="preview(action.pictureArray,$index)"
+                                 ng-style="{'background-image':'url(\''+img.imgUrl+'\')'}"
+                                 class="mar-r-10 fl-l actionImg" ng-class="$index > 2?'mar-t-10':''">
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="qy-grey5 f12">{{action.createTime}}</div>
+                    </div>
+                </div>
+                <div class="ta-c f12 qy-grey5 line50 border-t" ng-if="showMoreAction" ng-click="goDoctorAction()">
+                    查看更多动态
+                    <span class="ion-chevron-right icon qy-grey4 mar-l-10"></span>
+                </div>
+            </div>
+        </div>
+        <!--预约挂号条款-->
+        <div class="titlebox" id="docotor_desc_conent" ng-if="appointRulerShow">
+            <div class="row qy-blue titlebar-icon" ng-click="gotoNotice()" >
+                <span class="icon icon-lineup" ng-class="{'qy-blue':doctorDescShow}"></span>
+                <span kyee-i18n-directive code="appointRegistRule" default="预约挂号条款"></span>
+                <i class="icon qy-grey4" ng-class="{'ion-chevron-up':doctorDescShow,'ion-chevron-right':!doctorDescShow}"></i>
+            </div>
+        </div>
+
+        <!-- 医生评价 -->
+        <div class="titlebox" ng-if="showMYD">
+             <div class="row qy-blue titlebar-icon uyg-flex" ng-click="showDoctorAssess()" ng-class="doctorAssessShow && msgs.length>0?'border-d':''">
+                 <span class="icon icon-concerned"></span>   <!--n-compass不起作用-->
+                 <span kyee-i18n-directive class="text-ellipsis vertial_align_middle" code="evaluation" default="患者评价"></span>
+                 <span class="qy-grey4 text-ellipsis vertial_align_middle">
+                     <span class="score fw-b" style="margin-right: 0;">{{totalInfo.SUGGEST_AVERAGE_SCORE}}</span>
+                     <span class="qy-orange" kyee-i18n-directive code="score" default="分"></span>
+                 </span>
+                 <span class="f10 qy-grey4 vertial_align_middle">
+                     <span kyee-i18n-directive  code="joinNumber" default="(共{{SUGGEST_COUNT}}位患者参与)" params="totalInfo"></span>
+                 </span>
+                 <i class="icon qy-grey4 position-a" ng-class="{'ion-chevron-up':doctorAssessShow,'ion-chevron-down':!doctorAssessShow}" style="right: 0;top: 2px;"></i>
+             </div>
+             <ul class="mar-b-14 reviews" ng-repeat="msg in msgs track by $index" ng-show="doctorAssessShow" ng-class="{'border_1px_solid_top':$index!=0}">
+                  <li style="border-bottom: 0">
+                      <h5 class="text-ellipsis" style="width:40px;line-height:20px;">{{msg.PATIENT_NAME}}</h5>
+                      <div class="qy-red mar-td-10 qy-orange" style="float: left;  margin-left: 20px;width:120px;">
+                          <i class="star" ng-show="msg.SUGGEST_SCORE >=0" ng-class="getStarStyle(msg.SUGGEST_SCORE, 1)"></i>
+                          <i class="star" ng-show="msg.SUGGEST_SCORE >=1" ng-class="getStarStyle(msg.SUGGEST_SCORE, 2)"></i>
+                          <i class="star" ng-show="msg.SUGGEST_SCORE >=2" ng-class="getStarStyle(msg.SUGGEST_SCORE, 3)"></i>
+                          <i class="star" ng-show="msg.SUGGEST_SCORE >=3" ng-class="getStarStyle(msg.SUGGEST_SCORE, 4)"></i>
+                          <i class="star" ng-show="msg.SUGGEST_SCORE >=4" ng-class="getStarStyle(msg.SUGGEST_SCORE, 5)"></i>
+                      </div>
+                      <span class="f10 qy-grey4 mar-td-10" style="float: right;">{{msg.SUGGEST_DATE}}</span>
+                      <p style="clear: both;" ng-show="msg.SUGGEST_VALUE">{{msg.SUGGEST_VALUE}}</p>
+                      <p style="clear: both;" ng-if="msg.SUGGEST_APPEND.length > 0" kyee-i18n-directive code="addEvaluation" default="追加评论：{{msg.SUGGEST_APPEND}}" params="msg"> </p>
+                  </li>
+              </ul>
+       </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" on-infinite="loadMore()" distance="10%" immediate-check="false"></ion-infinite-scroll>
+    </ion-content>
+    <div kyee-compile-directive template="modules/business/appoint/views/delay_views/selected.html"></div>
+    <div class="pay_schedule" ng-show="isShowSchedule" ng-include="'modules/business/appointment/views/appointment_doctor_detail/pay_schedule.html'"></div>
+</ion-view>

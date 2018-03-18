@@ -1,0 +1,89 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: WangYuFei
+* 日期: 2015年5月10日13:17:44
+* 创建原因：KYEEAPPC-1959 报告单-体检报告详情html
+* 修改时间：2015年7月7日14:04:32
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-2669
+* 修改原因：体检单迁移为独立模块
+* 修改时间：2015年8月18日17:20:23
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3084
+* 修改原因：体检单样式整改
+*------------
+*修改时间：2015年12月03日13:20:12
+* 修改人：张明
+* 任务号：KYEEAPPC-4402
+* 修改原因：体检单样式整改
+*/-->
+<ion-view  class="qy_medical_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="detailTitle " default="体检单详情"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false">
+        <div style="padding-bottom: 10px;padding-top: 14px" class="titlebox pad-t-10 pad-b-14 div_titlebox">
+            <span style="display: block;font-weight: 500;font-size: 14px;color: #666666;margin-bottom: 10px;line-height: 1.2;">{{medicalDetailDatas.HOSPITAL_NAME}}</span>
+            <span class="qy-grey5">{{getDate(medicalDetailDatas.EXAM_DATE)}}</span>
+            <span class="qy-grey5"
+                   kyee-i18n-directive code="detailBianhao " default="编号：{{medicalDetailDatas.EXAM_REPORT_ID}}"
+                   params="medicalDetailDatas"></span>
+        </div>
+
+        <ul class="list main_ul" ng-repeat="medicalDetailData in medicalDetailDatas.DEPTS">
+            <li class="main_li pad-td-10 pad-b-14"
+                kyee-operation-monitor-directive="clickItem"
+                ng-click="clickItem($index)">
+                <i class="icon-medicalrecord medical_icon"></i>
+                <span class="f14">{{medicalDetailData.EXAM_DEPT_NAME}}</span>
+                <span class="fl-r mar-t-5" ng-class="{'ion-arrow-up-b':isDisplay == $index,'ion-arrow-down-b qy-green':isDisplay != $index}"></span>
+            </li>
+            <li ng-if="isDisplay == $index" class="pad-b-14 pad-td-10 border-d medical_li_pad">
+                <ul ng-repeat="dataDetail in medicalDetailData.ITEMS" class="detail_ul  border-d-dash">
+                    <li class="pad-d-10 detail_li_fir" ng-if="dataDetail.EXAM_RESULT.length<=12">
+                        <span class="detail_span_left">{{dataDetail.EXAM_ITEM_NAME}}：</span>
+                        <span class="detail_span_right">
+                            <span class="{{dataDetail.RESULT_FLAG == 1?'qy-red':(dataDetail.RESULT_FLAG == 2?'qy-green':'')}}">
+                                {{dataDetail.EXAM_RESULT}} {{dataDetail.ITEM_UNIT}}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="pad-d-10 detail_li_fir" ng-if="dataDetail.EXAM_RESULT.length>12">
+                        <span>{{dataDetail.EXAM_ITEM_NAME}}：</span>
+                        <span class="{{dataDetail.RESULT_FLAG == 1?'qy-red':(dataDetail.RESULT_FLAG == 2?'qy-green':'')}}">
+                            {{dataDetail.EXAM_RESULT}} {{dataDetail.ITEM_UNIT}}
+                        </span>
+                    </li>
+                    <li ng-style="{'display':dataDetail.REFERENCE_VALUE==undefined || dataDetail.REFERENCE_VALUE==''|| dataDetail.REFERENCE_VALUE==null?'none':'block'}" class="pad-d-10">
+                        <span class="qy-grey5 detail_span_left" kyee-i18n-directive code="detailCankaozhi" default="参考值："></span>
+                        <span class="qy-grey5 detail_span_right">{{dataDetail.REFERENCE_VALUE}} {{dataDetail.ITEM_UNIT}}</span>
+                    </li>
+                   <!-- <li class="detail_line"></li>-->
+                </ul>
+                <ul>
+                    <li class="ta-l pad-td-10" kyee-i18n-directive code="detailXiaojie" default="小结：{{medicalDetailData.SUMMARY}}" params="medicalDetailData">
+
+                    </li>
+                    <li class="ta-r">
+                        <sapn kyee-i18n-directive code="detailTiJianYiSheng" default="体检医生：{{medicalDetailData.EXAM_DOCTOR}}" params="medicalDetailData"></sapn>
+                        <span ng-if="skipDeptType=='1'||skipDeptType=='2'">/  </span>
+                        <span class="qy-green"
+                              kyee-action-holder-directive="go_regist_appoint_btn"
+                              kyee-operation-monitor-directive="goRegistOrAppointPage"
+                              ng-click="KAH($event) || goRegistOrAppointPage(medicalDetailData)">
+                            {{skipDept}}
+                        </span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

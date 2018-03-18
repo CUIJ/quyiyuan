@@ -1,0 +1,36 @@
+<ion-view class="qy_patient_card_recharge health_Card qy-bg-grey2">
+    <ion-nav-bar class="qy-header border_b_green" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>一卡通充值</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" ng-click="goToPatientRechargeRecords()">充值记录</a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="false" padding="false" class="qy-bg-grey2" >
+       <div class="qy-bg-green qy-fff height_150 pad-b-14 pad-td-20">
+           <div class="f14">余额(元)</div>
+           <div class="font36 fw-b mar-t-20 text-center">{{healthCardItem.totalBalance}}</div>
+           <div class="f14 mar_t_30 qy-fff" style="color: #fff">{{healthCardItem.cardNoShow}} | {{healthCardItem.patientName}} </div>
+       </div>
+        <ul class="qy-bg-white border-td">
+            <li class="item_h item_cont" ng-click="showAreaArray()">
+                <span class="item_left mar-l-14" style="width: 80px">充值金额：</span>
+                <input  ng-model="healthCardMoney.money" type="number"
+                        style=" width: 180px;left:95px"
+                        placeholder={{placeholder.text}} autocomplete="off" ng-change="inputMoney()" class="mr_100 qy-bg-white item_input">
+            </li>
+        </ul>
+        <div class="pad-t-10 pad-lr-14 f14" >
+            <span class="orange">提示：</span>
+            <span class="grey_color">通过本公众号充值的金额，可以在全部支持的医院使用</span>
+        </div>
+
+        <div class="pad-b-14 mar_t_30 qy-bg-grey2">
+            <button ng-class="isClick?'':'qy-grey5 grey_bg_btn border_grey'" ng-click="doSubmit()" class="button button-block button-size-l">下一步
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

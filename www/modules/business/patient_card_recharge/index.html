@@ -1,0 +1,87 @@
+<ion-view class="qy_patient_card_recharge">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="titleNew" default="就诊卡充值"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="!fromHospital||(rechargeInfo.PATIENT_RECHARGE==1&&rechargeInfo.PATIENT_RETURN==1)" kyee-action-holder-directive="charge_record" class="button button-clear txt" ng-click="goRecords()" kyee-operation-monitor-directive="rechargeRecords">
+                <span kyee-i18n-directive code="history" default="历史记录"></span>
+            </a>
+            <a ng-if="fromHospital && rechargeInfo.PATIENT_RECHARGE==1&&rechargeInfo.PATIENT_RETURN!=1" kyee-action-holder-directive="charge_record" class="button button-clear txt" ng-click="goRecords()" kyee-operation-monitor-directive="rechargeRecords">
+                <span kyee-i18n-directive code="charge_record" default="充值记录"></span>
+            </a>
+            <a ng-if="fromHospital && rechargeInfo.PATIENT_RECHARGE!=1&&rechargeInfo.PATIENT_RETURN==1" kyee-action-holder-directive="charge_record" class="button button-clear txt" ng-click="goRecords()" kyee-operation-monitor-directive="rechargeRecords">
+                <span kyee-i18n-directive code="refund_record" default="退费记录"></span>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <!--切换医院-->
+        <div class="hospital_bar pad-14 border-d qy-bg-white mar-d-10" ng-if="!fromHospital && $rootScope.ROLE_CODE!='5' && !fromQRCode">
+            <div class="row bar_cont">
+                <div class="mar-r-5 bar_cont_l">
+                    <i class="icon icon-hospital2"></i>
+                </div>
+                <ul class="col f14 mar-r-10">
+                    <li class="qy-deepblack text-ellipsis" kyee-i18n-directive code="hospital" default="当前您所选择的医院："></li>
+                    <li class=" qy-green text-ellipsis">
+                        {{hospitalName}}
+                    </li>
+                </ul>
+                <button ng-click="changeHospital();" class="button button-size-s button-color-bg-green bar_cont_r" kyee-operation-monitor-directive="changeHospital">
+                    <span kyee-i18n-directive code="changeHospital" default="切换医院"></span>
+                </button>
+            </div>
+        </div>
+
+        <ul class="mar-d-10 qy-bg-white border-td pad-l-14" ng-if="!isEmpty">
+            <li class="item_h item_cont border-d">
+                <span class="item_left"  kyee-i18n-directive code="patientName" default="姓名："></span>
+                <input readonly="readonly" type="text" ng-model="rechargeInfo.PATIENT_NAME" class="mr_100 item_input">
+                <span class="item_right qy-grey5" ng-click="goCustomPatient()" kyee-operation-monitor-directive="changepatientName">
+                    <span  kyee-i18n-directive code="change" default="切换"></span>
+                </span>
+                <i class="icon ion-chevron-right qy-grey5"></i>
+            </li>
+            <li class="item_h item_cont" ng-class="{'border-d':rechargeInfo.PATIENT_QUERY == 1}">
+                <span class="item_left"  kyee-i18n-directive code="cardNo" default="就诊卡："></span>
+                <input type="text" ng-change="onChangeCardNo()" ng-model="recharge.CARD_SHOW"
+                       style="    width: 180px;    background-color: white;"
+                       ng-disabled="cardIsDisabled"
+                       placeholder={{placeholder.pHCardNo}} autocomplete="off" class="mr_100 item_input">
+                <i class="icon icon-icon_3 f18 qy-green" ng-click="showChardNoInfo()"></i>
+                <span class="item_right qy-grey5" ng-click="showPatientCardNo()" kyee-operation-monitor-directive="showPatientCardNo">
+                    <span  kyee-i18n-directive code="select" default="选择"></span>
+                </span>
+                <i class="icon ion-chevron-right qy-grey5"></i>
+            </li>
+            <li class="item_h item_cont" ng-if="rechargeInfo.PATIENT_QUERY == 1">
+                <span class="item_left"  kyee-i18n-directive code="balance" default="余额："></span>
+                <span class="mr_100 item_input f16" ng-style="{'width':(KyeeEnv.innerSize.width-148)+'px'}" style="top:0;">{{convertMoney(rechargeInfo.REST_AMOUNT)}}</span>
+                <button class="button-size-s button-color-green small_btn"  kyee-operation-monitor-directive="queryBalance" ng-click="queryBalance(0);">
+                    {{rechargeInfo.BUTTON}}
+                </button>
+            </li>
+        </ul>
+
+        <ul class="qy-bg-white border-td row" ng-if="!isEmpty">
+            <li class="box border-r col ta-c" ng-click="KAH($event) || goRecharge()" kyee-operation-monitor-directive="rechargeSubmit" kyee-action-holder-directive="patient_recharge_submit">
+                <i class="icon icon-yang" ng-class="{'qy-green':rechargeInfo.PATIENT_RECHARGE==1,'qy-grey4':rechargeInfo.PATIENT_RECHARGE!=1}"></i>
+                <div class="f16"><span kyee-i18n-directive code="cardRecharge" default="就诊卡充值"></span>
+                <span ng-if="rechargeInfo.PATIENT_RECHARGE!=1" kyee-i18n-directive code="noPermission" default="(未开通)"></span></div>
+            </li>
+            <li class="box col ta-c" ng-click="KAH($event) || refundSubmit(rechargeInfo)" kyee-operation-monitor-directive="refundSubmit" kyee-action-holder-directive="patient_refund_submit">
+                <i class="icon icon-rebate" ng-class="{'qy-green':rechargeInfo.PATIENT_RETURN==1,'qy-grey4':rechargeInfo.PATIENT_RETURN!=1}"></i>
+                <div class="f16"><span kyee-i18n-directive code="cardRefund" default="就诊卡退费"></span>
+                <span ng-if="rechargeInfo.PATIENT_RETURN!=1" kyee-i18n-directive code="noPermission" default="(未开通)"></span></div>
+            </li>
+        </ul>
+
+        <div class="empty-text" ng-if="isEmpty">
+            <i ng-if="emptyText" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>
+<div kyee-compile-directive template="modules/business/patient_card_recharge/views/delay_views/selected.html"></div>

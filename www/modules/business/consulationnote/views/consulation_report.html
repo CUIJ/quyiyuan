@@ -1,0 +1,61 @@
+<ion-view title="会诊报告" class="consolutionNote" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" >
+
+        <div class="qy-bg-white">
+         <div class="consulation_report_list_header  flex">
+            <img src="resource/images/base/report-icon.png" style="height:65px"/>
+             <div class="consolution_report_float">
+                 <div><span class="consulation_report_header_title">{{hospitalName}}</span></div>
+                 <div><span class="consulation_report_sub_title">{{MDT}}</span></div>
+
+             </div>
+           </div>
+
+        <div class="border-d-dash  consolution_detail_dot consulation_report_dot">
+            <div><span class="consolution_report_font">会诊时间：</span><span class="consolution-report_phone">{{HZSJ}}</span></div>
+            <div><span class="consolution_report_font">会诊患者：</span><span class="consolution-report_phone">{{HZXM}} <span style="margin-left:10px"> {{patientSex}}/{{patientAge}}</span></span></div>
+            <div><span class="consolution_report_font">联系电话：</span><span class="consolution-report_phone">{{phoneNum}}</span></div>
+            <div><span class="consolution_report_font">门诊/住院号：</span><span class="consolution_report_menzhen">{{patientParameter}}</span></div>
+            <div><span class="consolution_report_font">病理会诊号：</span><span class="">{{consultCode}}</span></div>
+
+        </div>
+
+            <div class="border-d-dash  consolution_detail_dot" >
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">病情小结</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div>
+                       {{medicalHistory}}
+                    </div>
+                </div>
+            </div>
+            <div class="border-d-dash  consolution_detail_dot" >
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">会诊目的</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div>
+                        {{purpose}}
+                    </div>
+                </div>
+            </div>
+            <div class="  consolution_detail_dot" >
+            <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">会诊意见</div>
+            <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                <div>
+                    {{opinion}}
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="empty-text" style="display:none">
+            <i class="icon empty-icon icon-icon_3"></i>
+            <p>暂无会诊数据</p>
+        </div>
+    </ion-content>
+
+
+
+</ion-view>
+<div kyee-compile-directive template="modules/business/regist/views/delay_views/selected.html"></div>

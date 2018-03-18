@@ -1,0 +1,54 @@
+/* Scss Document */
+.qy_nearby {
+  background: #fafafa;
+  .hospital_level{
+    background-color: orange;
+    padding: 2px 2px 0 2px;
+    line-height: 14px;
+  }
+  .hospital_info{
+    white-space:initial;
+    line-height: 24px;
+    padding-bottom: 10px;
+  }
+  .hospital_size{
+    diaplay:inline-block;
+    max-width: 74%;
+    float:left;
+  }
+  .title_top{
+    margin-top: 0px;
+    line-height: 50px !important;
+  }
+  .empty_height{
+    padding-top: 30%;
+  }
+}
+
+.qy_nearby .item-avatar > img:first-child {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.qy_nearby .icon-position {
+  position: absolute;
+  top: 13px;
+  left: 12px;
+  font-size: 22px;
+}
+
+.qy_nearby .icon-flag {
+  position: absolute;
+  top: 13px;
+  left: 12px;
+  font-size: 22px;
+}
+
+.qy_nearby .list > a:last-child {
+  border-bottom: none;
+}

@@ -1,0 +1,57 @@
+.qy_medical_insurance_card{
+  .msg_code{
+    padding-right: 100px;
+  }
+  .button_country{
+    background-color: #e6e6e6;
+    color: #101010;
+    border: none;
+    width: 95px;
+    position: absolute;
+    width: inherit;
+    right: 0;
+    line-height: 45px;
+    margin-top: -7px;
+  }
+  .verification-code-five {
+    font-size: 14px;
+    background-color: #e7e7e7;
+    color: #666666;
+    border: none;
+    position: absolute;
+    font-family: Microsoft YaHei;
+    right: 10px;
+    top: 10px;
+    width: initial;
+    height: 30px;
+    border-radius: 2px;
+  }
+  .zx_font_size {
+    font-size: 14px !important;
+  }
+  .send_msg_btn{
+    background-color: #e6e6e6;
+    color: #101010;
+    border: none;
+    position:absolute;
+    right:0;
+    bottom: 0;
+  }
+  .ms_card_div{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 20px;
+  }
+  .ms_card_btn{
+    height: 42px;
+    min-height: 0;
+    line-height: 42px !important;
+    border: 0;
+    border-radius: 4px;
+    background-color: #0F9D58;
+    color: white;
+  }
+  .name_input{
+    background-color: white;
+  }
+}

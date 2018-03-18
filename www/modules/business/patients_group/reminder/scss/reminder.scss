@@ -1,0 +1,502 @@
+.medical_orders_reminder {
+  .line_h10 {
+    height: 10px;
+    line-height: 10px;
+  }
+  .line_h30 {
+    height: 30px;
+    line-height: 30px;
+  }
+  .pad_l_2 {
+    padding-left: 2px;
+  }
+  .pad_td_13 {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  .pad_td_18 {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .send_time {
+    padding-top: 14px;
+    color: #b5b5b5;
+  }
+  .text_c {
+    text-align: center;
+  }
+  .position_absolute {
+    position: absolute;
+  }
+  .rt_name {
+    right: 42px;
+  }
+  .rt_sex {
+    right: 14px;
+  }
+}
+
+.medical_record_reminder {
+  .line_h30 {
+    height: 30px;
+    line-height: 30px;
+  }
+  .line_h10 {
+    height: 10px;
+    line-height: 10px;
+  }
+  .pad_td_13 {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  .pad_td_18 {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .pad_l_2 {
+    padding-left: 2px;
+  }
+  .send_time {
+    padding-top: 14px;
+    color: #b5b5b5;
+  }
+  .text_c {
+    text-align: center;
+  }
+  .position_absolute {
+    position: absolute;
+  }
+  .rt_name {
+    right: 42px;
+  }
+  .rt_sex {
+    right: 14px;
+  }
+}
+
+.report_reminder {
+  .line_h30 {
+    height: 30px;
+    line-height: 30px;
+  }
+  .pad_l_2 {
+    padding-left: 2px;
+  }
+  .pad_td_13 {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  .send_time {
+    padding-top: 14px;
+    color: #b5b5b5;
+  }
+  .report_name {
+    display: inline-block;
+    max-width: 55%;
+  }
+  .report_time {
+    right: 30px;
+    min-width: 102px;
+  }
+  .position_absolute {
+    position: absolute;
+  }
+  .rt_name {
+    right: 42px;
+  }
+  .rt_sex {
+    right: 14px;
+  }
+}
+
+.qy_patients_group_message {
+  .item-complex .item-content, .item-radio .item-content {
+    padding: 10px 0;
+  }
+  .msg_item {
+    p {
+      clear: both;
+      overflow: hidden;
+      font-size: 12px;
+      min-height: 23px;
+      line-height: 23px;
+      white-space: normal;
+    }
+  }
+  .msg_item:last-child {
+    border-bottom: none;
+  }
+  .msg_flag {
+    width: 8px;
+    height: 8px;
+    margin: 11px 8px 11px 0;
+    border-radius: 8px;
+    background-color: #ff0000;
+  }
+  .change_btn {
+    background-color: #e7e7e7;
+  }
+  .delete_btn {
+    background-color: #ff777a;
+  }
+  .logo_img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    margin-top: 6px;
+  }
+}
+
+.qy_disable_send_message {
+  .msgContent {
+    text-indent: 2em;
+    line-height: 30px;
+    text-align: justify;
+  }
+}
+
+.qy_medication_push {
+  .pad_lr_20 {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  h4, h5, p {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+  .lineh_25 {
+    line-height: 25px;
+  }
+  .lineh_30 {
+    line-height: 30px;
+  }
+  .line45 {
+    line-height: 45px;
+    height: 45px;
+  }
+
+  .lineh24 {
+    line-height: 24px;
+  }
+  .lineh40 {
+    line-height: 40px;
+  }
+  .lineh50 {
+    line-height: 50px;
+  }
+  .display_ib {
+    display: inline-block;
+  }
+  .pad_r_14 {
+    padding-right: 14px;
+  }
+  .pad_l_25 {
+    padding-left: 25px;
+  }
+  .pad_td_18 {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .pad_d_13 {
+    padding-bottom: 13px;
+  }
+  .w5e {
+    width: 5em;
+  }
+  .mar_l_5em {
+    margin-left: 5em;
+  }
+  .color_7ea6e8 {
+    color: #7ea6e8;
+  }
+  .position_fixed {
+    position: fixed;
+  }
+  .diagnosis_content_extend {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .diagnosis_content_collapse {
+    position: relative;
+  }
+
+  .medication_content {
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    margin-top: 10px;
+    .content_header {
+      border-bottom: 1px solid #e7e7e7;
+      .content_sub_title {
+        padding-right: 16px;
+      }
+    }
+  }
+  .medicine_name {
+    h5 {
+      margin-left: 5px;
+    }
+  }
+  .warning_tip {
+    span + span {
+      vertical-align: top;
+    }
+  }
+  .height30{
+     height:30px;
+  }
+
+  .consult_doctor{
+    width: 70px;
+    border: 1px solid #5baa8a;
+    border-radius: 2px;
+    display: inline-block;
+    line-height: 28px;
+    right: 0px;
+    top: 10px;
+  }
+
+  .position_absolute{
+    position: absolute;
+  }
+
+  .position_relative{
+    position: relative;
+  }
+
+  .medicine_p{
+    border-top: 1px solid #eee;
+    height: 50px;
+    margin-top: 10px;
+  }
+
+
+}
+
+.qy_treatment_plan {
+
+  .w30_h30 {
+    width: 30px;
+    height: 30px;
+  }
+  .top10 {
+    top: 10px;
+  }
+  .mar-t-3 {
+    margin-top: 3px;
+  }
+  .mar-top-16 {
+    margin-top: 16px;
+  }
+  .mar-top-70 {
+    margin-top: 70px;
+  }
+  .mar-top-26 {
+    margin-top: 26px;
+  }
+  .mar-top-30 {
+    margin-top: 30px;
+  }
+  .mar-top-20 {
+    margin-top: 20px;
+  }
+  .mar-top-25 {
+    margin-top: 25px;
+  }
+  .mar-top-27 {
+    margin-top: 27px;
+  }
+  .mar-top-50 {
+    margin-top: 50px;
+  }
+  .mar-top--66 {
+    margin-top: -66px;
+  }
+  .mar-bottom-27 {
+    margin-bottom: 27px;
+  }
+  .mar-bottom-20 {
+    margin-bottom: 20px;
+  }
+  .clear {
+    clear: both;
+  }
+  .width16 {
+    width: 16px;
+  }
+  .width1 {
+    width: 1px;
+  }
+  .mar-l--6 {
+    margin-left: -6px;
+  }
+  .height_10 {
+    height: 10px;
+  }
+  .height_20 {
+    height: 20px;
+  }
+  .height_25 {
+    height: 25px;
+  }
+  .height_26 {
+    height: 26px;
+  }
+  .height_30 {
+    height: 30px;
+  }
+  .height_36 {
+    height: 36px;
+  }
+  .height_40 {
+    height: 40px;
+  }
+  .font4 {
+    font-size: 4px;
+  }
+  .font36 {
+    font-size: 36px;
+  }
+  .pad-l-30 {
+    padding-left: 30px;
+  }
+  .pad-t-33 {
+    padding-top: 53px;
+  }
+  .width30 {
+    width: 30px;
+  }
+  .height30 {
+    height: 30px;
+  }
+  .height100 {
+    height: 100px;
+  }
+  .width100 {
+    width: 100%;
+  }
+  .width78 {
+    width: 78px;
+  }
+  .position_r {
+    position: relative;
+  }
+  .display-block {
+    display: block;
+  }
+  .disease_img {
+    margin: 25px 14px;
+    width: 50px;
+    height: 50px;
+  }
+  .disease_span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 16px;
+    color: #333333;
+    padding-top: 16px;
+  }
+  .hospital {
+    display: block;
+    font-size: 13px;
+    color: #999999;
+  }
+  .creator {
+    display: block;
+    font-size: 14px;
+    color: #999999;
+    padding-top: 10px;
+  }
+  .creator_detail {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    position: absolute;
+    padding-left: 4px;
+  }
+  .treat_ment_div {
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+  }
+  .treatment {
+    width: 3px;
+    height: 30px;
+    margin-top: 10px;
+    background-color: #5ABB8A;
+    float: left;
+    position: relative;
+  }
+  .treatment_line {
+    line-height: 50px;
+    font-size: 16px;
+    color: #333333;
+  }
+  .mar-t-1 {
+    margin-top: 1px;
+  }
+  .mar-l-78 {
+    margin-left: 78px;
+  }
+  .duty {
+    margin-top: 22px;
+    margin-left: 24px;
+    margin-right: 14px;
+  }
+  .duty_detail {
+    border-left: 2px solid #e7e7e7;
+    margin-left: 24px;
+    margin-right: 14px;
+  }
+  .icon_record_l {
+    width: 9px;
+    height: 9px;
+    background: #5ABB8A;
+    left: -4px;
+    top: 5px;
+  }
+  .icon_record_s {
+    width: 6px;
+    height: 6px;
+    background: #CCCCCC;
+    left: -4px;
+    top: 7px;
+  }
+  .icon_record_o {
+    width: 6px;
+    height: 6px;
+    background: #ff9900;
+    left: -4px;
+    top: 7px;
+  }
+
+  .left_time {
+    font-size: 14px;
+    float: left;
+  }
+  .left_time i {
+    display: block;
+    border-radius: 50%;
+    position: relative;
+  }
+  .mar-l-24 {
+    margin-left: 24px;
+  }
+  .lineh24 {
+    line-height: 24px;
+  }
+  .pad-t-10-impormant{
+    padding-top: 10px !important;
+  }
+  .mar-l-9{
+    margin-left: 9px;
+  }
+  .pad-l-4 {
+    padding-left: 4px;
+  }
+
+}

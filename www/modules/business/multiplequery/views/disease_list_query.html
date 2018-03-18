@@ -1,0 +1,12 @@
+<!--疾病列表-->
+<ion-view class="disease_list" >
+    <ion-content  has-bouncing="true" padding="false" class="has-header" >
+        <ul class="list-a " style="padding-left: 5px;">
+            <li  ng-repeat="disease in diseaseList" class="item" ng-bind-html="disease.showText|kyee_to_html" ng-click="goTodiseaseInfo(disease)" >
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>
+<!--症状列表-->
+
+

@@ -1,0 +1,26 @@
+<div class="consultation_status f12 qy-bg-white">
+    <div style="padding-top: 16px;padding-bottom: 6px" class="framework_flex" ng-class="statusData[4]?'pad_lr_20':'pad_lr_35'">
+        <i ng-if="statusData[0]"
+           ng-class="{'icon-completion qy-green' :1<currentStatusCode,'icon-current-flow-one qy-green':1==currentStatusCode,'icon-flow-one qy-grey4':1>currentStatusCode}"></i>
+        <div ng-if="statusData[1]" class="framework_flex_auto" style="height: 1px;"
+             ng-class="2<=currentStatusCode?'qy-bg-green':'qy-bg-grey4'"></div>
+        <i ng-if="statusData[1]"
+           ng-class="{'icon-completion qy-green' :2<currentStatusCode,'icon-current-flow-two qy-green':2==currentStatusCode,'icon-flow-two qy-grey4':2>currentStatusCode}"></i>
+        <div ng-if="statusData[2]" class="framework_flex_auto" style="height: 1px;"
+             ng-class="3<=currentStatusCode?'qy-bg-green':'qy-bg-grey4'"></div>
+        <i ng-if="statusData[2]"
+           ng-class="{'icon-completion qy-green' :3<currentStatusCode,'icon-current-flow-three qy-green':3==currentStatusCode,'icon-flow-three qy-grey4':3>currentStatusCode}"></i>
+        <div ng-if="statusData[3]" class="framework_flex_auto" style="height: 1px;"
+             ng-class="4<=currentStatusCode?'qy-bg-green':'qy-bg-grey4'"></div>
+        <i ng-if="statusData[3]"
+           ng-class="{'icon-completion qy-green' :4<currentStatusCode,'icon-current-flow-four qy-green':4==currentStatusCode,'icon-flow-four qy-grey4':4>currentStatusCode}"></i>
+        <div ng-if="statusData[4]" class="framework_flex_auto" style="height: 1px;"
+             ng-class="5<=currentStatusCode?'qy-bg-green':'qy-bg-grey4'"></div>
+        <i ng-if="statusData[4]"
+           ng-class="{'icon-completion qy-green' :5<currentStatusCode,'icon-current-flow-five qy-green':5==currentStatusCode,'icon-flow-five qy-grey4':5>currentStatusCode}"></i>
+    </div>
+    <div style="padding-top: 0;padding-bottom: 12px;" class="framework_flex framework_flex_space_between"
+         ng-class="statusData[4]?'pad_lr_10':'pad_lr_25'">
+        <span ng-repeat="status in statusData" ng-class="status.statusCode<=currentStatusCode?'qy-green':'qy-grey4'">{{status.statusName}}</span>
+    </div>
+</div>

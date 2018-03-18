@@ -1,0 +1,33 @@
+<ion-view class="qy_price price_medical_detail ">
+    <ion-nav-bar class="qy-header" align-title="center">
+
+        <ion-nav-title>
+            <span kyee-i18n-directive code="smartGuide" default="智能导诊"></span>
+        </ion-nav-title>
+
+    </ion-nav-bar>
+
+    <ion-content padding="false" class="has-header qy-bg-grey1" ng-class="{'isIos':DEVICE_IOS}">
+        <div class="guideList">
+            <ul class="border-t bgWhite">
+                <li class="border-d" ng-click="goOnlineQuery()" ng-class="{bgActive:state == 1}" kyee-operation-monitor-directive="homeWeb">
+                    <img src="resource/images/intelligentGuide/guide.png">
+                    <div class="guide-text">
+                        <div class="guide-text-title" kyee-i18n-directive>护士导诊</div>
+                        <div class="guide-text-descrip" kyee-i18n-directive>导诊 / 挂号咨询</div>
+                    </div>
+                    <div class="icon-arrow_right arrow-icon"></div>
+                </li>
+                <li class="border-d" ng-click="selfCheck()" ng-class="{bgActive:state == 2}" kyee-operation-monitor-directive="triageMain">
+                    <img src="resource/images/intelligentGuide/self_check.png">
+                    <div class="guide-text">
+                        <div class="guide-text-title" kyee-i18n-directive>症状自查</div>
+                        <div class="guide-text-descrip" kyee-i18n-directive>初步判断疾病</div>
+                    </div>
+                    <div class="icon-arrow_right arrow-icon"></div>
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,69 @@
+<ion-view class="qy_personal_setting">
+
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button ng-click="goBack();"></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="personalSetting" default="个人设置"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2 f14">
+        <div class="personal_setup mar-t-10 border-td qy-bg-white">
+            <div class="row line70">
+                <div class="item col mar-l-14 border-b" kyee-operation-monitor-directive="clickUpload"
+                     ng-click="clickUpload()">
+                    <span kyee-i18n-directive code="account" default="头像"></span>
+                    <img class="fl-l position-a r14 mar-td-10"
+                         ng-if="userInfo.patientImage == '' || null == userInfo.patientImage"
+                         ng-src="{{userInfo.sex == '2' ?
+                                 'resource/images/patients_group/user_female.png':
+                                 'resource/images/patients_group/user_male.png'}} "/>
+                    <img class="fl-l position-a r14 mar-td-10" ng-if="userInfo.patientImage"
+                         ng-src="{{userInfo.patientImage ? userInfo.patientImage:
+                                 'resource/images/patients_group/user_male.png'}} "
+                         onerror="javascript:this.src='resource/images/patients_group/user_male.png'"/>
+                </div>
+            </div>
+            <div class="row line50">
+                <div class="item col mar-l-14 border-b" ng-click="goModifyPersonalName()">
+                    <span kyee-i18n-directive code="message" default="我的昵称"></span>
+                    <input type="text" ng-model="userInfo.nickName" placeholder={{placeholder.nickNameText}}
+                           maxlength="10" ng-readonly="true" id="personalName"
+                           class="nickName w70 max-w65 text-ellipsis position-a r30 mar-tb-8 ta-r color_9"/>
+                    <span class="pad-l-10 ico ion-chevron-right position-a r14 qy-grey4"></span>
+                </div>
+            </div>
+            <div class="row line50">
+                <div class="item col mar-l-14 border-b" ng-click="editAddress()">
+                    <span kyee-i18n-directive code="location" default="我的地址"></span>
+                    <input type="text" readonly="true" onfocus="this.blur()" unselectable="on" ng-model="userInfo.userRegion"
+                           placeholder={{placeholder.addressText}} ng-class="{'qy-color': !showSubmitBtn}"
+                           class="nickName max-w65 text-ellipsis position-a r40 mar-tb-8 ta-r">
+                    <span class="qy-color position-a r14 ion-edit pad-l-10"></span>
+                </div>
+            </div>
+            <div class="row line50">
+                <div class="item col mar-l-14 border-b">
+                    <span kyee-i18n-directive code="phone" default="手机号码"></span>
+                    <span class="position-a r14">{{userInfo.phoneNum}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row qy-bg-white line50 border-td mar-t-10" ng-click="clearChatData()">
+            <div class="pad-b-14">
+                <span kyee-i18n-directive code="clearCache" default="清除本地缓存"></span>
+            </div>
+        </div> -->
+        <div class="pad-b-14 mar-t-20 line_36">
+            <button ng-if="showSubmitBtn" ng-click="modifyPersonalInfo()"
+                    class="button button-block button-size-l"
+                    kyee-i18n-directive code="submit" default="提交">
+            </button>
+        </div>
+    </ion-content>
+
+    <div kyee-area-picker-directive allow="allow" mode="PCA" bind="bind(params)"
+         title="" on-select-finash="onFinash(params)"></div>
+
+</ion-view>

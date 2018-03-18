@@ -1,0 +1,16 @@
+{
+  "sourcePath": "/home/hplus/www",
+  "destinationPath": "/home/hplus/www2",
+  "deleteSuffix": [".js",".scss",".css",".map"],
+  "directoryWhiteList": [
+    "/include",
+    "/resource/locale"
+  ],
+  "fileWhiteList": [
+    "/build/js/kyee.build.all.js",
+    "/build/scss/base.css",
+    "/resource/scss/fonts/font.css",
+    "/resource/js_framework/ionic/css/ionic.min.css",
+    "/build/js/framework/framework.all.min.js"
+  ]
+}

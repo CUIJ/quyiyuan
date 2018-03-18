@@ -1,0 +1,46 @@
+<div class="qy_paid_detail">
+    <div class="ta-c f14">
+        {{paidDetail.ITEM_NAME}}
+        <!--<i class="icon icon-icon_2 icon_flo qy-red f16 fl-r" ng-click="closeDialog()"></i>-->
+    </div>
+
+    <ul class="fl-c ovf-h border-t-dash mar-t-10 pad-td-20" ng-style="{'width': (KyeeEnv.innerSize.width-56)+'px'}">
+        <li ng-if="paidDetail.INSUR_CLASS" class="row pad-d-5">
+            <div class="wd_100">
+                <span kyee-i18n-directive code="detailInsurClass" default="医保类别："></span>
+                {{paidDetail.INSUR_CLASS}}
+            </div>
+        </li>
+        <li ng-if="paidDetail.MYSELF_SCALE" class="row pad-d-5">
+            <div class="wd_100">
+                <span kyee-i18n-directive code="detailMyselfScale" default="自负比例："></span>
+                {{(paidDetail.MYSELF_SCALE)*100+'%'}}
+            </div>
+        </li>
+        <li ng-if="paidDetail.ITEM_AMOUNT" class="row pad-d-5">
+            <div class="wd_100">
+                <span kyee-i18n-directive code="detailItemAmount" default="数量："></span>
+                {{convertMoney(paidDetail.ITEM_AMOUNT)}}
+            </div>
+        </li>
+        <li ng-if="paidDetail.ITEM_UNITS" class="row pad-d-5">
+            <div class="wd_100">
+                <span kyee-i18n-directive code="detailItemUnits" default="单位："></span>
+                {{paidDetail.ITEM_UNITS}}
+            </div>
+        </li>
+        <li ng-if="paidDetail.ITEM_SPEC" class="row pad-d-5">
+            <div class="wd_100">
+                <span kyee-i18n-directive code="detailItemSpec" default="规格："></span>
+                {{paidDetail.ITEM_SPEC}}
+            </div>
+        </li>
+        <li ng-if="paidDetail.ITEM_PRICE" class="row pad-d-5">
+            <div class="wd_100">
+                <span kyee-i18n-directive code="detailItemPrice" default="单价："></span>
+                {{'¥ '+convertMoney(paidDetail.ITEM_PRICE)}}
+            </div>
+        </li>
+    </ul>
+
+</div>

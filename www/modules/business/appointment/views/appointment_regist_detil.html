@@ -1,0 +1,489 @@
+<ion-view  cache-view="false" class="qy_appointment_detil qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive  code="appoinDetilTitle" default="预约挂号详情" ng-if="!isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+            <span  kyee-i18n-directive  code="appoinDetilTitleReferral" default="转诊详情" ng-if="!isConsulotion && appointDetil.IS_REFERRAL=='2'"></span>
+            <span  kyee-i18n-directive  code="appoinDetilTitleReferral" default="会诊预约详情" ng-if="isConsulotion"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="appointDetil.DELET_FLAG==1" class="button button-clear txt qy-fff"
+                kyee-action-holder-directive="delete"  ng-click="KAH($event) || delete(appointDetil)">
+                <span kyee-i18n-directive  code="delete" default="删除"></span>
+            </a>
+            <a ng-if="appointDetil.DELET_FLAG==0 "  class="button button-clear" ng-click="openRightMenu('appointment_regist_detil')" kyee-operation-monitor-directive="appointment_regist_detil">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <div ng-if="empt" class="empty-text" style="padding-top: 60%;">
+        <i class="icon-icon_3 empty-icon"></i>
+        <span kyee-i18n-directive  code="deletedRecord" default="该记录已删除"></span>
+        {{dataDetail}}
+    </div>
+
+    <ion-content  has-bouncing="true"  ng-class="{'has-footer': hasFooter()}" delegate-handle="appointment_detail" >
+        <!--预约状态-->
+        <div ng-if="!empt&&appointDetil!=null&&appointDetil!=''&&appointDetil!=undefined">
+            <div ng-switch="STATUS_FLAG" class="has_head">
+                <div ng-switch-when="0" class="qy-green pad-b-14  ta-c border-d status">
+                    <i class="f28 icon-processing pad-r-10 " style="position: relative; top: 2px"></i>
+                    <span class="fw-500 f16 status_type_position">{{STATUS_TYPE}}</span>
+                </div>
+                <div ng-switch-when="1" class="qy-green pad-b-14  ta-c border-d status">
+                    <i class="f28 icon-choose pad-r-10"></i>
+                    <span class="fw-500 f16 status_type_position">{{STATUS_TYPE}}{{statusTypePlus}}</span>
+                </div>
+                <div ng-switch-when="2" class="qy-red pad-b-14  ta-c border-d status">
+                    <i class="f28 icon-icon_6 pad-r-10"></i>
+                    <span class="fw-500 f16 status_type_position">{{STATUS_TYPE}}</span>
+                </div>
+                <div ng-switch-when="3" class="qy-green pad-b-14  ta-c border-d status">
+                    <i class="f28 icon-processing pad-r-10" style="position: relative; top: 2px"></i>
+                    <span class="fw-500 f16 status_type_position">{{STATUS_TYPE}}</span>
+                </div>
+                <div ng-switch-when="-1" class="qy-green pad-b-14  ta-c border-d status">
+                    <i class="f28 icon-processing mar-r-10"></i>
+                    <span class="fw-500 mar-r-10 f16 status_type_position">{{STATUS_TYPE}}</span>
+                </div>
+            </div>
+
+            <div class="border-d">
+                <div class="qy-bg-white pad_d_10 border-d">
+                    <ul class="pad-d-10 pad-r-14 border-d pad-t-10"  ng-if="SHOW_REFERAL_HOSPITAL">
+                        <li class="line_30 " style="position: relative;">
+                            <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+                                <img class="appointment_deatail_hospoital"
+                                     ng-src="{{appointDetil.REFERRAL_LOGO_PHOTO?appointDetil.REFERRAL_LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                                <div class="text-ellipsis">{{appointDetil.REFERRAL_HOSPITAL_NAME}}</div>
+                            </div>
+                            <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+                                <img class="appointment_deatail_hospoital"
+                                     ng-src="{{appointDetil.LOGO_PHOTO?appointDetil.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                                <div class="text-ellipsis">{{appointDetil.HOSPITAL_NAME}}</div>
+                            </div>
+                            <div class="icon icon-referrals qy-green" style="position: absolute;right: 0px;top:22px;font-size: 18px"></div>
+                        </li>
+                    </ul>
+
+                    <!--就诊医院和医生详细信息-->
+                    <ul class="pad-d-5 pad-r-14 pad-t-10">
+                        <li class="row line_30 " style="position: relative;">
+                            <span class="f14 fixed_width1" kyee-i18n-directive   code="hospitalName" default="就诊医院：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+                            <span class="f14 fixed_width1" kyee-i18n-directive   code="hospitalNameReferral" default="转诊医院：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL=='2'"></span>
+                            <span class="f14 fixed_width1" kyee-i18n-directive   code="consulotionHospitalName" default="会诊医院：" ng-if="isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+
+                            <span class="f14 pad-r-10 qy_hospital mar-l-16" style="max-width:{{(KyeeEnv.innerSize.width-28)-(KyeeEnv.innerSize.width)*0.35+'px'}};">{{appointDetil.HOSPITAL_NAME}}</span>
+                            <span class="icon-direction appointment-ion f16 qy-green" style="font-size: 20px; position: relative;top: 3px;"  ng-if="showOutMap" ng-click="goToHospitalLocat()"></span>
+                        </li>
+                        <li class="row line_30" style="position: relative;">
+                            <span class="f14 fixed_width1"  kyee-i18n-directive   code="deptName" default="就诊科室：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+                            <span class="f14 fixed_width1"  kyee-i18n-directive   code="deptNameReferral" default="转诊科室：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL=='2'"></span>
+                            <span class="f14 fixed_width1"  kyee-i18n-directive   code="consulotioneptName" default="会诊科室：" ng-if="isConsulotion && appointDetil.IS_REFERRAL != '2'"></span>
+
+                            <div class="col mar-l-16">
+                            <span class="f14 pad-r-10">{{appointDetil.DEPT_NAME}}</span>
+                            <span class="qy-grey5 f14">{{appointDetil.ROUTE}}</span>
+                            <span class="icon-location appointment-ion f16 qy-green ta-c" style="font-size: 20px; position: relative;top: 3px;" ng-click="goToDeptLocat()" ng-if="showNavigation"></span>
+                            </div>
+                        </li>
+                        <li ng-if="!isShowConsult" class="row line_30" style="display: block; position:relative;">
+                            <span class="f14 fixed_width1"  kyee-i18n-directive  code="doctorName" default="就诊医生：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+                            <span class="f14 fixed_width1"  kyee-i18n-directive  code="doctorNameReferral" default="转诊医生：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL=='2'"></span>
+                            <span class="f14 fixed_width1"  kyee-i18n-directive code="consulotionDoctorName" default="会诊医生：" ng-if="isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+
+                            <span class="f14" style="margin-left: 12px">{{appointDetil.DOCTOR_NAME}}</span>
+                        </li>
+                        <li class="row line_30" ng-if="appointDetil.SIGN_TYPE == 1" >
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="visitLocation" default="就诊诊室："></span>
+                            <span class="f14 mar-l-16">{{appointDetil.VISIT_INFO}}</span>
+                        </li>
+                        <li class="row line_30"  ng-if="appointDetil.IS_REFERRAL=='2'">
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="referralStyle" default="转诊类型："></span>
+                            <span class="col qy-grey6 f14 mar-l-16" >门诊转诊</span>
+                        </li>
+                        <li class="row line_30" >
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="visitSite" default="就诊时间：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="visitSiteReferral" default="转诊时间：" ng-if="!isConsulotion && appointDetil.IS_REFERRAL=='2'"></span>
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="consulotionvisitSite" default="会诊时间：" ng-if="isConsulotion && appointDetil.IS_REFERRAL != '2'"></span>
+
+                            <span class="col qy-grey6 f14 mar-l-16" >{{REG_DATE_TIME}}</span>
+                        </li>
+                    </ul>
+                   <!-- 挂号费用和活动详细信息-->
+                    <ul class="border-t pad-t-5 pad-r-14" ng-if="showFee == 1 || appointDetil.IS_SHOW_PAYSTATUS == 1 || appointDetil.IS_SHOW_RISK_MSG || (appointDetil.FLAG!=3 && appointDetil.FLAG!=undefined)
+                     || IS_SHOW_PROVE==1 || IS_SHOW_VISIT_NO==1 || IS_SHOW_BUTTON==1||SHOW_TEL_REGIST_PAY!='0'||SHOW_TEL_APPOINT_PAY!=0||(IS_SHOW_PROVE==1 && appointDetil.IS_SHOW_HOSPITAL_PAY=='0')||(appointDetil.IS_SHOW_HOSPITAL_PAY=='1' && appointDetil.IS_SER_HAS_CONTENT=='1')">
+
+                        <li ng-if="isSupportMerge==0&&(showFee == 1 && appointDetil.EXPENSE_DETAIL) && appointDetil.EXPENSE_DETAIL" class="row line_30">
+                            <span class="f14 fixed_width1" span kyee-i18n-directive code="payAmount" default="{{Fee_Name}}">{{Fee_Name}}</span>
+                            <span class="f14 qy-green pad-r-10 fw-b mar-l-16">{{AMOUNT}}</span>
+                            <span class="icon-icon_1 appointment-ion ta-c qy-green" style="font-size: 20px; position: relative;top: 3px;" ng-if="appointDetil.IS_SHOW_FEE_DETAIL==1 && appointDetil.EXPENSE_DETAIL.length == 0"
+                                  ng-click="showRegistCostMsg()"></span>
+                        </li>
+                        <li ng-if="(showFee == 1 && appointDetil.EXPENSE_DETAIL) && appointDetil.EXPENSE_DETAIL.length != 0">
+                            <div class="pad-td-10 pad-b-14 qy-bg-grey1">
+                                <!-- <div ng-repeat="col in rows" class="doctorcol ">-->
+                                <ul class=""  ng-repeat="fee in appointDetil.EXPENSE_DETAIL" ng-class="">
+                                    <li style="position:relative">
+                                        <span class="f14 fixed_width1 mar_l_15">{{fee.feedesc}}：</span>
+                                    <span style="position:absolute; right:0px; width:50%">
+                                        <span class="f14 qy-deepblue mar_l_20">¥{{fee.fee}}</span>
+                                    </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li ng-if="isSupportMerge==0&&(showFee == 1 && !appointDetil.EXPENSE_DETAIL)" class="row line_30">
+                            <span class="f14 fixed_width1"  kyee-i18n-directive  ng-if="!isConsulotion && FeeType == 0" code="amount" default="挂号费用："></span>
+                            <span class="f14 fixed_width1"  kyee-i18n-directive ng-if="isConsulotion && FeeType == 0" code="consulotionAmount" default="会诊费用："></span>
+                            <span class="f14 fixed_width1 min-w70" ng-if="FeeType == 1">{{REG_NAME_REPLACE}}</span>
+                            <span class="f14 qy-green pad-r-10 fw-b mar-l-16">{{AMOUNT}}</span>
+                            <span class="icon-icon_1 appointment-ion ta-c qy-green" style="font-size: 20px; position: relative;top: 3px;" ng-if="appointDetil.IS_SHOW_FEE_DETAIL==1"
+                                   ng-click="showRegistCostMsg()"></span>
+                        </li>
+                        <li class="row line_30" ng-if="appointDetil.IS_SHOW_PAYSTATUS == 1" ng-click="goToRefund(appointDetil)" style="display: block; position:relative;">
+                            <span class="f14 fixed_width1"  kyee-i18n-directive  code="payStatus" default="支付状态："></span>
+                            <span class="f14 mar-l-12" ng-class="{'qy-green':appointDetil.PAY_STATUS==4||appointDetil.PAY_STATUS==5}">{{appointDetil.PAYSTATUS}}</span>
+                            <span class=""  ng-if="appointDetil.PAY_STATUS==4||appointDetil.PAY_STATUS==5">
+                                <i class="ico ion-chevron-right qy-grey5 card_sel_new" style="top: 0; right: 0"></i>
+                            </span>
+                        </li>
+                        <li class="row line_30" ng-if="appointDetil.IS_SHOW_RISK_MSG" style="display: block; position:relative;">
+                            <span class="f14 fixed_width1"  kyee-i18n-directive  code="visitSecurity" default="就医保障："></span>
+                            <span class="f14 mar-l-16">{{appointDetil.RISK_MSG}}</span>
+                           <span class="" ng-click="goToRiskMsg()">
+                            <a  style="position: absolute; right: 10px;" kyee-i18n-directive  code="goQuery" default="查看"> </a>
+                            <i class="ico ion-chevron-right ta-r qy-grey5 card_sel_new" style="top: 0; right: 0"></i>
+                           </span>
+                        </li>
+                        <li class="row line_30" ng-if="appointDetil.FLAG!=3 && appointDetil.FLAG!=undefined" >
+                            <span class="f14 fixed_width1"  kyee-i18n-directive  code="active" default="活动："></span>
+                            <div class="activity_msg_button" style="background-color:{{buttonColor}};margin-left: 34px;">{{appointDetil.ACTIVITY_MSG}}
+                                <i class="inner-circle-l"></i>
+                                <i class="inner-circle-r"></i>
+                            </div>
+                        </li>
+                        <li class="row line_30" ng-if="IS_SHOW_PROVE==1 && appointDetil.IS_SHOW_HOSPITAL_PAY=='0'">
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="paymentVoucher" default="缴费凭证："></span>
+                            <span class="f14 mar-l-16">{{appointDetil.HIS_ORDER_NO}}</span>
+                        </li>
+                        <li class="row line_30" ng-if="appointDetil.IS_SHOW_HOSPITAL_PAY=='1' && appointDetil.IS_SER_HAS_CONTENT=='1'">
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="paymentVoucher" default="缴费凭证："></span>
+                            <span class="f14 mar-l-16">{{appointDetil.SER_NO}}</span>
+                        </li>
+                        <li class="row line_30" ng-if="IS_SHOW_VISIT_NO==1">
+                            <span class="f14 fixed_width1" kyee-i18n-directive  code="visitNo" default="就诊序号："></span>
+                            <span class="f14 mar-l-16">{{appointDetil.VISIT_NO}}</span>
+                        </li>
+                        <li class="row line_30" ng-if="IS_SHOW_BUTTON==1">
+                            <span class="f14 fixed_width1" >{{APY_CHANGE_NAME}}</span>
+                            <span class="f14" ng-class="{'mar-l-5':IS_COUNT_DOWN == 1,'mar-l-16':IS_COUNT_DOWN == 0}" ng-bind-html="BUTTON_NAME|kyee_to_html"></span>
+                        </li>
+                        <li class="row line_30" ng-if="SHOW_TEL_REGIST_PAY!='0'||SHOW_TEL_APPOINT_PAY!=0">
+                            <span class="f14 fixed_width1" >可支付时间</span>
+                            <span class="f14" ng-class="{'mar-l-5':IS_COUNT_DOWN == 1,'mar-l-16':IS_COUNT_DOWN == 0}" ng-bind-html="appointDetil.TEL_PAY_TIME|kyee_to_html"></span>
+                        </li>
+                    </ul>
+                </div>
+            <!--就诊指导-->
+            <!--<div  ng-if="!typeMsgNotHidden" class="list margin_bottom_list pad-b-14 see_doctor_color mar-d-10">
+                <div class="ta-c f14 visit_name" kyee-i18n-directive  code="careInfo" default="就诊提醒"></div>
+                <div  class="qy-grey6 visit_msg" ng-bind-html="appointDetilMSG|kyee_to_html" id="appointDetilMSG"></div>
+            </div>-->
+
+            <!-- 诊后咨询 -->
+            <div ng-if="isShowConsult && canClickConsult" class="clearfix mar-b-14 mar-t-10 border-td border-l border-r qy-bg-white after_consulting">
+            	<span class="qy-grey7 f18 fl-l">{{appointDetil.DOCTOR_NAME}}</span>
+            	<span ng-if="!isConsulotion && appointDetil.IS_REFERRAL!='2'" class="fl-l f12 qy-deepblue mar-l-12" kyee-i18n-directive code="clinicDoctor" default="就诊医生"></span>
+            	<span ng-if="!isConsulotion && appointDetil.IS_REFERRAL=='2'" class="fl-l f12 qy-deepblue mar-l-12" kyee-i18n-directive code="referralDoctor" default="转诊医生"></span>
+                <span ng-if="isConsulotion && appointDetil.IS_REFERRAL!='2'" class="fl-l f12 qy-deepblue mar-l-12" kyee-i18n-directive code="consulotionDoctorName" default="会诊医生"></span>
+
+                <div class="fl-r pad-r-10">
+            		<!--<span ng-click="goToChatWithDoctor()" class="inline f14 text-center consulting_btn" ng-class="{'qy-bg-green qy-fff': canClickConsult, 'qy-grey4 qy-bg-grey2': canNotClickConsult}" kyee-i18n-directive code="consult" default="诊后咨询"></span>-->
+                    <span ng-click="goToConsultNewDoctor(appointDetil)" class="inline f14 text-center consulting_btn" ng-class="{'qy-bg-green qy-fff': canClickConsult, 'qy-grey4 qy-bg-grey2': canNotClickConsult}" kyee-i18n-directive code="consult" default="咨询"></span>
+            	</div>
+            </div>
+
+            <!--就诊人详细信息-->
+            <ul class="pad-box-14 mar-t-10  border-t qy-bg-white pad-l-14 after_consulting">
+                <li class="row line_30 " >
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="patient" default="就诊人："ng-if="!isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="patientReferral" default="转诊患者："ng-if="!isConsulotion && appointDetil.IS_REFERRAL=='2'"></span>
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="consulotionPatient" default="会诊患者：" ng-if="isConsulotion && appointDetil.IS_REFERRAL!='2'"></span>
+
+                    <span class="f14 patient"  ng-class="{'mar-l-16':appointDetil.IS_REFERRAL=='2' || isConsulotion,'mar_l_30':appointDetil.IS_REFERRAL!='2' && !isConsulotion}">{{appointDetil.PATIENT_NAME}}</span>
+                </li>
+                <li class="row line_30" ng-if="appointDetil.IS_SHOW_CARD&&!SHOW_SELECT_CARD" >
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="cardNo" default="就诊卡号："></span>
+                    <span class="f14 mar-l-16">{{appointDetil.CARD_NO}}</span>
+                </li>
+                <div ng-show="appointDetil.IS_SHOW_CARD&&SHOW_SELECT_CARD" class=" row line_30"style="    position: relative;">
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="cardNo" default="就诊卡号："></span>
+                    <input ng-readonly="trueOrfalse()" style="padding-right: 5px;margin-left: 16px;background: #fff;width: 65%;max-height: 30px;line-height: 30px;" ng-class="{'canWrite':!trueOrfalse()}" type="text" ng-model="patientCard.CARD_SHOW"
+                           placeholder="{{placeholder}}" autocomplete="off" ng-change="inputCardNo()" class="">
+                    <i class="icon icon-icon_3 qy-green" style=" font-size: 18px;right: 50px;position: absolute;top: 5px;" ng-click="showChardNoInf()"></i>
+                    <div style="position: absolute;right: 0px;" ng-click="showpatientCardNo()">
+                        <a  kyee-i18n-directive  code="choose2" default="选择"></a>
+                        <i class="ico ion-chevron-right qy-grey5"></i>
+                    </div>
+                </div>
+                <li class="row line_30" ng-if="appointDetil.CARD_NO!=appointDetil.PATIENT_ID">
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="patientNum" default="病人编号："></span>
+                    <span class="f14 mar-l-16">{{appointDetil.PATIENT_ID}}</span>
+                </li>
+                <li class="row line_30" ng-if="!BIRTH_NUMBER_SWITCH" >
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="idNo" default="身份证号："></span>
+                    <span class="f14 mar-l-16">{{ID_NO_STAR}}</span>
+                </li>
+                <li class="row line_30" ng-if="BIRTH_NUMBER_SWITCH">
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="birthCertificateNo" default="出生证号："></span>
+                    <span class="f14 mar-l-16">{{BIRTH_CERTIFICATE_NO}}</span>
+                </li>
+                <li class="row line_30">
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="phone" default="手机号码："></span>
+                    <span class="f14 mar-l-16">{{PHONE_NUMBER}}</span>
+                </li>
+            </ul>
+            </div>
+            <!-- 就诊提醒-->
+           <!-- <dl ng-switch="STATUS_FLAG" ng-if="!typeMsgNotHidden || IS_SHOW_HANDLE_MESSAGE==1">-->
+          	<dl ng-switch="STATUS_FLAG">
+                <div ng-switch-when="1" class="pad-b-14 pad-t-15" ng-if="!typeMsgNotHidden">
+                    <dt class="f14 pad-d-10 qy-grey7">{{WARMING}}</dt>
+                    <dd class="quhao_information fn-break" >
+                        <span  class="col f14 detail_msg" style="word-break: break-all;" ng-bind-html="appointDetilMSG|kyee_to_html" id="appointDetilMSG"></span>
+                    </dd>
+                </div>
+                <div ng-switch-when="2" class="pad-b-14 pad-t-15" ng-if="IS_SHOW_HANDLE_MESSAGE==1">
+                    <dt class="f14 pad-d-10 qy-grey7">{{WARMING}}</dt>
+                    <dd class="quhao_information fn-break" >
+                        <span class="col f14 detail_msg" style="word-break: break-all;" id="WARN_MSG">{{WARN_MSG}}</span>
+                       <!-- <p class="col f14 detail_msg"  style="margin-bottom: 0;word-break: break-all;">
+                            <span ng-if="IS_SHOW_HANDLE_MESSAGE==1" id="WARN_MSG">{{WARN_MSG}}</span>
+                        </p>-->
+                    </dd>
+                </div>
+            </dl>
+            <!--收货地址-->
+            <ul class="pad-box-14 mar-t-10  border-td qy-bg-white pad-l-14" ng-if="appointDetil.IS_ONLINE==1">
+                <li class="row line_30" >
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="consignee" default="收货人："></span>
+                    <span class="f14" style="margin-left: 34px;">{{appointDetil.NAME}}</span>
+                </li>
+                <li class="row line_30">
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="phoneNum" default="联系电话："></span>
+                    <span class="f14 mar-l-16">{{appointDetil.PHONE}}</span>
+                </li>
+                <li class="row line_30">
+                    <span class="f14 fixed_width1"  kyee-i18n-directive  code="deliveryAddress" default="配送地址："></span>
+                    <span class="f14 col text-ellipsis pad-r-1 mar-l-16">{{appointDetil.ADDRESS}}</span>
+                </li>
+            </ul>
+            <div class="record-date pad-t-10">
+                <div ng-if="appointDetil.TRADE_ORDER_NO">
+                    <span  kyee-i18n-directive  code="qyOrderNo" default="趣医订单号："></span>
+                    <span>{{appointDetil.TRADE_ORDER_NO}}</span>
+                </div>
+                <div ng-if="appointDetil.HIS_ORDER_NO && appointDetil.IS_SHOW_SER_NO == '0'">
+                    <span  kyee-i18n-directive  code="hyOrderNo" default="医院订单号："></span>
+                    <span>{{appointDetil.HIS_ORDER_NO}}</span>
+                </div>
+                <div ng-if="appointDetil.APPT_MADE_DATE">
+                    <span  kyee-i18n-directive  code="qyAppDate" default="下单时间："></span>
+                    <span>{{appointDetil.APPT_MADE_DATE}}</span>
+                </div>
+                <div ng-if="appointDetil.BOOK_DATE && appointDetil.STATUS==2 && appointDetil.APPOINT_TYPE==5 ">
+                    <span  kyee-i18n-directive  code="qyAppDate" default="支付时间："></span>
+                    <span>{{appointDetil.BOOK_DATE}}</span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </ion-content>
+    <div ng-if="!empt && hasFooter()&&appointDetil!=null" class="bar bar-footer appointment_detail_footer pad-b-10 qy-bg-grey1">
+            <div ng-if="IS_SHOW_BUTTON==1 && BUTTON_ACTION==2 && !IS_SHOW_AGAIN_APPOINT" class="pad_b_4 col qy-bg-grey1">
+                <button kyee-action-holder-directive="appToReg" ng-if="!isConsulotion && CAN_APPOINT2REGIST_FLAG!=0"
+                        ng-click="KAH($event) || appointToregist()" class="button button-block button-size-l" >
+                    <span  kyee-i18n-directive  code="pay" default="支付"></span>
+                </button>
+                <button kyee-action-holder-directive="appToReg" ng-if="!isConsulotion && CAN_APPOINT2REGIST_FLAG==0"
+                        class="button button-block  button-color-grey button_size_l_grey" >
+                    <span  kyee-i18n-directive  code="pay" default="支付"></span>
+                </button>
+            </div>
+             <!--电话预约的支付-->
+             <div ng-if="SHOW_TEL_APPOINT_PAY!='0'" class="pad_b_4 col qy-bg-grey1">
+                 <button kyee-action-holder-directive="appToReg" ng-if="!isConsulotion && SHOW_TEL_APPOINT_PAY=='1'"
+                         ng-click="KAH($event) || goToPayTel(0)" class="button button-block button-size-l" >
+                     <span  kyee-i18n-directive  code="pay" default="支付"></span>
+                 </button>
+                 <button kyee-action-holder-directive="appToReg" ng-if="!isConsulotion && SHOW_TEL_APPOINT_PAY=='2'"
+                         class="button button-block  button-color-grey button_size_l_grey" >
+                     <span  kyee-i18n-directive  code="pay" default="支付"></span>
+                 </button>
+            </div>
+             <!--电话挂号的支付-->
+             <div ng-if="!isConsulotion && SHOW_TEL_REGIST_PAY!='0'" class="pad_b_4 col qy-bg-grey1">
+                 <button kyee-action-holder-directive="appToReg" ng-if="SHOW_TEL_REGIST_PAY=='1'"
+                         ng-click="KAH($event) || goToPayTel(1)" class="button button-block button-size-l" >
+                     <span  kyee-i18n-directive  code="pay" default="支付"></span>
+                 </button>
+                 <button kyee-action-holder-directive="appToReg" ng-if="SHOW_TEL_REGIST_PAY=='2'"
+                         class="button button-block  button-color-grey button_size_l_grey" >
+                     <span  kyee-i18n-directive  code="pay" default="支付"></span>
+                 </button>
+             </div>
+        <!--        <div ng-if="IS_SHOW_SIGN==1" class="pad-b-10 col">
+                    <button ng-click="KAH($event) || sign()" class="button button-block button-size-l">签到取号</button>
+                </div>-->
+             <!--转诊不显示重新预约-->
+        <div ng-if="!isConsulotion && IS_SHOW_REAPPOINT" class="pad_b_4 col qy-bg-grey1">
+            <button ng-click="KAH($event) || reappoint(appointDetil)" class="button button-block button-size-l" >
+                <span kyee-i18n-directive  code="aginAppoint" default="重新预约"></span>
+            </button>
+        </div>
+        <!--预约成功，再次预约在预约详情页不展示。后台传false-->
+        <div ng-if="IS_SHOW_AGAIN_APPOINT" class="pad_b_4 col qy-bg-grey1">
+            <button ng-click="KAH($event) || againAppoint(appointDetil)" class="button button-block button-size-l" >
+                <span kyee-i18n-directive  code="aginAppointment" default="再次预约"></span>
+            </button>
+        </div>
+
+        <div ng-if="IS_SHOW_CANCEL==1 && CANCEL_ACTION==0" class="pad_b_4 col qy-bg-grey1">
+            <button kyee-action-holder-directive="appCancel" ng-if="CAN_CANCEL_APPOINT!=0"
+                    ng-click="KAH($event) || appointCancel()" class="button button-block button-size-l" style="background-color: white !important;color: #5baa8a;">
+                <span  kyee-i18n-directive  code="cancelAppoint" default="取消预约" ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="cancelAppointReferral" default="取消转诊" ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+            <button ng-if="CAN_CANCEL_APPOINT==0" kyee-action-holder-directive="appCancel"
+                    class="button button-block  button-color-grey button_size_l_grey ">
+                <span kyee-i18n-directive  code="cancelAppoint" default="取消预约" ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="cancelAppointReferral" default="取消转诊" ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+        </div>
+        <div ng-if="IS_SHOW_BUTTON==1 && BUTTON_ACTION==0" class="pad_b_4 col qy-bg-grey1">
+            <button kyee-action-holder-directive="goToPay" ng-click="KAH($event) || goToPayNew()"
+                    class="button button-block button-size-l" >
+                <span kyee-i18n-directive  code="toPay" default="继续支付"></span>
+            </button>
+        </div>
+        <div ng-if="(IS_SHOW_BUTTON==1 && (BUTTON_ACTION==0 || BUTTON_ACTION==1) && IS_CAN_CANCEL_AFTER_APPOINT_PAY == 1)&& APPOINT_REGISTER_TYPE == 0"
+             class="pad_b_4 col qy-bg-grey1">
+            <button kyee-action-holder-directive="cancelOrder" ng-click="KAH($event) || cancelAppointOrder()"
+                    class="button button-block button-color-green">
+                <span kyee-i18n-directive  code="cancel" default="取消订单"></span>
+            </button>
+        </div>
+        <div ng-if="IS_SHOW_BUTTON==1 && BUTTON_ACTION==1" class="pad_b_4 col qy-bg-grey1">
+            <button kyee-action-holder-directive="goToPayRegist" ng-click="KAH($event) || goToPayRegist()"
+                    class="button button-block button-size-l" >
+                <span  kyee-i18n-directive  code="goToPay" default="继续支付"></span>
+            </button>
+        </div>
+         <div ng-if="(IS_SHOW_BUTTON==1 && (BUTTON_ACTION==0 || BUTTON_ACTION==1) && IS_CAN_CANCEL_AFTER_APPOINT_PAY == 1)&& APPOINT_REGISTER_TYPE == 1"
+              class="pad_b_4 col qy-bg-grey1">
+             <button kyee-action-holder-directive="cancelOrder" ng-click="KAH($event) || cancelRegisterOrder()"
+                     class="button button-block button-color-green">
+                 <span kyee-i18n-directive  code="cancel" default="取消订单"></span>
+             </button>
+         </div>
+        <div ng-if="IS_SHOW_REFRESH==1" class="pad_b_4 col qy-bg-grey1">
+            <button kyee-action-holder-directive="refresh" ng-click="KAH($event) || refreshBtn()"
+                    class="button button-block button-size-l"  >
+                <span kyee-i18n-directive  code="refresh" default="刷 新"></span>
+            </button>
+        </div>
+        <div ng-if="IS_SHOW_CANCEL==1 && CANCEL_ACTION==1" class="pad_b_4 col qy-bg-grey1">
+            <button ng-if="CAN_CANCEL_REGIST==1"
+                    kyee-action-holder-directive="regCancel" ng-click="KAH($event) || registCancel()"
+                    class="button button-block button-size-l pad_b_4" style="background-color: white !important;color: #5baa8a;">
+                <span kyee-i18n-directive  code="cancelRegist" default="取消挂号" ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="cancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+            <button ng-if="CAN_CANCEL_REGIST==0"
+                    kyee-action-holder-directive="regCancel"
+                    class="button button-block  button-color-grey button_size_l_grey pad_b_4" >
+                <span kyee-i18n-directive  code="cancelRegist" default="取消挂号"></span>
+                <span kyee-i18n-directive  code="cancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+        </div>
+        <div ng-if="IS_SHOW_CANCEL==1 && CANCEL_ACTION==2" class="pad_b_4 col qy-bg-grey1">
+            <button ng-if="CAN_CANCEL_APPOINT2REGIST==1"
+                    kyee-action-holder-directive="appToRegCancel" ng-click="KAH($event) || appToRegCancel()"
+                    class="button button-block button-size-l"  style="background-color: white !important;color: #5baa8a;">
+                <span kyee-i18n-directive  code="cancelRegist" default="取消挂号"ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="cancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+            <button ng-if="CAN_CANCEL_APPOINT2REGIST==0"
+                    kyee-action-holder-directive="appToRegCancel"
+                    class="button button-block  button-color-grey button_size_l_grey" >
+                <span kyee-i18n-directive  code="cancelRegist" default="取消挂号"ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="cancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+        </div>
+        <!-- 线下取消 edit by caochen 任务号：KYEEAPPC-4364 -->
+        <div ng-if="!isConsulotion && IS_SHOW_CANCEL==1 && (CANCEL_ACTION==10 || CANCEL_ACTION==20)" class="pad_b_4 col qy-bg-grey1">
+            <button ng-if="CAN_CANCEL_APPOINT==1"
+                    kyee-action-holder-directive="offlineCancelAppoint" ng-click="KAH($event) || offlineCancel()"
+                    class="button button-block button-size-l" >
+                <span kyee-i18n-directive  code="offlineCancelAppoint" default="取消预约" ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="offlineCancelAppointReferral" default="取消转诊" ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+            <button ng-if="CAN_CANCEL_APPOINT==0"
+                    kyee-action-holder-directive="offlineCancelAppoint"
+                    class="button button-block  button-color-grey button_size_l_grey" >
+                <span kyee-i18n-directive  code="offlineCancelAppoint" default="取消预约" ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="offlineCancelAppointReferral" default="取消转诊" ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+        </div>
+        <div ng-if="!isConsulotion && IS_SHOW_CANCEL==1 && (CANCEL_ACTION==11 || CANCEL_ACTION==21)" class="pad_b_4 col qy-bg-grey1">
+            <button ng-if="CAN_CANCEL_REGIST==1"
+                    kyee-action-holder-directive="offlineCancelRegist" ng-click="KAH($event) || offlineCancel()"
+                    class="button button-block button-size-l" style="background-color: white !important;color: #5baa8a;">
+                <span kyee-i18n-directive  code="offlineCancelRegist" default="取消挂号"ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="offlineCancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+            <button ng-if="CAN_CANCEL_REGIST==0"
+                    kyee-action-holder-directive="offlineCancelRegist"
+                    class="button button-block  button-color-grey button_size_l_grey" >
+                <span kyee-i18n-directive  code="offlineCancelRegist" default="取消挂号"ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="offlineCancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+
+            </button>
+        </div>
+        <div ng-if="!isConsulotion && IS_SHOW_CANCEL==1 && (CANCEL_ACTION==12 || CANCEL_ACTION==22)" class="pad_b_4 col qy-bg-grey1">
+            <button ng-if="CAN_CANCEL_APPOINT2REGIST==1"
+                    kyee-action-holder-directive="offlineCancelRegist" ng-click="KAH($event) || offlineCancel()"
+                    class="button button-block button-size-l" >
+                <span kyee-i18n-directive  code="offlineCancelRegist" default="取消挂号"ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="offlineCancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+            <button ng-if="CAN_CANCEL_APPOINT2REGIST==0"
+                    kyee-action-holder-directive="offlineCancelRegist"
+                    class="button button-block  button-color-grey button_size_l_grey" >
+                <span kyee-i18n-directive  code="offlineCancelRegist" default="取消挂号"ng-if="appointDetil.IS_REFERRAL!=2"></span>
+                <span kyee-i18n-directive  code="offlineCancelRegistReferral" default="取消转诊"ng-if="appointDetil.IS_REFERRAL==2"></span>
+            </button>
+        </div>
+         <div ng-if="!isConsulotion && IS_SHOW_CANCEL != 1 && SHOW_COMMENT" class="pad_b_4 col qy-bg-grey1 ">
+             <button class="button button-block button-size-l" style="background-color: white !important; color: #5baa8a;" ng-click="goToComment(appointDetil.COMMENT_DETAIL)">
+                 {{COMMENT_NAME}}
+             </button>
+         </div>
+    </div>
+    <div kyee-overlay-directive
+         location="center"
+         width="{{overlayData.width-40}}"
+         height="{{overlayData.height}}"
+         top="{{deviceTop}}"
+         data="overlayData"
+         content-background-color="transparent"
+         template="modules/business/appointment/views/pictule_img.html"
+         bind="bindGetType(params)">
+    </div>
+    <div kyee-area-picker-directive allow="allow" mode="PCA" bind="bindDirective(params)" title="" on-select-finash="onFinashAdrress(params)"></div>
+</ion-view>
+<div kyee-compile-directive template="modules/business/appoint/views/delay_views/selected.html"></div>
+

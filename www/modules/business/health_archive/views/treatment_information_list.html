@@ -1,0 +1,47 @@
+ <div ng-controller="TreatmentInformationListController"
+      class="treatment_information_list qy-bg-grey2 "
+     has-bouncing="false" ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-20+'px'}">
+     <div class=" qy-bg-grey2 pad-b-14" style="height: 42px;" has-bouncing="false">
+        <div class=" row mar-td-10 "style="height: 30px;line-height: 30px" >
+            <div  class="ta-c "  ng-click="changeInHospital(0)" style="width: 50%;">
+                <span  class="f14"ng-class="{'check_color ' :isInhospital==0,'check_no_color':isInhospital!=0}"style="display: inline-block;line-height: 28px;width: 48px">
+                门诊
+                </span>
+            </div>
+            <div  class="ta-c" ng-click="changeInHospital(1)"style="width: 50%;">
+                <span  class="f14" ng-class="{'check_color ' :isInhospital==1,'check_no_color':isInhospital!=1}"style="display: inline-block;line-height: 28px;width: 48px" >
+                住院
+                </span>
+            </div>
+        </div>
+    </div>
+     <ion-scroll has-bouncing="true"ng-style="{'height':($root.KyeeEnv.innerSize.height -44-50-10)+'px'}" scrollbar-y="false" zooming="false"  direction="y">
+         <div style="border-radius: 5px"class=" border-td qy-bg-white pad-b-14 border-l border-r mar-d-10" ng-repeat="data in dataList" ng-click="goToTreatmentDetail(data)" >
+             <div style="position: relative;margin-top: 13px;margin-bottom: 11px"class=" qy-grey5  row">
+                 <div style="margin-right: 10px;font-size: 20px;width: 20px;">
+                     <i class="icon-hospital2  f20  qy-grey5"></i>
+                 </div>
+                 <div class="text-ellipsis qy-grey6 f14" style="max-width: 70%">{{data.ORGANIZATION_NAME}}</div>
+                 <i class=" icon ion-android-more-vertical  f20  qy-grey5" style="position: absolute ;right:0px;"></i>
+             </div>
+             <div class="text-ellipsis  mar-d-16 row" style="margin-bottom: 10px">
+                 <div class="  text-ellipsis f18 qy-grey7" style="max-width: 50%;padding-right: 16px">{{data.DEPARTMENT_NAME}}</div>
+                 <div class=" text-ellipsis mar-r-5 qy-grey6  f14"style="max-width: 30%" >{{data.DOCTOR_NAME}}</div>
+                 <div class="text-ellipsis qy-grey6  f14"style="max-width: 20%" >医生</div>
+             </div>
+             <div class=" qy-grey5 mar-d-16 f12" style="margin-bottom: 12px">
+                 {{data.DIAGNOSIS_DATE}}
+             </div>
+         </div>
+
+         <div class="empty-text" ng-show="noData&&isInhospital==0">
+             <i class="icon-icon_3 empty-icon"></i>
+             <p>未查询到您的门诊诊疗信息</p>
+         </div>
+         <div class="empty-text" ng-show="noData&&isInhospital==1">
+             <i class="icon-icon_3 empty-icon"></i>
+             <p>未查询到您的住院诊疗信息</p>
+         </div>
+     </ion-scroll>
+
+ </div>

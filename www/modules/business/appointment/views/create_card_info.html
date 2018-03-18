@@ -1,0 +1,49 @@
+<ion-view  class="qy_create_card_info">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive  code="creatCarditle" default="申请新卡"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" style="bottom: 64px">
+        <div class="pad-td-10 pad-b-14"  kyee-i18n-directive  code="inputCreatinfo" default="申请新卡将用到您的以下信息，请您输入并核实"></div>
+        <div class="list pad-l-14 qy-bg-white">
+            <label class="item item-input pad_l_0">
+                <span class="input-label"  kyee-i18n-directive  code="name" default="姓名："></span>
+                <input class="input_text" type="text" ng-model="patientInfo.name" readonly>
+            </label>
+            <label class="item item-input pad_l_0">
+                <span class="input-label" kyee-i18n-directive  code="idNo" default="身份证号："></span>
+                <input class="input_text" type="text" ng-model="patientInfo.idNo" readonly>
+            </label>
+            <label class="item item-input pad_l_0" id="phoneInput">
+                <span class="input-label" kyee-i18n-directive  code="phoneNum" default="手机号码："></span>
+                <input class="input_text" type="text" ng-model="patientInfo.phoneNo" readonly>
+            </label>
+            <label class="item item-input pad_l_0" ng-if="needAddress=='1'" id="addressInput">
+                <span class="input-label" kyee-i18n-directive  code="address" default="家庭住址："></span>
+                <input class="input_text" type="text" ng-model="patientInfo.address" placeholder="{{placeholderAddress}}">
+            </label>
+            <div class="item item-input pad_l_0"   ng-if="needPassword" id="passInput">
+                <span class="input-label" kyee-i18n-directive  code="pwd" default="密码："></span>
+                <div class="pwd_input_bar">
+                    <input type="{{patientInfo.pwdType}}" class="pwd_input" ng-model="patientInfo.password"
+                           placeholder="{{placeholderNumber}}">
+                    <button class="ion-ios-eye eye_btn " ng-click="iconClick()" ng-class="{'qy_green':isActive}">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14" style="height: 64px" qy-bg-grey1>
+        <button kyee-action-holder-directive="isAppoint" class="button button-block button-size-l"
+                ng-click="submit()" >
+            <span  kyee-i18n-directive  code="isOk" default="确认"></span>
+        </button>
+    </div>
+</ion-view>

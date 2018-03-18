@@ -1,0 +1,35 @@
+<div class="qy_card_recharge_records">
+    <ul class="container mar-t-10 pad-d-20 qy-bg-white pad-b-14 border-td" ng-repeat = "record in records" >
+        <li class="head">
+            <span class="dis_inbl text-ellipsis" style="position:relative;top:1px;" ng-style="{'width':'58%'}">{{record.HOSPITAL_NAME}}</span>
+            <span ng-if="record.STATUS" class="f12 qy-grey5 mar-l-14 head_time" ng-style="{'right':(record.DELETE_FLAG == 1)?'22px':'2px'}">{{record.CREATE_TIME}}</span>
+            <span ng-if="record.ERROR_MSG" class="f12 qy-grey5 mar-l-14 head_time" ng-style="{'right':(record.DELETE_FLAG == 1)?'22px':'2px'}">{{record.PAY_TIME}}</span>
+            <i ng-if="record.DELETE_FLAG == 1" ng-click="delCardRechargeRecords($index,record)" class="icon-trash del_icon" kyee-operation-monitor-directive="deleteRecord"></i>
+        </li>
+        <li class="box">
+            <ul class="border-d pad-l-10 box_head">
+                <li class="row">
+                    <span class="qy-deepblue text-ellipsis" kyee-i18n-directive code="patientName" default="姓名："></span>{{record.PATIENT_NAME}}
+                </li>
+                <li class="row">
+                    <span class="qy-deepblue text-ellipsis" kyee-i18n-directive code="patientId" default="就诊卡号："></span>{{record.CARD_NO}}
+                </li>
+                <li class="row" ng-if="record.ERROR_MSG">
+                    <span class="qy-deepblue text-ellipsis" kyee-i18n-directive code="rechargeTime" default="充值时间："></span>{{record.PAY_TIME_DETAIL}}
+                </li>
+            </ul>
+            <div class="pad-l-10 box_bottom">
+                <span class="f18">¥ {{convertMoney(record.AMOUNT)}}</span>
+                <span class="pad-l-10" ng-class="{'qy-red':record.RECORD_COLOR==2,'qy-green':record.RECORD_COLOR==0}">{{record.RECORD_STATUS}}</span>
+                <span class="detail qy-grey5 pad-r-10" ng-if="(record.HIS_STATUS!=0 && record.HIS_STATUS!=1 && record.ERROR_MSG && record.HIS_STATUS) || (record.PAY_STATUS==3||record.PAY_STATUS==4)"
+                      ng-click="goRefundDetail(record)" kyee-operation-monitor-directive="refundDetail">
+                    <span kyee-i18n-directive code="refundDetail" default="详情"></span>
+                </span>
+                <i ng-if="(record.HIS_STATUS!=0 && record.HIS_STATUS!=1 && record.ERROR_MSG && record.HIS_STATUS) || (record.PAY_STATUS==3||record.PAY_STATUS==4)" class="icon ion-chevron-right qy-grey5 pad-l-5"></i>
+            </div>
+        </li>
+    </ul>
+
+    <ion-infinite-scroll ng-if="noLoad" on-infinite="loadRechargeMore()" icon="ion-loading-c" immediate-check="false">
+    </ion-infinite-scroll>
+</div>

@@ -1,0 +1,28 @@
+<div class="kyee_framework_sudoku">
+
+	<table width="100%" style="height: {{height}}px;">
+
+		<tr ng-repeat="row in data" class="flipX">
+			<td height="{{height / data.length}}px;" width="33%" ng-click="click(row[0])" align="center" style="vertical-align : middle;background-color: {{row[0].backgroundcolor}};">
+				<button ng-if="row[0].placeholder != true" class="button button-full button-outline sudoku-button-green" style="height: 100%;">
+					<img ng-src="{{row[0].image_url}}" width="48px"/>
+					<div style="line-height: 12px;">{{row[0].name}}</div>
+				</button>
+			</td>
+			<td height="{{height / data.length}}px;" width="33%" ng-click="click(row[1])" align="center" style="vertical-align : middle;background-color: {{row[1].backgroundcolor}};">
+				<button ng-if="row[1].placeholder != true" class="button button-full button-outline sudoku-button-green" style="height: 100%;">
+					<img ng-src="{{row[1].image_url}}" width="48px"/>
+					<div style="line-height: 12px;">{{row[1].name}}</div>
+				</button>
+			</td>
+			<td height="{{height / data.length}}px;" width="33%" ng-click="click(row[2])" align="center" style="vertical-align : middle;background-color: {{row[2].backgroundcolor}};">
+				<button ng-if="row[2].placeholder != true" class="button button-full button-outline sudoku-button-green" style="height: 100%;">
+					<img ng-src="{{row[2].image_url}}" width="48px"/>
+					<div style="line-height: 12px;">{{row[2].name}}</div>
+				</button>
+			</td>
+		</tr>
+
+	</table>
+
+</div>

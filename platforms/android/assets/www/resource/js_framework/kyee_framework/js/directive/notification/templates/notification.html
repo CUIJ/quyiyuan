@@ -1,0 +1,15 @@
+<div class="kyee_framework_notification {{skin}}">
+	<div class="row">
+		<div class="col {{closeable == 'true' ? 'col-10' : 'col-10'}}" style="text-align: left;">
+			<i class="icon ion-speakerphone"></i>
+		</div>
+		<div class="col {{closeable == 'true' ? 'col-80' : 'col-90'}}">
+			<marquee scrollamount="{{speed}}" direction="{{direction}}" style="height: 18px;padding: 0px;margin:0px;">
+				{{content}}
+			</marquee>
+		</div>
+		<div ng-if="closeable" class="col col-10" style="text-align: right;" ng-click="doOnClose()">
+			<i class="icon ion-close-circled"></i>
+		</div> 
+	</div>
+</div>

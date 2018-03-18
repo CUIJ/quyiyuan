@@ -1,0 +1,30 @@
+<ion-view class="qy_home_web">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{advName}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-if="advShare" ng-click="showShareMenu()">
+                <i class="icon-share"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true" overflow-scroll="true">
+
+        <div style="height:100%; width:100%;">
+            <iframe onload="hideLoadByHomeWeb()" src='{{openUrl}}' style=" min-height: 100%; width:100%;">
+            </iframe>
+        </div>
+
+    </ion-content>
+
+    <div kyee-share-directive
+         share-params="shareData"
+         has-share-menu="hasShareMenu"
+         bind="bind(params)">
+    </div>
+
+</ion-view>

@@ -1,0 +1,20 @@
+<ion-content has-bouncing="true" class="FlowMenu" scroll="false">
+  <div  ng-click="rightMenuGo('home->MAIN_TAB')" nav-transition="ios" nav-direction="back"  style="text-align: center;margin-top: 30px;"> <span class="icon-home" style="font-size: 2em;"></span>
+    <div class="fontS gery-2" kyee-i18n-directive code="all:commonText.homeText" default="就医"></div>
+  </div>
+  <div ng-if="isShowClientPage()" ng-click="rightMenuGo('health->MAIN_TAB')" nav-transition="ios" nav-direction="back"  style="text-align: center;margin-top: 30px;">
+    <!-- 由于目前医院字体图标太粗，因此使用图片代替-->
+    <img width="30px" src="resource/images/icons/hospital_gery.png"/>
+    <div class="fontS gery-2" kyee-i18n-directive code="all:commonText.serviceText" default="服务"></div>
+  </div>
+  <div ng-click="rightMenuGo('messagecenter')" nav-transition="ios" nav-direction="back" style="position:relative;text-align: center;margin-top: 30px;"> <span class="icon-talk" style="font-size: 2em;"></span>
+    <div class="fontS gery-2" kyee-i18n-directive code="all:commonText.messageText" default="消息"></div>
+    <span ng-if="unreadMessageCount != undefined && unreadMessageCount > 0" style="display:block;position:absolute;width:6px;height:6px;top: -2px;right:23px;border-radius:50%;background-color:#ff0000;"></span>
+  </div>
+  <div ng-click="rightMenuGo('myquyi->MAIN_TAB.medicalGuide')" nav-transition="ios" nav-direction="back" style="text-align: center;margin-top: 30px;"> <span class="icon-card" style="font-size: 2em;"></span>
+    <div class="fontS gery-2" kyee-i18n-directive code="all:commonText.recordText" default="病史"></div>
+  </div>
+  <div ng-click="rightMenuGo('center->MAIN_TAB')" nav-transition="ios" nav-direction="back" style="text-align: center;margin-top: 30px;"> <span class="icon-me" style="font-size: 2em;"></span>
+    <div class="fontS gery-2" kyee-i18n-directive code="all:commonText.mycenterText" default="我的"></div>
+  </div>
+</ion-content>

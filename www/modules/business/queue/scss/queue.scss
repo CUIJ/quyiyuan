@@ -1,0 +1,362 @@
+.quyiyuan_queue_dept{
+  .queue_dept_search{
+    background-color: #fafafa !important;
+  }
+  .green_person{
+    color: green;
+    position: absolute;
+    font-size: 15px;
+    top: 8px;
+  }
+  .red_person{
+    color: red;
+    position: absolute;
+    font-size: 15px;
+    top: 8px;
+  }
+  .grey_person{
+    color: grey;
+    position: absolute;
+    font-size: 15px;
+    top: 8px;
+  }
+  .green_person_footer{
+    color: green;
+    position: absolute;
+    font-size: 15px;
+    top: 14px;
+  }
+  .red_person_footer{
+    color: red;
+    position: absolute;
+    font-size: 15px;
+    top: 14px;
+  }
+  .grey_person_footer{
+    color: grey;
+    position: absolute;
+    font-size: 15px;
+    top: 14px;
+  }
+  .span_bottom{
+    margin-left: 15px;
+    margin-right: 12px;
+    width: 85%;
+    display: inline-block;
+  }
+  .div_bottom{
+    width: 31%;
+    display: inline-block;
+  }
+  .marRight{
+    right: -45px;
+  }
+  .queue_footer{
+    background-color:#fafafa ;
+    padding-top: 1em;
+    .queue_footer_child{
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 100%;
+    }
+  }
+}
+.queue_clinic{
+  background-color:#fafafa;
+  .queue_marquee{
+    margin-top: 12px;
+  }
+  .pd-tb-6{
+    padding-bottom: 6px;
+    padding-top: 6px;
+  }
+  .mar-tb-10{
+    margin-bottom:10px;
+    margin-top:10px;
+  }
+  .queue_content{
+    .qbutton_size_s{text-align: center;border-radius: 2px;background-clip: padding-box;font-size: 12px;min-height: 30px;min-width: 70px;padding: 0 0.5em;line-height: 24px;}
+    .picstyle{
+      display: inline-block;
+      padding-left: 5px;
+      width: 17%;
+    }
+    .rigntdiv{
+      display: inline-block;
+      width: 80%;
+    }
+    .mylist{
+      margin-bottom: 6px;
+    }
+    .myitem{
+      line-height: 2em;
+      padding: 0 9px;
+    }
+    .queue_col{
+      font-weight: 600;
+    }
+    .queue_col_two{
+      color:#ff777a;
+    }
+
+  }
+
+  .status_container {
+    position: absolute;
+    width: 100%;
+    padding-top: 9px;
+    padding-bottom: 10px;
+  }
+
+  .appointment_state {
+    width: 54%;
+    margin-left: 23%;
+    margin-right: 23%;
+    border-radius: 30px;
+    line-height: 2em;
+    background-clip: padding-box;
+    border: 1px solid #e7e7e7;
+    .appointment_message {
+      position: relative;
+      left: 10px;
+      top: 1px;
+    }
+  }
+  .item-input {
+    min-height: 0;
+  }
+  .appointment-ion {
+    color: #0F9D58;
+    float: right;
+    width: 18%;
+    padding-right: 19px;
+    text-align: right;
+  }
+  .appointment-img {
+    float: right;
+    width: 19px;
+    margin-right: 19px;
+  }
+  .appointment-cordUrl {
+    width: 4em;
+    margin-left: 1em;
+    position: absolute;
+    height: 28px;
+    top: 1px;
+  }
+  .appointment_detail_footer{
+    .button {
+      position: relative;
+      top: 8px;
+      margin-top: 0 !important;
+    }
+  }
+  .patient{
+    width: 80%;
+    white-space: normal;
+    display: block;
+  }
+  .margin_bottom_list{
+    .see_doctor_div{
+      color: #5baa8a;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+  .see_doctor_color{
+    background-color:#f6dbdc;
+    position: relative
+  }
+  .border_div_color{
+    border: 1px solid #ea9b9e;
+  }
+  .border_bottom_div_color{
+    border-bottom: 1px dashed #BDB4B4;
+  }
+  .box-container {
+    overflow: hidden;
+    margin: 20px 14px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    height: 80px;
+    position: relative; }
+  .empty_icon_text{
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .queue_empty_text{
+    font-size: 14px;
+    color: #cccccc;
+  }
+  .queue_empty_icon{
+    font-size: 90px;
+    color: #dcdcdc;
+  }
+  .queue_pad-td-5 {
+    padding-top: 6px;
+  }
+  .has-subheader1{
+    top:40px;
+  }
+  .button-pd{
+    padding-bottom: 5px;
+  }
+  .button-color-bg-red{border: 1px solid #ff777a;color: white;background:#ff777a;}
+  .button-color-bg-red:hover,.button-color-bg-red:focus,.button-color-bg-red.activated,.button-color-bg-red.active{
+    border: 1px solid #ff777a;color:#FFFFFF;background: #ff777a; opacity: .8;
+  }
+
+
+}
+.queue_dept_info{
+
+  background-color:#fafafa;
+  .queue_marquee{
+    margin-top: 12px;
+  }
+  .pd-tb-6{
+    padding-bottom: 6px;
+    padding-top: 6px;
+  }
+  .mar-tb-10{
+    margin-bottom:10px;
+    margin-top:10px;
+  }
+  .queue_content{
+    .qbutton_size_s{text-align: center;border-radius: 2px;background-clip: padding-box;font-size: 12px;min-height: 30px;min-width: 70px;padding: 0 0.5em;line-height: 24px;}
+    .picstyle{
+      display: inline-block;
+      padding-left: 5px;
+      width: 17%;
+    }
+    .rigntdiv{
+      display: inline-block;
+      width: 80%;
+    }
+    .mylist{
+      margin-bottom: 6px;
+    }
+    .myitem{
+      line-height: 2em;
+      padding: 0 9px;
+    }
+    .queue_col{
+      font-weight: 600;
+    }
+    .queue_col_two{
+      color:#ff777a;
+    }
+
+  }
+
+  .status_container {
+    position: absolute;
+    width: 100%;
+    padding-top: 9px;
+    padding-bottom: 10px;
+  }
+
+  .appointment_state {
+    width: 54%;
+    margin-left: 23%;
+    margin-right: 23%;
+    border-radius: 30px;
+    line-height: 2em;
+    background-clip: padding-box;
+    border: 1px solid #e7e7e7;
+    .appointment_message {
+      position: relative;
+      left: 10px;
+      top: 1px;
+    }
+  }
+  .item-input {
+    min-height: 0;
+  }
+  .appointment-ion {
+    color: #0F9D58;
+    float: right;
+    width: 18%;
+    padding-right: 19px;
+    text-align: right;
+  }
+  .appointment-img {
+    float: right;
+    width: 19px;
+    margin-right: 19px;
+  }
+  .appointment-cordUrl {
+    width: 4em;
+    margin-left: 1em;
+    position: absolute;
+    height: 28px;
+    top: 1px;
+  }
+  .appointment_detail_footer{
+    .button {
+      position: relative;
+      top: 8px;
+      margin-top: 0 !important;
+    }
+  }
+  .patient{
+    width: 80%;
+    white-space: normal;
+    display: block;
+  }
+  .margin_bottom_list{
+    .see_doctor_div{
+      color: #5baa8a;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+  .see_doctor_color{
+    background-color:#f6dbdc;
+    position: relative
+  }
+  .border_div_color{
+    border: 1px solid #ea9b9e;
+  }
+  .border_bottom_div_color{
+    border-bottom: 1px dashed #BDB4B4;
+  }
+  .box-container {
+    overflow: hidden;
+    margin: 20px 14px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    height: 80px;
+    position: relative; }
+  .empty_icon_text{
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .queue_empty_text{
+    font-size: 14px;
+    color: #cccccc;
+  }
+  .queue_empty_icon{
+    font-size: 90px;
+    color: #dcdcdc;
+  }
+  .queue_pad-td-5 {
+    padding-top: 6px;
+  }
+  .has-subheader1{
+    top:40px;
+  }
+  .button-pd{
+    padding-bottom: 5px;
+  }
+  .button-color-bg-red{border: 1px solid #ff777a;color: white;background: #ff777a;}
+  .button-color-bg-red:hover,.button-color-bg-red:focus,.button-color-bg-red.activated,.button-color-bg-red.active{
+    border: 1px solid #ff777a;color:#FFFFFF;background: #ff777a; opacity: .8;
+  }
+
+}
+

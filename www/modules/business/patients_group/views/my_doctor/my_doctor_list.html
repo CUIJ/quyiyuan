@@ -1,0 +1,72 @@
+<ion-view class="qy_my_doctor_list">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="myDoctor" default="我的医生"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <span kyee-i18n-directive code="addDoctors" default="添加医生" class="f14 addDoctors r14 color_6"
+                  ng-click="addMyDoctors()"></span>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+        <!--搜索 strat-->
+        <div class="mar-t-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="row search_container position-r">
+                <button class="button-icon icon-seach search_btn color_9"></button>
+                <input id="keywords" type="text" placeholder="输入医生姓名搜索"
+                       class="border-none" ng-model="searchObj.searchKey" ng-change="repeatFinished()">
+                <i class="icon-icon_6 f14 clear_icon mar-b-10 qy-grey4" ng-if="0 < searchObj.searchKey.length"
+                   ng-click="clearInput()"></i>
+            </div>
+        </div>
+        <!--<div class="mar-t-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="search_container position-r" ng-click="goQueryDoctors()">
+                <button class="button-icon icon-seach search_btn position-a color_9"></button>
+                <input type="text" placeholder="搜索医生" class="text-ellipsis" ng-readonly="true">
+                <i class="position-a icon-icon_6 f14 qy-grey4"
+                   ng-click="clearInput()"></i>
+            </div>
+        </div>-->
+        <!--搜索 end-->
+        <!--医生列表 start-->
+        <div ng-if="doctorList.length > 0" class="qy-bg-grey2 mar-t-10 border-td">
+            <ion-scroll delegate-handle="my_doctor_list w100" has-bouncing="true" scrollbar-y="false"
+                        zooming="false" direction="y" ng-style="{height: (KyeeEnv.innerSize.height - 100)+'px'}">
+                <ul class="doctorList qy-bg-white">
+                    <li class="line100 border-b f14 pad-b-14 position-r"
+                        ng-repeat="doctor in doctorList | filter:{'doctorName': searchObj.searchKey}"
+                        ng-click="goDoctorDetails(doctor)" ng-init="$last ? repeatFinished() : angular.noop()">
+                        <div class="line70 position-a left_0 mar-td-15">
+                            <img class="head_img" ng-if="doctor.doctorPhoto" ng-src="{{doctor.doctorPhoto}}"
+                                 onerror="javascript:this.src='resource/images/patients_group/doctor_male.png'"/>
+                            <img class="head_img" ng-if="!doctor.doctorPhoto"
+                                 ng-src="{{2 == doctor.doctorSex ? 'resource/images/patients_group/doctor_female.png':
+                                     'resource/images/patients_group/doctor_male.png'}}"
+                                 onerror="javascript:this.src='resource/images/patients_group/doctor_male.png'"/>
+                        </div>
+                        <div class="mar-l-14 position-a r14 mar-td-10" ng-style="{'width':KyeeEnv.innerSize.width - 97 + 'px'}">
+                            <div class="clear line30">
+                                <span class="max-w30 mar-r-10 text-ellipsis color_3 f16 display-inline-b">{{doctor.doctorName}}</span>
+                                <span class="max-w30 qy-color text-ellipsis display-inline-b">{{doctor.doctorTitle}}</span>
+                            <span class="position-a right0 max-w30 text-ellipsis qy-orange">
+                                {{4 == doctor.friendStatus ? "等待验证" : ""}}
+                            </span>
+                            </div>
+                            <div class="line25 color_6 text-ellipsis">{{doctor.hospitalName}}</div>
+                            <div class="line25 color_6 text-ellipsis">{{doctor.deptName}}</div>
+                        </div>
+                    </li>
+                </ul>
+            </ion-scroll>
+        </div>
+        <!--医生列表 end-->
+        <!--无数据提示信息 start-->
+        <div ng-if="doctorList.length == 0" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDoctor" default="您还没有自己的医生"></span>
+        </div>
+        <!--无数据提示信息 end-->
+    </ion-content>
+</ion-view>

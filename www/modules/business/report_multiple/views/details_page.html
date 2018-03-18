@@ -1,0 +1,34 @@
+<ion-view title="报告单项目" class="qy_report_multipe qy-bg-grey2">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" scrollbar-y="false">
+        <div>
+            <div style="height: 50px;border-bottom: 1px solid #efefef;">
+                <span style="top: 18px; position: absolute;padding-left: 14px; "kyee-i18n-directive code="canQueryReport" default="可查询的报告单"></span>
+            </div>
+            <div style="background-color:white;">
+                <div style="line-height: 50px; margin-left: 14px;" ng-repeat="info in reportSupport">
+                    <div style="border-bottom: 1px solid #efefef; " ng-if="info.STATUS == 1">
+                        <span style="font-size: 25px;position: relative; top: 4px;" ng-class="info.REPORT_TYPE=='1'? 'icon-examination2 qy-red':'icon-examination1 qy-orange'"></span>
+                        <span style="    padding-left: 10px;">{{info.REPORT_ITEM_NAME}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="height: 50px;border-bottom: 1px solid #efefef;">
+                <span style="top: 18px; position: relative;padding-left: 14px;" kyee-i18n-directive code="notSupportQuery" default="不支持查询的报告单"></span>
+            </div>
+            <div style="background-color:white;">
+                <div style="background-color:white;line-height: 50px; margin-left: 14px;"  ng-repeat="info in reportSupport">
+                    <div style="border-bottom: 1px solid #efefef;" ng-if="info.STATUS == 0">
+                        <span style="color: #cccccc;font-size: 25px;position: relative; top: 4px;" ng-class="info.REPORT_TYPE=='1'? 'icon-examination2 qy-red':'icon-examination1 qy-orange'"></span>
+                        <span style="color: #cccccc;padding-left: 10px;">{{info.REPORT_ITEM_NAME}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

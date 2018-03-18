@@ -1,0 +1,12 @@
+<div class="list" >
+    <label  ng-if="isShowTip.resultCode== 2 ||isShowTip.resultCode== 5 ||isShowTip.resultCode== 4 ||isShowTip.resultCode== 7" class="item item-input" >
+        <span class="input-label" >就诊卡号</span>
+        <input ng-model="inputBothCard.PATIENT_CARDNO" type="text"
+               placeholder="请输入就诊卡号">
+    </label>
+    <label ng-if="isShowTip.resultCode== 3 ||isShowTip.resultCode== 6|| isShowTip.resultCode== 4 || isShowTip.resultCode== 7" class="item item-input">
+        <span class="input-label" >住院号</span>
+        <input ng-model="inputBothCard.HOSPITAL_CARDNO" type="text"
+               placeholder="请输入住院号">
+    </label>
+</div>

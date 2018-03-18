@@ -1,0 +1,119 @@
+<ion-view class="weight_add qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click = gotoManage()></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="addHealthData" default="添加数据"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content scroll="true" has-bouncing="true" class="qy-bg-grey1">
+        <!--体重管理-->
+        <div ng-if="healthManageType==1">
+            <div class="item item-input border-t mar-t-10">
+                <span class="input-label f14 qy-deepblue"> 测量日期：</span>
+                <div ng-click="selectHealthDate()" class="margin_div">
+                    <span class="f14 qy-grey7" ng-if="weightInfo.date">{{weightInfo.date}}</span>
+                    <span class="f14 qy-grey4" ng-if="!weightInfo.date">请选择测量日期</span>
+                    <i class="icon-calendar qy-green calendar_position"></i>
+                </div>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">我的身高：</span>
+                <input type="text"  ng-change = "tofix('high')" ng-model="weightInfo.high"  class="text-ellipsis input_height margin_div" placeholder="请输入身高">
+                <span class="f14 qy-grey7 weight_unit_span">cm</span>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">我的体重：</span>
+                <input type="text" ng-change = "tofix('weight')" ng-model="weightInfo.weight" class="text-ellipsis input_height margin_div" placeholder="请输入体重">
+                <span class="f14 qy-grey7 weight_unit_span">kg</span>
+            </div>
+        </div>
+        <!--血压数据-->
+        <div ng-if="healthManageType==2">
+            <div class="item item-input border-t mar-t-10">
+                <span class="input-label f14 qy-deepblue">测量日期：</span>
+                <div ng-click="selectHealthDate()" class="margin_div">
+                    <span class="f14 qy-grey7" ng-if="bloodPressureInfo.date">{{bloodPressureInfo.date}}</span>
+                    <span class="f14 qy-grey4" ng-if="!bloodPressureInfo.date">请选择测量日期</span>
+                    <i class="icon-calendar qy-green calendar_position"></i>
+                </div>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">收缩压：</span>
+                <input type="text"  ng-change = "tofix('pressH')" ng-model="bloodPressureInfo.systolicPressure" class="text-ellipsis input_height margin_div" placeholder="请输入收缩压值">
+                <span class="f14 qy-grey7 weight_unit_span">mmHg</span>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">舒张压：</span>
+                <input type="text" ng-change = "tofix('pressL')" ng-model="bloodPressureInfo.diastolicPressure" class="text-ellipsis input_height margin_div" placeholder="请输入舒张压值">
+                <span class="f14 qy-grey7 weight_unit_span">mmHg</span>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">心率：</span>
+                <input type="text" ng-change = "tofix('rate')" ng-model="bloodPressureInfo.heartRate" class="text-ellipsis input_height margin_div" placeholder="请输入心率值">
+                <span class="f14 qy-grey7 weight_unit_span">bmp</span>
+            </div>
+        </div>
+        <!--血糖数据-->
+        <div ng-if="healthManageType==3">
+            <div class="item item-input border-t mar-t-10">
+                <span class="input-label f14 qy-deepblue">测量日期：</span>
+                <div ng-click="selectHealthDate()" class="margin_div">
+                    <span class="f14 qy-grey7" ng-if="bloodSugarInfo.date">{{bloodSugarInfo.date}}</span>
+                    <span class="f14 qy-grey4" ng-if="!bloodSugarInfo.date">请选择测量日期</span>
+                    <i class="icon-calendar qy-green calendar_position"></i>
+                </div>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">类型：</span>
+                <div ng-click="selectMoveIntensity()" class="margin_div"style="width: 75%">
+                    <span  class="f14 qy-grey7" ng-if="bloodSugarInfo.sugarType">{{bloodSugarInfo.sugarType}}</span>
+                    <span  class="f14 qy-grey4"  ng-if="!bloodSugarInfo.sugarType">请选择类型</span>
+                    <i class="f14 qy-grey7 ion-chevron-right weight_unit_span "></i>
+                </div>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">血糖值：</span>
+                <input type="text" ng-change = "tofix('sugar')" ng-model="bloodSugarInfo.sugarValue" class="text-ellipsis input_height margin_div" placeholder="请输入血糖值">
+                <span class="f14 qy-grey7 weight_unit_span">mmol/L</span>
+            </div>
+        </div>
+        <!--运动数据-->
+        <div ng-if="healthManageType==4">
+            <div class="item item-input border-t mar-t-10">
+                <span class="input-label f14 qy-deepblue">运动日期：</span>
+                <div ng-click="selectHealthDate()" class="margin_div">
+                    <span class="f14 qy-grey7" ng-if="moveInfo.date">{{moveInfo.date}}</span>
+                    <span class="f14 qy-grey4" ng-if="!moveInfo.date">请选择运动日期</span>
+                    <i class="icon-calendar qy-green calendar_position"></i>
+                </div>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">运动强度：</span>
+                <div ng-click="selectMoveIntensity()" class="margin_div"style="width: 75%">
+                    <span  class="f14 qy-grey7" ng-if="moveInfo.moveIntensity">{{moveInfo.moveIntensity}}</span>
+                    <span  class="f14 qy-grey4"  ng-if="!moveInfo.moveIntensity">请选择运动强度</span>
+                    <i class="f14 qy-grey7 ion-chevron-right weight_unit_span "></i>
+                </div>
+            </div>
+            <div class="item item-input">
+                <span class="input-label f14 qy-deepblue">运动时长：</span>
+                <input type="text" ng-change = "tofix('sport')" ng-model="moveInfo.whenLong" class="text-ellipsis input_height margin_div" placeholder="请输入运动时长">
+                <span class="f14 qy-grey7 weight_unit_span">min</span>
+            </div>
+            <div class="qy-bg-white pad-t-20 pad-d-10">
+                <div  class="mar-d-16 text-c f14 qy-grey7">运动类型（可多选）</div>
+                <div class="pad-b-10">
+                    <span  ng-repeat="moveTypeData in moveTypeList " ng-class="{'move_type_no_select':!moveTypeData.selectFlag,'move_type_select':moveTypeData.selectFlag}" ng-style="{width: ((KyeeEnv.innerSize.width-28-96)*0.25)+'px'}" ng-click="selectMoveType($index,moveTypeData.moveTypeValue)">{{moveTypeData.moveType}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="pad-b-14 qy-bg-grey1">
+            <button class="button button-block button-size-l" ng-click="healthSave()">
+                <span>保存</span>
+            </button>
+        </div>
+    </ion-content>
+    <div kyee-date-picker-directive year-range="{{yearRange}}" bind="weightBind(params)"
+         on-select-finash="onFinash(params)"></div>
+    <div kyee-compile-directive template="modules/business/appoint/views/delay_views/selected.html"></div>
+</ion-view>

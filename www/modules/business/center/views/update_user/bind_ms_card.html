@@ -1,0 +1,34 @@
+<ion-view title="绑定医保卡" class="qy_medical_insurance_card" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1">
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="name" default="姓 名："></span>
+                <input type="text" ng-model="userInfo.name" disabled class="name_input">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="medicalInsuranceNum" default="医保卡号："></span>
+                <input type="text" ng-model="userInfo.insuranceCardNum" placeholder="医保卡号">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="medicalInsurancePwd" default="医保密码："></span>
+                <input type="password" ng-model="userInfo.insuranceCardPassword" placeholder="医保密码">
+            </label>
+            <div class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="verificationCode" default="验 证 码："></span>
+                <input class="msg_code" type="text" ng-model="userInfo.validationNum" placeholder="验证码">
+                <button class="verification-code-five zx_font_size" style="right: 14px;top: 9px;"
+                        ng-disabled="mdBtnDisabled"
+                        ng-click="getValidateNum();">
+                    {{innerText}}
+                </button>
+            </div>
+        </div>
+        <div class="ms_card_div" style="margin-left: 14px; margin-right: 14px;">
+            <button class="button button-full button-size-l" ng-click="doBindInsuranceCard();" kyee-i18n-directive code="sureToBind" default="确认绑定">
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,150 @@
+.qy_hospitalnotice{
+  .b_t_1_s_e{
+  border-top: 1px solid #efefef;
+  }
+  .type_checked{
+    color: red;
+  }
+  .un_derline{
+    border-bottom: 2px solid #0F9D58;
+  }
+  .isHidden{
+    display: inline-block !important;
+    width: 100%;
+  }
+  .header-div-style{
+    //background-color: #efeff4;
+    height: 36px;
+  }
+  .item-repeat-div{
+    text-align: center;
+    vertical-align: middle;
+    line-height:36px;
+  }
+  .ion-arrow-div{
+    width: 8%;
+    text-align: center;
+    line-height:36px;
+  }
+
+  .ion-arrow-down-b:before {
+    content: "\f104";
+    font-size: 20px;
+    color: #0F9D58;
+  }
+  .allDataLoad_style{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #999999;
+    display: none
+  }
+  .hnImgCls{
+    height: 70px;
+    width: 90px;
+    margin-top: 2px;
+  }
+  .listItem{
+    display: inline-block;
+    white-space: nowrap;
+    //overflow: hidden;
+    text-overflow: ellipsis;
+    width: 60%;
+    padding-left: 5px;
+    vertical-align: top;
+  }
+  .titleFont{
+    //line-height: 1.7em;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+  .notice-type-style{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+  }
+  .letterFont{
+    line-height: 1.7em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .ion-arrow-right-b:before{
+    content: "\f10a";
+    color: #0F9D58;
+    position: relative;
+    bottom: 12px;
+    font-size: 18px !important;
+  }
+  .arrow-style{
+    padding-top: 25px;
+    position: absolute;
+    left: 95%;
+  }
+  .empty-notice-infro-content{
+    width: 100%;
+    text-align: center;
+    padding-top: 100px;
+  }
+   .empty-notice-info-img{
+    height: 5em
+  }
+  .empty-notice-info-div{
+    //color:#c9c9c9;
+    //font-size: 1.2em;
+    padding-top: .8em;
+  }
+  .detail_title{
+    padding-left: 12px;
+    font-size: 16px;
+  }
+  .detail_titleCon1{
+    margin: .5em .5em;
+    border-bottom: 1px solid #C9C9CD;
+    line-height: 1.5em;
+  }
+  .detail_divline{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 60%;
+  }
+  .detail_content{
+    padding-top: 10px;
+  }
+  .font_space{
+    padding-left: 12px;
+  }
+  .date_space{
+    width: 20%;
+  }
+  .top_style{
+    top: 90px !important;
+  }
+  .sub_header{
+    width:100%;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .detail_html_style{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .checkcolor{
+    color:#5baa8a;
+    border-bottom: 3px solid #5baa8a;
+    padding-bottom: 8px;
+  }
+  .select_tittle{
+    display: block;
+    width: 93%;
+    height:100%;
+    padding-bottom: 0px;
+    padding-top: 5px;
+  }
+}

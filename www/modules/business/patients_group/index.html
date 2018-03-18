@@ -1,0 +1,179 @@
+<ion-view class="qy_message_main">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-buttons side="left">
+            <img class="user_image border-radius-5" ng-click="goPersonalSetting()" ng-src="{{userPhoto}}"
+                 onerror="this.src='resource/images/patients_group/user_male.png'"/>
+        </ion-nav-buttons>
+        <ion-nav-title>我的消息</ion-nav-title>
+        <ion-nav-buttons side="right">
+            <span ng-click="goMyGroupList()">我的群组</span>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <div class="right_menu" ng-if="showRightTopMenuFalg" ng-click="hideRightTopMenu()">
+        <div class="menu_over_bg qy-bg-grey5"></div>
+        <ul class="list menu_list qy-bg-white">
+            <li class="item border-b pad-b-14 line50" ng-click="goAddGroup()">
+                <i class="icon icon-add-group font22 qy-green mar-r-14 display-inline-b mar-t-13"></i>
+                <span class="position-a f14 mar-l-4" kyee-i18n-directive  code="addGroupName" default="添加群">
+                    {{rightTopMenu.addGroupName}}
+                </span>
+            </li>
+            <li class="item border-b pad-b-14 line50" ng-click="goAddFriend()">
+                <i class="icon icon-add-friend font26 qy-orange mar-r-14 display-inline-b"></i>
+                <span class="position-a f14" kyee-i18n-directive  code="addFriendsName" default="添加好友">
+                    {{rightTopMenu.addFriendsName}}
+                </span>
+            </li>
+        </ul>
+    </div>
+    <ion-content has-bouncing="true" padding="false" scrollbar-y="false" class="qy-bg-grey2 has-footer" delegate-handle="message_content">
+        <!--消息中心模块 start-->
+        <div class="message_content mar-t-10" ng-if="activeTab == 0">
+            <ion-list>
+                <!--消息中心 start-->
+                <ion-item class="border-td message_center w100" ng-click="goMessageCenter()">
+                    <div class="remind_img pad-b-10 pad-td-10 mar-td-10 mar-l-14 position-a left_0">
+                        <i class="icon-remind font30 qy-fff"></i>
+                    </div>
+                    <div class="group_detail f14 position-a left64" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}" >
+                        <div class="group_info_top"
+                             ng-class="{'line25':lastUnreadMessage.context,'line50': !lastUnreadMessage.context}">
+                            <div class="fl-l group_name max-w60 text-ellipsis">消息中心</div>
+                            <div class="fl-r unreadMsgCount border-radius-5 bg-color-red qy-fff text-c f12" ng-if="lastUnreadMessage.context && 0 < unreadMessageCount">
+                                <div ng-if="100 > unreadMessageCount">{{unreadMessageCount}}</div>
+                                <div ng-if="99 < unreadMessageCount">...</div>
+                            </div>
+                        </div>
+                        <div class="group_info_bottom line20 mar-t-5 color_9 position-r" ng-if="lastUnreadMessage.context">
+                                <span class="line20 message_data w70 text-ellipsis position-a left_0">
+                                    <span class="message_text text-ellipsis w100 f12">{{lastUnreadMessage.context}}</span>
+                                </span>
+                            <span class="max-w30 text-right text-ellipsis f12 position-a right_0">{{lastUnreadMessage.datetime}}</span>
+                        </div>
+                    </div>
+                </ion-item>
+                <!--消息中心 end-->
+                <!--会话列表 start-->
+                <ion-item class="border-d group_item w100" ng-repeat="session in sessionList track by $index" ng-click="onMessageClick(session)">
+                    <div class="group_img position-a left_0">
+                        <img class="group_logo" ng-if="session.scene == 1"
+                             ng-src="{{session.sessionIcon || 'resource/images/icons/logo_default.png'}}"
+                             onerror="this.src='resource/images/icons/logo_default.png'"/>
+                        <img class="group_logo" ng-if="session.scene == 0 && 2 == session.userRole"
+                             ng-src="{{session.sessionIcon
+                             || (2 == session.sex ? 'resource/images/patients_group/doctor_female.png'
+                             : 'resource/images/patients_group/doctor_male.png')}}"
+                             onerror="this.src='resource/images/patients_group/doctor_male.png'"/>
+                        <img class="group_logo" ng-if="session.scene == 0 && 2 != session.userRole"
+                             ng-src="{{session.sessionIcon
+                             || (2 == session.sex ? 'resource/images/patients_group/user_female.png'
+                             : 'resource/images/patients_group/user_male.png')}}"
+                             onerror="this.src='resource/images/patients_group/user_male.png'"/>
+                    </div>
+                    <div class="group_detail f14 position-a left50" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}" >
+                        <div class="group_info_top line25">
+                            <div class="fl-l group_name max-w50 text-ellipsis">{{session.petname}}</div>
+                            <div class="fl-l mar-l-5 max-w25 text-ellipsis f12 qy-fff" ng-if="session.groupLabel">
+                            <span class="label bg-label-blue" ng-if="session.groupType==2">
+                                {{session.groupLabel}}
+                            </span>
+                            <span class="label qy-bg-orange" ng-if="session.groupType==1">
+                                {{session.groupLabel}}
+                            </span>
+                            <span class="label bg-label-red" ng-if="session.groupType==0">
+                                {{session.groupLabel}}
+                            </span>
+                            </div>
+                            <div class="fl-r unreadMsgCount text-c qy-grey4" ng-if="session.muteTeam == 1">
+                                <i class="f18 icon-cancel-remind "></i>
+                            </div>
+                            <div class="fl-r unreadMsgCount border-radius-5 qy-fff text-c f12"
+                                 ng-class="{'qy-bg-grey4':session.muteTeam == 1,'bg-color-red':session.muteTeam != 1}"
+                                 ng-if="session.unreadCount>0 && session.unreadCount<100">{{session.unreadCount}}</div>
+                            <div class="fl-r unreadMsgCount border-radius-5 qy-fff text-c f12"
+                                 ng-class="{'qy-bg-grey4':session.isNotice==1,'bg-color-red':session.isNotice!=1}"
+                                 ng-if="session.unreadCount>99">...</div>
+                        </div>
+                        <div class="group_info_bottom line20 mar-t-5 color_9 f12 position-r">
+                            <span class="line20 message_data w70 text-ellipsis position-a left_0"
+                                  ng-if="session.scene == 1">
+                                <div class="icon-exclamation-mark color-red" ng-if="session.lastMsg.status == 'fail' "></div>
+                                <img class="loading_img" ng-src="{{'resource/images/patients_group/loading.gif'}}" ng-if="session.lastMsg.status == 'sending'">
+                                <span class="color-red fl-l" ng-if="session.scene == 1 && session.isAt==1">[有人@我]&#8194</span>
+                                <span class="message_text text-ellipsis" 
+                                      ng-class="{'max-w50':session.groupType != 0 && session.isAt==1,
+                                      'w90':session.groupType != 0 && session.isAt!=1}"
+                                      ng-bind-html="TrustInputContent(session.text)"></span>
+                                <span ng-if="session.groupType == 0">{{session.hospitalName}}</span>
+                            </span>
+
+                            <span class="line20 message_data w70 text-ellipsis position-a left_0"
+                                  ng-if="session.scene == 0">
+                                <div class="icon-exclamation-mark color-red" ng-if="session.state==2"></div>
+                                <img class="loading_img mar-t-10 fl-l" ng-src="{{'resource/images/patients_group/loading.gif'}}" ng-if="session.lastMsg.status == 'sending'">
+                                <span class="message_text w90 text-ellipsis" ng-bind-html="TrustInputContent(session.text)"></span>
+                            </span>
+                            <span class="max-w30 text-right text-ellipsis position-a right_0">{{session.dateTime}}</span>
+                        </div>
+                    </div>
+                    <ion-option-button class="min-w20 bg-color-blue qy-fff ta-c line70" ng-hide="session.sessionId == '10089' || session.unreadCount == 0" ng-click="clearUnreadCount(session)">
+                        <span>已读</span>
+                    </ion-option-button>
+                    <ion-option-button class="min-w20 bg-color-red qy-fff ta-c line70" ng-hide="session.sessionId == '10089'" ng-click="deleteSession(session)">
+                        <span kyee-i18n-directive code="deleteMessages" default="删除"></span>
+                    </ion-option-button>
+                </ion-item>
+                <!--会话列表 end-->
+            </ion-list>
+        </div>
+        <!--消息中心模块 end-->
+        <!--联系人模块 start-->
+        <div class="qy_contacts_list mar_t_10" ng-if="activeTab == 1">
+            <!--搜索-->
+            <div class="mar-td-10 qy-bg-white mar-b-14 border-all border_radius_4">
+                <div class="search_container position-r" ng-click="goQueryFriends()">
+                    <input type="text" placeholder="输入手机号/昵称" class="text-ellipsis" ng-readonly="true">
+                    <button class="button-icon icon-seach grid_img color_search"></button>
+                </div>
+            </div>
+
+            <div class="contacts_container">
+                <div class="mar-t-10 qy-bg-white border-td pad-l-14">
+                </div>
+                <!--联系人列表-->
+                <div ng-repeat="group in contactData" id="{{'group_id_' + group.group}}">
+                    <div class="line20 pad-l-14 f12 qy-grey5 fw-b groupIndex">{{group.group}}</div>
+                    <ul class="qy-bg-white border-td pad-l-14">
+                        <li ng-repeat="user in (group.users)" class="line50 border-b" ng-click="goPersonalPage(user)">
+                            <img ng-if="user.sex == '2'" ng-src="{{user.userPhoto?user.userPhoto:'resource/images/patients_group/user_female.png'}} "
+                                 onerror="this.src='resource/images/patients_group/user_female.png'"/>
+                            <img ng-if="user.sex != '2'" ng-src="{{user.userPhoto?user.userPhoto:'resource/images/patients_group/user_male.png'}} "
+                                 onerror="this.src='resource/images/patients_group/user_male.png'"/>
+                            <span class="pad-l-16 qy-grey7">{{user.userPetname}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-if="friendsCount > 0" class="qy-grey5 text-c mar-td-10">{{friendsCount}}位联系人</div>
+            </div>
+        </div>
+        <!--联系人模块 end-->
+    </ion-content>
+
+    <!--要显示的文字图标-->
+    <div ng-if="showWordInfo.flag">
+        <span class="indexed_show_word qy-fff" ng-style="{'top':showWordInfo.top+'px'}">{{showWordInfo.text}}</span>
+    </div>
+
+    <!--侧导航条-->
+    <div class="indexed_words_list groupIndex qy-color ta-c" ng-if="activeTab == 1 && showIndexListFlag"
+         ng-style="{'line-height':wordHeight + 'px'}"
+         ng-click="doIndexedBarClick($event)"
+         on-drag="doIndexedBarDrag($event)"
+         on-release="doIndexedBarRelease($event)"
+         data-tap-disabled="true">
+        <div class="indexed_words_list_word" ng-repeat="word in words">
+            {{word}}
+        </div>
+    </div>
+
+</ion-view>

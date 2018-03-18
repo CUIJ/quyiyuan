@@ -1,0 +1,83 @@
+<ion-view  class="appointment" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive  code="rushRecordTitle" default="抢号管理"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" class="qy-bg-grey2">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefreshBtn()">
+        </ion-refresher>
+        <div class="list " ng-if="appointListNotHidden" >
+            <ion-list can-swipe="true">
+                <ion-item class="item qy_appointment_grab  mar-t-10  border-td" ng-repeat="appointList in resultData">
+                    <div class="qy-bg-white"  >
+                        <ul class="appointment_list_ul padding_0">
+                            <li class="row pad-b-14 " ng-class="{'border-d':isDisplay==$index}" style=" line-height: 40px;">
+                                <img class="appointment_list_grab_img"
+                                     ng-src="{{appointList.LOGO_PHOTO?appointList.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                                <span class=" f14 text-ellipsis col qy-grey7 pad-r-10">
+                                    {{appointList.HOSPITAL_NAME}}
+                                </span>
+                            </li>
+                            <li class="pad-b-14 qy-bg-grey1" ng-click="onRushClinicDetail(appointList)">
+                                <div class="row " >
+                                    <div class="doc_img_box"ng-if="appointList.DOCTOR_SEX==1" >
+                                        <img class="head_image"  ng-src="{{appointList.DOCTOR_PIC_PATH?appointList.DOCTOR_PIC_PATH:'resource/images/base/head_default_female.jpg'}} "
+                                             onerror="javascript:this.src='resource/images/base/head_default_female.jpg'">
+                                    </div>
+                                    <div class="doc_img_box"ng-if="appointList.DOCTOR_SEX!=1" >
+                                        <img class="head_image"  ng-src="{{appointList.DOCTOR_PIC_PATH?appointList.DOCTOR_PIC_PATH:'resource/images/base/head_default_man.jpg'}} "
+                                             onerror="javascript:this.src='resource/images/base/head_default_man.jpg'">
+                                    </div>
+                                    <ul class="col pos_box" ng-style="{'width':KyeeEnv.innerSize.width-106+'px'}">
+                                        <li class=" text-ellipsis pad-r-10 mar-d-5 ">
+                                                <span class="qy-grey7 f14 mar-r-10"> {{appointList.DOCTOR_NAME}}</span>
+                                                <span class="qy-grey5 f12"> {{appointList.DOCTOR_TITLE}}</span>
+                                        </li>
+                                        <li class="text-ellipsis pad-r-10 min_h35 " >
+                                                {{appointList.DEPT_NAME}}
+                                        </li>
+                                        <li class="qy-grey5 text-ellipsis" style="width: 72%;">
+                                            <span>{{appointList.ALL_CLINIC_DURATIONS}} </span>
+                                        </li>
+                                        <i ng-if="appointList.TYPE == 1" class="icon icon-qianghao qy-grey4 icon_grab"></i>
+                                        <i ng-if="appointList.TYPE == 0" class="icon icon-remind qy-grey4 icon_grab"></i>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="pad-b-14 ta-r" style="line-height: 40px">
+                                <span class="fl-l mar_r-24"
+                                      ng-class="{'qy-grey5':appointList.RUSH_STATUS == 4,'qy_red_f5':appointList.RUSH_STATUS == 3,'qy-green':(appointList.RUSH_STATUS != 4 && appointList.RUSH_STATUS != 3)}">
+                                    {{appointList.RUSH_STATUS_TEXT}}</span>
+                                <span ng-if="appointList.IS_SHOW_RUSH_DETAIL" class="fl-l qy-blue"
+                                      ng-click="onRushClinicRecordListTap(appointList)">{{appointList.RUSH_STATUS_DETAIL}}</span>
+                                <button  ng-if="appointList.IS_SHOW_RUSH_TURN" class="button button-size-s  button-color-green appointment_list_button"
+                                         ng-click="onAppiontMentConfirm(appointList)">{{appointList.RUSH_STATUS_TURN}}
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <ion-option-button class=" button button-assertive"  style="color: #FFF !important;"
+                                       ng-click="delete($index,appointList)" >删除 </ion-option-button>
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <!--上拉加载更多-->
+        <ion-infinite-scroll icon="ion-loading-c" ng-if="hasmore" on-infinite="loadMore()" immediate-check="false" distance="1%" >
+        </ion-infinite-scroll>
+        <div ng-if="dataNotHidden" class="empty-text">
+            <i class="icon-icon_3 empty-icon"></i>
+            {{dataDetail}}
+        </div>
+    </ion-content>
+</ion-view>

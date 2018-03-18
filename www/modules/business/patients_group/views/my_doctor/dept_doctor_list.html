@@ -1,0 +1,42 @@
+<ion-view class="qy_dept_doctor_list">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{deptName}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+        <!--医生列表 start-->
+        <div ng-if="doctorList.length > 0" class="qy-bg-white mar-t-10 pad-l-14 border-td">
+            <ul class="doctorList">
+                <li class="line100 border-b f14 pad-r-14 position-r" ng-repeat="doctor in doctorList"
+                    ng-click="goDoctorDetails(doctor)">
+                    <div class="line70 position-a left_0 mar-td-15">
+                        <img class="head_img" ng-if="doctor.doctorPhoto" ng-src="{{doctor.doctorPhoto}}"
+                             onerror="javascript:this.src='resource/images/patients_group/doctor_male.png'"/>
+                        <img class="head_img" ng-if="!doctor.doctorPhoto"
+                             ng-src="{{doctor.doctorSex == 2 ? 'resource/images/patients_group/doctor_female.png':
+                                     'resource/images/patients_group/doctor_male.png'}}"
+                             onerror="javascript:this.src='resource/images/patients_group/doctor_male.png'"/>
+                    </div>
+                    <div class="mar-l-14 position-a r14 left55 mar-td-10" ng-style="{'width':KyeeEnv.innerSize.width - 97 + 'px'}">
+                        <div class="clear line30">
+                            <span class="max-w60 mar-r-10 text-ellipsis color_3 f16 display-inline-b">{{doctor.doctorName}}</span>
+                            <span class="max-w40 qy-color text-ellipsis display-inline-b">{{doctor.doctorTitle}}</span>
+                        </div>
+                        <div class="color_6 text-ellipsis-line doctorDesc">{{doctor.doctorDic}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--医生列表 end-->
+
+        <!--无数据提示信息 start-->
+        <div ng-if="doctorList.length == 0" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDeptDoctor" default="该科室暂无医生"></span>
+        </div>
+        <!--无数据提示信息 end-->
+    </ion-content>
+</ion-view>

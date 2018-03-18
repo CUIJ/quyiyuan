@@ -1,0 +1,100 @@
+<ion-view class="qy_perpaid" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="住院预缴"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="!showInpaitentPaid" class="button button-clear txt" ng-click="goHistoryRecord()" kyee-operation-monitor-directive="prePayHistory" kyee-i18n-directive code="rightBtn1" default="预缴历史"></a>
+            <a ng-if="showInpaitentPaid" class="button button-clear txt" ng-click="goPaidRecord()" kyee-operation-monitor-directive="paidRecord" kyee-i18n-directive code="rightBtn2" default="历史记录"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" scroll="false">
+        <!--切换医院-->
+        <div class="bar hospital_bar pad-14 border-d" ng-if="!fromInpatient" >
+            <div class="row bar_cont">
+                <div class="mar-r-5 bar_cont_l">
+                    <img width="32px" height="32px" style="vertical-align: top;"
+                         ng-src="{{hospitalLogo?hospitalLogo:'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                </div>
+                <ul class="col f14 mar-r-10">
+                    <li class="qy-deepblack text-ellipsis">{{perpaidData.HOSPITAL_TIP}}</li>
+                    <li class=" qy-green text-ellipsis">
+                        {{hospitalName}}
+                    </li>
+                </ul>
+                <button ng-click="changeHospital();" class="button button-size-s button-color-bg-green bar_cont_r" kyee-operation-monitor-directive="changeHospital">
+                    <span kyee-i18n-directive code="changeHospital" default="切换医院"></span>
+                </button>
+            </div>
+        </div>
+
+        <!--输入框-->
+        <div class="list mar-t-10 qy-bg-white border-td list_line" ng-if="!isEmpty && !isFromQRCode" ng-class="fromInpatient?'':'mar_t_80'">
+
+            <div class="item item-input input_line"  ng-click="goCustomPatient()">
+                <span class="input-label input_l qy-deepblue" kyee-i18n-directive code="name1" default="姓名："></span>
+                <div ng-bind="pagedata.name" class="text-ellipsis input_c f14"></div>
+                <div class="ta-r qy-grey5 input_r">
+                    <span class="text-ellipsis" style="width:64px"  kyee-i18n-directive code="changePatient"
+                          default="切换就诊者">
+                    </span>
+                    <i class="icon icon-arrow_right"></i>
+                </div>
+            </div>
+            <div class="item item-input input_line border-t" style="border-bottom:0px;">
+                <span class="input-label qy-deepblue" kyee-i18n-directive code="IdNo" default="身份证："></span>
+                <input type="text" readonly="readonly" ng-model="pagedata.idNo" />
+            </div>
+            <div class="item item-input input_line border-t" style="border-bottom:0;" ng-if="perpaidData.QUERY_TYPE==1">
+                <span class="input-label qy-deepblue" kyee-i18n-directive code="inHospitalNo" default="住院号："></span>
+                <input type="text" ng-model="pagedata.inHospitalNo" placeholder="{{placeholder.pHInHospitalNo}}"  />
+                <a class="col col-10 ta-r clear_icon" ng-show="pagedata.inHospitalNo">
+                    <i class="icon ion-close-circled  qy-grey4 f16" ng-click="clearNo()" ></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="list qy-bg-white border-td list_line" ng-if="!isEmpty && isFromQRCode">
+
+            <div class="item item-input input_line"  ng-click="goCustomPatient()">
+                <span class="input-label input_l qy-deepblue" kyee-i18n-directive code="name1" default="姓名："></span>
+                <div ng-bind="pagedata.name" class="text-ellipsis input_c f14"></div>
+                <div class="ta-r qy-grey5 input_r">
+                    <span class="text-ellipsis" style="width:64px"  kyee-i18n-directive code="changePatient"
+                          default="切换就诊者">
+                    </span>
+                    <i class="icon icon-arrow_right"></i>
+                </div>
+            </div>
+            <div class="item item-input input_line border-t" style="border-bottom:0px;">
+                <span class="input-label qy-deepblue" kyee-i18n-directive code="IdNo" default="身份证："></span>
+                <input type="text" readonly="readonly" ng-model="pagedata.idNo" />
+            </div>
+            <div class="item item-input input_line border-t" style="border-bottom:0;" ng-if="perpaidData.QUERY_TYPE==1">
+                <span class="input-label qy-deepblue" kyee-i18n-directive code="inHospitalNo" default="住院号："></span>
+                <input type="text" ng-model="pagedata.inHospitalNo" placeholder="{{placeholder.pHInHospitalNo}}"  />
+                <a class="col col-10 ta-r clear_icon" ng-show="pagedata.inHospitalNo">
+                    <i class="icon ion-close-circled  qy-grey4 f16" ng-click="clearNo()" ></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="pad-b-14 qy-bg-grey2" ng-if="!isEmpty">
+            <button class="button-size-l button button-block" style="margin-bottom: 0" ng-click="goRecharge()" kyee-operation-monitor-directive="goRecharge">
+                <span kyee-i18n-directive code="nextStep" default="下一步"></span>
+            </button>
+        </div>
+
+        <div class="mar-t-15 pad-b-14 qy-orange" ng-if="!isEmpty">
+            {{perpaidData.BOTTOM_TIP}}
+        </div>
+
+        <!--背景提示-->
+        <div class="empty-text" ng-if="isEmpty">
+            <i class="icon icon-icon_2 empty-icon"></i>
+            <p>{{perpaidData.PERMISSION_TIP}}</p>
+        </div>
+    </ion-content>
+</ion-view>

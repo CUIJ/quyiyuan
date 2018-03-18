@@ -1,0 +1,101 @@
+<ion-view class="qy_coupons qy_queue_dept">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="title2" class="f16" default="排队叫号"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" kyee-action-holder-directive="myQueue" ng-click="KAH($event) || showQueueClinic()">
+                <span kyee-i18n-directive code="myQueue" default="我的叫号"></span>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <!--sub_header-->
+    <div class="bar bar-subheader item-input-inset search pad-b-14 qy-bg-grey1">
+        <label class="item-input-wrapper search-item">
+            <div class="div_search"><i class="icon icon-seach placeholder-icon mar-l-10 " ></i></div>
+            <form action="javascript:return true;">
+             <input type="search" placeholder="{{placetxt}}" ng-model="keywords" ng-change="searchDept(keywords)">
+            </form>
+        </label>
+    </div>
+    <!--main_content-->
+    <ion-content has-bouncing="true" padding="false" class="has-subheader qy-bg-grey1" delegate-handle="waiting_queue">
+        <p class="ta-c mar-t-10 " style="position: relative;"><span kyee-i18n-directive code="refreshTime" default="信息刷新于：" style="display: inline-block"></span>{{refreshDate}}
+            <img src="resource\images\base\refresh.png"  style="width: 18px" class="re_fresh" ng-click="refreshQueue()">
+        </p>
+        <div  ng-class="{'border-td':!dataNotHidden,'':dataNotHidden}">
+            <ul ng-if="!dataNotHidden" class="pad-l-14 qy-bg-white" ng-repeat="dept in queueDeptData" ng-class="{'qy-bg-grey2' :showdeptBool && QueueDepIndex!=$index}">
+                <!--start-->
+                <!--  {{QueueDepIndex==-1|| !QueueDepIndex==$index}}-->
+                <li class="fix_height pad-r-14 " ng-if="QueueDepIndex!=$index|| QueueDepIndex==-1"  ng-class="{'border-d':(QueueDepIndex!=$index|| QueueDepIndex==-1)&&($index!=queueDeptData.length-1)}">
+                    <div class="row pad-d-5 pad-t-5 f14 ">
+                        <div class="col col-48 ta-l text-ellipsis pad-r-10 mar-r-5">{{dept.DEPT_NAME}}</div>
+                        <i class = "border-r"></i>
+                        <div class="col ta-c"><span kyee-i18n-directive code="visitDoctor" default="开诊医生" style="display: inline-block"></span><span class="mar-l-14">{{dept.DOCTOR_TOTAL}}</span><span kyee-i18n-directive code="ren" default="人"></span></div>
+                        <div class="col col-20 ta-r qy-green" ng-click="showdeptInfo($index,dept)"><span kyee-i18n-directive code="open" default="查看"></span> <i class="icon icon-arrow_down"></i></div>
+                    </div>
+                </li>
+                <div class="line_content f14 pad-r-14" ng-if="QueueDepIndex==$index" ng-class="{'border-d':(QueueDepIndex==$index) && ($index!=queueDeptData.length-1)}" >
+                    <h5 class="ta-c font_size16 mar_td_0 pad-td-15">{{dept.DEPT_NAME}}</h5>
+                    <ul class="type_box">
+                        <li class="row type_title">
+                            <div class="col">
+                            </div>
+                            <div class="col ta-c">
+                                <span kyee-i18n-directive code="visiting" default="当前就诊"></span>
+                            </div>
+                            <div class="col ta-c">
+                                <span kyee-i18n-directive code="waiting" default="候诊人数"></span>
+                            </div>
+                            <div class="col col-20 ta-r pad_r_10">
+                                <span kyee-i18n-directive code="status" default="状态"></span>
+                            </div>
+                        </li>
+                        <li class="row type_content"  ng-repeat="doctor in dept.QUEUE_CURRENT_CALL_NUMBER_EXT_LIST" ng-click="toDoctorSchedule(doctor)"  ng-class="{'border-next':$index!=(dept.QUEUE_CURRENT_CALL_NUMBER_EXT_LIST.length - 1)}" ng-if="!doctor.isDeleted">
+                            <div class="text-ellipsis col col-30 ta-l pad-b-10">
+                                {{doctor.DOCTOR_NAME}}
+                            </div>
+                            <div class="col ta-c">
+                                <span ng-if="doctor.CURRENT_CALL_NUMBER">{{doctor.CURRENT_CALL_NUMBER}}号</span>
+                                <span ng-if="!doctor.CURRENT_CALL_NUMBER" kyee-i18n-directive code="none" default="无"></span>
+                            </div>
+                            <div class="col ta-c">
+                            <span ng-if="doctor.QUEUING_TOTAL==undefined || doctor.QUEUING_TOTAL+''=='' ||doctor.QUEUING_TOTAL==null"  kyee-i18n-directive code="none" default="无">
+                            </span>
+                            <span ng-if="!(doctor.QUEUING_TOTAL==undefined || doctor.QUEUING_TOTAL+''=='' ||doctor.QUEUING_TOTAL==null)">
+                               {{doctor.QUEUING_TOTAL}}人
+                            </span>
+                            </div>
+                            <div class="col col-20 ta-r pad_r_10" ng-switch="doctor.DOCTOR_STATUS" >
+                            <span ng-switch-when="-1">
+
+                            </span>
+                           <span class="red" ng-switch-when="0">
+                               <span  kyee-i18n-directive code="yueman" default="约满"></span>
+                           </span>
+                            <span class="qy-green" ng-switch-when="1">
+                                <span  kyee-i18n-directive code="youhao" default="有号"></span>
+                            </span>
+                            <span class="grey" ng-switch-when="2">
+                                <span  kyee-i18n-directive code="weikaizhen" default="未开诊"></span>
+                            </span>
+                            <span class="grey" ng-switch-when="3">
+                                <span  kyee-i18n-directive code="xiaban" default="下班"></span>
+                            </span>
+                            </div>
+                        </li>
+                        <div class="ta-c" ng-click="hideDoctor($index)"><i class="icon qy-grey4 icon-arrow_up"></i>
+                        </div>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+        <div ng-if="dataNotHidden" class="empty-text" style="padding-top: 35%;">
+            <i class="icon icon-icon_3 empty-icon " ></i>
+            <span class="queue_empty_text" kyee-i18n-directive code="noCalledNumber" default="暂无科室叫号信息"></span>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,148 @@
+<ion-view class="qy_home">
+
+    <div class="bar bar-header item-input-inset" style="background-color: #F1F5FA;">
+        <i ng-if="branchVerCode=='03'" class="icon-arrow_left backcls" ng-click="backToBoZhou()"></i>
+        <div class="title">
+            <span class="qy-grey7" kyee-i18n-directive>{{appName}}</span>
+        </div>
+        <div class="msg_box" ui-sref="messagecenter" ng-if="!$root.IS_SHELL_LOAD" kyee-operation-monitor-directive="messagecenter">
+            <i class="icon icon-talk header_right" ></i>
+            <span ng-if="unreadMessageCount != undefined && unreadMessageCount > 0" class="msg_bage"></span>
+        </div>
+    </div>
+
+    <ion-content has-bouncing="true" padding="false" class="has-header has-footer-home qy-bg-white" scrollbar-y="false"
+                 on-scroll-complete="onScrollComplete()"
+                 on-drag-down="onDragDown()">
+
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                  refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div
+                kyee-slidebox-image-directive
+                speed="5000"
+                height="{{imgHeight}}"
+                images="slideboxData"
+                itemclick="viewHospitalDetail(params)"
+                bind="bindSlideboxImageActions(params)"></div>
+
+        <ul class="pad-b-14">
+            <li class="row border-d"  style="flex-direction:row "ng-style="{height: moduleHeight + 'px'}" ng-click="goToAppointment()" kyee-operation-monitor-directive="goToAppointment">
+                <i class="icon icon-redcross2 qy-red" style="font-size: 50px;" ng-style="{lineHeight:moduleHeight + 'px'}"></i>
+                <div ng-if="!(userSource=='4001')" class="yuyue_content col pad-l-10" ng-style="{paddingTop:(moduleHeight-46)/2 +'px'}">
+                    <h4 class="sec_title color_3" kyee-i18n-directive code="appoint_regist" default="预约挂号"></h4>
+                    <p class="qy-grey5 f12" kyee-i18n-directive code="appoint_regist_info" default="覆盖全国千余二甲以上公立医院"></p>
+                </div>
+                <div ng-if="userSource=='4001'" class="yuyue_content col pad-l-10" ng-style="{paddingTop:(moduleHeight-46)/2 +'px'}">
+                    <h4 style="line-height: 42px;" class="sec_title color_3" kyee-i18n-directive code="appoint_regist" default="预约挂号"></h4>
+                </div>
+                <img src="resource\images\home\hospital.png" style="width: 50px;height: 50px;" ng-style="{marginTop:(moduleHeight-50)/2 +'px'}">
+            </li>
+            <li class="border-d" ng-style="{height: moduleHeight + 'px'}">
+                <ul class="grid3 row" ng-style="{paddingTop:(moduleHeight-60)/2 +'px'}">
+                    <li class="col ta-c" ng-click="goToSelectAppointDate()" kyee-operation-monitor-directive="goToSelectAppointDate">
+                        <i class="icon icon-calendar2 grid_img color_date"></i>
+
+                        <p class="qy-grey7 f14" kyee-i18n-directive code="select_date" default="选日期就诊"></p>
+                    </li>
+                    <li class="col ta-c" ng-click="goNearbyHospital()" kyee-operation-monitor-directive="goNearbyHospital">
+                        <i class="icon icon-position grid_img color_hospital"></i>
+
+                        <p class="qy-grey7 f14" kyee-i18n-directive code="find_nearby_hospital" default="找附近的医院"></p>
+                    </li>
+                    <li class="col ta-c" ng-click="goToMultipleQuery()" kyee-operation-monitor-directive="goToMultipleQuery">
+                        <i class="icon icon-seach grid_img color_search"></i>
+
+                        <p class="qy-grey7 f14" kyee-i18n-directive code="search" default="搜索"></p>
+                    </li>
+                </ul>
+            </li>
+            <li class="border-d" ng-style="{height: moduleHeight + 'px'}">
+                <ul class="grid2 row" ng-style="{paddingTop:(moduleHeight-56)/2 +'px'}">
+                    <li class="col relative" ui-sref="careDoctors" kyee-operation-monitor-directive="careDoctors">
+                        <h4 class="sec_title grid2_item_pad color_3" kyee-i18n-directive code="my_care" default="我的医生"></h4>
+
+                        <p class="qy-grey5 f12 grid2_item_pad" kyee-i18n-directive code="my_care_info" default="快速预约 / 咨询"></p>
+                        <img src="resource\images\home\care.png" class="care_img">
+                    </li>
+                    <li class="col relative pad-l-10" ui-sref="triageMain" kyee-operation-monitor-directive="triageMain">
+                        <h4 class="sec_title grid2_item_pad color_3" kyee-i18n-directive code="triage" default="症状自查"></h4>
+
+                        <p class="qy-grey5 f12 grid2_item_pad" kyee-i18n-directive code="triage_info" default="初步判断疾病"></p>
+                        <img src="resource\images\home\test.png" class="triage_img">
+                    </li>
+
+                </ul>
+
+            </li>
+            <li class="border-d"  ng-if="quhuIsopen" ng-style="{height: moduleHeight + 'px'}">
+                <ul class="grid4 row" ng-style="{paddingTop:(moduleHeight-56)/2 +'px'}">
+                    <li ng-if="withDiagnosis" class="col relative" ng-click="withTheDiagnosis()" ng-if="withDiagnosis" kyee-operation-monitor-directive="withTheDiagnosisInto">
+                        <h4 class="sec_title grid4_item_pad color_3" kyee-i18n-directive code="accompany_with_medical_treatment" default="就医陪诊"></h4>
+                        <p class="qy-grey5 f12 grid4_item_pad" kyee-i18n-directive code="accompany_with_medical_treatment_info" default="护士全程陪同"></p>
+                        <img src="resource\images\home\peizhen.png" class="wangluo_img">
+                    </li>
+                    <li ng-if="bzMediacalRecord" class="col relative" ng-click="goToSpMedicalRecord_()" kyee-operation-monitor-directive="withTheDiagnosisInto">
+                        <h4 class="sec_title grid4_item_pad color_3" kyee-i18n-directive code="bz_medicRecordEvaluate" default="满意度评价"></h4>
+                        <p class="qy-grey5 f12 grid4_item_pad" kyee-i18n-directive code="bz_medicRecordEvaluate_info" default="全流程满意度"></p>
+                        <img src="resource\images\home\bzMedicalRecord.png" class="wangluo_img">
+                    </li>
+                    <li ng-if="userSource=='4001'" class="col relative" ng-click="withTheDiagnosis()" ng-if="withDiagnosis" kyee-operation-monitor-directive="withTheDiagnosisInto">
+                        <h4 class="sec_title grid4_item_pad color_3" kyee-i18n-directive code="healthEdu" default="健康教育"></h4>
+                        <p class="qy-grey5 f12 grid4_item_pad" kyee-i18n-directive code="healthKnowledge" default="学习健康知识"></p>
+                        <img src="resource\images\home\jiaoyu.png" class="wangluo_img" style="width: 45px;">
+                    </li>
+                    <li class="col relative pad-1-10" style="padding-left: 10px" ng-click="withTheCusService()" ng-if="cusService" kyee-operation-monitor-directive="getOnlineService">
+                        <h4 ng-if="!(userSource=='4001')" class="sec_title grid4_item_pad color_3" kyee-i18n-directive code="online_consultation" default="护士咨询"></h4>
+                        <h4 ng-if="userSource=='4001'" class="sec_title grid4_item_pad color_3" kyee-i18n-directive code="healthConsult" default="健康咨询"></h4>
+
+                        <p class="qy-grey5 f12 grid4_item_pad" kyee-i18n-directive code="online_consultation_info" default="导诊 / 健康咨询"></p>
+                        <img  src="resource\images\home\zixun.png" class="zixun_img" style="top:-3px">
+                    </li>
+                </ul>
+            </li>
+            <!--<li class="wangluo" ng-style="{height: moduleHeight + 'px'}" ng-click="goNetHospital()" ng-if="netHospital!='hidden'" kyee-operation-monitor-directive="getHospital">-->
+                <!--<h4 class="sec_title wangluo_item_pad color_3" style="margin-top: 8px;" kyee-i18n-directive code="net_hospital" default="网络医院"></h4>-->
+
+                <!--<p class="qy-grey5 f12 wangluo_item_pad" kyee-i18n-directive code="net_hospital_info" default="在线寻医 / 视频问诊 / 送药上门"></p>-->
+                <!--<img src="resource\images\home\network_hos.png" class="wangluo_img">-->
+            <!--</li>-->
+        </ul>
+
+    </ion-content>
+    <div class="qy-bg-orange qy-fff"
+         ng-class="{'notice_icon_l':bellLeft==0,'notice_icon_c':pressed,'notice_icon_r':bellLeft!=0&&!pressed}"
+         ng-if="noticeNum > 0"
+         style="top:{{bellTop+'px'}}; left:{{bellLeft+'px'}};"
+         ng-click="showNotice()"
+         kyee-operation-monitor-directive="showNotice"
+         on-drag-start="press()"
+         on-drag="drag($event)"
+         on-drag-end="leave($event)"
+         data-tap-disabled="true"
+         draggable="true">
+        <i class="icon-ding sign_icon wobble"></i>
+    </div>
+    <div
+         ng-class="{'help_icon_l':bellLeft1==0,'help_icon_c':pressed1,'help_icon_r':bellLeft1!=0&&!pressed1}"
+         ng-if="showHelpAtOnce == '1'"
+         style="top:{{bellTop1+'px'}}; left:{{bellLeft1+'px'}};"
+         ng-click="goForHelp()"
+         on-drag-start="press1()"
+         on-drag="drag1($event)"
+         on-drag-end="leave1($event)"
+         data-tap-disabled="true"
+         draggable="true">
+        <img src = "resource\images\home\yijianhujiu.png" style="height: 40px">
+    </div>
+
+    <div kyee-overlay-directive
+         location="{{msgDirection}}"
+         on-hide="onHide(params)"
+         data="notices"
+         template="modules/business/home/views/shownotice.html"
+         bind="bind(params)">
+    </div>
+
+</ion-view>

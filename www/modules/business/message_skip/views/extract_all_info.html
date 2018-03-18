@@ -1,0 +1,38 @@
+﻿<ion-view class="qy_message_skip_extract">
+    <ion-content has-bouncing="true" scroll="true"
+                 padding="false" on-drag-up="onDragUp()" delegate-handle="myScroll"
+        <div class="content_top_div">
+            <div ng-if="top=='1' "style="margin-top: -100px"> </div>
+            <div class="img_div">
+                <img class="img_class" src="./resource/images/messageSkip/logo.png">
+            </div>
+            <div class="label_div">
+                <span kyee-i18n-directive code="all:message_skip.hintMessage" default="为了保证信息安全，我们需要对您的身份进行验证！请确保您录入的信息与医院预留的信息一致"></span>
+            </div>
+            <div class="input_div">
+                <input type="text" ng-model="objParams.userName" ng-focus="showKeyBoard()" ng-blur="hideKeyBoard()" placeholder="{{hintUserName}}">
+                <input type="text" style="margin-top: 10px;" ng-model="objParams.idNum"ng-focus="showKeyBoard()" ng-blur="hideKeyBoard()"  placeholder="{{hintIdNum}}">
+            </div>
+            <div class="label_div_1">
+                <div>
+                    <span kyee-i18n-directive code="all:message_skip.inputActivationCode" default="请输入提取码"></span>
+                </div>
+            </div>
+            <div class="input_div_2">
+                <input type="text" ng-focus="showKeyBoard()" ng-blur="hideKeyBoard()" ng-model="objParams.activationCode">
+            </div>
+            <div class="input_div_3">
+                <div>
+                    <button type="button" class="btn_1" ng-click="cancle()" kyee-i18n-directive code="all:message_skip.cancle" default="取消"></button>
+                    <button type="button" class="btn_2" ng-click="confirm()" kyee-i18n-directive code="all:message_skip.confirm" default="确定"></button>
+                </div>
+            </div>
+            <div class="input_div_4">
+                <span kyee-i18n-directive code="all:message_skip.message" default="*已帮您注册趣医账号，用户名和初始密码为当前手机号，下载趣医APP可直接进行登录"></span>
+            </div>
+        </div>
+        <div class="content_bottom_div">
+            <span kyee-i18n-directive code="all:message_skip.hintCopyright" default="QUYIYUAN@2017 趣医网版本所有"></span>
+        </div>
+    </ion-content>
+</ion-view>

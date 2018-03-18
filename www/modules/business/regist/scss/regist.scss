@@ -1,0 +1,225 @@
+.quyiyuan_regist_confirm{
+  .min-w70{
+    min-width: 70px;
+  }
+  .width70{
+    width : 70px;
+  }
+  .mar_l_20{
+    margin-left: 20px !important;
+  }
+  .mar_l_34{
+    margin-left: 34px !important;
+  }
+  .mar_l_15{
+    margin-left: 15px !important;
+  }
+  .mar_l_80{
+    margin-left: 80px !important;
+  }
+  .address_input{
+    margin-left: 20px !important;
+    line-height: 19px;
+    background-color: white;
+  }
+  .border_top_none{
+    border-top: none !important;
+  }
+  .item_padding_0{
+    border-top: 1px solid #e7e7e7;
+    margin-left: 14px;
+    border-bottom: none !important;
+    padding-left: 0px !important;
+  }
+  .col-25{flex: 0 0 25%;min-width:6em; max-width:8em; }
+  .col-75{flex: 0 0 75%;}
+  .regist_confirm_content{
+    margin-top: 1em;
+  }
+ /* .row{
+    white-space: normal;
+  }
+  .row + .row{
+    padding-top: 9px;
+  }*/
+  .regist_confirm_contentsub{
+    margin-top: 1em;
+  }
+  .regist_confirm_rows{
+    display: -webkit-box;
+    line-height: 2em;
+    margin: 0;
+    min-height: 40px;
+    line-height: 40px;
+  }
+  .regist_confirm_rowone{
+    display: -webkit-box;
+    min-height: 40px;
+    line-height: 40px;
+  }
+  .regist_confirm_cols{
+    -webkit-box-flex: 1;
+    .regist_confirm_icon{
+      color: #0F9D58;
+      position: absolute;
+      right: 1.5em;
+    }
+  }
+  .regist_confirm_footer{
+    height: 5em;
+    border: none;
+    .regist_footer{
+      text-align: center;
+      width: 100%;
+      border: none;
+    };
+    .button_for_address{
+      background-color:grey;
+    }
+  }
+  .icon-icon_3{
+    font-size: 18px;
+    right:52px;
+    margin-right: 9px;
+  }
+  .mr_100{
+    margin-right: 100px;
+  }
+  .card_sel {
+    position: absolute;
+    right: 14px;
+    top: 15px;
+  }
+  .can_write{
+    background:#fff;
+  }
+  .choose_card{
+    padding-bottom: 0;
+    .regist-confirm-cols{
+      position: relative;
+    }
+
+    input{
+      background: transparent;
+      width: 65%;
+      .regist-cardNo-input{
+      }
+      .regist-cardNo-notinput{
+        readonly:true;
+      }
+    }
+    span{
+      color: #0F9D58;
+    }
+  }
+  .regist-span-ion{
+    right: 3.5em;
+    padding: .1em 1em .1em 1em;
+    color: #0F9D58;
+  }
+  .begin_line_border{
+    border-top: 1px solid #e7e7e7;
+  }
+  .end_line_border{
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .no_address_div{
+    height: 100px;
+  }
+  .align_right{
+    text-align: right;
+    padding-right: 10px;
+  }
+  .inherit{
+    white-space: normal;
+  }
+  .patient{
+    width: 60%;
+    white-space: normal;
+    display: block;
+  }
+  .change_address_font{
+    position: absolute;
+    right: 14px;
+    top:15px;
+  }
+  .address{
+    position: relative;
+    min-height: 40px;
+    padding-bottom: 0px;
+    border-bottom: 0px;
+  }
+  .address_range{
+    position: relative;
+    min-height: 30px;
+    padding-top: 1px;
+  }
+  .address_range a{
+    top: 0px;
+  }
+  .text_decoration{
+    text-decoration:underline
+  }
+  .pad-box {
+    padding: 10px 14px 10px 0px;
+  }
+  .line_30 {
+    font-size: 14px;
+    line-height: 30px;
+  }
+  .fixed_width1 {
+/*    width:25% !important;*/
+    white-space: nowrap;
+    color: #264557;
+  }
+  .mar_b_0 {
+    margin-bottom: 0px ;
+    margin-top: 0px
+  }
+  .doctoc_title {
+    font-size: 12px;
+/*    color: #357fbc;*/
+    margin-left: 8px;
+  }
+  .mar_r_0{
+    margin-right: 0px !important;
+  }
+  .readonly{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+}
+.quyiyuan-regist-verifycard{
+    .div-child{
+      position: relative;
+      height: 2em;
+    }
+  .input-card{
+    position: absolute;
+    right: 0;
+    width: 60%;
+    height: 2em;
+    font-size: 12px;
+    top: 0;
+    line-height: 1.3em;
+    margin-top: 1px;
+  }
+  .input-pwd{
+    position: absolute;
+    right: 0;
+    width: 60%;
+    top: 0;
+    height: 2em;
+    font-size: 12px;
+    line-height: 1em;
+    border: 1px solid #aaa;
+  }
+}
+.qy_blacklist_detail {
+    word-break: break-all;
+}
+.qy_age_limit {
+  text-decoration: underline;
+  color:#357fbc !important;
+}

@@ -1,0 +1,13 @@
+<div>
+    <div id="{{id}}_backdrop" ng-click="innerHide()" ng-style="{'height':$root.KyeeEnv.innerSizeSource.height+'px','top':backdropTop+'px','left':backdropLeft+'px'}" style="width: 100%;z-index: 9000;position: absolute;background-color: rgba(0, 0, 0, 0.4);display: none;"></div>
+    <div id="{{id}}" ng-style="{'width':widthCpy+'px','height':heightCpy+'px','top':topCpy+'px','left':leftCpy+'px'}" style="z-index: 9999;position: absolute;display: none;">
+        <div ng-if="template != undefined" ng-include="template"></div>
+        <div ng-if="content != undefined">
+            <ion-view ng-style="{'background-color':contentBackgroundColor}">
+                <ion-content padding="false" scrollbar-y="false" has-bouncing="true">
+                    {{content}}
+                </ion-content>
+            </ion-view>
+        </div>
+    </div>
+</div>

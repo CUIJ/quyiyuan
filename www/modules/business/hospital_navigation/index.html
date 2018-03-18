@@ -1,0 +1,107 @@
+<ion-view class="qy_navigation">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{hosp}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right" >
+            <a ng-if="!isShowMessageTitle" style="font-size: 14px; top: 1px;" class="button button-clear"  ui-sref="department_column">
+                <i style="color: #fff;" kyee-i18n-directive code="departmentView" default="科室一览"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content delegate-handle="mainContent" scroll="true" has-bouncing="true">
+        <div class="bar item-input-inset search pad-b-14 " ng-if="!isShowMessage">
+            <label class="item-input-wrapper search-item text-ellipsis">
+                <input type="search" placeholder="{{searchInfo}}" ng-change="searchDept()" ng-model="deptSearch.keywords"
+                       class="header_input">
+                <div class="div_search">
+                    <i class="icon icon-seach  mar-l-10 " kyee-operation-monitor-directive="goDeptInfo" ng-click="goDeptInfo()"></i>
+                </div>
+            </label>
+        </div>
+        <div kyee-operation-monitor-directive="groundClick" ng-click="groundClick()" ng-if="frontClick()" class="search_result">
+            <ul style="z-index: 300;" class="pad-b-14 qy-bg-white list  ">
+                <li style="color: #5BAA8A;" class="item pad-td-10 border-next" ng-if="!floorinfo.isDeleted"
+                    kyee-operation-monitor-directive="onLocationSearch"
+                    ng-click="onLocationSearch($index)" ng-repeat="floorinfo in DeptInfo">
+                    <span style="width: 40%; display: inline-block;" class="f14 text-ellipsis">{{floorinfo.HOSPITAL_FLOOR_DEPT}}</span>
+                    <span class="float_b5 f14">{{floorinfo.HOSPITAL_BUILD_NUMBER}}&nbsp;{{floorinfo.HOSPITAL_FLOOR_NUMBER}}<span style="padding-left: 3px;" class="icon-arrow_right"></span></span>
+                </li>
+                <li class="list-summary center_empty">{{searchMsg}}</li>
+            </ul>
+        </div>
+        <div class="row" ng-if="resultData.length>1">
+            <!--<div class="button-bar">-->
+                <div class="col qy-grey6 qy-bg-white nav_button"
+                     kyee-operation-monitor-directive="areaSwitch"
+                     ng-click="areaSwitch($index,record)"
+                     ng-class="{'checked':currentAreaIndex ==$index,'unChecked':currentAreaIndex !=$index}"
+                     ng-repeat="record in resultData">{{record.HOSPITAL_AREA}}</div>
+            <!--</div>-->
+        </div>
+        <div ng-if="!isShowMessage">
+            <ion-scroll ng-style="{'height':mainStyle.height}" scrollbar-y="false" scrollbar-x="false"
+                        min-zoom="1" max-zoom="2" zooming="true" direction="xy">
+                <div ng-hide="!isShow" style="{{showStyle}}">
+                    <div class="ion-android-pin" ng-class="showShake"></div>
+                </div>
+                <div ng-if="isShow && isShowText" class="b_main mar-b-14" style="{{showMsgStyle}}">
+                    <div class="border">{{hospitalMessage}}</div>
+                    <div ng-class="showClass">
+                        <div class="in"></div>
+                    </div>
+                </div>
+                <!--<div ng-if="transparentModule" class="b_main mar-b-14 transparent_module" style="{{transparentModuleStyle}}">-->
+                <!--</div>-->
+                    <img usemap="#bodyMap" ng-src="{{currentArea.HOSPITAL_FLOOR_PHOTO}}"  class="image_position">
+                    <!--坐标-->
+                    <map name="bodyMap">
+                        <!--坐标集合-->
+                        <area shape="rect" ng-repeat="record in currentArea.CoordinateSet" coords="{{record.cooUni}}"
+                              kyee-operation-monitor-directive="OpenNavigationDetail"
+                              ng-click="OpenNavigationDetail(record,record.navigationID)">
+                    </map>
+            </ion-scroll>
+        </div>
+
+        <div class="empty-text" ng-if="isShowMessage">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyMsg}}</p>
+        </div>
+        <div class="bar-footer" ng-if="!isShowMessage">
+            <ion-scroll direction="x" scrollbar-x="false" delegate-handle="mainScroll">
+                <ul class="floor_box row">
+                    <li
+                            kyee-operation-monitor-directive="selectFloor"
+                            ng-click="selectFloor($index)" ng-repeat="floorBuild in buildNumberInfo"
+                            ng-class="{'qy_green_important':$index==floorSelect}" >{{floorBuild.FLOOR}}
+                        <img ng-if="$index==floorSelect" src="resource/images/hospitalNavigation/icon_6.svg" width="12"ng-class="{'current_top_one':buildNumberInfo.length==1,'current_top_two':buildNumberInfo.length<4 && buildNumberInfo.length>1,'current_top':buildNumberInfo.length>3}">
+                    </li>
+                </ul>
+            </ion-scroll>
+            <div class="border-t">
+                <ion-scroll direction="x" scrollbar-x="false">
+                    <ul class="build_box row ">
+                        <li ng-repeat="floorBuild in buildNumberName"
+                            ng-class="{'qy_green_important':$index==buildSelect}"
+                            kyee-operation-monitor-directive="selectBuild"
+                            ng-click="selectBuild($index)" ng-style="{'min-width':floorBuild.NAME.length*12+65 +'px'}">{{floorBuild.NAME}}
+                            <img ng-if="$index==buildSelect" src="resource/images/hospitalNavigation/icon_7.svg" width="12" class="current">
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+        </div>
+    </ion-content>
+
+    <div
+            kyee-overlay-directive
+            location="center"
+            width="{{overlayData.width+40}}"
+            height="350"
+            data="data"
+            template="modules/business/hospital_navigation/views/navigation_jump.html"
+            bind="bind(params)"></div>
+</ion-view>

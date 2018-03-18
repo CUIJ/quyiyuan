@@ -1,0 +1,584 @@
+.qy_surrounding {
+  background: #fafafa;
+  .hospital_level{
+    background-color: orange;
+    padding: 2px 2px 0 2px;
+    line-height: 14px;
+  }
+  .hospital_info{
+    white-space:initial;
+    line-height: 24px;
+    padding-bottom: 10px;
+  }
+  .hospital_size{
+    display:inline-block;
+    max-width: 74%;
+    float:left;
+  }
+  .title_top{
+    margin-top: 0;
+    line-height: 50px !important;
+  }
+  .empty_height{
+    padding-top: 20%;
+  }
+  .bor-r-50{
+    border-radius: 50%;
+  }
+  #s-result{
+    height: 210px !important;
+  }
+  .scroll{
+    height: 100%;
+  }
+  #s-result img{
+    width: 35px;
+  }
+  .pad-t-16{
+    padding-top:16px;
+  }
+  .pad-lr-14{
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .mar-l-6{
+    margin-left: 6px;
+  }
+  .bottom-0{
+    bottom:0;
+  }
+  .radius2{
+    border-radius: 2px;
+    background-color: #EAF4D6;
+    color:#98c931;
+  }
+  .width40{
+    width: 40px;
+  }
+  .height40{
+    height: 40px;
+  }
+  .inline_block{
+    display: inline-block;
+  }
+  .mar-l-10{
+    margin-left: 10px;
+  }
+  .pad-05{
+    padding:0 5px;
+  }
+  .width-65{
+    min-width: 65px;
+  }
+  .pad-08{
+    padding:0 8px;
+  }
+  .width-44{
+    min-width: 58px;
+  }
+  .mar-t-4 {
+    margin-top: 4px;
+  }
+  .mar-t-30{
+    margin-top: 30px;
+  }
+  .mar-b-5{
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+  .mar-b-8{
+    margin-top: 8px;
+  }
+  .mar-b-16{
+    margin-bottom: 16px;
+  }
+  .line40{
+    height:40px;
+    line-height: 40px;
+  }
+  .turnBtn{
+    color: #5baa8a;
+    width: 46px;
+    height:22px;
+    border:1px solid #5baa8a;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 16px;
+    margin-top: 15px;
+  }
+  .width110{
+    max-width: 110px;
+  }
+  .selected{
+    background-color: #5baa8a;
+    color: #fff;
+  }
+  .mar-l-20{
+    margin-left: 20px;
+  }
+  .mar-t--3{
+    margin-top: -3px;
+  }
+  .qy-green-new{
+    color: #00a352;
+  }
+  .lineh14{
+    line-height: 14px;
+  }
+  .word-all{
+    word-break: keep-all;
+  }
+  .text-ellipsis{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .width100{
+    width: 100%;
+  }
+  .width-130{
+    width: 130px;
+  }
+  .dis-in-b{
+    display: inline-block;
+  }
+  .mar-t-5{
+    margin-top: 5px;
+  }
+  .clickmask{
+    height: 210px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+  }
+  .pos-r{
+    position: relative;
+  }
+  .pos-a{
+    position: absolute;
+  }
+  .dis-f{
+    display: flex;
+  }
+  .dis-f-out{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+  }
+  .dis-f-in{
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .mar-l-8{
+    margin-left: 8px;
+  }
+  .mar-t-3{
+    margin-top: 3px;
+  }
+  .mar-t--2{
+    margin-top: -2px;
+  }
+  .mar-t-12{
+    margin-top: 12px;
+  }
+  .height-20{
+    height: 20px;
+  }
+  .mar-d-8{
+    margin-bottom: 8px;
+  }
+  .mar-d-16{
+    margin-bottom: 16px;
+  }
+  .mar-t-8{
+    margin-top: 8px;
+  }
+  .line-h14{
+    line-height: 14px;
+  }
+  .choose-box{
+    z-index: 10;
+    width: 124px;
+    right:-14px;
+    box-shadow: -2px 2px 10px #e7e7e7;
+  }
+  .choose-box li{
+    height: 50px;
+    line-height: 50px;
+  }
+  .flex-center{
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu_right{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    z-index: 99999;
+  }
+  .menu_right_bar{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    opacity: 0.3;
+  }
+  .mar-l-4{
+    margin-left: 4px;
+  }
+  .mar-t-13{
+    margin-top: 13px;
+  }
+  .mar-r-4{
+    margin-right: 4px;
+  }
+  .f22{
+    font-size:22px;
+  }
+  .mar-t-6{
+    margin-top: 6px;
+  }
+  .color-all{
+    color: #3084FF;
+  }
+  .color-clinic{
+    color: #8D51F3;
+  }
+  .mar-l-2{
+    margin-left: 2px;
+  }
+  .pad-l-21{
+    padding-left: 21px;
+  }
+}
+.detail_map{
+  .bg-white{
+    background-color: rgba(255,255,255,0.7);
+  }
+  #detailMap{
+    width:100%;
+    height:100%;
+  }
+  #detailMap img{
+    width: 35px;
+  }
+  .scroll{
+    height:100%;
+  }
+  .hospitalNum{
+    width: 100%;
+    height:50px;
+    line-height: 50px;
+    color: #333333;
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+  }
+}
+.clinic_home{
+  .back_b{
+    width: 45px !important;
+    padding-left: 10px;
+    height: 45px;
+    display: inline-block;
+    line-height: 45px;
+    color: #fff;
+    font-size: 14px;
+  }
+  .img-bor1{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.4);
+  }
+  .img-bor2{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background-color: #E0FFEC;
+  }
+  .img-in{
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+    border-radius: 50%;
+  }
+  .right-0{
+    right:0;
+  }
+  .pad-r-8{
+    padding-right: 8px;
+  }
+  .top-0{
+    top:0;
+  }
+  .flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mar-tl-3{
+    margin-top: 3px;
+    margin-left: 3px;
+  }
+  .noimg{
+    width: 38px;
+    height: 38px;
+  }
+  .mar-t-6{
+    margin-top: 6px;
+  }
+  .mar-t-9{
+    margin-top: 9px;
+  }
+  .mar-t-4{
+    margin-top: 4px;
+  }
+  .clinic_top {
+    background: url('../../resource/images/clinic/banner.png'),no-repeat;
+    background-size: cover;
+    height:150px;
+  }
+  .clinic_back{
+    width: 25px;
+    height: 45px;
+    display: inline-block;
+    line-height: 45px;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  .navigation{
+    width: 68px;
+    height:24px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 12px;
+    border:1px solid #fff;
+  }
+  .clinic_discribe{
+    margin-top: 9px;
+    margin-right: 35px;
+  }
+  .dis-in-b{
+    display: inline-block;
+  }
+  .flex{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .flex li{
+    flex:0 0 25%;
+  }
+  .changeSize{
+    font-size: 28px !important;
+    left: -2px;
+    margin-top: -1px;
+  }
+  .changeSize2{
+    font-size: 30px;
+    margin-left: -3px;
+  }
+  .changeSize22{
+    font-size: 22px !important;
+  }
+  .changeSize23{
+    font-size: 23px !important;
+  }
+  .changeSize25{
+    font-size: 25px !important;
+  }
+  .pad-l-16{
+    padding-left: 16px;
+  }
+  .pos_r{
+    position: relative;
+  }
+  .pos_a{
+    position: absolute;
+  }
+  .mar-l-35{
+    margin-left: 35px;
+  }
+  .f24{
+    font-size: 24px;
+  }
+  .top12{
+    top: 12px;
+  }
+  .height50{
+    height: 50px;
+    line-height: 50px;
+  }
+  .f13{
+    font-size: 13px;
+  }
+  .top2{
+    top:2px;
+  }
+  .right14{
+    right:14px;
+  }
+  .mar-t-10{
+    margin-top: 10px;
+  }
+  .pad-20-14{
+    padding:20px 14px 16px 14px;
+  }
+  .mar-t-20{
+    margin-top: 20px;
+  }
+  .pad-20-20{
+    padding:20px 20px 0 20px;
+  }
+  .clinicDoctor img{
+    width:50px;
+    height:50px;
+  }
+  .clinicDept ul i{
+    width: 40px;
+    height:40px;
+    border-radius: 50%;
+    line-height: 40px;
+  }
+  //.icon-doctor-consult:before{
+  //  content: "\e9e9";
+  //  color: #8D51F3 !important;
+  //}
+  //.icon-doctor-registration:before {
+  //  content: "\e9ea";
+  //  color: #0DA352 !important;
+  //}
+  //.icon-online-medical:before {
+  //  content: "\e9eb";
+  //  color: #3084FF !important;
+  //}
+  .notOpenIcon{
+    opacity: 0.5;
+  }
+  .notOpenText{
+    color: #999 !important;
+  }
+  .dept_color1{
+    color: #3598db;
+  }
+  .dept_bg1{
+    background-color: rgba(53, 152, 219, 0.3);
+  }
+  .dept_color2{
+    color: #f2784b;
+  }
+  .dept_bg2{
+    background-color: rgba(242, 120, 75, 0.3);
+  }
+  .dept_color3{
+    color: #53ad55;
+  }
+  .dept_bg3{
+    background-color: rgba(83, 173, 85, 0.3);
+  }
+  .dept_color4{
+    color: #e9a63b;
+  }
+  .dept_bg4{
+   background-color: rgba(233, 166, 59, 0.3);
+  }
+  .dept_color5{
+    color: #f55440;
+  }
+  .dept_bg5{
+    background-color: rgba(245, 84, 64, 0.3);
+  }
+  .dept_color6{
+    color: #27bb8f;
+  }
+  .dept_bg6{
+    background-color: rgba(39, 187, 143, 0.3);
+  }
+  .menuColor1{
+    color: #8D51F3 !important;
+  }
+  .menuColor2{
+    color: #3084FF !important;
+  }
+  .menuColor3{
+    color: #0DA352 !important;
+  }
+  .menuColor4{
+    color: #5C63F1 !important;
+  }
+  .pad-d-16{
+    padding-bottom: 16px;
+  }
+  .mar-t-4{
+    margin-top: 4px;
+  }
+  .mar-t-11{
+    margin-top: 11px;
+  }
+  .mar-d-14{
+    margin-bottom: 14px;
+  }
+  .pos_r{
+    position: relative;
+  }
+  .pos_a{
+    position: absolute;
+  }
+  .specialDept{
+    width: 32px;
+    height:16px;
+    line-height: 16px;
+    background-color: #ff777a;
+    color: #fff;
+  }
+  .mar-l-6{
+    margin-left: 6px;
+  }
+  .mar-r-32{
+    margin-right: 32px;
+  }
+  .text-ell{
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .center-text{
+    height:35px;
+    line-height:35px;
+    text-align: center;
+  }
+  .mar-t-6{
+    margin-top: 6px;
+  }
+  .line-h30{
+    line-height: 30px;
+  }
+  .mar-l-8{
+    margin-left: 8px;
+  }
+  .dis-f{
+    display: flex;
+  }
+  .pad-t-5{
+    padding-top: 5px;
+  }
+  .pad-t-6{
+    padding-top: 6px;
+  }
+  .no-data{
+    margin-top: 20px;
+    text-align: center;
+    padding-top:10px;
+  }
+}

@@ -1,0 +1,27 @@
+/* 标题栏 */
+.kyee_header {
+	background-color: #0F9D58;
+}
+
+/* 标题栏字体 */
+.kyee_header_title {
+	color: white !important;
+	font-weight: bold !important;
+}
+
+/* 标题栏按钮 */
+.kyee_header_button {
+	color: white !important;
+}
+
+/* 导航栏样式 */
+.nav_bar {
+	background-color: #0F9D58 !important;
+	color: white !important;
+	font-weight: bold !important;
+}
+
+/* 导航栏按钮样式 */
+.nav_bar .button {
+	color: white !important;
+}

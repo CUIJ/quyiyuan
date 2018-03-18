@@ -1,0 +1,97 @@
+<div class="hospitalization_reimbursement" ng-if="noShow">
+    <div>
+        <label class="item item-input ">
+            <span class="input-label date_of_visit"
+                  kyee-i18n-directive code="patientName2" default="患者姓名："></span>
+            <button class="patient_name" ng-click="clickUpload()">{{patientName}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+        </label>
+    </div>
+    <div>
+        <div class="item item-input ">
+            <span class="input-label date_of_visit"
+                  kyee-i18n-directive code="patientDate2" default="就诊日期："></span>
+            <button class="year" ng-click="selectDate(0)">{{year}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+
+            <button class="month" ng-click="selectDate(1)">{{month}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+
+            <button class="day" ng-click="selectDate(2)">{{day}}
+                <img width="8px" src="resource/images/icons/dropdown_arrow_on.png"></button>
+        </div>
+    </div>
+    <div class="bar bar-footer pad-b-14 query" >
+        <button ng-click="query()" class="button button-block button-size-l"
+                kyee-i18n-directive code="suber2" default="提 交"></button>
+    </div>
+    <ion-scroll class="gray_white" delegate-handle="aaa" has-bouncing="true"
+                scrollbar-y="false" zooming="false" direction="y"
+                ng-style="{'height':(KyeeEnv.innerSize.height - 279)+'px'}">
+        <div class="repeat_style" ng-repeat="item in userInfo">
+            <div class="list">
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="patientName2" default="患者姓名："></span>
+                    <span class="input-label ">{{item.PATIENT_NAME}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="medicalInstitution2" default="就医机构："></span>
+                    <span class="input-label ">{{item.MEDICAL_INSTITUTION}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="dateOfAdmission2" default="入院日期："></span>
+                    <span class="input-label ">{{item.HOSPITALIZED_DATE}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="dateOfDischarge2" default="出院日期："></span>
+                    <span class="input-label ">{{item.LEAVE_HOSPITAL_DATE}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="dischargeDiagnosis2" default="出院诊断："></span>
+                    <span class="input-label ">{{item.DISCHANGE_DIAGNOSIS}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="totalExpenses2" default="住院总费用（元）："></span>
+                    <span class="input-label ">{{item.HOSPITAL_COST}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="reasonableCost2" default="合理费用（元）："></span>
+                    <span class="input-label ">{{item.REASONABLE_EXPENSE}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="compensationAmount2" default="补偿金额（元）："></span>
+                    <span class="input-label ">{{item.COMPENSATION}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="compensationDate2" default="补偿日期："></span>
+                    <span class="input-label ">{{item.COMPENSATION_DATE}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="medicalCard2" default="医疗证/卡号："></span>
+                    <span class="input-label ">{{item.CARD_NO}}</span>
+                </label>
+                <label class="item item-input ">
+                    <span class="input-label it_looks_even_more_neat"
+                          kyee-i18n-directive code="hospitalizationNumber2" default="住院号："></span>
+                    <span class="input-label ">{{item.HOSP_CODE}}</span>
+                </label>
+                <span class="input-label separator"></span>
+            </div>
+        </div>
+    </ion-scroll>
+</div>
+<div class="empty-text" ng-if="isNot">
+    <i class="icon icon-icon_3 empty-icon"></i>
+    <p>{{userInfo.text}}</p>
+</div>
+<div kyee-compile-directive template="modules/business/ncms/views/dateSelecter/selecter.html"></div>

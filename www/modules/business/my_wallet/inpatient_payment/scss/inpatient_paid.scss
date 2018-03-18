@@ -1,0 +1,147 @@
+/* inpatient_paid_record view */
+.qy_inpatient_paid_record {
+  .clear_icon{
+    position: absolute;
+    right: 14px;
+    top: 10px;
+  }
+  .double_header{
+    margin-top: 40px;
+  }
+  .switchtable{
+    height: 41px;
+    line-height: 38px;
+    .selected{
+      border-bottom: 2px solid #5baa8a;
+      color: #5baa8a !important;
+    }
+    .icon-arrow_down{
+      position: relative;
+      top: 2px;
+    }
+  }
+  .paid_record{
+    .date_line{
+      height: 41px;
+      position: relative;
+      .month{
+        width: 56px;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        height: 18px;
+        line-height: 18px;
+        color: #fff;
+        border-radius: 2px;
+        position: absolute;
+        bottom: 8px;
+      }
+      .top_line{
+        height: 15px;
+        border-left: 1px solid #ccc;
+        position: absolute;
+        top: 0;
+        left: 41px;
+      }
+      .line{
+        height: 8px;
+        border-left: 1px solid #ccc;
+        position: absolute;
+        bottom: 0;
+        left: 41px;
+      }
+      .year{
+        position: absolute;
+        right: 14px;
+        bottom: 8px;
+      }
+      .bg_grey{
+        background-color: #d8d8d8;
+      }
+    }
+    .container{
+      padding-top: 11px;
+      padding-bottom: 3px;
+      li{
+        padding-bottom: 8px;
+      }
+      .container_item{
+        width: 72px;
+        display: inline-block;
+        color: #264557;
+      }
+    }
+    .btn_line{
+      min-height: 40px;
+      padding: 9px 14px 9px 0;
+      .icon-arrow_right{
+        position: relative;
+        top: 1px;
+      }
+    }
+    .bottom_tip{
+      padding:40px 14px;
+      .box{
+        position: relative;
+        height: 71px;
+        background-size: 208px;
+        width: 210px;
+        margin: 0 auto;
+        background-repeat:no-repeat;
+        background-image: url('../../resource/images/myWallet/bottom_change_condition.png');
+        .box_t{
+          font-size: 12px;
+          position: absolute;
+          bottom: 43px;
+          left: 84px;
+        }
+        .box_b{
+          position: absolute;
+          bottom: 10px;
+          left: 84px;
+        }
+      }
+    }
+  }
+  .empty-text{
+    padding-top: 32% !important;
+  }
+}
+
+/* inpatient_paid_detail view */
+.qy_inpatient_paid_detail {
+  .qy_h5_color{
+    color: #000;
+  }
+  .mar_td_0{
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .pad_r_5{
+    padding-right: 5px;
+  }
+  .icon_tip{
+    margin-right: 2px;
+    position: relative;
+    top: 2px;
+  }
+  .detail_item{
+    line-height:40px;
+  }
+  .head_left{
+    display: inline-block;
+    width: 73px;
+    color: #264557;
+    padding-bottom: 5px;
+  }
+}
+
+/* paid_detail_popup view*/
+.qy_paid_detail_popup {
+  .icon_flo {
+    padding: 0 0 8px 8px;
+  }
+  .fee_div{
+    width: 100%;
+  }
+}

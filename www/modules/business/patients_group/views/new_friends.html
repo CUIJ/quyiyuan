@@ -1,0 +1,56 @@
+<ion-view class="qy_new_friends">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="newFriends" default="新的朋友"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <span kyee-i18n-directive code="addFriends" default="添加好友" class="f14 addFriends r14 color_6"
+                  ng-click="goToAddFriends()"></span>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" scrollbar-y="false">
+        <!--新朋友列表-->
+        <div ng-if="newFriends.length > 0" class="mar-t-10 qy-bg-white border-td pad-l-14">
+            <ul>
+                <li class="line70 border-b f14 pad-r-14 position-r"
+                    ng-repeat="user in newFriends" ng-click="getDetail(user)">
+                    <div class="position-a display-inline-b">
+                        <img class="head_img position-a" ng-if="user.sex == '2'"
+                             ng-src="{{user.userPhoto?user.userPhoto:'resource/images/patients_group/user_female.png'}} "
+                             onerror="javascript:this.src='resource/images/patients_group/user_female.png'"/>
+                        <img class="head_img left_14" ng-if="user.sex != '2'"
+                             ng-src="{{user.userPhoto?user.userPhoto:'resource/images/patients_group/user_male.png'}} "
+                             onerror="javascript:this.src='resource/images/patients_group/user_male.png'"/>
+                    </div>
+
+                    <div ng-if="user.friendDesc" class="mar-l-14 position-a max-w60 text-ellipsis mar-td-10 display-inline-b friend_name">
+                        <div class="line25 text-ellipsis">{{user.userPetname}}</div>
+                        <div class="color_9 f12 line20 mar-t-5 text-ellipsis">{{user.friendDesc}}</div>
+                    </div>
+
+                    <div ng-if="!user.friendDesc" class="mar-l-14 position-a max-w60 text-ellipsis display-inline-b friend_name">
+                        {{user.userPetname}}
+                    </div>
+
+                    <button ng-if="user.userStatusFlag == 1"
+                            class="button button-size-s accept-btn button-color-green position-a r14 f14"
+                            kyee-i18n-directive code="accept" default="接受"
+                            ng-click="accept(user);$event.stopPropagation();"></button>
+                    <div ng-if="user.userStatusFlag == 2" class="position-a r14 color_9"
+                         kyee-i18n-directive code="added" default="已添加"></div>
+                    <div ng-if="user.userStatusFlag == 0" class="position-a r14 color_9"
+                         kyee-i18n-directive code="requestSent"  default="等待验证"></div>
+                </li>
+            </ul>
+        </div>
+
+        <!--无数据提示信息 start-->
+        <div ng-if="newFriends.length == 0" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDept" default="暂无新的朋友"></span>
+        </div>
+        <!--无数据提示信息 end-->
+    </ion-content>
+</ion-view>

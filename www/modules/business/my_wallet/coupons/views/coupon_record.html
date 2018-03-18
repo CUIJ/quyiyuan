@@ -1,0 +1,102 @@
+<ion-view class="qy_coupons_records qy-bg-grey2">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="couponsRecordTitle" default="优惠券"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt text-ellipsis" ng-click="addCoupon()">
+                <span class="text-ellipsis" kyee-i18n-directive code="addCoupons" default="添加"></span>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false">
+        <div  class="mar-b-14 mar-t-10 qy-bg-white coupon_item" ng-repeat="coupon in coupons">
+            <div ng-if= "coupon.ACTIVITY_TYPE == 3" class="border-t coupon_main border_b" style="position: relative" >
+                    <div style="overflow:hidden;width:60px;text-align: center;display: table-cell; vertical-align: middle;"  ng-class="{'qy-orange':coupon.STATUS == '1','qy-grey4':!(coupon.STATUS == '1')}">
+                    <div  class="pad-td-10 pad-b-14 amount"
+                          style="border-radius: 45px;z-index: 99;border: 1px solid;width: 45px;height: 45px;display: inline-block;text-align: center;">
+                        <span class="f14 pad-r-14" style="font-size: 22px;margin-left: -3px;vertical-align: middle;">券</span>
+                    </div>
+                </div>
+                 <div style="position: relative;display: table-cell" class="pad-td-10" ng-style="{'width':KyeeEnv.innerSize.width-90+'px'}">
+                   <img ng-if="coupon.STATUS == '1'" style="height: 15px;" ng-src="resource/images/center/tequan.png">
+                     <img ng-if="!(coupon.STATUS == '1')"style="height: 15px;" ng-src="resource/images/center/tequanGrey.png">
+                     <ul  class="fl-l text-ellipsis" style="width:100%">
+                         <li class="fl-l text-ellipsis" style="text-align:left;width:{{(KyeeEnv.innerSize.width-90 )/3+'px'}}">
+                           <!-- <i style="width:15%;margin-top: 10px ;color: #f8bb3c" class="icon-zhen fl-l"></i>-->
+                             <div class="fl-l text-ellipsis" style="width:100%"><div style="text-align: left;color: #333333;">就诊特权</div>
+                                 <span class="fl-l" style="color: #999999;">优先安排就诊</span>
+                             </div>
+                         </li>
+                         <li class="fl-l text-ellipsis item row" style="text-align:center;width:{{(KyeeEnv.innerSize.width-90 )/3+'px'}}">
+                          <!-- <i style="width:15%;margin-top: 10px ;border-left: 1px solid #e7e7e7;color: #f8bb3c" class="icon-jian fl-l"></i>-->
+                           <i  ng-class="{'border_l_color':coupon.STATUS == '1','border_l_grey':!(coupon.STATUS == '1')}"></i>
+                             <div class="fl-l text-ellipsis" style="width:100%"><div style="text-align: left;color: #333333;">减免特权</div>
+                                 <span class="fl-l" style="color: #999999;">减免挂号费</span>
+                             </div>
+                         </li>
+                         <li class="fl-l text-ellipsis item row" style="text-align:right;width:{{(KyeeEnv.innerSize.width-90 )/3+'px'}}">
+                           <!--  <i style="width:15%;margin-top: 10px ;border-left: 1px solid #e7e7e7;color: #f8bb3c" class="icon-tong fl-l"></i>-->
+                             <i ng-class="{'border_l_color':coupon.STATUS == '1','border_l_grey':!(coupon.STATUS == '1')}"></i>
+                             <div class="fl-l text-ellipsis" style="width:100%;"><div style="text-align: left;color: #333333;">预约特权</div>
+                                 <span class="fl-l" style="color: #999999;">专家随便约</span>
+                             </div>
+                         </li>
+                     </ul>
+               </div>
+            </div>
+            <div  ng-if= "coupon.ACTIVITY_TYPE != 3" class="border-t coupon_main border_b">
+                <div class="pad-td-10 pad-b-14 amount" ng-class="{'qy-orange':coupon.IS_PAST == '0','qy-grey4':coupon.IS_PAST == '1'}">
+                    <span class="f16">¥</span>
+                    <span class="amount_value">{{coupon.AMOUNT}}</span>
+                </div>
+                <div class="pad-td-10 coupon_form" ng-style="{'max-width':amountWidth}">
+                    <h5 class="pad-r-14">{{coupon.ACTIVITY_NAME}}</h5>
+
+                    <p class="pad-r-14 f14">{{coupon.ACTIVITY_ID}}</p>
+
+                    <p class="pad-r-14 f14">{{coupon.COUPONS_PASSWORD}}</p>
+
+                </div>
+            </div>
+            <div class="wave border_b"></div>
+            <div ng-if= "coupon.ACTIVITY_TYPE == 3" class="row qy-bg-orange border-d foot_bar"
+                 ng-class="{'qy-bg-orange':coupon.STATUS == '1','qy-bg-grey4':!(coupon.STATUS == '1')}">
+                <p class="qy-fff col pad-l-14 text-ellipsis ng-binding">
+                    <span class=" text-ellipsis">{{coupon.DESCRIPTION}}</span></p>
+                    <a ng-if="coupon.STATUS == '1'" class="qy-fff pad-b-10 fl-l"  style="position: relative;right: 0px;"  ng-click="showReferral(coupon)">
+                        <span style="margin-top: -1px" class="fl-l" translate="operateDetails" translate-default="前往使用" translate-values="">前往使用</span>
+                        <i class="icon icon-arrow_right fl-l" style="line-height: inherit;"></i>
+                    </a>
+                    <a ng-if="coupon.STATUS == '0'" class="qy-fff pad-b-10 fl-l">
+                        <span kyee-i18n-directive code="outOperate" default="已使用"></span>
+                    </a>
+                    <a ng-if="coupon.STATUS == '2'" class="qy-fff pad-b-10 fl-l">
+                        <span kyee-i18n-directive code="operating" default="已被占用"></span>
+                    </a>
+            </div>
+            <div ng-if= "coupon.ACTIVITY_TYPE != 3" class="row qy-bg-orange border-d foot_bar"
+                 ng-class="{'qy-bg-orange':coupon.IS_PAST == '0','qy-bg-grey4':coupon.IS_PAST == '1'}">
+                <p class="qy-fff col pad-l-14 text-ellipsis">
+                    <span kyee-i18n-directive code="validity" default="有效期："></span>{{coupon.START_DATE}}
+                    <span kyee-i18n-directive code="until" default="至"></span>{{coupon.END_DATE}}</p>
+                <a ng-if="coupon.IS_PAST == '0'" class="qy-fff pad-r-10 fl-l"  ng-click="showDetail(coupon)">
+                    <span kyee-i18n-directive code="checkDetails" default="查看详情" class="fl-l" style="margin-top: -1px"></span>
+                    <i class="icon icon-arrow_right fl-l" style="line-height: inherit;"></i>
+                </a>
+                <a ng-if="coupon.IS_PAST == '1'" class="qy-fff pad-b-10 fl-l">
+                    <span kyee-i18n-directive code="outDate" default="已过期"></span>
+                </a>
+            </div>
+        </div>
+        <div ng-if="isEmpty" class="empty-text">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,23 @@
+<ion-view class="qy_multiple_dept">
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-white">
+        <div class="list pad-b-14" style="margin-bottom: 0px;">
+                <div class="row border-d " collection-repeat="item in multipleDoctorInfo" collection-item-height="106px" style="padding-top: 10px;padding-bottom: 10px;" ng-click="selectMultipleDoctor(item)" >
+                        <div class="pad-r-14" >
+                        <img class="doctor_img" ng-src="{{item.DOCTOR_PHOTO ? item.DOCTOR_PHOTO:'resource/images/base/doc_head_default_m.png'}}"
+                             onerror="javascript:this.src='resource/images/icons/headh.png'">
+                    </div>
+                    <div class="col">
+                        <div class="row doctor_name ">
+                            <span class="f14 qy-grey7 text-ellipsis first_width"  ng-bind-html="item.showText|kyee_to_html"></span>
+                            <span class="grey1 doctor_tittle text-ellipsis second_width">{{item.DOCTOR_TITLE}}</span>
+                        </div>
+                        <div class="dept row pad-d-5">
+                            <span class="grey1 text-ellipsis first_width">{{item.HOSPITAL_NAME}}</span>
+                            <span class="grey1 mar-l-10 text-ellipsis second_width">{{item.DEPT_NAME}}</span>
+                        </div>
+                        <div class="row grey doctor_dic">{{item.DOCTOR_DIC?item.DOCTOR_DIC:noDoctorDic.name}}</div>
+                    </div>
+                </div>
+        </div>
+    </ion-content>
+</ion-view>

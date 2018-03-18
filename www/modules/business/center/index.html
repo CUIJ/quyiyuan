@@ -1,0 +1,456 @@
+<!--个人中心主页开发（APK）  By  张家豪  KYEEAPPC-4404-->
+<!--<ion-view class="qy_person_info qy-bg-grey2" cache-view="false">
+    <ion-content has-bouncing="true" padding="false" class="has-footer" scrollbar-y="false"
+                     on-scroll-complete="onScrollComplete()"
+                     on-drag-down="onDragDown()">
+        <div ng-if="havePeople" class="photo_head have_people border-d">
+            <div class="header_box">
+                <div style="border: 0px solid #dddddd;" kyee-operation-monitor-directive="editCurrentPatient" ng-click="editCurrentPatient()" class="header_images img_head"
+                     ng-style="{'background':'url('+(IMAGE_PATH)+')'}">
+                </div>
+                <p class="font_w400 f_16" style="font-size: 16px">{{currentCustomPatient.OFTEN_NAME}}</p>
+
+                <div kyee-operation-monitor-directive="switchPatient" class="info_cust" kyee-action-holder-directive="switch_patient" ui-sref="custom_patient"
+                     style="white-space: nowrap">
+                    <span class="icon-clip info_custom"></span>
+                    <span kyee-i18n-directive code="switchPatient" default="切换就诊者"></span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!havePeople" class="photo_head have_people border-d">
+            <div ng-if="isTimeNotPatient == 1" class="header_box">
+                <div style="border: 0px solid #dddddd;" class="header_images img_head"
+                     ng-style="{'background':'url('+('resource/images/center/headM.png')+')'}">
+                </div>
+                <p class="font_w400">
+                    <span kyee-i18n-directive code="addCustomHint" default="暂无就诊者，请"></span>
+                    <span ng-click="addPatient()" class="add_custom" kyee-i18n-directive code="addCustom" default="添加">
+                    </span>
+                </p>
+            </div>
+            <div ng-if="isTimeNotPatient == 1" kyee-operation-monitor-directive="switchPatient" class="info_cust w_s_no" kyee-action-holder-directive="switch_patient" ui-sref="custom_patient">
+                <span class="icon-clip info_custom"></span>
+                <span kyee-i18n-directive code="switchPatient" default="切换就诊者"></span>
+            </div>
+            <div ng-if="isTimeNotPatient == 2" class="header_box">
+                <div style="border: 0px solid #dddddd;" class="header_images img_head"
+                     ng-style="{'background':'url('+('resource/images/center/headM.png')+')'}">
+                </div>
+                <p class="font_w400"   >
+                    <span kyee-i18n-directive code="loginHint" default="未登录，请"></span>
+                    <span kyee-operation-monitor-directive="login" ng-click="toLogin()" class="add_custom" kyee-i18n-directive code="login" default="登录">
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="b_color5">
+            <div class="pad-td-10 row mar-b-14 border-d border-t  my_records pay_my">
+                <div  class="font_s6 qy-grey7" kyee-i18n-directive code="myPay" default="我的付费"></div>
+                <div  ng-show="cashBackIsShow==true"class="cashBack_div" ng-click=" goCashBack();">
+                  <p style="white-space: nowrap">
+                    <span class="cashBack_span" kyee-i18n-directive code="backCash" default="返现"></span>
+                    <span class="cashBack_span_1" kyee-i18n-directive code="backCashInfo" default="单笔缴费满100返10元"></span>
+                    <i class="  ion-chevron-right " style="color: #999999;"></i>
+                  </p>
+                </div>
+            </div>
+        </div>
+        <div class="row main_box pad-td-10 border-d pay_my_info">
+            <div kyee-operation-monitor-directive="clinicPayment" class="col ta-c" ng-click="goToClinicPayment();">
+                <span class="icon-echoscope font_s30 qy-grey5"></span>
+
+                <p class="ma0_f14 qy-grey7" kyee-i18n-directive code="doorPay" default="门诊缴费"></p>
+            </div>
+            <div kyee-operation-monitor-directive="walletCardRecharge" class="col ta-c" ng-click="goToPatientRecharge();">
+                <span class="icon-card2 font_s30 qy-grey5"></span>
+
+                <p class="ma0_f14 qy-grey7" kyee-i18n-directive code="carPayNew" default="就诊卡充值"></p>
+            </div>
+            <div kyee-operation-monitor-directive="perpaid" class="col ta-c" ng-click="goToPerpaid();">
+                <span class="icon-yang3 font_s30 qy-grey5"></span>
+
+                <p class="ma0_f14 qy-grey7" kyee-i18n-directive code="homeRealPay" default="住院预缴"></p>
+            </div>
+            &lt;!&ndash;<div kyee-operation-monitor-directive="healthManage" class="col ta-c" ng-click="goToHealthManage();">&ndash;&gt;
+                &lt;!&ndash;<span class="icon-yang3 font_s30 qy-grey5"></span>&ndash;&gt;
+
+                &lt;!&ndash;<p class="ma0_f14 qy-grey7" kyee-i18n-directive code="healthManage" default="健康管理"></p>&ndash;&gt;
+            &lt;!&ndash;</div>&ndash;&gt;
+        </div>
+        <div class="b_c7">
+            <div class="pad-td-10 row mar-b-14 border-d my_records my_waller border-t">
+                <div class="col col-50 font_s6 qy-grey7" kyee-i18n-directive code="myWaller" default="我的钱包"></div>
+            </div>
+        </div>
+        <div class="row main_box pad-td-10 border-d pay_my_info">
+            <div kyee-operation-monitor-directive="applyCash" class="col ta-c" ui-sref="apply_cash">
+                <span class="icon-yang font_s30 qy-grey5"></span>
+
+                <p class="ma0_f14 qy-grey7" kyee-i18n-directive code="myRealMoney" default="我的零钱"></p>
+            </div>
+            <div kyee-operation-monitor-directive="myRefund" class="col ta-c" ui-sref="my_refund">
+                <span class="icon-yang2 font_s30 qy-grey5"></span>
+
+                <p class="ma0_f14 qy-grey7" kyee-i18n-directive code="myBackMoney" default="我的退费"></p>
+            </div>
+            <div kyee-operation-monitor-directive="rebateBankAdd" class="col ta-c" ui-sref="rebateBankAdd">
+                <span class="icon-bankcard font_s30 qy-grey5"></span>
+
+                <p class="ma0_f14 qy-grey7" kyee-i18n-directive code="cardMon" default="银行卡管理"></p>
+            </div>
+            <div kyee-operation-monitor-directive="couponsRecord" class="col ta-c" ui-sref="couponsRecord">
+                <span class="icon-gift font_s30 qy-grey5"></span>
+
+                <p class="ma0_f14 qy-grey7" kyee-i18n-directive code="givePaper" default="优惠券"></p>
+            </div>
+        </div>
+        <div class="main_info border-d">
+            <ul class="list">
+                <li kyee-operation-monitor-directive="patientCard" kyee-action-holder-directive="frequent_info" ng-click="goPatientCard()"
+                    class="border-t item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                    <div class="qy-grey7" kyee-i18n-directive code="myHomeCard" default="我的就诊卡"></div>
+                    <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myCards"
+                    default="就诊卡管理 / 查询就诊卡"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li ng-click="goToMedicalInsuranceCard()"
+                    class="item item-icon-left center_div m0_oh_m4 border-t " style="border-bottom: 1px solid #e7e7e7;">
+                    <div style="padding-left: 14px;" class="main_info_div qy-grey7">医保卡</div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li ng-if="!(userSource=='4001')" kyee-operation-monitor-directive="rush_clinic_record_list_new" kyee-action-holder-directive="rush_clinic_record_list_new"
+                    ng-click="goMyHid()"
+                    class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myHid" default="我的抢号"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myHidInfo"
+                              default="先人一步，号源无忧"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li kyee-operation-monitor-directive="my_convenience_clinic" kyee-action-holder-directive="my_convenience_clinic" ng-click="goMyQuickClinic()" class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myQuickClinic" default="我的网络门诊"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myQuickClinicInfo"
+                              default="视频问诊/购药开单记录查询"></span>
+                    </div>
+                    <i class="ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                &lt;!&ndash;需要做点击统计&ndash;&gt;
+                <li ng-if="(userSource=='0'&&healthArchiveApp)||(userSource=='3'&&healthArchiveBoZhou)" kyee-operation-monitor-directive="healthArchive"
+                    ng-click="goMyHealth()"
+                    class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myHealthArchive" default="我的健康档案"></div>
+                        <span class="main_info_span text-ellipsis color_9"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li kyee-operation-monitor-directive="consultationOrder" kyee-action-holder-directive="consultation_order"
+                    ng-click="goConsultationOrder()" class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myOrder" default="我的订单"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="orderDescription" default="图文咨询/电话咨询/视频咨询订单记录"></span>
+                    </div>
+                    <i class="ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li kyee-operation-monitor-directive="messageCenter" kyee-action-holder-directive="message_box_button"
+                    ng-click="goMessageCenter()" class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myMessage" default="我的消息"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myMessageInfo"
+                              default="预约挂号 / 就停诊 / 付款等新信息提示"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li ng-if="hasMDTorRPP" ng-click="goConsulationNode()" class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="consultationNote" default="我的会诊记录">我的会诊记录</div>
+                        <span class="main_info_span text-ellipsis color_9">资料上传/费用支付/报告查询</span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                 <li kyee-operation-monitor-directive="careDoctors" ui-sref="careDoctors"
+                    kyee-action-holder-directive="frequent_info"
+                    class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myCenter" default="我的医生"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myCenterInfo" default="快速预约/诊后咨询/家庭医生"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li ng-if="!(userSource=='4001')" kyee-operation-monitor-directive="myInsurance" immediate="true" ng-if="withMyInsurance=='1'" ng-click="KAH($event) || myInsurance();"
+                    kyee-action-holder-directive="myInsurance"
+                    class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myInsurance" default="我的保险"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myInsuranceInfo" default="给您全方位的保障"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+
+                <li kyee-operation-monitor-directive="myQRCode" kyee-action-holder-directive="my_qr_code" ng-click="myQRCode();"
+                    class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myTwo" default="我的二维码"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myQRcodes"
+                              default="扫一扫，快速知晓信息"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li ng-if="!(userSource=='4001')" kyee-operation-monitor-directive="medicineOrder" ui-sref="medicineOrder" kyee-action-holder-directive="order_manage"
+                    class="item item-icon-left center_div m0_oh_m4 border-d">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="dianMder" default="电子药品订单"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="dianMderInfo"
+                              default="药品订单 / 订单详情"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li  kyee-operation-monitor-directive="myHealthy" kyee-action-holder-directive="myHealthy" ng-click="goToMyHealth()"
+                    class="item item-icon-left center_div m0_oh_m4 border-d b_b_s8 ">
+                    <div style="padding-left: 14px;" class="main_info_div">
+                        <div class="qy-grey7" kyee-i18n-directive code="myHealth" default="我的健康"></div>
+                        <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myHealthInfo"
+                              default="健康日志 / 健康食谱"></span>
+                    </div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+
+                <li kyee-operation-monitor-directive="helpAndFeedback" ng-click="enterHelpPage()"
+                    class="item item-icon-left center_div m0_oh_m4 border-t " style="border-bottom: 1px solid #e7e7e7;">
+                    <div style="padding-left: 14px;" class="main_info_div qy-grey7" kyee-i18n-directive code="feedBack" default="帮助与反馈"></div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+                <li kyee-operation-monitor-directive="setUp" ui-sref="set_up" kyee-action-holder-directive="set_up"
+                    class="item item-icon-left center_div m0_oh_m4 border-t mar-t-10">
+                    <div style="padding-left: 14px;" class="main_info_div qy-grey7" kyee-i18n-directive code="set" default="设置"></div>
+                    <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>-->
+
+
+
+<ion-view class="qy_person_info qy-bg-grey2" cache-view="false">
+    <ion-content class="has-footer" has-bouncing="false" scrollbar-y="false">
+        <div ng-if="havePeople" style="padding-top: 40px;padding-bottom: 12px;" class="center_bg ">
+            <div class="row pad-l-14 pad-r-14" style="" >
+                <div style="overflow: hidden;" class="user_photo" kyee-operation-monitor-directive="editCurrentPatient" ng-click="editCurrentPatient()">
+                    <div class="text-center name_bg_name"  >
+                        <span class="name_">{{currentCustomPatient.nameShow}}</span>
+                    </div>
+                </div>
+                <ul class="col mar-l-10 mar-t-10">
+                    <li class="white fw-b">
+                        <span class="f18">{{currentCustomPatient.OFTEN_NAME}}</span>
+                    <li class="mar-t-6 white" ui-sref="custom_patient" kyee-operation-monitor-directive="switchPatient" kyee-action-holder-directive="switch_patient">
+                        <span class="pad-lr-8 white main-color f12 text-center inline line_h20 client_intro"><i class="icon-switch conversion_top"></i> 切换就诊者</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flex mar_t_25">
+                <div class="flex-half text-center" kyee-operation-monitor-directive="patientCard" kyee-action-holder-directive="frequent_info" ng-click="goPatientCard()">
+                    <i class="icon-my-attendance-card font_s30 white va-middle mar-r-8"></i> <span class="white f15">就诊卡</span>
+                </div>
+                <div class="split_line"></div>
+                <div class="flex-half text-center" kyee-operation-monitor-directive="careDoctors" ui-sref="careDoctors"
+                     kyee-action-holder-directive="careDoctors">
+                    <i class="icon-doctor-fill-linkman font_s26 white va-middle mar-r-8"></i> <span class="white f15">我的医生</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-if="!havePeople" style="padding-top: 40px;padding-bottom: 12px;" class="center_bg ">
+            <div ng-if="isTimeNotPatient == 1"  class="row pad-l-14 pad-r-14" style="" >
+                <div style="overflow: hidden;" class="user_photo">
+                    <div class="text-center name_bg"  >
+                        <i class="ico icon-qy_logo quyi_icon" style=""></i>
+                    </div>
+                </div>
+                <ul class="col mar-l-10">
+                    <li class="mar_t_24 white biv_size" ng-click="addPatient()">
+                        <span class="pad-lr-8 bg-white main-color f12 text-center inline line_h20 client_intro">添加就诊者</span>
+                    </li>
+                </ul>
+
+            </div>
+            <div ng-if="isTimeNotPatient == 2"  class="row pad-l-14 pad-r-14" style="" >
+                <div style="overflow: hidden;" class="user_photo">
+                    <div class="text-center name_bg"  >
+                        <i class="ico icon-qy_logo quyi_icon" style=""></i>
+                    </div>
+                </div>
+                <ul class="col mar-l-10">
+                    <li class="mar_t_24 white biv_size" ng-click="toLogin()" >
+                        <span class="pad-lr-8 bg-white main-color f14 text-center inline line_h20 client_intro">登录 / 注册</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex mar_t_25">
+                <div class="flex-half text-center" kyee-operation-monitor-directive="patientCard" kyee-action-holder-directive="frequent_info" ng-click="goPatientCard()">
+                    <i class="icon-my-attendance-card font_s30 white va-middle mar-r-8"></i> <span class="white f15">就诊卡</span>
+                </div>
+                <div class="split_line"></div>
+                <div class="flex-half text-center" kyee-operation-monitor-directive="careDoctors" ui-sref="careDoctors"
+                     kyee-action-holder-directive="careDoctors">
+                    <i class="icon-doctor-fill-linkman font_s26 white va-middle mar-r-8"></i> <span class="white f15">我的医生</span>
+                </div>
+            </div>
+        </div>
+
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height-227)+'px'}">
+            <div class="main_info border-d">
+                <ul class="list">
+                    <li ng-if="!(userSource=='4001')" kyee-operation-monitor-directive="rush_clinic_record_list_new" kyee-action-holder-directive="rush_clinic_record_list_new"
+                        ng-click="goMyHid()"
+                        class="item item-icon-left center_div m0_oh_m4 ">
+                        <i class="icon icon-take-no icon_l_blue font24"></i>
+                        <div class="main_info_div">
+                            <div class="qy-grey7" kyee-i18n-directive code="myHid" default="我的抢号"></div>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li kyee-operation-monitor-directive="consultationOrder" kyee-action-holder-directive="consultation_order"
+                        ng-click="goConsultationOrder()" class="item item-icon-left center_div m0_oh_m4 ">
+                        <i class="icon icon-consult-order icon_blue font24"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" kyee-i18n-directive code="myOrder" default="咨询订单"></div>
+                        </div>
+                        <i class="ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li kyee-operation-monitor-directive="my_convenience_clinic" kyee-action-holder-directive="my_convenience_clinic" ng-click="goMyQuickClinic()" class="item item-icon-left center_div m0_oh_m4 ">
+                        <i class="icon icon-outpatient-service-net icon_green font22"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" kyee-i18n-directive code="myQuickClinic" default="网络门诊记录"></div>
+                        </div>
+                        <i class="ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li kyee-operation-monitor-directive="my_prescription" kyee-action-holder-directive="my_prescription" ng-click="goMyPrescription()" class="item item-icon-left center_div m0_oh_m4 ">
+                        <i class="icon icon-prescription icon_l_blue font22"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" kyee-i18n-directive code="myPrescription" default="我的处方"></div>
+                        </div>
+                        <i class="ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li ng-if="!(userSource=='4001')" kyee-operation-monitor-directive="myInsurance" immediate="true" ng-if="withMyInsurance=='1'" ng-click="KAH($event) || myInsurance();"
+                        kyee-action-holder-directive="myInsurance"
+                        class="item item-icon-left center_div m0_oh_m4 ">
+                        <i class="icon icon-my-insurance icon_p font24"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" style="float: left;" kyee-i18n-directive code="myInsurance" default="健康保险"></div>
+                            <img ng-if="riskPromotionShow" ng-src="resource/images/center/new.png" class="riskNewImg">
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li ng-if="!(userSource=='4001')" kyee-operation-monitor-directive="medicineOrder" ui-sref="medicineOrder" kyee-action-holder-directive="order_manage"
+                        class="item item-icon-left center_div m0_oh_m4 ">
+                        <i class="icon icon-drug-orders icon_l_blue font24"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" kyee-i18n-directive code="dianMder" default="电子药品订单"></div>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li ng-if="(userSource=='0'&&healthArchiveApp)||(userSource=='3'&&healthArchiveBoZhou)" kyee-operation-monitor-directive="healthArchive"
+                        ng-click="goMyHealth()"
+                        class="item item-icon-left center_div m0_oh_m4 ">
+                        <i class="icon icon-health-record icon_green font22"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" kyee-i18n-directive code="myHealthArchive" default="健康档案"></div>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li ng-if="hasMDTorRPP" ng-click="goConsulationNode()"
+                        class="item item-icon-left center_div m0_oh_m4">
+                        <i class="icon icon-consultation-note icon_blue font22"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" >我的会诊记录</div>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li  ng-click="goToMyHealth()"
+                         class="item item-icon-left center_div m0_oh_m4">
+                        <i class="icon icon-health consultation-note icon_purple font24"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" >我的健康</div>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li kyee-operation-monitor-directive="applyCash" ui-sref="apply_cash"
+                        class="item item-icon-left center_div m0_oh_m4">
+                        <i class="icon icon-pocket icon_blue font24"></i>
+                        <div class="main_info_div border-t">
+                            <div class="qy-grey7" kyee-i18n-directive code="myRealMoney" default="我的零钱"></div>
+                        </div>
+
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+
+
+
+
+
+                    <!--不清楚-->
+
+                    <!--<li ng-if="(userSource=='0'&&healthArchiveApp)||(userSource=='3'&&healthArchiveBoZhou)" kyee-operation-monitor-directive="healthArchive"
+                        ng-click="goMyHealth()"
+                        class="item item-icon-left center_div m0_oh_m4 border-d">
+                        <div style="padding-left: 14px;" class="main_info_div">
+                            <div class="qy-grey7" kyee-i18n-directive code="myHealthArchive" default="我的健康档案"></div>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+
+                    <li ng-if="hasMDTorRPP" ng-click="goConsulationNode()" class="item item-icon-left center_div m0_oh_m4 border-d">
+                        <div style="padding-left: 14px;" class="main_info_div">
+                            <div class="qy-grey7" kyee-i18n-directive code="consultationNote" default="我的会诊记录">我的会诊记录</div>
+                            <span class="main_info_span text-ellipsis color_9">资料上传/费用支付/报告查询</span>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li kyee-operation-monitor-directive="careDoctors" ui-sref="careDoctors"
+                        kyee-action-holder-directive="frequent_info"
+                        class="item item-icon-left center_div m0_oh_m4 border-d">
+                        <div style="padding-left: 14px;" class="main_info_div">
+                            <div class="qy-grey7" kyee-i18n-directive code="myCenter" default="我的医生"></div>
+                            <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myCenterInfo" default="快速预约/诊后咨询/家庭医生"></span>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+
+
+                    <li kyee-operation-monitor-directive="myQRCode" kyee-action-holder-directive="my_qr_code" ng-click="myQRCode();"
+                        class="item item-icon-left center_div m0_oh_m4 border-d">
+                        <div style="padding-left: 14px;" class="main_info_div">
+                            <div class="qy-grey7" kyee-i18n-directive code="myTwo" default="我的二维码"></div>
+                            <span class="main_info_span text-ellipsis color_9" kyee-i18n-directive code="myQRcodes"
+                                  default="扫一扫，快速知晓信息"></span>
+                        </div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>-->
+                    <div style="height: 12px" class="border-td"></div>
+
+                    <li kyee-operation-monitor-directive="helpAndFeedback" ng-click="enterHelpPage()"
+                        class="item item-icon-left center_div m0_oh_m4">
+                        <i class="icon icon-help-feedback icon_green font24"></i>
+                        <div class="main_info_div qy-grey7 border-d" kyee-i18n-directive code="feedBack" default="帮助与反馈"></div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                    <li kyee-operation-monitor-directive="setUp" ui-sref="set_up" kyee-action-holder-directive="set_up"
+                        class="item item-icon-left center_div m0_oh_m4">
+                        <i class="icon icon-setting-color-block icon_blue font22"></i>
+                        <div class="main_info_div qy-grey7" kyee-i18n-directive code="set" default="设置"></div>
+                        <i class=" ion-chevron-right list-ico center_icon main_info_i qy-grey5"></i>
+                    </li>
+                </ul>
+            </div>
+
+        </ion-scroll>
+    </ion-content>
+</ion-view>

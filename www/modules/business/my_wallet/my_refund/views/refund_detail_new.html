@@ -1,0 +1,129 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: yinguangwen
+* 创建日期:2016-4-15 16:27:13
+* 创建原因：退费明细页面
+* 任务号：KYEEAPPC-3596
+-->
+<ion-view class="qy_refund_detail_new">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="退费详情"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey1 has-header">
+        <ul ng-if="refundRecords.MODEL_CODE" class="pad-td-14 pad-l-14 border-td qy-bg-white mar-t-10">
+            <li>{{convertModelCode(refundRecords.MODEL_CODE)}}</li>
+            <li class="border-d pad-td-10 pad-r-14" ng-if="refundRecords.PAYMENT_TYPE!=3 && refundRecords.ACCOUNT_FLAG!=5 && refundRecords.RETURN_AMOUNT && refundRecords.RETURN_AMOUNT!=0.0"><span class="fw-b f20"><span kyee-i18n-directive code="refundAmount" default="¥"></span>{{convertMoney(refundRecords.RETURN_AMOUNT)}}</span>  <span class="fl-r"><span kyee-i18n-directive code="wayBack" default="原路返回"></span></span></li>
+            <li class="border-d pad-td-10 pad-r-14" ng-if="refundRecords.PAYMENT_TYPE==3 || refundRecords.ACCOUNT_FLAG==5 || !refundRecords.RETURN_AMOUNT || refundRecords.RETURN_AMOUNT==0.0"><span class="fw-b f20"><span kyee-i18n-directive code="refundAmount" default="¥"></span>{{convertMoney(refundRecords.ACCOUNT_SUM)}}</span>  <span class="fl-r"><span kyee-i18n-directive code="wayBack" default="原路返回"></span></span></li>
+            <li class="row pad-t-15 pad-r-14">
+                <div class="mar-r-14 ">
+                    <i class="icon qy-green icon-loading f20"></i>
+                </div>
+                <ul class="col ">
+                    <li class="f14 qy-green mar-d-5"ng-if="refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.RETURN_STATUS!=2&&refundRecords.LEADERSHIP_AUDIT!=3&&refundRecords.ACCOUNT_FLAG!=3 && refundRecords.ACCOUNT_FLAG!=5 && refundRecords.PAY_STATUS!=5">
+                        {{refundTips.MSG_DEALING}}
+                    </li>
+                    <li ng-if="(refundRecords.TRADE_STATUS==4 || refundRecords.TRADE_STATUS==6)||refundRecords.ACCOUNT_FLAG==3 || refundRecords.PAY_STATUS==5">
+                        <p class="f14 qy-green mar-d-5">{{refundTips.TIP_THIRDS}}</p>
+                        <p>{{refundTips.MSG_SUCCESS}}</p>
+                    </li>
+                    <li ng-if="(refundRecords.RETURN_STATUS==2 || (refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3))|| refundRecords.ACCOUNT_FLAG==5">
+                        <p class="f14 qy-green mar-d-5">{{refundTips.TIP_THIRDF}}</p>
+                        <p>{{refundTips.MSG_FAILED}}</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul ng-if="refundRecords.MODEL_CODE" class="pad-l-14 border-td qy-bg-white mar-t-10">
+            <li class="row pad-t-15">
+                <div class="mar-r-22">
+                    <i class="icon ion-record  qy-green "></i>
+                </div>
+                <ul class="col border-d">
+                    <li class="f14 qy-green mar-d-5">
+                        {{refundTips.TIP_FIRST}}
+                    </li>
+                    <li class="pad-d-15">
+                        {{getDealingTime(refundRecords.CREATE_TIME,3)}}<span kyee-i18n-directive code="dealed" default="已处理"></span>
+                    </li>
+                </ul>
+            </li>
+            <li class="row pad-t-15 record_box">
+                <div ng-if="refundRecords.TRADE_STATUS==4||refundRecords.TRADE_STATUS==6 ||  refundRecords.ACCOUNT_FLAG==3 || refundRecords.ACCOUNT_FLAG==5 ||refundRecords.RETURN_STATUS==2 || (refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3) || refundRecords.PAY_STATUS==5">
+                <div class="p_solid"></div>
+                </div>
+                <div ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3) && refundRecords.PAY_STATUS!=5">
+                    <div class="p_dash"></div>
+                </div>
+                <div class="mar-r-22" ng-if="refundRecords.TRADE_STATUS==4||refundRecords.TRADE_STATUS==6 ||  refundRecords.ACCOUNT_FLAG==3 || refundRecords.ACCOUNT_FLAG==5 ||refundRecords.RETURN_STATUS==2 || (refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3) || refundRecords.PAY_STATUS==5">
+                    <i class="icon ion-record qy-green "></i>
+                </div>
+                <div class="mar-r-22" ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3) && refundRecords.PAY_STATUS!=5">
+                    <i class="icon ion-record qy-grey4 "></i>
+                </div>
+                <ul class="col border-d">
+                    <li class="f14 qy-green mar-d-5" ng-if="refundRecords.TRADE_STATUS==4||refundRecords.TRADE_STATUS==6 ||  refundRecords.ACCOUNT_FLAG==3 || refundRecords.ACCOUNT_FLAG==5 ||refundRecords.RETURN_STATUS==2 || (refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3) || refundRecords.PAY_STATUS==5">
+                        {{refundTips.TIP_SECOND}}
+                    </li>
+                    <li class="f14 qy-grey4 mar-d-5" ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3) && refundRecords.PAY_STATUS!=5">
+                        {{refundTips.TIP_SECOND}}
+                    </li>
+                    <li class="pad-d-15 qy-grey4" ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& refundRecords.PAYMENT_TYPE!=3 && !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3) && refundRecords.PAY_STATUS!=5">
+                        <span kyee-i18n-directive code="about" default="预计"></span>{{getDealingTime(refundRecords.CREATE_TIME,0)}}<span kyee-i18n-directive code="beforeDeal" default="前处理"></span>
+                    </li>
+                    <li class="pad-d-15" ng-if="refundRecords.ACCOUNT_FLAG==3 || refundRecords.TRADE_STATUS==4 || refundRecords.TRADE_STATUS==6 || refundRecords.PAY_STATUS==5">
+                        {{getDealingTime(refundRecords.TRADE_TIME,3)}}<span kyee-i18n-directive code="dealed" default="已处理"></span>
+                    </li>
+                    <li class="pad-d-15" ng-if="refundRecords.ACCOUNT_FLAG==5||refundRecords.RETURN_STATUS==2||(refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3)">
+                        {{getDealingTime(refundRecords.TRANS_TIME,3)}}<span kyee-i18n-directive code="dealed" default="已处理"></span>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="row pad-t-15 record_box">
+                <div ng-if="refundRecords.TRADE_STATUS==4||refundRecords.TRADE_STATUS==6 ||  refundRecords.ACCOUNT_FLAG==3 || refundRecords.ACCOUNT_FLAG==5 ||refundRecords.RETURN_STATUS==2 || (refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3) || refundRecords.PAY_STATUS==5">
+                    <div class="p_solid"></div>
+                </div>
+                <div ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3) && refundRecords.PAY_STATUS!=5">
+                    <div class="p_dash"></div>
+                </div>
+                <div class="mar-r-22" ng-if="refundRecords.TRADE_STATUS==4||refundRecords.TRADE_STATUS==6 ||  refundRecords.ACCOUNT_FLAG==3 || refundRecords.ACCOUNT_FLAG==5 ||refundRecords.RETURN_STATUS==2 || (refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3)||refundRecords.PAY_STATUS==5">
+                    <i class="icon ion-record qy-green"></i>
+                </div>
+                <div class="mar-r-22" ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3)&&refundRecords.PAY_STATUS!=5">
+                    <i class="icon ion-record qy-grey4"></i>
+                </div>
+                <ul class="col ">
+                    <li class="f14 qy-green mar-d-5" ng-if="refundRecords.ACCOUNT_FLAG==5 ||refundRecords.RETURN_STATUS==2 || (refundRecords.RETURN_STATUS==0 && refundRecords.LEADERSHIP_AUDIT==3)">
+                        {{refundTips.TIP_THIRDF}}
+                    </li>
+                    <li class="f14 qy-green mar-d-5" ng-if="refundRecords.TRADE_STATUS==4||refundRecords.TRADE_STATUS==6 ||refundRecords.ACCOUNT_FLAG==3 || refundRecords.PAY_STATUS==5">
+                        {{refundTips.TIP_THIRDS}}
+                    </li>
+                    <li class="f14 qy-grey4 mar-d-5" ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3)&&refundRecords.PAY_STATUS!=5">
+                        {{refundTips.TIP_THIRDS}}
+                    </li>
+                    <li class="pad-d-15 qy-grey4" ng-if="(refundRecords.TRADE_STATUS!=4&&refundRecords.TRADE_STATUS!=6&&refundRecords.ACCOUNT_FLAG!=5&&refundRecords.RETURN_STATUS!=2&&refundRecords.ACCOUNT_FLAG!=3)&& refundRecords.PAYMENT_TYPE!=3 && !(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3)&&refundRecords.PAY_STATUS!=5">
+                        <span kyee-i18n-directive code="about" default="预计"></span>{{getDealingTime(refundRecords.CREATE_TIME,1)}}<span kyee-i18n-directive code="beforeDeal" default="前处理"></span>
+                    </li>
+                    <li class="pad-d-15" ng-if="refundRecords.ACCOUNT_FLAG==5||refundRecords.RETURN_STATUS==2||(refundRecords.RETURN_STATUS==0&&refundRecords.LEADERSHIP_AUDIT==3)">
+                        {{getDealingTime(refundRecords.TRANS_TIME,3)}}<span kyee-i18n-directive code="dealed" default="已处理"></span>
+                    </li>
+                    <li class="pad-d-15" ng-if="refundRecords.ACCOUNT_FLAG==3 || refundRecords.TRADE_STATUS==4 || refundRecords.TRADE_STATUS==6 || refundRecords.PAY_STATUS==5">
+                        {{getDealingTime(refundRecords.TRADE_TIME,3)}}<span kyee-i18n-directive code="dealed" default="已处理"></span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div ng-if="isEmpty" class="empty-text">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+        <p class="ta-c qy-grey4 mar-t-10" ng-if="!isEmpty"><span kyee-i18n-directive code="customerService" default="客服电话：400-080-1010"></span></p>
+
+    </ion-content>
+</ion-view>

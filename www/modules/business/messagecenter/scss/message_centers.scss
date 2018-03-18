@@ -1,0 +1,88 @@
+.qy_message_center{
+
+    .item-complex .item-content, .item-radio .item-content{
+        margin-right: 0px !important;
+        padding: 14px 0 14px 0;
+        margin: 0 14px;
+        border-bottom:1px solid #e7e7e7;
+
+    }
+    .msg_item{
+        .logo_img{
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+        h5{
+            float:left;
+            font-weight:bold;
+            font-size: 14px;
+            padding-bottom: 5px;
+        }
+        span.date{
+            float: right;
+            font-size:10px;
+            color:#999;
+            line-height: 15px;
+        }
+        p{
+            clear: both;
+            overflow: hidden;
+            min-height: 23px;
+            //max-height: 44px;
+            line-height: 23px;
+            white-space: normal;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+    }
+
+    .change_btn{
+        background-color: #e7e7e7;
+    }
+
+    .delete_btn{
+        background-color: #ff777a;
+    }
+}
+
+.qy_query_card_result{
+
+    .item-input input{
+        //padding-left: 30px;
+        background-color: transparent;
+    }
+
+    .list{
+        margin-bottom: 0;
+    }
+    .cardBox{
+        margin: 20px 20px;
+        border-radius: 10px;
+        height: inherit;
+    }
+    .hospitalName{
+        width: 100%;
+        line-height: 44px;
+        border-bottom:1px solid #ddd;
+        padding-left: 14px;
+    }
+    .text{
+        display: inherit;
+        color: #333333;
+        max-width: 75%
+    }
+    .titleName{
+        width: 100%;
+        line-height: 34px;
+        height:34px;
+        padding-left: 14px;
+    }
+
+    .textHandle{
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

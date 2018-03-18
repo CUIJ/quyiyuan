@@ -1,0 +1,58 @@
+<ion-view class="qy_select_city" cache-view="false">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <a ng-if="!(userSource=='4001')" class="text-ellipsis select_city" ng-click=" backToProvince();">
+                <span class="text-ellipsis city_name" ng-style="{'max-width':cityWidth}">{{cityeName}}</span>
+                <i class="ion-chevron-down f14 city_arrow" ng-if="canSelectHospital"></i>
+            </a>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content  has-bouncing="true" padding="false" >
+        <!-- 所有医院数据-->
+        <div ng-if = "isAreaHospital == false">
+        <ul class="pad-l-14">
+            <li class="border-d hospital_box" ng-repeat="hospital in hospitals"
+                ng-click="selectHospital(hospital.HOSPITAL_ID, hospital.HOSPITAL_NAME,
+                          hospital.MAILING_ADDRESS, hospital.PROVINCE_CODE, hospital.PROVINCE_NAME,
+                           hospital.CITY_CODE, hospital.CITY_NAME,hospital,false)">
+                <img class="hos_img" width="32px" height="32px" style="vertical-align: top;"
+                     ng-src="{{hospital.LOGO_PHOTO?hospital.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                <div>
+                    <div ng-style="{'max-width':getWidth(hospital)}" style="float: left;" class="hos_name f14 text-ellipsis">{{hospital.HOSPITAL_NAME}}</div>
+                    <img ng-if="hospital.IS_ONLINE==1" class="net_hos_img" style="float: left;"
+                         src="resource/images/icons/shipin.png">
+                </div>
+                <img ng-if="hospital.HOSPITAL_OPEN == 0" class="weihuzhong_img" src="resource\images\hospital\weihuzhong.png">
+            </li>
+        </ul>
+        </div>
+        <!-- 分院区显示-->
+        <div ng-if = "isAreaHospital == true ">
+            <ul class="pad-l-14">
+                <li class="border-d hospital_box" ng-repeat="hospital in showHospital"
+                    ng-click="selectHospital(hospital.HOSPITAL_ID, hospital.HOSPITAL_NAME,
+                      hospital.MAILING_ADDRESS, hospital.PROVINCE_CODE, hospital.PROVINCE_NAME, hospital.CITY_CODE, hospital.CITY_NAME,hospital,true)">
+                    <img class="hos_img" width="32px" height="32px" style="vertical-align: top;"
+                         ng-src="{{hospital.LOGO_PHOTO?hospital.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                    <div>
+                        <div ng-style="{'max-width':getWidth(hospital)}" style="float: left;" class="hos_name f14 text-ellipsis">{{hospital.HOSPITAL_NAME}}</div>
+                        <img ng-if="hospital.IS_ONLINE==1" class="net_hos_img" style="float: left;"
+                             src="resource/images/icons/shipin.png">
+                    </div>
+                    <img ng-if="hospital.HOSPITAL_OPEN == 0" class="weihuzhong_img" src="resource\images\hospital\weihuzhong.png">
+                </li>
+            </ul>
+        </div>
+        <div ng-if="showEmpty" class="empty-text">
+            <p>
+                <span kyee-i18n-directive code="currentPositionNoHospital" default="您当前所在位置暂无趣医上线医院"></span>
+            </p>
+        </div>
+    </ion-content>
+
+</ion-view>

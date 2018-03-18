@@ -1,0 +1,86 @@
+var data = {
+	
+    slideboxData : [{url : 'ad_0.png'}],
+	notification : "通知：2015年4月15日凌晨12:00至02:00，系统将进行升级改造，期间可能出现不稳定的情况，敬请谅解。",
+    iconGridData : [
+		[{
+				name: "预约挂号",
+				img_name: "yygh",
+				index: 0,
+				backgroundcolor : "#00B44E"
+			}, {
+				name: "今日挂号",
+				img_name: "drgh",
+				index: 1,
+				backgroundcolor : "#6BCB97"
+			}, {
+				name: "智能导诊",
+				img_name: "wdzd",
+				backgroundcolor : "#91D6AB",
+				index: 2
+			}
+		],
+		[{
+				name: "报告单",
+				img_name: "wdbgd",
+				backgroundcolor : "#009943",
+				index: 3
+			}, {
+				name: "叫号查询",
+				img_name: "wdpd",
+				backgroundcolor : "#00BD70",
+				index: 4
+			}, {
+				name: "我的账单",
+				img_name: "zwzd",
+				backgroundcolor : "#24CE7B",
+				index: 5
+			}
+		],
+		[{
+				name: "医院导航",
+				img_name: "yydh",
+				backgroundcolor : "#007A4A",
+				index: 6
+			}, {
+				name: "免挂号费",
+				img_name: "mghfhd",
+				backgroundcolor : "#008655",
+				index: 7
+			}, {
+				name: "更多",
+				img_name: "yspb",
+				backgroundcolor : "#01956D",
+				index: 8,
+				href:"#/tabs/more"
+			}
+		]
+	],
+	
+	moreGridData : [
+		[{
+			name: "我的退费",
+			img_name: "wdtf",
+			backgroundcolor : "#2494D8",
+			index: 0
+		},
+		{
+			name: "满意度",
+			img_name: "myd",
+			backgroundcolor : "#34B3E8",
+			index: 1
+		},
+		{
+			name: "医生排班",
+			img_name: "yspb",
+			backgroundcolor : "#79CBEF",
+			index: 2
+		}],
+		[{
+			name: "我的趣医",
+			img_name: "wdtf",
+			backgroundcolor : "#5BA7E6",
+			index: 3
+		}]
+	]
+};

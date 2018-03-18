@@ -1,0 +1,175 @@
+
+<!--
+* 产品名称 quyiyuan.
+* 创建用户: yangmingsi
+* 日期: 2017年2月21日09:40:54
+* 任务号：KYEEAPPC-10018
+*/-->
+<ion-view class="medical_record">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span >评价医生</span>
+        </ion-nav-title>
+        <!--<ion-nav-buttons side="right" >
+            <a class="button button-clear"ng-show="userSource!='3'"  ng-click="openRightMenu('my_health_archive')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>-->
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false"  scrollbar-y="false" class="has-footer" delegate-handle="sp_evaluate" on-scroll="scrollListen()">
+        <div class="bg" style="background-image: url('resource/images/sp_medical_record/bg.png')">
+        <div>
+            <div class="" style="padding-top: 22.5px;">
+                <div style="width: 62px;height: 62px;margin: 0 auto">
+                    <div class="" style="width: 61px;height: 61px;border: 2px solid white;border-radius: 30px;position: absolute">
+                    </div>
+                    <img style="width: 60px;height: 60px; border-radius: 50%;"
+                         src="{{doctorImage}}" onerror="javascript:this.src='resource\\images\\sp_medical_record\\man.png'">
+                </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <span  class="font14 qy-fff">{{doctorName}}</span>
+                <span  class="f12 qy-fff ">{{gradeName}}</span>
+            </div>
+            <div style="">
+                <span  class="font14 qy-fff ">{{hospitalName}}</span>
+                <span  class="font14 qy-fff">{{deptName}}</span>
+            </div>
+            <div style="margin-top: 17px;padding-bottom: 20.5px">
+                            <span style="">
+                                <i class="xing_color star_font5 " ng-class="getXingCls(avgSCORE, 1)" ></i>
+                                <i class="xing_color star_font5" ng-class="getXingCls(avgSCORE, 2)" ></i>
+                                <i class="xing_color star_font5" ng-class="getXingCls(avgSCORE, 3)" ></i>
+                                <i class="xing_color star_font5" ng-class="getXingCls(avgSCORE, 4)" ></i>
+                                <i class="xing_color star_font5" ng-class="getXingCls(avgSCORE, 5)" ></i>
+                            </span>
+                    <span ng-if="avgSCORE != 0" class="font20" style="color: #ecb32a;">{{avgSCORE-1}}<span ng-if="avgSCORE" style="color: #ecb32a;font-size: 12px">分</span>
+                </span>
+            </div>
+        </div>
+    </div>
+        <div class="border-b" style="padding-top: 15px;padding-bottom: 15px;">
+
+            <div class="text-center border-r" style="width: 50%;float: left;" ng-click="choosePage(2)">
+                <div ng-if="pageType==1" style="padding-top: 3px;">
+                    <img class="mar-r-5 mar_top_2"  style="width: 16px;height: 16px;"
+                         src="resource\images\sp_medical_record\pingjia.png">
+                <span class="f14" style="color:#2e9ee6;margin: 0px; ">评价医生</span>
+                </div>
+                <div ng-if="pageType==2" style="padding-top: 3px;">
+                        <img class="mar-r-5 mar_top_2" style="width: 16px;height: 16px;"
+                             src="resource\images\sp_medical_record\pingjiaB.png">
+                    <span class="mar f14 qy-grey7" style="margin: 0px">评价医生</span>
+                </div>
+            </div>
+            <div class="text-center" ng-click="choosePage(1)">
+                <div ng-if="pageType==1" style="padding-top: 3px;">
+                    <img class="mar-r-5 mar_top_2" style="width: 16px;height: 16px;"
+                         src="resource\images\sp_medical_record\jiluB.png">
+                <span class="f14 qy-grey7" style="margin: 0px">评价记录({{total}})</span>
+                </div>
+                <div ng-if="pageType==2" style="padding-top: 3px;">
+                        <img class="mar-r-5 mar_top_2" style="width: 16px;height: 16px;"
+                             src="resource\images\sp_medical_record\jiluA.png">
+                    <span class="f14" style="color:#2e9ee6;margin: 0px ">评价记录({{total}})</span>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="pageType==1">
+            <div>
+                <div ng-style="{'width':boxWidth+'px'}" style="height:1px;margin-top: 40px;margin-left:50px;background-color:#e7e7e7;overflow:hidden;float: left"></div>
+                    <span ng-if="suggestFlag==0"  class="qy-grey6" style="margin-top: 30px;position: relative;top: 30px;left: 10px;">请您给出星值</span>
+                    <span ng-if="suggestFlag==1"  class="qy-grey6" style="margin-top: 30px;position: relative;top: 30px;left: 10px;">我对他的评分</span>
+                <div ng-style="{'width':boxWidth+'px'}" style="height:1px;margin-top: 40px;margin-right:50px;background-color:#e7e7e7;overflow:hidden;float: right"></div>
+
+                        <div id="starDiv" ng-style="{'margin-left':starLeft+'px'}" style="margin-top: 50px;">
+                                 <span ng-if="suggestFlag==0" style="padding-left: 5px;">
+                                    <i class="star_img_new star_font2" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 0)"
+                                       ng-class="SCORE_VALUE >=0 ?'icon-favorite2':'icon-favorite2 empty_star'" ></i>
+                                     <i class="star_img_new star_font2" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 1)"
+                                        ng-class="SCORE_VALUE >=1 ?'icon-favorite2':'icon-favorite2 empty_star'" ></i>
+                                    <i class="star_img_new star_font2" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 2)"
+                                       ng-class="SCORE_VALUE >=2 ?'icon-favorite2':'icon-favorite2 empty_star'" ></i>
+                                    <i class="star_img_new star_font2" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 3)"
+                                       ng-class="SCORE_VALUE >=3 ?'icon-favorite2':'icon-favorite2 empty_star'" ></i>
+                                    <i class="star_img_new star_font2" kyee-operation-monitor-directive="starClick" ng-click="starClick($index, 4)"
+                                       ng-class="SCORE_VALUE >=4 ?'icon-favorite2':'icon-favorite2 empty_star'" ></i>
+                                 </span>
+                                <span ng-if="suggestFlag==1" style="padding-left: 5px;">
+                                <i class="star_img_new star_font2" ng-class="getXingCls(score,1)" ></i>
+                                <i class="star_img_new star_font2" ng-class="getXingCls(score,2)" ></i>
+                                <i class="star_img_new star_font2" ng-class="getXingCls(score,3)" ></i>
+                                <i class="star_img_new star_font2" ng-class="getXingCls(score,4)" ></i>
+                                <i class="star_img_new star_font2" ng-class="getXingCls(score,5)" ></i>
+                                </span>
+                        </div>
+                <!-- div style="margin-top:5px;">
+                    <div ng-if="disSatReason==1" ng-style="{'width':textareaWidth+'px'}" style="margin-left: 50px;margin-right: 50px;" class="qy-bg-white suggestcontent" >{{reasonListHead}}</div>
+                </div -->
+
+                <div ng-if="disSatReason==1"  class="qy-grey6 reasonHead">{{reasonListHead}}</div>
+
+                <div class="reasonList">
+                    <ul class="clearfix">
+                        <li ng-repeat="disSatReason in disSatReasonShowList"
+                            ng-class="{true:'checked',false:'unChecked'}[disSatReason.selectFlag==1]"
+                            ng-style="{'width':(KyeeEnv.innerSize.width-100)/2-5+'px'}"
+                            ng-click="selectReason(disSatReason)">
+                            <span>{{disSatReason.reasonName}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-style="{'width':boxWidth+'px'}" style="height:1px;margin-top: 40px;margin-left:50px;background-color:#e7e7e7;overflow:hidden;float: left"></div>
+                <span ng-if="suggestFlag==0"  class="qy-grey6" style="margin-top: 30px;position: relative;top: 30px;left: 24px;">详细评论</span>
+                <span ng-if="suggestFlag==1"  class="qy-grey6" style="margin-top: 30px;position: relative;top: 30px;left: 10px;">我对他的评价</span>
+                <div ng-style="{'width':boxWidth+'px'}" style="height:1px;margin-top: 40px;margin-right:50px;background-color:#e7e7e7;overflow:hidden;float: right"></div>
+            </div>
+        <div style="margin-top:50px;">
+           <textarea ng-focus="showKeyBoard()" ng-blur="hideKeyBoard()" ng-if="suggestFlag==0" type="text" ng-style="{'width':textareaWidth+'px'}" style="height:100px;margin-left: 50px;margin-right: 50px;" class="suggest_input qy-bg-grey1 border-all suggestcontent" id="suggestContent" ng-model="suggestInfo.suggest" ng-change="checkSuggest()" placeholder=" 写下评价吧，对其他患者也有帮助哦~ "></textarea>
+            <div ng-if="suggestFlag==1" ng-style="{'width':textareaWidth+'px'}" style="height:100px;margin-left: 50px;margin-right: 50px;" class="qy-bg-white suggestcontent" >{{suggestInfo.suggestValue}}</div>
+        </div>
+
+            <div style="height: 20px"></div>
+
+
+            <div ng-if="top" style="height: 300px">
+
+            </div>
+        </div>
+
+
+ <div ng-if="pageType == 2" >
+     <ul>
+         <li  class="border-b mar-l-14 mar-r-14 pad_td16" ng-repeat="item in suggestAllInfo">
+            <div class="mar-d-10 mar-l-10 ">
+                <div class="mar-d-10" >
+                        <span>
+                            <i class="xing_color star_font4 " ng-class="getXingCls(item.scoreValue, 1)" ></i>
+                            <i class="xing_color star_font4" ng-class="getXingCls(item.scoreValue, 2)" ></i>
+                            <i class="xing_color star_font4" ng-class="getXingCls(item.scoreValue, 3)" ></i>
+                            <i class="xing_color star_font4" ng-class="getXingCls(item.scoreValue, 4)" ></i>
+                            <i class="xing_color star_font4" ng-class="getXingCls(item.scoreValue, 5)" ></i>
+                        </span>
+                        <span class="font12 qy-grey4" style="float:right">{{item.patientName}}</span>
+                </div>
+                <div class="f14 qy-grey7 ">{{item.suggestValue}}</div>
+            </div>
+         </li>
+     </ul>
+    </div>
+        <ion-infinite-scroll ng-if="pageType == 2&&noLoad" immediate-check="false" on-infinite="loadMore()" distance="-10%"   icon="ion-loading-c">
+        </ion-infinite-scroll>
+
+
+
+    </ion-content>
+    <div ng-if="pageType == 1&&suggestFlag==0 " class="bar bar-footer pad-b-14">
+        <button class="btn_Bg button-size-l button button-block " ng-click="submit()" >
+            <span class="f14">提交评价</span>
+        </button>
+    </div>
+</ion-view>

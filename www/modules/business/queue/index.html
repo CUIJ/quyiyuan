@@ -1,0 +1,44 @@
+<ion-view class="qy_coupons quyiyuan_queue_dept">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backPath()"></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="title2" default="排队候诊"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" kyee-action-holder-directive="myQueue" ng-click="KAH($event) || showQueueClinic()">
+                <span kyee-i18n-directive code="myQueue" default="我的叫号"></span>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <!--sub_header-->
+    <div class="bar bar-subheader item-input-inset search pad-b-14 qy-bg-grey2">
+        <label class="item-input-wrapper search-item">
+            <div class="div_search"><i class="icon icon-seach placeholder-icon mar-l-10 "></i></div>
+            <input type="search" placeholder="{{placetxt}}" ng-model="keywords" ng-keyup="searchDept(keywords)">
+        </label>
+    </div>
+    <!--main_content-->
+    <ion-content has-bouncing="true" padding="false" class="has-subheader">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+           refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefreshBtn()"></ion-refresher>
+        <div kyee-indexed-list-directive data="data" bind="bind(params)" itemclick="showQueueInfo(params)" height="{{KyeeEnv.innerSize.height - 75 - 65}}"></div>
+        <div ng-if="dataNotHidden" class="empty-text" >{{dataDetail}}</div>
+    </ion-content>
+
+        <div class="bar queue_footer" style="top:{{KyeeEnv.innerSizeSource.height - 43}}px">
+            <div class="queue_footer_child">
+                <div class="div_bottom">
+                <span class="icon-personal green_person_footer"></span>
+                <span class="span_bottom text-ellipsis" kyee-i18n-directive code="idle" default="空闲"></span>
+                </div>
+                <div class="div_bottom">
+                <span class="icon-personal red_person_footer"></span>
+                <span class="span_bottom text-ellipsis" kyee-i18n-directive code="idle" default="拥挤"></span>
+                </div>
+                <div class="div_bottom">
+                <span class="icon-personal grey_person_footer"></span>
+                <span class="span_bottom text-ellipsis" kyee-i18n-directive code="idle" default="暂无叫号数据"></span>
+                </div>
+            </div>
+        </div>
+</ion-view>

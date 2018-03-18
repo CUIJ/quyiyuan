@@ -1,0 +1,54 @@
+    <ion-view class="qy_hospitalnotice" ng-init="initView()">
+        <ion-header-bar align-title="center" class="bar bar-header item-input-inset quyiyuan_header">
+            <ion-nav-bar align-title="center" class="qy-header">
+                <ion-nav-title>
+                    <span kyee-i18n-directive code="titleNotice" default="医院公告"></span>
+                </ion-nav-title>
+                <ion-nav-back-button></ion-nav-back-button>
+                <ion-nav-buttons side="right">
+                    <a class="button button-clear" ng-click="openRightMenu('hospitalNotice')">
+                        <i class="icon ion-navicon" ></i>
+                    </a>
+                </ion-nav-buttons>
+            </ion-nav-bar>
+        </ion-header-bar>
+    <div class="bar sub-header header-div-style qy-bg-grey2" style="height: 47px">
+        <ion-scroll direction="x" scrollbar-x="false" class="sub_header" >
+        <div kyee-operation-monitor-directive="chooseNoticeType" ng-style="widthCpyOmg" class="item-repeat-div" ng-repeat="item in titleList" ng-click="chooseNoticeType(item.TYPEID)"
+             style="display: inline-block;height:47px;background-color: #ffffff;" >
+            <div class="notice-type-style f14 " style="height: 100%;">
+                <span ng-class="{'checkcolor ' :isChecked(item.TYPEID)}" class="select_tittle"
+                       ng-style="$index==0?{marginLeft:'14px'}:{width:'93%'} ">
+                    {{item.C_TYPE}}</span>
+            </div>
+        </div>
+        </ion-scroll>
+    </div>
+    <ion-content style="border-bottom: 1px solid #e7e7e7;background-color: #fafafa"  scrollbar-y="false"  has-bouncing="true" class="has-subheader">
+        <ion-list ng-if="!isShowMessage" style="border-bottom: 1px solid #e7e7e7;background-color:#ffffff">
+            <div style="border-bottom: 1px solid #e7e7e7;border-top: 1px solid #e7e7e7;">
+            <ion-item kyee-operation-monitor-directive="openNoticeDetail" ng-repeat="item in ANNOUNCEMENT_INFRO" ng-click="openNoticeDetail($index)">
+                <div class="list" ng-class="{'b_t_1_s_e':$index!=0}" style="margin-left: 14px;">
+                    <div style="padding-top: 10px;padding-bottom: 10px;margin-left: 0px;border-bottom: 0px solid #efefef;border-top: 0px solid #efefef;" class="item qy-iconlist">
+                    <img style="border: solid 1px #e7e7e7;" class="hnImgCls" src="{{getImgUrl(item.IMG_URL)}}" onerror="javascript:this.src='resource/images/icons/mrtp.png'">
+                    <ul style="padding-left: 10px;" class="listItem qy-bg-white">
+                        <li style="font-size: 14px;color: #333;padding-top: 5px;" class="letterFont">{{item.TITLE}}</li>
+                        <li style="color: #666;padding-top: 9px;" class="letterFont">{{item.C_TYPE}}</li>
+                        <li style="color: #666" class="letterFont">{{item.ADDTIME}}</li>
+                    </ul>
+                    <i style="right: 14px;" class="ico ion-chevron-right" ></i>
+                   </div>
+                </div>
+            </ion-item>
+            </div>
+        </ion-list>
+        <div style="padding-top:14px;color: #B5B5B5;font-size: 12px;background-color: #fafafa" class="allDataLoad_style f14 qy-bg-white"  ng-class="{'isHidden':!moreDataCanBeLoadedFlag}"
+             kyee-i18n-directive code="allShowNotice" default="已加载全部数据"></div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoadedFlag" immediate-check="false" on-infinite="getHospitalNoticeInfro({{check_typeID}})"></ion-infinite-scroll>
+    </ion-content>
+    <div class="empty-notice-infro-content" ng-if="isShowMessage">
+        <div class="empty-notice-info-div">
+            <p kyee-i18n-directive code="emptyShowNotice" default="暂无公告信息"></p>
+        </div>
+    </div>
+</ion-view>

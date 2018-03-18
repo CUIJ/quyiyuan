@@ -1,0 +1,85 @@
+ <div  has-bouncing="true" scrollbar-y="false" class="qy-bg-grey2 my_health_files"
+       delegate-handle="my_personal_information"
+       ng-controller="MyPersonalInformationController"
+       ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-20+'px'}">
+
+    <div class="mar-t-10 mar-d-10 border-td qy-bg-white pad-l-14 border-l border-r" ng-if="isNotEmpty(personalInfo)">
+        <div class="mar-td-16" >
+            <i class="qy-blue f20 icon-introduce" style="margin-right: 6px"></i>
+            <span class="f14 introduce_i" >个人基本信息</span>
+        </div>
+        <div class="row border-d " style="padding-bottom: 16px">
+            <div style="border: 0px solid #dddddd;" class="header_images img_head"
+                 ng-style="{'background':'url('+(personalInfo.IMAGE_PATH)+')'}">
+            </div>
+            <div class="pad-t-20 row" style="padding-left: 16px"ng-style="{'max-width':$root.KyeeEnv.innerSize.width*0.8-20-55-16-14+'px'}">
+                <div class="f18 pad-r-14 qy-grey7 text-ellipsis" style="max-width: 70%" >{{personalInfo.PERSON_NAME}}</div>
+                <div class="f14 qy-grey5" >{{personalInfo.SEX}}</div>
+            </div>
+        </div>
+        <li class="item item-input item_padding_0 line_30" >
+            <span class="f14 fixed_width1 text-ellipsis"kyee-i18n-directive code="myDateOfBirth" default="出生年月" ></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)+'px'}">{{personalInfo.DATE_OF_BIRTH}}</span>
+        </li>
+        <li class="item item-input item_padding_0 line_30 ">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myIdNo" default="身份证号"></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)+'px'}">{{personalInfo.ID_NO}}</span>
+        </li>
+        <li class="item item-input item_padding_0 line_30 ">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myNation" default="民族"></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)+'px'}">{{personalInfo.NATION}}</span>
+        </li>
+        <li class="item item-input item_padding_0 line_30 ">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myPhone" default="联系电话"></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)+'px'}">{{personalInfo.PHONE}}</span>
+        </li>
+        <li class="item item-input item_padding_0 line_30  li_position">
+            <span class="f14 fixed_width1 text-ellipsis"kyee-i18n-directive code="myAddress" default="居住地址" ></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-click="showResidenceInf('居住地址',personalInfo.LIVE_DETAIL_ADDRESS)"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)-30+'px'}">{{personalInfo.LIVE_DETAIL_ADDRESS}}</span>
+            <i class=" ion-chevron-right  right_arrow qy-grey5"ng-click="showResidenceInf('居住地址',personalInfo.LIVE_DETAIL_ADDRESS)"ng-if="isNotEmpty(personalInfo.LIVE_DETAIL_ADDRESS)"></i>
+        </li>
+        <li class="item item-input item_padding_0 line_30 ">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myMaritalStation" default="婚姻状况"></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)+'px'}">{{personalInfo.MARITAL_STATE}}</span>
+        </li>
+        <li class="item item-input item_padding_0 line_30 li_position">
+            <span class="f14 fixed_width1 text-ellipsis"kyee-i18n-directive code="myNativeAddress" default="籍贯" ></span>
+            <span class="f14 text-ellipsis span_dis_block " ng-click="showResidenceInf('籍贯',personalInfo.NATIVE_ADDRESS)"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)-30+'px'}">{{personalInfo.NATIVE_ADDRESS}}</span>
+            <i class=" ion-chevron-right  right_arrow qy-grey5"  ng-click="showResidenceInf('籍贯',personalInfo.NATIVE_ADDRESS)" ng-if="isNotEmpty(personalInfo.NATIVE_ADDRESS)"></i>
+        </li>
+        <li class="item item-input item_padding_0 line_30 li_position">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myRegistAddress" default="出生地"></span>
+            <span class="f14 text-ellipsis span_dis_block" ng-click="showResidenceInf('出生地',personalInfo.REGIST_DETAIL_ADDRESS)"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)-30+'px'}">{{personalInfo.REGIST_DETAIL_ADDRESS}}</span>
+            <i class=" ion-chevron-right  right_arrow qy-grey5"  ng-click="showResidenceInf('出生地',personalInfo.REGIST_DETAIL_ADDRESS)" ng-if="isNotEmpty(personalInfo.REGIST_DETAIL_ADDRESS)"></i>
+        </li>
+        <li class="item item-input item_padding_0 line_30 border_none li_position">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myWorkingAgency" default="工作单位"></span>
+            <span class="f14  text-ellipsis  span_dis_block"ng-click="showResidenceInf('工作单位',personalInfo.WORKING_AGENCY)"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)-30+'px'}">{{personalInfo.WORKING_AGENCY}}</span>
+            <i class=" ion-chevron-right  right_arrow qy-grey5" ng-click="showResidenceInf('工作单位',personalInfo.WORKING_AGENCY)" ng-if="isNotEmpty(personalInfo.WORKING_AGENCY)"></i>
+        </li>
+    </div>
+    <div class="mar-d-10 border-td qy-bg-white pad-l-14 border-l border-r" ng-if="isNotEmpty(personalInfo)">
+        <div class="mar-td-10" >
+            <i class="qy-blue f20 icon-introduce "style="margin-right: 6px"></i>
+            <span class="f14 introduce_i"kyee-i18n-directive code="myFileInfo" default="档案信息" ></span>
+        </div>
+        <li class="item item-input item_padding_0 line_30 li_position">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myFileNumber" default="档案编号"></span>
+            <span class="f14 text-ellipsis  span_dis_block"ng-click="showResidenceInf('档案编号',personalInfo.FILE_NUMB)" ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)-30+'px'}">{{personalInfo.FILE_NUMB}}</span>
+            <i class=" ion-chevron-right  right_arrow qy-grey5"ng-click="showResidenceInf('档案编号',personalInfo.FILE_NUMB)"  ng-if="isNotEmpty(personalInfo.FILE_NUMB)"></i>
+        </li>
+        <li class="item item-input item_padding_0 line_30  li_position">
+            <span class="f14 fixed_width1 text-ellipsis"kyee-i18n-directive code="myArchiveOrganname" default="建档机构" ></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-click="showResidenceInf('建档机构',personalInfo.ARCHIVE_ORGAN_NAME)"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)-30+'px'}">{{personalInfo.ARCHIVE_ORGAN_NAME}}</span>
+            <i class=" ion-chevron-right  right_arrow qy-grey5"ng-click="showResidenceInf('建档机构',personalInfo.ARCHIVE_ORGAN_NAME)" ng-if="isNotEmpty(personalInfo.ARCHIVE_ORGAN_NAME)"></i>
+        </li>
+        <li class="item item-input item_padding_0 line_30 ">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myPersonStatus" default="档案状态"></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)+'px'}">{{personalInfo.PERSON_STATUS}}</span>
+        </li>
+        <li class="item item-input item_padding_0 line_30 border_none">
+            <span class="f14 fixed_width1 text-ellipsis" kyee-i18n-directive code="myCreateDate" default="建档日期"></span>
+            <span class="f14 text-ellipsis span_dis_block"ng-style="{'width':$root.KyeeEnv.innerSize.width*0.8-(10+14+70+14)+'px'}">{{personalInfo.CREATE_DATE}}</span>
+        </li>
+    </div>
+ </div>

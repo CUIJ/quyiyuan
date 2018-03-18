@@ -1,0 +1,80 @@
+<ion-view class="qy_regist_view">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backToFrom()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive code="all:regist.registUser" default="注册"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a kyee-operation-monitor-directive="submit" ng-click="doLogin()" class="button button-clear txt qy-fff"
+               kyee-i18n-directive code="all:regis.toLogin" default="登录" >
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="regist_content qy-bg-grey2" ng-class="{'has-footer':isVoiceVerificationCode}">
+        <div class="list qy-bg-white regist_content_div " >
+            <label class="item  item-input-inset button-bar mar-l-14 item_padding ">
+                <input type="tel" id="regist.phoneNumInput" class="phone_input  text-ellipsis" ng-disabled="userInfo.phoneNumDisabled"
+                       ng-model="userInfo.phoneNum" placeholder="{{hintPhone}}">
+            </label>
+            <div class="item item-input-inset button-bar mar-l-14 item_padding item-bor ">
+                <input id="pwd" type="{{userInfo.pwdType}}" class="pwd_input  text-ellipsis" ng-model="userInfo.password"
+                       placeholder="{{hintPassFormat}}">
+                <button class="ion-ios-eye icon_btn_style mar-r-5 qy-grey5" ng-click="iconClick()"
+                        ng-class="{'change_choose_style':userInfo.isActive}">
+                </button>
+            </div>
+            <div ng-if="userInfo.isCheckMsg" class="item item-input-inset button-bar mar-l-14 item-bor">
+                <label class="item-input-wrapper login_number_label item_padding"  >
+                    <input kyee-operation-monitor-directive="isVoiceVerificationCodeFalse" ng-click="isVoiceVerificationCodeFalse();" type="tel" class= "pad-l-10"
+                           ng-model="userInfo.loginNum"
+                           placeholder="{{hintCode}}">
+                </label>
+                <button id="regist.validateMsgBtn" ng-disabled="userInfo.validateBtnDisabled"style="width: initial;"
+                        kyee-operation-monitor-directive="sendRegCheckCode"
+                        ng-click="sendRegCheckCode();" class="regist_my_button text-ellipsis  code_button" >
+                    {{userInfo.validateMsgText}}
+                </button>
+            </div>
+
+            <div ng-show="userInfo.isGuideShow" class="item item-input-inset button-bar item_padding mar-l-14 item_height" style="border-top: solid 1px #e7e7e7; ">
+                <label class="item-input-wrapper login_number_label">
+                    <input type="text" class="pad-l-10" ng-model="userInfo.guideNum" placeholder="{{hintMedicalDoctor}}">
+                </label>
+                <button kyee-operation-monitor-directive="scan" ng-click="scan();" class="regist_my_button text-ellipsis code_button" style="width: initial;"
+                        kyee-i18n-directive code="all:regist.medicalDoctor" default="扫描二维码">
+                </button>
+            </div>
+            <label ng-show="userInfo.isRemarkShow " class="item item-input-inset button-bar item-bor mar-l-14 ">
+                <input type="text" class="pad-l-10" ng-model="userInfo.remark" placeholder="{{hintRemark}}">
+            </label>
+        </div>
+
+        <div class=" agreement_div agreement_position"
+             ng-show="userInfo.isAgreementShow"  ng-style="{'top':(KyeeEnv.innerSize.height - 100)+'px'}">
+            <i  class=" pad-r-10  agreement_icon"
+                ng-class="{'ion-android-checkbox-outline':userInfo.isAgree,'ion-android-checkbox-outline-blank':!userInfo.isAgree}"
+                kyee-operation-monitor-directive="agree"
+                ng-click="agree();"></i>
+            <span class="agreement_span" ng-click="readContract();"
+                  kyee-operation-monitor-directive="readContract"
+                  kyee-i18n-directive code="all:regist.aggrement" default="阅读并同意《趣医网软件许可及服务协议》"> </span>
+        </div>
+        <div class="regist_login_div pad-b-14">
+            <button kyee-operation-monitor-directive="registAndLogin" ng-click="registAndLogin();" class="button button-full button-size-l"
+                    kyee-i18n-directive code="all:regist.registAndLogin" default="注册登录">
+            </button>
+        </div>
+
+    </ion-content>
+
+    <div class="bar bar-footer width_100 bounceUp" ng-if="isVoiceVerificationCode">
+        <div class="h_50_b_w100">
+            <span  class="po_co" ng-class="totalWidth>375?'top_28p':'top_15p'">
+            <span  kyee-i18n-directive code="all:regist.voiceCodeSpan"
+                  default="验证码已发送，如长时间未收到短信，请点此获取"></span>
+             <span kyee-operation-monitor-directive="voiceVerificationCode" ng-click="voiceVerificationCode();" class="bo_bo"
+                      kyee-i18n-directive code="all:regist.voiceCode" default="语音验证码"></span>
+           </span>
+        </div>
+    </div>
+</ion-view>

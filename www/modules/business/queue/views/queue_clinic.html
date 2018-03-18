@@ -1,0 +1,64 @@
+<ion-view class="qy_coupons queue_clinic" >
+    <ion-nav-bar align-title="center" class="qy-header" >
+        <ion-nav-back-button ng-click="backPath()"></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="myQueue" default="我的叫号"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear "ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="queue_content qy-bg-grey2" has-bouncing="true" padding="false">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefreshBtn()"></ion-refresher>
+        <div class="qy-bg-white pad-l-14 ovf-h mar-td-10 border-d border-t" ng-repeat="(deptName, myQueues) in queueClinicData">
+            <h4 class="f16 mar-td-10">{{deptName}}</h4>
+            <ul class="border-t box">
+                <li class="row" ng-repeat="myQueue in myQueues"  ng-class="{'border-d':$index!=myQueues.length-1}">
+                    <button ng-if="myQueue.CURRENT_CALL_NUMBER !='--'" class="col-20 button queue_opacity button-size-s button-color-bg-green mar-tb-10 button-pd">
+                        <div>
+                        <h2 class="qy-fff" style="margin-bottom: 0;">{{myQueue.CURRENT_CALL_NUMBER}}<span class="f14" kyee-i18n-directive code="mark" default="号"></span></h2>
+                        <span class="f14">{{myQueue.QUEUE_COUNT}}</span>
+                            </div>
+                    </button>
+                    <div class="col mar-l-10">
+                        <h4 class="f16 mar-d-10">
+                            {{myQueue.DOCTOR_NAME}}
+                            <span class="f12 mar-l-10">{{myQueue.DOCTOR_TITLE}}</span>
+                        </h4>
+                        <p class="mar f14" kyee-i18n-directive code="yourQueue" default="您的预约号：{{PATIENT_NUMBER}}"  params="myQueue"></p>
+                        <p class="mar f14" kyee-i18n-directive code="waitTime" default="预计等待时间：{{WAIT_TIME}}"  params="myQueue"></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="qy-bg-white pad-l-14 ovf-h mar-td-10  border-d border-t" ng-repeat="(deptName, myQueues) in queueUnclinicData">
+                <h4 class="f16 mar-td-10">{{deptName}}</h4>
+                <ul class="border-t box">
+                    <li class="row" ng-repeat="myQueue in myQueues"  ng-class="{'border-d':$index!=myQueues.length-1}">
+                        <button class="col-20 button queue_opacity button-size-s button-color-bg-red pd-tb-6 mar-tb-10">
+                        <div  ng-if="myQueue.CURRENT_CALL_NUMBER =='--'" class="qy-fff" style="margin-bottom: 0;font-weight:bold"><span class="f14 " kyee-i18n-directive code="mark" default="未开诊"></span></div>
+                            <h2  ng-if="myQueue.QUEUE_COUNT =='已过号'" class="qy-fff" style="margin-bottom: 0;">{{myQueue.CURRENT_CALL_NUMBER}}<span class="f14" kyee-i18n-directive code="mark" default="号"></span></h2>
+                            <span class="f14">{{myQueue.QUEUE_COUNT}}</span>
+                        </button>
+                        <div class="col mar-l-10">
+                            <h4 class="f16 mar-d-10">
+                                {{myQueue.DOCTOR_NAME}}
+                                <span class="f12 mar-l-10">{{myQueue.DOCTOR_TITLE}}</span>
+                            </h4>
+                            <p class="mar f14" kyee-i18n-directive code="yourQueue" default="您的预约号：{{PATIENT_NUMBER}}"  params="myQueue"></p>
+                            <p class="mar f14" kyee-i18n-directive code="waitTime" default="预计等待时间：{{WAIT_TIME}}"  params="myQueue"></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        <div ng-if="dataNotHidden" class="empty-text empty_icon_text">
+            <i class="icon icon-icon_3 empty-icon queue_empty_icon" ></i>
+            <span ng-if="emptyflag==0" class="queue_empty_text">{{dataDetail}}</span>
+            <span ng-if="emptyflag !=0" >{{dataDetail}}</span>
+        </div>
+    </ion-content>
+</ion-view>

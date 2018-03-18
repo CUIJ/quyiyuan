@@ -1,0 +1,19 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: zhangming
+* 日期: 2015年11月20日11:26:42
+*检查单明细页
+*/-->
+<ion-modal-view ng-controller="ExamDetailImgController" ng-click="removeImgModal();" class="qy_exam_detail_img">
+    <ion-content>
+        <ion-scroll zooming="true" direction="xy" scroll="false" ng-style="{'height':KyeeEnv.innerSize.height+'px'}">
+            <table width="100%">
+                <tr>
+                    <td height="{{KyeeEnv.innerSize.height}}px" align="center" valign="middle" class="va_m ta-c">
+                        <img class="w_100" width="100%" src="{{selectImg}}">
+                    </td>
+                </tr>
+            </table>
+        </ion-scroll>
+    </ion-content>
+</ion-modal-view>

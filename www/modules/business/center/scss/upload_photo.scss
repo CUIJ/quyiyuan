@@ -1,0 +1,36 @@
+/*upload_photo view*/
+.upload-photo-cls{
+  height: 100%;
+  margin-top: 54px;
+  .upload-mask{
+    background: #000;
+    opacity: .25;
+  }
+  .upload-content{
+    display: block !important;
+    position:relative;
+    .upload-item{
+      height: 48px;
+    }
+    .bottom-line{
+      border-bottom: 1px solid #d3d3d3;
+    }
+    .button{
+      background: #fff;
+      border: 0;
+    }
+    .button-block{
+      margin: 0;
+    }
+    .cancel{
+      padding: 0;
+      border-top: 8px solid #f2f2f2;
+      .button-block{
+        margin-top: 0;
+      }
+    }
+  }
+  .upload-photo-hide{
+    display: none;
+  }
+}

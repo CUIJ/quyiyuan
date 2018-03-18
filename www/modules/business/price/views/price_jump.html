@@ -1,0 +1,51 @@
+<ion-view class="price_jump">
+    <ion-content style="padding-left: 14px;padding-right: 14px;"  scrollbar-y="false" has-bouncing="true">
+        <div ng-if="data.type == 0">
+            <div style="padding-top: 12px" class="text-ellipsis b_align pad-d-10 ta-c pad-t-10">
+                <span class="f14">{{ data.data.ITEM_NAME }}</span>
+            </div>
+            <div style="padding-top: 14px" class="p_t_8">
+
+                <div class="text-ellipsis">
+                <span kyee-i18n-directive code="itemCategory" default="剂型："></span>
+                <span  class="left_position  text-ellipsis">{{ data.data.ITEM_CATEGORY }}</span><br>
+                </div>
+                 <div class="text-ellipsis">
+                <span  kyee-i18n-directive code="fromarts" default="规格："></span>
+                <span class="left_position text-ellipsis">{{ data.data.FORMATS }}</span><br>
+                </div>
+                 <div class="text-ellipsis">
+                <span   kyee-i18n-directive code="iteMeasureUnit" default="计量单位："></span>
+                <span class="left_position text-ellipsis">{{ data.data.ITEM_MEASURE_UNIT }}</span><br>
+                </div>
+                 <div class="text-ellipsis">
+                <span   kyee-i18n-directive code="manufactory" default="制药厂："></span>
+                <span class="left_position text-ellipsis">{{ data.data.MANUFACTORY }}</span><br>
+                </div>
+                 <div class="text-ellipsis">
+                <span  kyee-i18n-directive code="itemPrice" default="零售价："></span>
+                <span class="left_position text-ellipsis">{{ data.data.ITEM_PRICE }}</span>
+                 </div>
+            </div>
+        </div>
+        <div ng-if="data.type == 1">
+            <div style="padding-top: 12px" class="text-ellipsis b_align pad-d-10 ta-c pad-t-10">
+                <span class=" f14">{{ data.data.ITEM_NAME }}</span>
+            </div>
+            <div  style="padding-top: 30px" class="p_t_25">
+               <div class="text-ellipsis">
+                <span  kyee-i18n-directive code="itemPriceProject" default="价格："></span>
+                <span class="left_position">{{ data.data.ITEM_PRICE }}</span><br>
+                </div>
+                 <div class="text-ellipsis">
+                <span kyee-i18n-directive code="iteMeasureUnitProject" default="计价单位：">：</span>
+                <span class="left_position">{{ data.data.ITEM_MEASURE_UNIT }}</span><br>
+                </div>
+                 <div class="text-ellipsis">
+                <span  kyee-i18n-directive code="instructions" default="说明：">a</span>
+                <span class="left_position">{{ data.data.INSTRUCTIONS }}</span><br>
+                     </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

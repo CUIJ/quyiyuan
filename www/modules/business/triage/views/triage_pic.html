@@ -1,0 +1,47 @@
+<!--图片导诊-->
+<ion-view cache-view="false" class="triage_pic_main">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="症状自查"></span>
+        </ion-nav-title>
+        <div style="left: 14px;position: absolute; z-index: 999" ng-click="goBack()">
+            <img style="position:relative;top:14px;width:30px;height: 20px;"  src="resource/images/triage/back.png" ng-if="branchVerCode=='03'&&fromBozhou">
+            <i  ng-class="isIos?'top_30':'top_14'" class="icon icon-arrow_left f14" style="color: white" ng-if="branchVerCode!='03'||fromBozhou!=true"></i>
+        </div>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt title_button" ng-click="showBodySymptomList()" kyee-i18n-directive code="trigeList" default="列表导诊">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="has-footer ta-c" scroll="false" padding="false">
+        <!--面向按钮-->
+        <img ng-src="{{otherBodyPicSrc}}" class="body_direction" kyee-operation-monitor-directive="directionSwitch" ng-click="KAH($event)|| directionSwitch()">
+        <!--人形图片-->
+        <img kyee-action-holder-directive=body" ng-src="{{bodyPicSrc}}"
+             kyee-operation-monitor-directive="showBodySymptomList"
+             ng-click="showBodySymptomList($event)"
+             ng-class="{'use_width':usePhoneWidth,'use_height':!usePhoneWidth}">
+    </ion-content>
+    <div class="bar bar-footer row border-t">
+        <div class="button-bar">
+            <a class="button col qy-grey6 qy-bg-white sex_button"
+               kyee-operation-monitor-directive="sexSwitch" ng-click="sexSwitch('1')"
+               ng-class="{'checked':currentSex =='1','unChecked':currentSex !='1'}">
+                <span kyee-i18n-directive code="man" default="男性"></span>
+            </a>
+            <a class="button col qy-grey6 qy-bg-white mar-b-10 sex_button"
+               kyee-operation-monitor-directive="sexSwitch" ng-click="sexSwitch('2')"
+               ng-class="{'checked':currentSex =='2','unChecked':currentSex !='2'}">
+                <span kyee-i18n-directive code="women" default="女性"></span>
+            </a>
+            <a class="button col qy-grey6 qy-bg-white sex_button"
+               kyee-operation-monitor-directive="sexSwitch" ng-click="sexSwitch('3')"
+               ng-class="{'checked':currentSex =='3','unChecked':currentSex !='3'}">
+                <span kyee-i18n-directive code="child" default="儿童"></span>
+            </a>
+        </div>
+    </div>
+</ion-view>
+<!--图片导诊-->

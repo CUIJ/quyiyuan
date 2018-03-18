@@ -1,0 +1,24 @@
+<ion-view class="qy_modify_personal_name">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="modifyPersonalName" class="f16" default="修改个人昵称"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <span kyee-i18n-directive code="save" default="保存" class="f14 saveBtn position-a r14 color_6" ng-click="savePersonalName()"></span>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2 f14">
+        <div class="row line50 mar-t-10 qy-bg-white">
+            <div class="item col pad-b-14 border-td">
+                <!-- <input type="text" ng-model="personal.name" required maxlength="10" placeholder="{{placeholder.personalNameText}}" ng-readonly="!personal.isWrite"
+                    ng-focus="showDeleteIcon()" ng-blur="hideDeleteIcon()" class="nickName w80 fl-l text-ellipsis mar-tb-8 ta-l"
+                /> -->
+                <input type="text" ng-model="personal.name" required maxlength="10" placeholder="{{placeholder.personalNameText}}" class="nickName w80 fl-l text-ellipsis mar-tb-8 ta-l"
+                />
+                <span class="position-a r14 f20 qy-grey5 pad-l-10" ng-class="{'ion-android-close': personal.isWrite}" ng-click="clearPersonalName()"></span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

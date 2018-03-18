@@ -1,0 +1,104 @@
+<ion-view  class="consolutionNote qy_consolution_list" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-if="isMDT">远程会诊详情</span>
+            <span ng-if="isRPP">病理会诊详情</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" >
+        <div class="qy-bg-white mar-t-10  border-td" ng-if="isLoadComplete">
+            <div class="consolution_detail consolution_detail_header">
+                <div class="flex text-ellipsis consolution_detail_font mar_d_14" ng-if="isMDT">会诊时间：<span class="consolution_detail_right">{{createDate}}</span><span class="consulation_time consolution_detail_right">{{HZSJTime}}</span></div>
+                <div class="flex text-ellipsis consolution_detail_font mar_d_14" ng-if="isRPP">申请时间：<span class="consolution_detail_right">{{createDate}}</span><span class="consulation_time consolution_detail_right">{{HZSJTime}}</span></div>
+                <div class="flex text-ellipsis consolution_detail_font mar_d_14">申请医院：<span class="consolution_detail_right">{{applyHospital}}</span></div>
+                <div ng-if="isMDT" class="flex text-ellipsis consolution_detail_font mar_d_14">会诊类型：<span class="consolution_detail_right">{{type==='MDT'?("MDT会诊"):(type==='ORDINARY'||type===null||type===""?("普通会诊"):(""))}}</span></div>
+                <div class="flex text-ellipsis consolution_detail_font" ng-if="isMDT">会诊专家：<span class="consolution_detail_right_MDT">{{MDT}}</span></div>
+                <div class="flex text-ellipsis consolution_detail_font mar_d_14" ng-if="isRPP">病理类型：<span class="consolution_detail_right" >{{pathologyTypeName}}</span></div>
+                <div class="flex text-ellipsis consolution_detail_font" ng-if="isRPP">取材部位：<span class="consolution_detail_right" >{{samplingSite}}</span></div>
+            </div>
+            <div class=" border-d-dash consolution_detail_dot">
+                <div class="flex consolution_detail_font mar_d_14">会诊患者：<span class="consolution_detail_right">{{patientName}}<span class="mar-l-10">{{patientAgeAndSex}}</span> </span></div>
+                <div class="flex consolution_detail_font">身份证号：<span class="consolution_detail_right">{{patientIdCardNo}} </span></div>
+
+            </div>
+            <!--病情描述-->
+            <div class="border-d-dash  consolution_detail_dot" ng-show="isMDT" >
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">病情描述</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div>{{disCription}}</div>
+                </div>
+            </div>
+            <!--临床资料-->
+            <div class="border-d-dash  consolution_detail_dot" ng-show="isRPP" >
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">临床资料</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div>{{clinicData}}</div>
+                </div>
+            </div>
+            <!--会诊目的-->
+            <div class="border-d-dash  consolution_detail_dot" ng-show="isMDT">
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">会诊目的</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div >{{previousDiagnosis}}</div>
+                </div>
+            </div>
+            <!--大体所见-->
+            <div class="border-d-dash  consolution_detail_dot" ng-show="isRPP">
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">大体所见</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div >{{generalView}}</div>
+                </div>
+            </div>
+            <!--镜下描述-->
+            <div class="border-d-dash  consolution_detail_dot" ng-show="isRPP">
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">镜下描述</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div >{{microObservation}}</div>
+                </div>
+            </div>
+            <!--会诊意见-->
+            <div class="consolution_detail_dot" ng-show="isRPP">
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">远程病理专家会诊意见</div>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div >{{consulationAdvice}}</div>
+                </div>
+            </div>
+            <!--我的上传资料-->
+            <div class="consolution_detail_dot" ng-show="isMDT" >
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">我上传的资料
+                    <div class="consolution_status_detail_now mar-r-10" ng-click="goToUploadMaterial(reservationId)" ng-show="showUpLoadData">
+                        {{isSCZL}}
+                    </div>
+                </div>
+                <i class=" ion-chevron-right list-ico center_icon main_info_i qy-green icon_r"  ng-if="showUpLoadData"></i>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5 w100p">
+                    <div  ng-if="isShowImg">
+                        暂无数据
+                    </div>
+                    <div class="flex img_list" ng-if="!isShowImg">
+
+                        <div ng-repeat="img_list in imgList" class="consulation_report_image flex position-r"  ng-class="{'consolution_report_img_last':imgLen && $index>=4}">
+                            <img ng-src="{{img_list.url}}"  class="consulation_report_div_img" ng-click="showBigPicture($index)"/>
+                            <img src="resource/images/base/check.png" class="consulation_report_checklist position-a" ng-if="img_list.type=='EXAMINATION' " />
+                            <img src="resource/images/base/test.png" class="consulation_report_checklist position-a" ng-if="img_list.type=='INSPECTION' "/>
+                            <img src="resource/images/base/medical.png" class="consulation_report_checklist position-a" ng-if="img_list.type=='MEDICAL_RECORD' "/>
+                            <img src="resource/images/base/images.png" class="consulation_report_checklist position-a" ng-if="img_list.type=='PACS' "/>
+                            <img src="resource/images/base/others.png" class="consulation_report_checklist position-a" ng-if="img_list.type=='OTHER' "/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--会诊意见-->
+            <div class=" consolution_detail" ng-if="isShowSuggust" ng-show="isMDT">
+                <div class=" border_l_green line_h_14 pad-l-5 mar-d-16">会诊意见<span class="consolution_status_detail_now mar-r-10" ng-click="goConsulationReport(consulationReportList)">查看会诊报告</span></div>
+                <i class=" ion-chevron-right list-ico center_icon main_info_i qy-green icon_r"></i>
+                <div has-bouncing="false" scrollbar-y="false"class="border_radius_4px business_sub_detail qy-grey5">
+                    <div >
+                        {{opinion}}
+                    </div>
+                </div>
+            </div>
+        </div>
+</ion-view>
+<div kyee-compile-directive template="modules/business/regist/views/delay_views/selected.html"></div>

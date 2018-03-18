@@ -1,0 +1,65 @@
+<ion-view  title={{deptName}}  class="qy_coupons queue_dept_info2">
+    <ion-nav-bar align-title="center" class="qy-header" >
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear "ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <div kyee-action-holder-directive="queueInfo" class="bar bar-subheader" >
+        <marquee  scrollamount=2 class="queue_marquee" kyee-i18n-directive code="hint" default="因医疗的特殊性，实际就诊以现场叫号为准，请大家提前排队以免错过,-----新科室。">
+        </marquee>
+    </div>
+    <ion-content class="has-subheader queue_content" has-bouncing="true" >
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefreshBtn()"></ion-refresher>
+        <div ng-if="isShowPtTitlebar" class="titlebar qy-bg-grey2 f14"  kyee-i18n-directive code="normalClinic" default="普通门诊"></div>
+        <div  class="list queue_info_list " has-bouncing="true" ng-repeat="queueDetail in ptResultDataList" >
+            <div class="item item-thumbnail-left queue_thumbnail">
+                <img src="{{queueDetail.DOCTOR_PIC}}" class="imgstyle">
+                <div class="rightdiv">
+                    <div class="row queue_row_one">
+                        <div class="col col-50 queue_col">
+                            <span >{{queueDetail.DOCTOR_NAME}}</span>
+                        </div>
+                        <div class="col col-50 text-right queue_col_two">
+                            <span ng-if="queueDetail.CURRENT_CALL_NUMBER!='--'" kyee-i18n-directive code="curQueue" default="当前叫号：{{CURRENT_CALL_NUMBER}}" params="queueDetail"></span>
+                            <span ng-if="queueDetail.CURRENT_CALL_NUMBER=='--'" style="color:#444;" kyee-i18n-directive code="notBegin" default="未开始叫号"></span>
+                        </div>
+                    </div>
+                    <div class="row queue_row_two" >
+                        <span ng-if="queueDetail.PATIENT_NUMBER!=''" class="queue_col" kyee-i18n-directive code="myQueue" default="我的叫号：{{PATIENT_NUMBER}}" params="queueDetail"></span>
+                    </div>
+                    <div class="row queue_row_two" >
+                        <span class="queue_col" kyee-i18n-directive code="waitNum" default="等待人数：{{QUEUE_PAT_COUNT}}" params="queueDetail"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="isShowZjTitlebar" class="titlebar qy-bg-grey2 f14" kyee-i18n-directive code="expertClinic" default="专家门诊"></div>
+        <div  class="list queue_info_list " has-bouncing="true" ng-repeat="queueDetail in zjResultDataList" >
+            <div class="item item-thumbnail-left queue_thumbnail">
+                <img src="{{queueDetail.DOCTOR_PIC}}" class="imgstyle">
+                <div class="rightdiv">
+                    <div class="row queue_row_one">
+                        <div class="col col-50 queue_col">
+                            <span >{{queueDetail.DOCTOR_NAME}}</span>
+                        </div>
+                        <div class="col col-50 text-right queue_col_two">
+                            <span ng-if="queueDetail.CURRENT_CALL_NUMBER!=''" kyee-i18n-directive code="curQueue" default="当前叫号：{{CURRENT_CALL_NUMBER}}" params="queueDetail"></span>
+                            <span ng-if="queueDetail.CURRENT_CALL_NUMBER==''" style="color:#444;" kyee-i18n-directive code="notBegin" default="未开始叫号"></span>
+                        </div>
+                    </div>
+                    <div class="row queue_row_two" >
+                        <span ng-if="queueDetail.PATIENT_NUMBER!=''" class="queue-col"  kyee-i18n-directive code="myQueue" default="我的叫号：{{PATIENT_NUMBER}}" params="queueDetail"></span>
+                    </div>
+                    <div class="row queue_row_two" >
+                        <span class="queue_col" kyee-i18n-directive code="waitNum" default="等待人数：{{QUEUE_PAT_COUNT}}" params="queueDetail"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="dataNotHidden" class="empty-text" >{{dataDetail}}</div>
+    </ion-content>
+</ion-view>

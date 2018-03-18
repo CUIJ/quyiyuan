@@ -1,0 +1,54 @@
+<ion-view class="qy_doctor_message_board">
+
+	<ion-nav-bar align-title="center" class="qy-header">
+		<ion-nav-back-button></ion-nav-back-button>
+		<ion-nav-title>
+			<span kyee-i18n-directive code="title" default="咨询留言"></span>
+		</ion-nav-title>
+		<ion-nav-buttons side="right">
+			<a class="button button-clear" ng-click="openRightMenu('interaction')">
+				<i class="icon ion-navicon"></i>
+			</a>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+
+	<ion-content has-bouncing="true" padding="false" scroll="true" class="qy-bg-grey2">
+		<div class="pad-l-14 border-td qy-bg-white mar-t-10">
+			<div class="row row_box"  ng-repeat="doctor in items">
+<!--				<div ng-class="{'path_show':doctor.pathShow}"  class="doc_img_box">
+					<img class="head_image" ng-src="{{doctor.DOCTOR_PIC_PATH}}"
+						 onerror="javascript:this.src='resource/images/base/doc_head_default_man.png'">
+				</div>-->
+				<div ng-class="{'path_show':doctor.pathShow}"  class="doc_img_box">
+					<img class="head_image" ng-src="{{doctor.DOCTOR_PIC_PATH}}"
+						 onerror="javascript:this.src='resource/images/base/head_default_man.jpg'">
+				</div>
+
+				<ul class="col doctor_info_box mar-t-20 mar-r-14 ">
+					<li class="text-ellipsis f16 qy-deepblack mar-d-15" style="margin-bottom: 19px;">
+						{{doctor.DOCTOR_NAME}}<span class="qy-blue f12 pad-l-5"> {{doctor.DEPT_NAME}}</span>
+					</li>
+					<li class="doctor_desc text-ellipsis" style="width: 147px;">
+						{{getHospitalName()}}
+					</li>
+					<li class=" unread_height" ng-click="itemClick($index, doctor)">
+						新留言 <span class="qy-green">{{doctor.READ_NUM}}</span> 条 >
+					</li>
+				</ul>
+				<div class="ta-c pad-b-14 mar-r-14 mar-td-20 qy-grey5" style="position: relative;">
+					<button class="button button-size-s button-color-green button_abs" ng-click="itemClick($index,doctor)">
+						<span kyee-i18n-directive code="chatBtn" default="咨询医生"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div ng-if="showEmpty" class="empty-text">
+			<i class="icon icon-calendar empty-icon"></i>
+			<p kyee-i18n-directive code="emptyTips" default="温馨提示：在您预约或者挂号成功后方可给相应的医生留言。"></p>
+		</div>
+
+	</ion-content>
+
+
+
+</ion-view>

@@ -1,0 +1,72 @@
+/* 通知栏组件样式 */
+.kyee_notification {
+	width:100%;
+	height: 36px;
+	z-index:9999;
+	position: absolute;
+	padding: 0px;
+	right: 0px;
+	top: 0px;
+	background-color: black;
+	color: white;
+	opacity: 0.7;
+	box-shadow: 2px 2px 2px black;
+}
+
+.kyee_sudoku_text {
+	color: white;
+	font-weight: bold;
+	line-height: 12px;
+}
+
+/* modal 窗体动画样式 */
+.slide-in-right {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+.slide-in-right.ng-enter, .slide-in-right > .ng-enter {
+  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 250ms;
+  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 250ms;
+}
+.slide-in-right.ng-enter-active, .slide-in-right > .ng-enter-active {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.slide-in-right.ng-leave, .slide-in-right > .ng-leave {
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+}
+
+/* modal 窗体动画样式 */
+.scale-in {
+	-webkit-transform: scale(0.0);
+  	transform: scale(0.0);
+  	opacity: 0;
+}
+.scale-in.ng-enter, .scale-in > .ng-enter {
+	-webkit-transition: all cubic-bezier(.1, .7, .1, 1) 400ms;
+ 	transition: all cubic-bezier(.1, .7, .1, 1) 400ms;
+}
+.scale-in.ng-enter-active, .scale-in > .ng-enter-active {
+	-webkit-transform: scale(1);
+ 	transform: scale(1);
+	opacity: 1;
+}
+.scale-in.ng-leave, .scale-in > .ng-leave {
+	-webkit-transition: all ease-in-out 250ms;
+ 	transition: all ease-in-out 250ms;
+}
+ 
+/* view 全屏 */
+.modal {
+  top: 0px !important;
+  left: 0px !important;
+  width: 100% !important;
+  height : 100% !important;
+}
+
+/* spinner 默认大小 */
+.spinner svg {
+  width: 60px !important;
+  height: 45px !important;
+}

@@ -1,0 +1,48 @@
+<!--选择科室-->
+<ion-view class="triage-select-dept-main" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="recommendHopsitalDept" default="推荐医院科室"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" style="color:#fff;max-width: 67px;overflow: hidden;" ng-click="sortHospital()" ng-if="defaultHospitalIsEmpty==1&&!isEmpty&&canShowMultiHospital">
+                {{sortShowText}}
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div ng-if="defaultHospitalIsEmpty==1&&!isEmpty" ng-repeat="hospitalData in data"
+             class="qy-bg-white border-td mar-t-10 " >
+            <p class="pad-b-14 f14 pad-td-10" style="margin: 0px;">
+                {{hospitalData.hospitalName}}
+            </p>
+            <ul class="pad-l-14">
+                <li ng-repeat="deptData in hospitalData.depart" class="item pad-td-10 border-t"
+                    kyee-operation-monitor-directive="chooseHosiptalDept"
+                     ng-click="chooseHosiptalDept(hospitalData.hospitalId,hospitalData.hospitalName,hospitalData.hospitalAddress,hospitalData.provinceCode,hospitalData.provinceName,hospitalData.cityCode,hospitalData.cityName,deptData.departName,deptData.departId)">
+                    <span class="qy-green">{{deptData.departName}}</span>
+                    <div class="ion-chevron-right pad-r-14" style="float: right;"></div>
+                </li>
+            </ul>
+
+        </div>
+        <div ng-if="defaultHospitalIsEmpty==1&&isEmpty&&canShowMultiHospital" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+
+            <p class="f12" kyee-i18n-directive code="deptNotExistNearHospital" default="非常抱歉！在本医院与已开通的同城医院都不存在可预约挂号的{{dept.deptName}}，我们会尽快开通更多医院以方便您的使用。" params="dept"></p>
+        </div>
+        <div ng-if="defaultHospitalIsEmpty==1&&isEmpty&&!canShowMultiHospital" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+
+            <p class="f12" kyee-i18n-directive code="deptNotExistNearHospital" default="非常抱歉！在本医院不存在可预约挂号的{{dept.deptName}}。" params="dept"></p>
+        </div>
+        <ion-infinite-scroll
+                ng-if="moreDataCanBeLoaded&&defaultHospitalIsEmpty==1&&!isEmpty"
+                on-infinite="loadMoreData()"
+                distance="10%"
+                immediate-check="false">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>
+<!--选择科室-->

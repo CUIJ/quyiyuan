@@ -1,0 +1,63 @@
+<ion-view class="qy_login_view quick_login_view" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-title>
+        <span kyee-i18n-directive code="administratorLogin" default="管理员登录"></span>
+    </ion-nav-title>
+    <ion-content class=" qy-bg-grey2">
+        <div class="list quick_login_div qy-bg-white" style=" margin-bottom: 0px;">
+            <div class="item item-input-inset mar-l-14 pwd_item_height">
+                <label class="item-input-wrapper login_number_label">
+                    <input ng-disabled="true" type="tel" class="phone_input" ng-model="currentAccount"
+                           placeholder="" style="padding-left: 0px"
+                           ng-style="{'background-color':userInfo.phoneNumDisabled ? '#ffffff':''}">
+                </label>
+                <button ng-disabled="phoneNumDisabled" kyee-operation-monitor-directive="customPhone"
+                        style="background-color: #5cab8b;width: 95px;color: white" ng-click="customPhone()"
+                        class="button  login_number_button mar-r-10 min_height min_lin" kyee-i18n-directive code="phoneNumberVerification" default="验证手机 ∨">
+                </button>
+            </div>
+            <div class="item item-input-inset mar-l-14 item_border pwd_item_height">
+                <label class="item-input-wrapper login_number_label">
+                    <input ng-model="info.identifyingCode" type="tel" class="phone_input"
+                           placeholder="请输入接收到的验证码" style="padding-left: 0px">
+                </label>
+                <button kyee-operation-monitor-directive="getValiteCode" ng-click="getValiteCode()" ng-disabled="validateBtnDisabled" style="width: 95px;"
+                        class="button  login_number_button mar-r-10 min_height min_lin">{{validateMsgText}}
+                </button>
+            </div>
+        </div>
+        <div class="pad-l-14 pwd_div " style="margin-top: 10px;">
+            <span class="qy-grey5" kyee-i18n-directive code="userAccount" default="用户账号"></span>
+        </div>
+        <div class="list quick_login_div qy-bg-white" style=" margin-bottom: 0px;">
+            <label class="item item-input-inset button-bar mar-l-14 pwd_item_height ">
+                <input ng-model="info.userAccount" type="tel" class="phone_input" style="width: 90%"
+                       placeholder="请输入账号">
+            </label>
+        </div>
+        <div class="pad-l-14 pad-r-14 pwd_div " style=" margin-top: 10px;">
+            <span class="icon-icon_1 qy-red"></span>
+            <span class=" qy-red" kyee-i18n-directive code="adminPrompt" default="需在领导同意情况下登录，登录成功后请尽快完成操作，系统会在半小时后退出。"></span>
+        </div>
+
+        <div class="pad-b-14 mar-t-20 ">
+            <button kyee-operation-monitor-directive="directLogin" ng-click="directLogin()" class="button button-full button-size-l ">登 录</button>
+        </div>
+        <div ng-class="{ 'bounceLeft':true}" class=" ta-c f14  pad-r-14"
+             style="clear: both;float: right;margin-top: 5px"
+             ng-style="{'top':(KyeeEnv.innerSize.height - 80)+'px'}">
+        </div>
+    </ion-content>
+    <div
+            kyee-overlay-directive
+            location="top"
+            width="{{overlayData.width - 40}}"
+            height="{{overlayData.height}}"
+            top="130"
+            left="0px"
+            data="data"
+            template="modules/business/center/views/administrator_login/authorized_account.html"
+            bind="bind(params)"></div>
+</ion-view>

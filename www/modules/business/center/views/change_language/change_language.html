@@ -1,0 +1,32 @@
+<ion-view class="qy_change_language qy-bg-grey2">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="moreLanguage" default="多语言"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('changeLanguage')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false">
+
+        <div class="list mar-t-10"
+             style="background-color: white;padding-top:0px;padding-bottom: 1px;"
+                ng-style="{'height':((langData.length)*50 -1)+'px'}">
+            <div style="height: 50px;" class="item qy-iconlist" ng-repeat="item in langData"  ng-click="changeLang(item)" >
+                <h3 ng-class="{'uygLookAndFeel':item.langType == 'uyg'}">{{item.name}}</h3>
+                <i class="ico icon-checkmark qy-green" ng-if="currentLangType == item.langType"></i>
+            </div>
+        </div>
+    </ion-content>
+
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2"style="margin-bottom: 20px;">
+        <button class="button button-block button-size-l" ng-click="submit()"
+                kyee-i18n-directive code="preservation" default="保存"></button>
+    </div>
+
+</ion-view>

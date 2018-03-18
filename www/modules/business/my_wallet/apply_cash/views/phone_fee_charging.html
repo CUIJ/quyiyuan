@@ -1,0 +1,61 @@
+<ion-view class="qy_phone_fee_charging qy-bg-grey2">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="话费充值"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right" >
+            <a class="button button-clear"  ng-click=" openRightMenu('phone_fee_charging')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" >
+        <div class="ta-r top_box pad-d-20 qy-bg-white mar-td-10 border-td">
+            <span class="qy-green ta-r" kyee-i18n-directive code="canApplyMoney" default="账户余额"></span>
+
+            <p class="fw-b f28 qy-green mar-d-5">¥{{AMOUNT}}</p>
+        </div>
+        <div class="item item-input border-t mar-t-10 row qy-bg-white">
+            <div class="col">
+                <span class="f16 fw-b">{{USER_PHONENUMBER}}</span>
+                <span ng-if="GameArea">({{GameArea}})</span>
+            </div>
+            <span class="f14 qy-grey4" kyee-i18n-directive code="bindPhone" default="充值号码"></span>
+        </div>
+        <div class="row">
+            <button ng-class="{'active_color':isSelected=='5','disable_btn':fiveYuanBtn}"
+                    ng-click="fiveYuanBtn || selectAmountButton('5')"
+                    class="col button button-size-s button-color-green qy-grey8 mar-b-14 pad-td-5" >5元</button>
+            <button ng-class="{'active_color':isSelected=='10','disable_btn':tenYuanBtn}"
+                    ng-click="tenYuanBtn || selectAmountButton('10')"
+                    class="col button button-size-s button-color-green qy-grey8 mar-r-14 pad-td-5" >10元</button>
+            <button ng-class="{'active_color':isSelected=='20','disable_btn':twentyYuanBtn}"
+                    ng-click="twentyYuanBtn || selectAmountButton('20')"
+                    class="col button button-size-s button-color-green qy-grey8 mar-r-14 pad-td-5" >20元</button>
+        </div>
+        <div class="row">
+            <button ng-class="{'active_color':isSelected=='30','disable_btn':thirtyYuanBtn}"
+                    ng-click="thirtyYuanBtn || selectAmountButton('30')"
+                    class="col button button-size-s button-color-green qy-grey8 mar-b-14 pad-td-5">30元</button>
+            <button ng-class="{'active_color':isSelected=='50','disable_btn':fiftyYuanBtn}"
+                    ng-click="fiftyYuanBtn || selectAmountButton('50')"
+                    class="col button button-size-s button-color-green qy-grey8 mar-r-14 pad-td-5">50元</button>
+            <button ng-class="{'active_color':isSelected=='100','disable_btn':oneHundredYuanBtn}"
+                    ng-click="oneHundredYuanBtn || selectAmountButton('100')"
+                    class="col button button-size-s button-color-green qy-grey8 mar-r-14 pad-td-5">100元</button>
+        </div>
+        <div class="pad-b-14 pad-t-10">
+            <button ng-click="chargeSubmit()"  class="button button-block button-size-l" kyee-i18n-directive code="rechargeBtnText" default="立即充值"></button>
+        </div>
+        <h6 class="pad-b-14 qy-grey5" kyee-i18n-directive code="chargingTips" default="温馨提示">
+        </h6>
+        <p class="pad-b-14 qy-grey5">
+            <span>{{firstTipHead}}</span>
+            <span>{{USER_PHONENUMBER}}</span>
+            <span>{{firstTipTail}}</span>
+        </p>
+        <p class="pad-b-14 qy-grey5">{{secondTip}}</p>
+    </ion-content>
+
+</ion-view>

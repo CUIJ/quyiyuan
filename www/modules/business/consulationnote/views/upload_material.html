@@ -1,0 +1,57 @@
+<ion-view class="upload_material" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>上传资料</span>
+        </ion-nav-title>
+    </ion-nav-bar>>
+    <ion-content  has-bouncing="true" padding="false"
+                  scrollbar-y="false" ng-class="isClick?'has-footer':''" class="qy-bg-grey2">
+        <div class="qy-bg-white pad-t-20 pad-l-14 pad-r-10 mar-t-10 border-t">
+        <p class="f14 mar_0 qy-grey7">上传相关文件作为会诊信息参考</p>
+        <p class="f12 mar-d-15 qy-grey5">文件支持jpg、jpeg、bmp格式</p>
+        <div class="flex_wrap pad-d-20" ng-class="IMGLIST.length>0?'border_b_dashed':''">
+            <img ng-click="choosePhoto(1)" class="flex_inline mar-r-5" src="resource\images\consultation\jiancha.png" alt="" width="{{chooseImageWidth}}" height="{{chooseImageWidth}}"/>
+            <img ng-click="choosePhoto(2)" class="flex_inline mar-r-5" src="resource\images\consultation\jianyan.png" alt="" width="{{chooseImageWidth}}" height="{{chooseImageWidth}}"/>
+            <img ng-click="choosePhoto(3)" class="flex_inline mar-r-5" src="resource\images\consultation\bingli.png" alt="" width="{{chooseImageWidth}}" height="{{chooseImageWidth}}"/>
+            <img ng-click="choosePhoto(4)" class="flex_inline " ng-class="windowWidth<375?'':'mar-r-5'" src="resource\images\consultation\yingxiang.png" alt="" width="{{chooseImageWidth}}" height="{{chooseImageWidth}}"/>
+            <img ng-click="choosePhoto(5)" class="flex_inline" src="resource\images\consultation\qita.png" alt="" width="{{chooseImageWidth}}" height="{{chooseImageWidth}}"/>
+        </div>
+        <div class="mar_t_4 pad_b_4" ng-if="IMGLIST.length>0">
+            <div class=" flex position_r pad-td-10" ng-class="$last?'':'border-d'" ng-repeat="img in IMGLIST">
+                <img ng-src="{{img.imgUrl}}" ng-click="showBigPicture($index)" class="" src="resource\images\center\headXiaoQu.png" ng-click="showBigPicture($index)"
+                     width="50" height="50"/>
+                <div class="flex_auto mar-l-10">
+                    <p>{{img.imgName}}</p>
+                    <div class="pad-lr-5 div_size" ng-class = {"color1":img.imgType==1,"color2":img.imgType==2,"color3":img.imgType==3,"color4":img.imgType==4,"color5":img.imgType==5}>{{img.imgText}}</div>
+                </div>
+                <div class="span_delete delete_btn" ng-click="doDeleteImg($index,$event)"></div>
+            </div>
+        </div>
+        <div class="mar_t_4 pad_b_4" ng-if="UPLOAD_IMGLIST.length>0" ng-class="IMGLIST.length>0?'border-t':''">
+                <div class=" flex position_r pad-td-10" ng-class="$last?'':'border-d'" ng-repeat="img in UPLOAD_IMGLIST">
+                    <img ng-src="{{img.url}}" ng-click="showUpLoadBigPicture($index)" class="" src="resource\images\center\headXiaoQu.png"
+                         width="50" height="50"/>
+                    <div class="flex_auto mar-l-10">
+                        <p>{{handleTempImg(img.url)}}</p>
+                        <div class="pad-lr-5 div_size" ng-class = {"color1":img.type=="EXAMINATION","color2":img.type=="INSPECTION","color3":img.type=="MEDICAL_RECORD","color4":img.type=="PACS","color5":img.type=="OTHER"}>{{handleName(img.type)}}</div>
+                    </div>
+                </div>
+        </div>
+        </div>
+
+        <div class="text-center f14 qy-grey4 mar-t-15" ng-if="IMGLIST.length>0 && UPLOAD_IMGLIST && UPLOAD_IMGLIST.length>0" >
+            <span>已上传{{UPLOAD_IMGLIST.length + IMGLIST.length}}份文件，还可以上传{{9 - UPLOAD_IMGLIST.length - IMGLIST.length}}份文件</span>
+        </div>
+        <div class="text-center f14 qy-grey4 mar-t-15" ng-if="IMGLIST.length == 0 && UPLOAD_IMGLIST && UPLOAD_IMGLIST.length>0">
+            <span>已上传{{UPLOAD_IMGLIST.length}}份文件，还可以上传{{9 - UPLOAD_IMGLIST.length}}份文件</span>
+        </div>
+        <div class="text-center f14 qy-grey4 mar-t-15" ng-if="UPLOAD_IMGLIST.length == 0">
+            <span>已上传{{IMGLIST.length}}份文件，还可以上传{{9-IMGLIST.length}}份文件</span>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2" ng-if="isClick">
+        <button  ng-click="doSubmit()" class="button button-block button-size-l">提 交
+        </button>
+    </div>
+</ion-view>

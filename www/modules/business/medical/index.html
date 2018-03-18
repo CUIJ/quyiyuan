@@ -1,0 +1,120 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: WangYuFei
+* 日期: 2015年5月7日13:46:40
+* 创建原因：KYEEAPPC-1959 报告单-体检单
+* 修改时间：2015年7月7日14:04:32
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-2669
+* 修改原因：体检单迁移为独立模块
+* 修改时间：2015年8月18日17:20:23
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3084
+* 修改原因：体检单样式整改
+*/-->
+<ion-view class="qy_medical">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="backTo()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="medicalExamination " default="体检单"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="!$root.hideRightMenu" class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <div class="bar item-input-inset search pad-b-14 qy-bg-grey2 bar-header bar-subheader" ng-if="ifShowSearch">
+        <label class="item-input-wrapper search-item">
+            <div class="div_search"><i class="icon icon-seach placeholder-icon mar-l-10 "></i></div>
+            <input type="search" placeholder="{{placeHoderText}}" ng-model="searchObj.searchNo">
+        </label>
+        <button class="button"
+                kyee-action-holder-directive="medical_search_btn"
+                kyee-operation-monitor-directive="doSearchMedical"
+                ng-click="KAH($event) || doSearchMedical()">
+            <span kyee-i18n-directive code="medicalSearch" default="搜索"></span>
+        </button>
+    </div>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1 medical_footer " ng-class="ifShowSearch?'has-subheader':''" scroll="true">
+        <ion-list can-swipe="true" class="medical_container" ng-if="!isEmpty" >
+                <div  ng-repeat="medicalDetailData in medicalData" class="list main_ul">
+                    <ion-item  id="medical_item_{{$index}}"   on-drag-end="dragPhysicalData($index)" >
+                        <li class="titlebox main_li" ng-click="clickItem($index)">
+                            <h5 class="medical_word"
+                                kyee-i18n-directive code="baogaoshu " default="{{medicalDetailData.HOSPITAL_NAME}}体检报告书" params="medicalDetailData"></h5>
+                            <span class="qy-grey5">{{getDate(medicalDetailData.EXAM_DATE)}}</span>
+                            <span class="qy-grey5"
+                                  kyee-i18n-directive code="bianhao " default="编号:{{medicalDetailData.EXAM_REPORT_ID}}" params="medicalDetailData"></span>
+                            <span class="fl-r" ng-show="medical_hidden_index != $index" ng-class="{'ion-arrow-up-b':isDisplay == $index,'ion-arrow-down-b qy-green':isDisplay != $index}"></span>
+                        </li>
+                        <ion-option-button class=" button button-assertive"
+                                           kyee-operation-monitor-directive="deleteRecord"
+                                           ng-click="deleteRecord(medicalDetailData,$index)" >
+                            <span class="del_span" kyee-i18n-directive code="delete" default="删除"></span>
+                        </ion-option-button>
+                    </ion-item>
+                    <li ng-if="isDisplay == $index">
+                        <div class="row detail_header">
+                            <img class="detail_img" src="resource/images/report/form.png"
+                                 ng-click="KAH($event) || openMedicalDetail(medicalDetailData)">
+                            <ul class="col detail_ul">
+                                <li>
+                                    <h5>{{medicalDetailData.HOSPITAL_NAME}}</h5>
+                                </li>
+                                <li>
+                                    {{medicalDetailData.NAME}}
+                                    <span ng-if="isNameEmpty(medicalDetailData.NAME)">/</span>
+                                    {{getSex(medicalDetailData.SEX)}}
+                                    <span ng-if="isSexEmpty(medicalDetailData.SEX)">/</span>
+                                    {{medicalDetailData.AGE}}
+                                </li>
+                                <li>
+                                    <span class="qy-green" kyee-action-holder-directive="medical_detail_btn"
+                                          kyee-operation-monitor-directive="openMedicalDetail"
+                                       ng-click="KAH($event) || openMedicalDetail(medicalDetailData)">
+                                         <span kyee-i18n-directive code="mingxi" default="报告单明细 >>"></span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="detail_content">
+                            <li class="detail_li"
+                                ng-style="{'display':checkEmpty(medicalDetailData.MEDICAL_STATE)==true? 'none':'block'}"
+                                kyee-action-holder-directive="medical_statement_btn"
+                                ng-click="KAH($event) || openMedicalStatement(medicalDetailData.MEDICAL_STATE)">
+                                <img class="statement_img" src="resource/images/report/leibie.png">
+                                <span kyee-i18n-directive code="shengming" default="医学申明"></span>
+                                <span class="ion-ios-arrow-right qy-green fl-r"></span>
+                            </li>
+                            <li class="detail_li qy-orange" ng-style="{'display':medicalDetailData.CONCLUSIONS==''?'none':'block'}">
+                                <span style="color: #264557;font-size: 14px;" kyee-i18n-directive code="zongshu" default="体检综述"></span>
+                            </li>
+                            <li style="padding-top: 10px;" ng-repeat="conclusions in medicalDetailData.CONCLUSIONS">
+                                <p>{{conclusions.CONCLUSION_TITLE}}：</p>
+                                <p>{{conclusions.CONCLUSION_DESCRIPTION}}</p>
+                            </li>
+                            <li style="border-top: 1px solid #efefef;" class="detail_li qy-orange" ng-style="{'display':medicalDetailData.SUGGESTS==''?'none':'block'}">
+                                <span style="color: #264557;font-size: 14px;" kyee-i18n-directive code="jianyi" default="体检建议"></span>
+                            </li>
+                            <li style="padding-top: 10px;" ng-repeat="suggests in medicalDetailData.SUGGESTS">
+                                <p>{{suggests.CONCLUSION_TITLE}}：</p>
+                                <p>{{suggests.CONCLUSION_DESCRIPTION}}</p>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+
+            <!--上拉加载更多-->
+            <ion-infinite-scroll icon="ion-loading-c" ng-if="hasMore" on-infinite="loadMore()" immediate-check="false" distance="1%" >
+            </ion-infinite-scroll>
+        </ion-list>
+        <div ng-if="isEmpty" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="medical_footer_bar qy-grey5">
+        <span kyee-i18n-directive code="footerMsg" default="体检数据仅供参考，以院方实际数据为准"></span>
+    </ion-footer-bar>
+</ion-view>

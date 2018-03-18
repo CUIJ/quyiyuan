@@ -1,0 +1,117 @@
+<!--
+    产品名称：quyiyuan
+    创建人: 张家豪
+    创建日期:2015年5月4日10:16:55
+    创建原因：新增就诊者界面
+-->
+<ion-modal-view ng-controller="AddCustomPatientController"
+                class="add_patient_info comm-patient-detail add-patient-info qy-bg-grey2">
+    <ion-header-bar align-title="center" class="qy-header" style="padding-left: 5px">
+        <a ng-click="hideModal()" class="button back-button button-clear header_button">
+            <i class="icon ion-android-arrow-back"></i>
+        </a>
+        <h2 class="title header_title"
+            kyee-i18n-directive code="all:add_patient_info.addPeople" default="新增就诊者"></h2>
+
+    </ion-header-bar>
+      <ion-content animation="slide-left-right" scroll="true" has-bouncing="true" class="has-footer"
+                 ng-class="{'has-footer':isVoiceVerificationCode}">
+        <div class="list my_list" style="background-color: white;     border-bottom: 1px solid #e7e7e7;">
+            <label class="item item-input" style="padding-left: 0px; margin-left: 14px;height: 50px;">
+                <span class="input-label  zx_font_size"
+                      kyee-i18n-directive code="all:add_patient_info.name" default="姓名："></span>
+                <input type="text"  maxlength="16" ng-model="userInfo.NAME" placeholder={{placeholder.name}}
+                       class="zx_font_size text-ellipsis">
+            </label>
+            <label class="item item-input" style="padding-left: 0px; margin-left: 14px;height: 50px;">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="all:add_patient_info.idNo" default="身份证号："></span>
+                <input style="width: 60%;" type="text" ng-model="userInfo.idNoView" placeholder={{placeholder.idNo}}
+                       class="zx_font_size text-ellipsis">
+            </label>
+
+           <!--添加就诊者修改（APK）  By  张家豪  KYEEAPPC-4424-->
+            <div class="item item-input" ng-if="userInfo.showAge" style="padding-left: 0px; margin-left: 14px;height: 50px;">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="all:add_patient_info.bristolDate" default="出生日期："></span>
+
+                <div  ng-click="selectChildAge()" class="select_child_age" ng-disabled="userInfo.idNoView">
+                    <span ng-class="textColor" class="zx_font_size">{{autoBirthday()}}</span>
+                    <i class="icon-calendar qy-green select_child_age_icon" ng-disabled="userInfo.idNoView"></i>
+                </div>
+            </div>
+            <label class="item item-input" style="padding-left: 0px; margin-left: 14px;height: 50px;">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="all:add_patient_info.phoneNo" default="手机号码："></span>
+                <input class=" text-ellipsis" type="tel" id="PhoneBtnX" ng-disabled="userInfo.phoneNumDisabled"
+                       ng-change="phoneNumChange()"
+                       ng-model="userInfo.PHONE_NUMBER" placeholder={{placeholder.phone}}
+                       ng-style="{'background-color':userInfo.phoneNumDisabled ? '#ffffff':''}">
+            </label>
+
+            <div ng-if="showVerificationCode" class="item item-input-inset item-input button-bar verification-code-one" style="padding-left: 0px; margin-left: 14px;">
+                <span class="input-label zx_font_size" style="    width: 24%;"
+                      kyee-i18n-directive code="all:add_patient_info.verificationCode" default="验证码："></span>
+                <label class="item-input-wrapper verification-code-three">
+                    <input  ng-click="isVoiceVerificationCodeFalse();" type="tel" ng-model="userInfo.loginNum"
+                           placeholder={{placeholder.valiteCode}}
+                           class=" verification-code-four">
+                </label>
+                <button  class="verification-code-five zx_font_size" id="SmsBtnX" style="right: 30px;top: 9px;"
+                        ng-disabled="userInfo.validateBtnDisabled"
+                        ng-click="getValiteCode();">
+                    {{userInfo.validateMsgText}}
+                </button>
+            </div>
+            <div class="item item-input-inset item-input button-bar child-top pad-l-14" style=" border-bottom: 1px solid white;">
+            <span class="input-label  child-centre zx_font_size"
+                  kyee-i18n-directive code="all:add_patient_info.sex" default="性别："></span>
+                <label class="item item-radio child-lower">
+                    <input  type="radio" name="group" ng-click="selectMen(); " ng-disabled="userInfo.sexBox||userInfo.idNoView">
+
+                    <div class="yes-or-no zx_font_size">
+                        <i ng-class="{'icon-radiobox_1 qy-green':userInfo.sexView==1,'icon-radiobox_2':userInfo.sexView!=1}"></i>
+
+                        <div class="yes-or-no-two zx_font_size zx_padding_left"
+                             kyee-i18n-directive code="all:add_patient_info.man" default="男"></div>
+                    </div>
+                </label>
+                <label class="item item-radio zx_font_size zx_border_background" >
+                    <input type="radio" name="group" ng-click="selectWomen();" ng-disabled="userInfo.sexBox||userInfo.idNoView">
+
+                    <div class="yes-or-no zx_font_size">
+                        <i ng-class="{'icon-radiobox_1 qy-green':userInfo.sexView==2,'icon-radiobox_2':userInfo.sexView!=2}"></i>
+
+                        <div class="yes-or-no-two zx_font_size zx_padding_left"
+                             kyee-i18n-directive code="all:add_patient_info.woman" default="女"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div style="font-size: 12px ;color: gray ; padding-top: 10px;padding-left: 14px;padding-right:14px;">
+            <div class="zx_font_size">
+                <i style="font-size:18px" ng-click="isSelectChild()" ng-class="{'ion-android-checkbox-outline qy-green':userInfo.isChild==1,'ion-android-checkbox-outline-blank':userInfo.isChild!=1}"> </i>
+                <span style="color: #999999;padding-left: 2px"  >
+                    <span style="font-size: 14px;" ng-click="isSelectChild()"  kyee-i18n-directive code="all:add_patient_info.child" default="儿童:" ></span>
+                    <span style="font-size: 14px;"  kyee-i18n-directive code="all:add_patient_info.childTeail" default="儿童身份证信息可以在户口本中查看获得，如果没有身份证，可为空"></span>
+                </span>
+            </div>
+        </div>
+        <div class="pad-b-14" style=" padding-top: 20px;">
+            <button ng-click="submit()" class="button button-block button-size-l"
+                    kyee-i18n-directive code="all:add_patient_info.translation" default="提 交">
+            </button>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer ta-c t_a_width bounceUp" ng-if="isVoiceVerificationCode">
+        <div class="h_b_w">
+            <span class="p_co_top"><span
+                    kyee-i18n-directive code="all:add_patient_info.otherAdd" default="验证码已发送，如长时间未收到短信，请点此获取"></span>
+                <span ng-click="voiceVerificationCodePop();" class="b_b_solid"
+                      kyee-i18n-directive code="all:add_patient_info.voiceCheck" default="语音验证码"></span>
+            </span>
+        </div>
+    </div>
+    <div kyee-date-picker-directive year-range="{{yearRange}}" bind="bind(params)"
+         on-select-finash="onFinash(params)"></div>
+</ion-modal-view>

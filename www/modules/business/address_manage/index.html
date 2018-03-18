@@ -1,0 +1,57 @@
+<ion-view class="qy_address_manage qy-bg-grey2" ng-init="initView()">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="addressTitle" default="地址管理"></span>
+        </ion-nav-title>
+
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false">
+
+        <ul style="padding-right: 0px;" class="list-b pad-b-14 pad-d-10 mar-t-10" ng-repeat="item in allAddressData">
+            <li style="margin-top: 5px;">
+                <span class="f14">{{item.NAME}}</span>
+                <span class="mar-l-10 f14">{{item.regPhoneNum}}</span>
+            </li>
+            <li ng-click="toEditAddress(item)" class="qy-grey5" style="border-bottom:1px solid #EEEEEE;padding-bottom: 10px;margin-top: -8px;">
+                <span>{{item.PROVINCE}}</span> <span>{{item.CITY}}</span> <span>{{item.COUNTY}}</span>
+                <span>{{item.DETIL_ADDRESS}}</span>
+            </li>
+            <li class="item_btn" style="height: 34px;padding-top: 7px">
+                <i ng-click="selAddress(item)" style="position: relative;top: 5px;font-size: 16px;"
+                   ng-class="{'ion-android-radio-button-on addressRadioSelStyle':changeStyle(item.CURRENT_ADDRESS),'ion-android-radio-button-off addressRadioNoSelStyle':!changeStyle(item.CURRENT_ADDRESS)}"></i>
+                <span ng-click="selAddress(item)" style="position: relative;top: 3px;width: 100px;" class="text-ellipsis" kyee-i18n-directive code="setAsDefaultAddress" default="设置为默认地址"></span>
+                <button class="button button-size-s"style="right: 14px;background-color: white;float: right;width: 80px;margin-left: 10px; position: relative;top: 2px;" nav-direction="forwad"
+                        ng-click="delAddressData(item.ADDRESS_ID)">
+                    <span class="ion-close qy-grey5" style="padding-right: 2px;height: 20px;vertical-align: middle;width: 20px;position: relative;top: 0px"/>
+                    <span  class="qy-grey5" kyee-i18n-directive code="delete" default="删除"></span>
+                </button>
+                <button class="button button-size-s "style="right: 14px;border-color: #5baa8a;background-color: white;width: 80px;float: right;position: relative;top: 2px;" nav-direction="forwad"
+                        ng-click="toEditAddress(item)">
+                    <span class="ion-edit qy-grey5" style="color: #5baa8a;padding-right: 2px;height: 20px;vertical-align: middle;width: 20px;position: relative;top: 0px;"/>
+                    <span class="qy-grey5" style="margin-left: 10px;">
+                    <span kyee-i18n-directive code="edit" style="color: #5baa8a;" default="编辑"></span>
+                    </span>
+                </button>
+            </li>
+        </ul>
+
+        <div class="empty-text" ng-if="hasAddressInfoFlag">
+            <i class="icon-icon_3 empty-icon"></i>
+            <p>
+                <span kyee-i18n-directive code="noValuableAddress" default="您目前还没有可用地址信息"></span>
+            </p>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey2" style="margin-bottom: 20px;">
+        <div style="width: 100%;">
+            <a ng-click="addNewAddress()" class="button button-block button-size-l">
+                <span style="font-size: 20px;position: relative;top: 1px;" class="ion-plus"></span>
+                <span kyee-i18n-directive code="addNewAddress" default="新建地址"></span>
+            </a>
+        </div>
+    </div>
+</ion-view>
+

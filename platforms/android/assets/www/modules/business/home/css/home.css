@@ -1,0 +1,40 @@
+.quyiyuan-home-delay_elements_slidebox{
+	height: 163px;
+	margin: 0px;
+}
+
+.quyiyuan-home-delay_elements_hospital_label{
+	height: 44px;
+}
+
+.quyiyuan-home-hospital_label {
+	text-align: left;
+	margin: 5px;
+}
+
+.quyiyuan-home-hospital_label_head {
+	color: #333333;
+	font-weight: bold;
+	font-size: 14px;
+	padding-left: 12px !important;
+	line-height: 15px !important;
+}
+
+.quyiyuan-home-hospital_label_addr {
+	color: #666666;
+	font-size: 11px;
+	padding-left: 12px;
+	line-height: 11px;
+}
+
+.quyiyuan-home-slidebox {
+	border-bottom: 2px solid #666666;
+}
+
+.quyiyuan-home-search_field {
+	background-color: white !important;
+}
+
+.quyiyuan-home-scrollpanel {
+	margin-top: 17px;
+}

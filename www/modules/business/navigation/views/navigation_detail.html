@@ -1,0 +1,18 @@
+     <ion-view title="{{navigationInfro[0].navigation_name}}" ng-init="initView()" class="qy_navigation">
+        <ion-nav-bar align-title="center" class="qy-header">
+            <ion-nav-back-button></ion-nav-back-button>
+        </ion-nav-bar>
+    <ion-content class="navigation" >
+        <div class="list">
+                <div ng-repeat="item in navigationInfro" ng-click="ischeck($index) "
+                     class="item item-input " ng-class="{'detail_changeStyle':isChangeStyle($index)}">
+                        <div class="col col-15 f16 font_color" >
+                            {{item.navigation_floor}}
+                        </div>
+                        <div class="col col-85">
+                        {{item.navigation_deptName}}
+                        </div>
+                </div>
+        </div>
+    </ion-content>
+</ion-view>

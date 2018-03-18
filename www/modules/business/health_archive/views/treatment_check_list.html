@@ -1,0 +1,37 @@
+<ion-view class="treatment_check_list" cache-view="false">
+    <ion-header-bar align-title="center" class="bar bar-header item-input-inset quyiyuan_header">
+        <ion-nav-bar align-title="center" class="qy-header">
+            <ion-nav-title>
+                <span>检查检验单</span>
+            </ion-nav-title>
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="right">
+                <a class="button button-clear" ng-show="userSource!='3'" ng-click="openRightMenu('treatment_check_list')">
+                    <i class="icon ion-navicon" ></i>
+                </a>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+    </ion-header-bar>
+    <ion-content scrollbar-y="false"  has-bouncing="true" class="qy-bg-grey1 pad-t-10">
+        <div class=" qy-bg-white border-td">
+            <ion-item class="f14 qy-bg-white li_bottom"ng-repeat="Detail in DETAIL_CHECK_LIST"ng-click="goToTreatmentCheckDetail(Detail)">
+                <div class="item-content mar-l-14"ng-class="{'bord_t_import':$index!=0}" >
+                        <h5 class="item_name text-ellipsis qy-grey7" style="font-size: 14px !important;max-width: 70%;width: 70%">{{Detail.REPORT_NAME}}</h5>
+                        <div class="div_hosname_date">
+                            <span class="f12  div_hosname_span qy-grey6"> {{Detail.ORGANIZATION_NAME}}</span>
+                            <span style="position: absolute; right: 14px; top: 20px;">
+                                <span class="f12 qy-grey5 mar-l-14" ng-if="Detail.IS_EXAMINATION=='0'"> {{Detail.TEST_DATE}}</span>
+                                <span class="f12 qy-grey5 mar-l-14" ng-if="Detail.IS_EXAMINATION=='1'"> {{Detail.EXAMINATION_DATE}}</span>
+                                <span class="ico ion-chevron-right icon_show" style="margin-left: 5px"></span>
+                            </span>
+                        </div>
+                </div>
+            </ion-item>
+        </div>
+    </ion-content>
+    <div class="empty-text" ng-if="showEmptCheck">
+        <div class="icon-icon_3 empty-icon">
+            <p>暂无检查检验单信息</p>
+        </div>
+    </div>
+</ion-view>

@@ -1,0 +1,89 @@
+<ion-view class="qy_surrounding">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="surroundingHospitalTitle" default="周边医院"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" id="scrollOut" padding="false" class="qy-bg-grey2" delegate-handle="mainScroll">
+        <div id="s-result"></div>
+        <div ng-click="detailMap()" class="clickmask"></div>
+        <div style="padding-left: 14px;line-height: 50px !important;" class="f14 qy-bg-white " >
+            <div class="dis-in-b">
+            <span kyee-i18n-directive code="current" class="qy-grey6" default="当前城市："></span><span class="qy-grey7">{{city}}</span>
+            </div>
+            <div class="fl-r mar-r-14 pos-r">
+                <div class="qy-grey6 flex-center pos-r" ng-click="showRightMenu()"><span class="mar-r-4">筛选</span><i class="icon icon-filter" ></i></div>
+            <!--<div class="turnBtn dis-in-b" ng-class="choose=='hospital'?('selected'):('')" ng-click="turnChoose('hospital')">医院</div>-->
+            <!--<div class="turnBtn dis-in-b" ng-class="choose=='clinic'?('selected'):('')" ng-click="turnChoose('clinic')">诊所</div>-->
+                <div class="pos-a bottom-0"  id="choosebox"></div>
+            </div>
+        </div>
+        <div class="list border-d border-t qy-bg-grey2">
+            <div ng-if="NearbyHasData && (showClinic && nearinfo.HOSPITAL_TYPE ==='0')||(showHospital && nearinfo.HOSPITAL_TYPE ==='1')" class="pad-t-16 pad-lr-14 border-d border-t mar-b-8 qy-bg-white" href="#" ng-click="selectNearHospital($index)"
+               ng-repeat="nearinfo in nearbyhospitalinfo">
+                <div class="row mar-d-16">
+                    <div class="width40 height40">
+                        <img class="width40 height40 bor-r-50 inline_block" ng-src="{{nearinfo.LOGO_PHOTO ? nearinfo.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                             onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                    </div>
+
+                <div class="mar-l-10 width100">
+                    <div class="dis-f-out  height-20">
+                        <div class="dis-f-in">
+                            <div>
+                                <div class="f14 qy-grey7 text-ellipsis lineh14 dis-in-b" ng-style="{'max-width':KyeeEnv.innerSize.width-160-12*nearinfo.HOSPITAL_LEVEL.length-8*numCount(nearinfo.DISTANCE)+'px'}">{{nearinfo.HOSPITAL_NAME}}</div>
+                                <span class="radius2 f12 inline_block  mar-l-6 fl-r mar-t--2 height-20 pad-08">{{nearinfo.HOSPITAL_LEVEL}}</span>
+                            </div>
+                            <div class="mar-t--2 f12 qy-grey5">{{nearinfo.DISTANCE}} km</div>
+                        </div>
+                        <div class="dis-f-in">
+                            <div ng-if="NearMailingAddressData($index)" class="f12 qy-grey5 text-ellipsis mar-t-5 line-h14" ng-style="{'max-width':KyeeEnv.innerSize.width-120-8*nearinfo.ACCESS_TIMES.length+'px'}">
+                                <span>{{nearinfo.MAILING_ADDRESS}}</span>
+                            </div>
+                            <div ng-if="!NearMailingAddressData($index)" class="f12 qy-grey5">
+                                <span style="width: 66%;overflow: hidden; text-overflow: ellipsis;" kyee-i18n-directive code="noAddressTip" default="地址：暂无"></span>
+                            </div>
+                            <div class="mar-t-3 f12 qy-grey5"><span style="color:#ff9900">{{nearinfo.ACCESS_TIMES}}</span><span>人访问</span></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--<div class="f12 text-right width110 mar-l-2 qy-grey5">-->
+                    <!--<div class="mar-t&#45;&#45;5">{{nearinfo.DISTANCE}} km</div>-->
+                    <!--<div class="mar-t-12 line-h14"><span style="color:#ff9900">{{nearinfo.ACCESS_TIMES}}</span><span>人访问</span></div>-->
+                <!--</div>-->
+                </div>
+                <div ng-if="NearDeptNameHasData($index)&&nearinfo.HOSPITAL_TYPE ==='1'" class="border-t line40 text-ellipsis qy-grey6">
+                    特色科室:<span ng-repeat="deptName in nearinfo.DEPT_NAME_SHOW" class="mar-l-20">{{deptName}}</span>
+                </div>
+                <div ng-if="NearClinicFun($index)&&nearinfo.HOSPITAL_TYPE ==='0'" class="border-t line40 text-ellipsis qy-grey6">
+                    开通服务:<span ng-repeat="funName in nearinfo.FUN_NAME_SHOW" class="mar-l-20">{{funName}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="NearbyText" class="empty-text empty_height">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p kyee-i18n-directive code="curPositionNoHospital" default="您目前的位置附近没有医院或诊所"></p>
+        </div>
+        <div ng-if="hospitalEmpty==0&&showHospital&&!showClinic" class="empty-text empty_height">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p kyee-i18n-directive code="curPositionNoHospital" default="您目前的位置附近没有医院"></p>
+        </div>
+        <div ng-if="clinicEmpty==0&&showClinic&&!showHospital" class="empty-text empty_height">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p kyee-i18n-directive code="curPositionNoHospital" default="您目前的位置附近没有诊所"></p>
+        </div>
+        <img class="imgsty border"src="{{photo}}" ng-click="saveImg()">
+    </ion-content>
+    <div class="menu_right" ng-show="showMenu" ng-click="hideRightMenu()" ng-style="{'padding-top':myScrollTop+'px'}">
+        <div class="menu_right_bar qy-bg-grey5"></div>
+        <ul class="pos-a qy-grey7 choose-box qy-bg-white">
+            <li class="pad-l-21 border-b" ng-click="turnChoose('all')"><i class="icon icon-all2 f22 mar-r-14 mar-t-13 dis-in-b color-all"></i><span class="pos-a mar-l-4">全部</span></li>
+            <li class="pad-l-21 border-b" ng-click="turnChoose('hospital')"><i class="icon icon-hospital-choose f22  mar-r-14 mar-t-13 dis-in-b qy-green-new"></i><span class="pos-a mar-l-4">医院</span></li>
+            <li class="pad-l-21 border-b" ng-click="turnChoose('clinic')"><i class="icon icon-clinic-choose f22   mar-r-14 mar-t-13 dis-in-b color-clinic"></i><span class="pos-a mar-l-4">诊所</span></li>
+        </ul>
+    </div>
+</ion-view>

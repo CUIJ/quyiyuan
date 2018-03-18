@@ -1,0 +1,29 @@
+
+.qy_select_appoint_date {
+
+  .select_header{
+    line-height: 50px;
+    text-align: center;
+    position: relative;
+  }
+  .pre_month{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: -webkit-box;
+    p{
+      padding-left: 5px;
+      margin: 0;
+    }
+  }
+  .next_month{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: -webkit-box;
+    p{
+      padding-right: 5px;
+      margin: 0;
+    }
+  }
+}

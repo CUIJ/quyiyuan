@@ -1,0 +1,19 @@
+<div class="pay_modal" ng-class="phoneVideoClass" ng-click="cancelPaySchedule()"></div>
+<div class="schedule_content" ng-class="phoneVideoClass">
+	<div class="text-center pad-t-10 position-r" id="paySchedule-header">
+		<i ng-click="cancelPaySchedule()" class="inline position-a f22 qy-grey6 icon-cross cancel_icon"></i>
+		<h4 class="qy-grey7 f16">医生在线时段</h4>
+		<p class="f12 qy-grey5">请您于医生在线时间进行咨询</p>
+	</div>
+	<ul class="border-t pad-b-14">
+		<li class="border-b flex day_list" ng-repeat="schedule in paySchedule track by $index">
+			<div class="qy-bg-grey2 text-center day_time">
+				<p class="f14 qy-grey5">{{schedule.weekDay}}</p>
+				<p class="f14 qy-grey5">{{schedule.timeDay}}</p>
+			</div>
+			<div class="flex flex_wrap time_list" ng-style="{'width':(KyeeEnv.innerSize.width - 100)+'px'}">
+				<span class="flex_half f12 qy-grey6" ng-repeat="day in schedule.durations">{{day.duration}}: {{day.durationTime}}</span>
+			</div>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,154 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年10月21日15:08:01
+* 创建原因：退费明细页面
+* 任务号：KYEEAPPC-3596
+* 修改者：程铄闵
+* 修改时间：2015年11月4日14:28:15
+* 修改原因：国际化翻译
+* 任务号：KYEEAPPC-3801
+-->
+<ion-view class="qy_refund_detail">
+    <ion-nav-bar align-title="center" class="qy-header" no-tap-scroll="true">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="退费详情"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey1 has-header" scroll="false">
+        <ion-scroll ng-if="!isEmpty && isShowClinicAmount" class="amount_box" delegate-handle="refund_clinic_amount" scrollbar-x="false" on-release="forceAlign()" scrollbar-y="false" direction="x">
+            <!--退费金额头部（门诊）-->
+            <ul class="row" ng-style="{'width': len*(KyeeEnv.innerSize.width-62)+62+'px'}">
+                <li class="col"  ng-repeat="x in records">
+                    <div class="amount_content" ng-style="{'width':(KyeeEnv.innerSize.width-72)+'px'}">
+                        <p class="qy-green ta-c box_top f12">
+                            <span ng-if="refundSum>0"><span kyee-i18n-directive code="refundSum" default="历史退费总额："></span>
+                            ¥{{convertMoney(refundSum)}}</span>
+                        </p>
+                        <i class="circle circle_l"></i>
+                        <i class="circle circle_r"></i>
+                        <div class="box_middle qy-bg-white">
+                            <p class="f14 mid_h qy-grey7"><span kyee-i18n-directive code="amounthead" default="退费金额"></span></p>
+                            <p class="amount qy-green">¥{{convertMoney(x.RETURN_BALANCE)}}</p>
+                        </div>
+                        <p class="qy-grey7 time qy-bg-white text-ellipsis">
+                            <span kyee-i18n-directive code="refundTime" default="退费时间："></span>
+                            {{x.RETURN_TIME}}
+                        </p>
+                        <div class="bott_lace"></div>
+                    </div>
+                </li>
+            </ul>
+        </ion-scroll>
+
+        <ion-scroll ng-if="!isEmpty" ng-style="{'height':isShowClinicAmount?(KyeeEnv.innerSize.height-213)+'px':(KyeeEnv.innerSize.height-43)+'px'}" delegate-handle="refund_clinic_box" >
+            <!--状态头-->
+            <ul class="qy-bg-white border-d">
+                <ul ng-if="!isShowClinicAmount" class="border-d mar-l-14 pad-r-14 simple_amount">
+                    <li class="qy-grey7 f14" style="padding-bottom: 22px;">{{record.MSG_TITLE}}</li>
+                    <li class="qy-green f30">¥ {{convertMoney(record.RETURN_BALANCE)}}</li>
+                </ul>
+
+                <ul class="row pad-t-15 pad-b-14 status">
+                    <li class="mar-r-10">
+                        <i class="icon qy-green icon-loading f20"></i>
+                    </li>
+                    <li class="col">
+                        <p class="f14" ng-class="record.APPLY_STATUS==2?'qy-red':'qy-green'" style="position: relative;top: 1px;">{{record.MSG_DEALING}}</p>
+                        <p class="tip qy-grey5" ng-if="record.MSG_DEALING_TIP">{{record.MSG_DEALING_TIP}}</p>
+                    </li>
+                </ul>
+            </ul>
+
+            <!--门诊退费项目-->
+            <ul class="pad-b-14 detail_box border-d pad-d-20 qy-bg-white" ng-if="record.RETURN_DETAIL.length>0">
+                <li class="detail_head qy-green">
+                    <i class="icon icon-lineup f18"></i>
+                    <span class="f14" kyee-i18n-directive code="refundItems" default="退费项目"></span>
+                </li>
+                <ul class="qy-bg-grey1 container">
+                    <li class="row mar-d-5" ng-repeat="detail in record.RETURN_DETAIL">
+                        <div class="col-50" ng-if="detail.ITEM_NAME">
+                            <span class="dis_inBl f14" style="width: 100%;"><span class="text-ellipsis dis_inBl" style="width: 95%;">{{detail.ITEM_NAME}}：</span></span>
+                        </div>
+                        <div ng-if="detail.COSTS" class="col-50 qy-grey7 f16 pad-l-10">{{'¥'+convertMoney(detail.COSTS)}}</div>
+                    </li>
+                </ul>
+            </ul>
+
+            <div ng-if="!isShowClinicAmount" class="block border-d"></div>
+
+            <!--退费状态线-->
+            <ul class="pad-l-14 border-d qy-bg-white status_line">
+                <li class="row">
+                    <div class="mar-r-22"><div class="qy-green " ng-class="status[0]?'circle_current':'circle_green'"></div></div>
+                    <ul class="col border-d">
+                        <li class="f14 qy-green line_top">
+                            {{record.MGS_FIRST}}
+                        </li>
+                        <li class="line_tip qy-grey5">
+                            {{record.MGS_FIRST_TIP}}
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="row line">
+                    <div class="p_solid green_solid"></div>
+                    <div class="mar-r-22">
+                        <div ng-class="{'circle_current':status[1],'circle_green':record.SECOND_STATUS == 'DONE'&&!status[1],'circle_grey':record.SECOND_STATUS != 'DONE'&&!status[1]}"></div>
+                    </div>
+                    <ul class="col" ng-class="record.THIRD_STATUS?'border-d':''">
+                        <li class="f14 line_top" ng-class="{'qy-red':record.APPLY_STATUS==2,'qy-green':record.APPLY_STATUS!=2&&record.SECOND_STATUS == 'DONE'}">
+                            {{record.MSG_SECOND}}
+                        </li>
+                        <li class="line_tip qy-grey5">
+                            {{record.MSG_SECOND_TIP}}
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="row line" ng-if="record.THIRD_STATUS">
+                    <div class="p_solid" ng-class="record.SECOND_STATUS == 'DONE'?'green_solid':'grey_solid'"></div>
+                    <div class="mar-r-22">
+                        <div ng-class="{'circle_current':status[2],'circle_green':record.THIRD_STATUS == 'DONE'&&!status[2],'circle_grey':record.THIRD_STATUS != 'DONE'&&!status[2]}"></div>
+                    </div>
+                    <ul class="col" ng-class="record.FOURTH_STATUS?'border-d':''">
+                        <li class="f14 line_top" ng-class="record.THIRD_STATUS == 'DONE'?'qy-green':'qy-grey7'">
+                            {{record.MSG_THIRD}}
+                        </li>
+                        <li class="line_tip qy-grey5">
+                            {{record.MSG_THIRD_TIP}}
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="row line" ng-if="record.FOURTH_STATUS">
+                    <div class="p_solid" ng-class="record.THIRD_STATUS == 'DONE'?'green_solid':'grey_solid'"></div>
+                    <div class="mar-r-22">
+                        <div ng-class="{'circle_current':status[3],'circle_green':record.FOURTH_STATUS == 'DONE'&&!status[3],'circle_grey':record.FOURTH_STATUS != 'DONE'&&!status[3]}"></div>
+                    </div>
+                    <ul class="col">
+                        <li class="f14 line_top" ng-class="record.FOURTH_STATUS == 'DONE'?'qy-green':'qy-grey7'">
+                            {{record.MSG_FOURTH}}
+                        </li>
+                        <li class="line_tip qy-grey5">
+                            {{record.MSG_FOURTH_TIP}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="ta-c qy-grey4 mar-t-10">
+                <span kyee-i18n-directive code="customerPhone" default="客服电话：400-080-1010"></span>
+            </p>
+        </ion-scroll>
+
+        <div ng-if="isEmpty" class="empty-text">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+
+    </ion-content>
+</ion-view>

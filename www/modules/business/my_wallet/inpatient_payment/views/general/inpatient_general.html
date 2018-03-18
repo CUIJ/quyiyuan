@@ -1,0 +1,141 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2016年6月24日14:15:54
+* 创建原因：2.2.40版住院费用（就医记录入口）
+* 任务号：KYEEAPPC-6607
+-->
+<ion-view class="qy_inpatient_general qy-bg-grey1">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="住院费用"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" class="has-header qy-bg-grey1" delegate-handle="inpatient_general">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(true)">
+        </ion-refresher>
+
+        <div ng-repeat="infoItem in allData" ng-if="!isEmpty">
+            <!--日期头部-->
+            <div class="pad-b-14 f14 border-d date_line">
+                <div ng-if="!$first" class="top_line"></div>
+                <div class="month" ng-class="$first?'qy-bg-green':'bg_grey'">{{infoItem.month}}</div>
+                <div class="line"></div>
+                <span class="qy-grey4 year">{{infoItem.year}}</span>
+            </div>
+
+            <!--所有记录-->
+            <div class="qy-bg-white border-d pad-l-14 f14">
+                <!--每日清单-->
+                <div ng-if="infoItem.ARRAYINFO" class="pay_box">
+                    <label class="item item-input f14" style="padding-left: 0;min-height: 41px;">
+                        <i class="icon icon-hospital2 f16 pad-r-10"></i>
+                        <div class="text-ellipsis qy-grey7" style="width: 98%;">{{infoItem.HOSPITAL_NAME}}</div>
+                    </label>
+                    <ul class="pad-t-10 pad-d-5 border-d container">
+                        <li ng-if="infoItem.PATIENT_NAME"><span class="container_item" kyee-i18n-directive code="patientName" default="患者姓名："></span>{{infoItem.PATIENT_NAME}}</li>
+                        <li ng-if="infoItem.INHOSPITAL_DATE"><span class="container_item" kyee-i18n-directive code="inHospitalDate" default="入院时间："></span>{{convertDate(infoItem.INHOSPITAL_DATE)}}</li>
+                        <li ng-if="infoItem.INP_NO"><span class="container_item" kyee-i18n-directive code="hospitalCode" default="住院号："></span>{{infoItem.INP_NO}}</li>
+                        <li ng-if="infoItem.DEPT_NAME"><span class="container_item" kyee-i18n-directive code="deptName" default="科室："></span>{{infoItem.DEPT_NAME}}</li>
+                        <li ng-if="infoItem.BED_NO"><span class="container_item" kyee-i18n-directive code="bedNo" default="床位号："></span>{{infoItem.BED_NO}}</li>
+                    </ul>
+                    <!--<ul class="pad-r-14 pad-td-10 border-d container" ng-if="!(infoItem.ACCOUNT_PAY==undefined && infoItem.INSUR_PAY==undefined && infoItem.SELF_PAY==undefined &&-->
+            <!--infoItem.INSUR_SELF_PAY==undefined && infoItem.CLASS_SELF_PAY==undefined && infoItem.OTHER_APY==undefined)">-->
+                        <!--<li class="row">-->
+                            <!--<div class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="totalCost1" default="费用总额："></span><span ng-if="infoItem.TOTAL_COSTS">¥ </span>{{convertMoney(infoItem.TOTAL_COSTS)}}</div>-->
+                            <!--<div class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="accountPay1" default="账户金额："></span><span ng-if="infoItem.ACCOUNT_PAY">¥ </span>{{convertMoney(infoItem.ACCOUNT_PAY)}}</div>-->
+                        <!--</li>-->
+                        <!--<li class="row">-->
+                            <!--<div class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="insurPay1" default="统筹："></span><span ng-if="infoItem.INSUR_PAY">¥ </span>{{convertMoney(infoItem.INSUR_PAY)}}</div>-->
+                            <!--<div class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="selfPay1" default="自费："></span><span ng-if="infoItem.SELF_PAY">¥ </span>{{convertMoney(infoItem.SELF_PAY)}}</div>-->
+                        <!--</li>-->
+                        <!--<li class="row">-->
+                            <!--<div class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="insurSelfPay1" default="自负："></span><span ng-if="infoItem.INSUR_SELF_PAY">¥ </span>{{convertMoney(infoItem.INSUR_SELF_PAY)}}</div>-->
+                            <!--<div class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="classSelfPay1" default="分类自负："></span><span ng-if="infoItem.CLASS_SELF_PAY">¥ </span>{{convertMoney(infoItem.CLASS_SELF_PAY)}}</div>-->
+                        <!--</li>-->
+                        <!--<li class="row">-->
+                            <!--<div class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="otherPay1" default="其它："></span><span ng-if="infoItem.OTHER_APY">¥ </span>{{convertMoney(infoItem.OTHER_APY)}}</div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <!--每日清单明细-->
+                    <ul class="bottom_box">
+                        <li class="ovf-h pad-td-10"  ng-class="$last?'':'border-d'"  ng-class="$last?'':'border-d'"  ng-repeat="arrItem in infoItem.ARRAYINFO"  ng-click="goDetailRecord(arrItem)">
+                            {{convertDate(arrItem.BILLING_DATE_TIME)}}
+                            <span kyee-i18n-directive code="shouldFee" default="费用小结"></span>
+                            <span class="fl-r ta-r pay_fee">
+                                <span ng-if="arrItem.SHOULD_PAY_FEE">¥</span>{{convertMoney(arrItem.SHOULD_PAY_FEE)}}
+                                <i class="icon icon-arrow_right qy-grey5"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--住院历史-->
+                <div ng-if="infoItem.DETAIL_DATA" class="qy-bg-white paid_box f14">
+                    <label class="item item-input f14" style="padding-left: 0;min-height: 41px;">
+                        <i class="icon icon-hospital2 f16 pad-r-10"></i>
+                        <div class="text-ellipsis qy-grey7" style="width: 98%;">{{infoItem.HOSPITAL_NAME}}</div>
+                    </label>
+                    <ul class="pad-t-10 pad-d-5 border-d container">
+                        <li><span class="container_item" kyee-i18n-directive code="inHospitalDate" default="入院日期："></span>{{infoItem.ADMISSION_DATE}}</li>
+                        <li><span class="container_item" kyee-i18n-directive code="invoiceNo" default="收费单号："></span>{{infoItem.INVOICE_NO}}</li>
+                        <li><span class="container_item" kyee-i18n-directive code="inHospitalNo" default="住院号："></span>{{infoItem.INP_NO}}</li>
+                        <li><span class="container_item" kyee-i18n-directive code="deptName" default="科室："></span>{{infoItem.DEPT_NAME}}</li>
+                    </ul>
+
+                    <ul class="pad-r-14 pad-td-10 border-d container" ng-if="!(infoItem.ACCOUNT_PAY==undefined && infoItem.INSUR_PAY==undefined && infoItem.SELF_PAY==undefined &&
+            infoItem.INSUR_SELF_PAY==undefined && infoItem.CLASS_SELF_PAY==undefined && infoItem.OTHER_APY==undefined)">
+                        <li class="row">
+                            <div class="col-50"><span ng-if="infoItem.TOTAL_COSTS"><span class="qy-deepblue container_item" kyee-i18n-directive code="totalCost" default="费用总额："></span><span ng-if="infoItem.TOTAL_COSTS">¥ </span>{{convertMoney(infoItem.TOTAL_COSTS)}}</span></div>
+                            <div class="col-50"><span ng-if="infoItem.ACCOUNT_PAY"><span class="qy-deepblue container_item" kyee-i18n-directive code="accountPay" default="账户支付："></span><span ng-if="infoItem.ACCOUNT_PAY">¥ </span>{{convertMoney(infoItem.ACCOUNT_PAY)}}</span></div>
+                        </li>
+                        <li class="row">
+                            <div ng-if="infoItem.INSUR_PAY" class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="insurPay" default="统筹支付："></span><span ng-if="infoItem.INSUR_PAY">¥ </span>{{convertMoney(infoItem.INSUR_PAY)}}</div>
+                            <div ng-if="infoItem.SELF_PAY"  class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="selfPay" default="自费："></span><span ng-if="infoItem.SELF_PAY">¥ </span>{{convertMoney(infoItem.SELF_PAY)}}</div>
+                            <div ng-if="infoItem.PERSONALCASH_PAY" class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="personalCashPay" default="现金支付："></span><span ng-if="infoItem.PERSONALCASH_PAY">¥ </span>{{convertMoney(infoItem.PERSONALCASH_PAY)}}</div>
+                        </li>
+                        <li class="row" ng-if="infoItem.INSUR_SELF_PAY && infoItem.CLASS_SELF_PAY">
+                            <div  ng-if="infoItem.INSUR_SELF_PAY" class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="insurSelfPay" default="自负："></span><span ng-if="infoItem.INSUR_SELF_PAY">¥ </span>{{convertMoney(infoItem.INSUR_SELF_PAY)}}</div>
+                            <div  ng-if="infoItem.CLASS_SELF_PAY" class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="classSelfPay" default="分类自负："></span><span ng-if="infoItem.CLASS_SELF_PAY">¥ </span>{{convertMoney(infoItem.CLASS_SELF_PAY)}}</div>
+                        </li>
+                        <li class="row"  ng-if="infoItem.OTHER_APY && infoItem.OTHER_APY>0">
+                            <div  class="col-50"><span class="qy-deepblue container_item" kyee-i18n-directive code="otherPay" default="其它："></span><span ng-if="infoItem.OTHER_APY">¥ </span>{{convertMoney(infoItem.OTHER_APY)}}</div>
+                        </li>
+                    </ul>
+                    <div class="btn_line pad-l-14" ng-click="showDetail(infoItem)">
+                    <span class="qy-grey7 f16">
+                        <span class="qy-deepblue" kyee-i18n-directive code="balance" default="总金额："></span>¥ {{convertMoney(infoItem.TOTAL_COSTS)}}
+                    </span>
+                        <span class="ta-r fl-r"><span class="qy-deepblue" kyee-i18n-directive code="detail" default="费用明细"></span> <i class="icon icon-arrow_right qy-grey5"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--查看更多按钮-->
+        <!--<div ng-if="!isEmpty&&buttonText" class="ta-c mar-td-20">-->
+            <!--<button class="button button-color-green button-size-s qy-bg-grey1" ng-click="changeMore()">-->
+                <!--{{buttonText}}-->
+            <!--</button>-->
+        <!--</div>-->
+
+        <div ng-if="!isEmpty&&buttonText" class="ta-c bottom_tip">
+            <div class="box">
+                <div class="box_t">{{bottomTip}}</div>
+                <button class="button button-color-green button-size-s qy-bg-grey1 box_b" ng-click="changeMore()">
+                    {{buttonText}}
+                </button>
+            </div>
+        </div>
+
+        <!--背景提示-->
+        <div ng-if="isEmpty" class="empty-text">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p ng-bind-html="emptyText|kyee_to_html" id="inpatient_general_id">{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

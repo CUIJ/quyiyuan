@@ -1,0 +1,126 @@
+<ion-view class="qy_group_details">
+
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title >
+            <div class="f18 text-ellipsis">{{groupInfo.tname}}</div>
+        </ion-nav-title>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div class="groupInfo mar-t-10 border-td clear pad-l-14 qy-bg-white">
+            <div class="group_img fl-l">
+                <img class="group_logo" ng-src="{{groupInfo.icon || 'resource/images/icons/logo_default.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+            </div>
+            <div class="group_detail fl-l" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}" >
+                <div class="group_info_top" ng-class="{'line50': groupInfo.groupType != 0,'line25': groupInfo.groupType == 0}">
+                    <div class="fl-l group_name max-w65 text-ellipsis">{{groupInfo.tname}}</div>
+                    <div class="fl-l mar-l-10 max-w30 text-ellipsis f12 qy-fff" ng-if="groupInfo.groupLabel">
+                        <span class="label bg-label-blue" ng-if="groupInfo.groupType==2">
+                            {{groupInfo.groupLabel}}
+                        </span>
+                        <span class="label qy-bg-orange" ng-if="groupInfo.groupType==1">
+                            {{groupInfo.groupLabel}}
+                        </span>
+                        <span class="label bg-label-red" ng-if="groupInfo.groupType==0">
+                            {{groupInfo.groupLabel}}
+                        </span>
+                    </div>
+                </div>
+                <div class="group_info_bottom line25 color_9" ng-if="groupInfo.groupType == 0">
+                    <span class="fl-l w100 message_data text-ellipsis f12">{{groupInfo.hospitalName}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="list mar-t-10 border-td groupDetails clear f14 qy-bg-white">
+            <!--<div class="row mar-l-14 border-b group_item">
+                <span kyee-i18n-directive code="groupDeclare" default="群介绍"
+                      class="color_9 width50 line50"></span>
+                <div class="group_declared" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                    {{groupInfo.groupDeclared}}
+                </div>
+            </div>-->
+            <div class="border-b mar-l-14 group_item">
+                <div class="row mar-tb-15">
+                    <span kyee-i18n-directive code="groupAnnouncement" default="群公告"
+                          class="color_9 width50"></span>
+                    <div class="group_announcement mar-l-14" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                        {{groupInfo.announcement || "暂无群公告"}}
+                    </div>
+                </div>
+                <div class="mar-d-15" ng-click="goAnnouncementDetail()">
+                    <span kyee-i18n-directive code="allGroupAnnouncementLabel" default="查看全部群公告" class=""></span>
+                    <i class="ico ion-chevron-right position-a r14 qy-grey4"></i>
+                </div>
+            </div>
+            <div ng-if="pageShowMembers && pageShowMembers.length > 0" class="mar-l-14 group_item group_member_info border-b"
+                 ng-click="goGroupMembers()">
+                <div class="row line80 mar-t-20">
+                    <span kyee-i18n-directive code="groupMembers" default="群成员" class="color_9 width50 line20"></span>
+                    <ul class="mar-b-14 display-flex" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                        <li class="fl-l member_item position-r" ng-repeat="pageShowMember in pageShowMembers">
+                            <!-- 医生 -->
+                            <img ng-if="pageShowMember.accid.indexOf('qypa') > -1 "
+                                 ng-src="{{pageShowMember.user.icon ||
+                                 (2 == pageShowMember.user.gender ? 'resource/images/patients_group/user_female.png': 'resource/images/patients_group/user_male.png')}}"
+                                 onerror="javascript:this.src= 'resource/images/patients_group/user_male.png'"/>
+                            <!-- 患者 -->
+                            <img ng-if=" pageShowMember.accid.indexOf('qydr') > -1 "
+                                 ng-src="{{pageShowMember.user.icon ||
+                                 (2 == pageShowMember.user.gender ? 'resource/images/patients_group/doctor_female.png': 'resource/images/patients_group/doctor_male.png')}}"
+                                 onerror="javascript:this.src= 'resource/images/patients_group/doctor_male.png'"/>
+                            <i class="icon icon-doctor-label position-a color-red qy-bg-white f16 doctor_mark" ng-if="pageShowMember.accid.indexOf('qydr') > -1"></i>
+                            <div class="member_item_name position-a ta-c text-ellipsis line20 qy-grey7 f12">
+                                {{pageShowMember.nick || pageShowMember.user.name}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row line50 mar-l-14">
+                    <span kyee-i18n-directive code="allGroupMembers" default="全部成员"></span>
+                    <span class="mar-b-5">{{groupInfo.members.length}}</span>
+                    <span kyee-i18n-directive code="people" default="人"></span>
+                    <i class="ico ion-chevron-right position-a r14 qy-grey4"></i>
+                </div>
+            </div>
+
+            <div class="line50 mar-l-14 border-b group_item position-r" ng-if="group.isInGroup"
+                 ng-click="goModifyGroupCard(groupInfo.tid)">
+                <span kyee-i18n-directive code="allGroupMembers" default="我的群名片" class=""></span>
+                <!--
+                <span class="color_9 position-a r14" ng-class="{'r35':currentUserStatus == 1 || groupInfo.groupType == 2}">
+                    {{groupCard}}
+                </span>
+                <i class="ico ion-chevron-right position-a r14 qy-grey4" ng-show="currentUserStatus == 1 || groupInfo.groupType == 2"></i>
+                -->
+                 <span class="color_9 position-a r35">{{groupCard}}</span>
+                <i class="ico ion-chevron-right position-a r14 qy-grey4"></i>
+            </div>
+
+            <div class="line50 mar-l-14 group_item position-r" ng-if="group.isInGroup">
+                <ion-toggle ng-model="group.isNotice" ng-checked="group.isNotice" class="toggle-small border-b"
+                            ng-change="pushGroupNoticeChange(groupId)">
+                    <span kyee-i18n-directive code="msgNotDisturb" default="消息免打扰" class="f14"></span>
+                </ion-toggle>
+            </div>
+            <!-- <div class="row line50 mar-l-14 border-b group_item" ng-if="group.isInGroup"
+                 ng-click="clearGroupChatData(groupInfo.groupId)">
+                <span kyee-i18n-directive code="clearCache" default="清空聊天记录"></span>
+            </div> -->
+        </div>
+      <div class="pad-b-14" ng-if="group.isInGroup == false && isScanApply=='InitScan'">
+            <button kyee-operation-monitor-directive="submit" ng-click="applyJoinGroup(groupInfo.groupId)"
+                    class="button button-block button-size-l"
+                    kyee-i18n-directive code="applyJoin" default="申请加入">
+            </button>
+        </div>
+        <div class="pad-b-14" ng-if="group.isInGroup">
+            <button kyee-operation-monitor-directive="submit" ng-click="quitGroup(groupInfo.tid)"
+                    class="button button-block button-size-l bg-color-red border-red"
+                    kyee-i18n-directive code="quitGroup" default="退出本群">
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

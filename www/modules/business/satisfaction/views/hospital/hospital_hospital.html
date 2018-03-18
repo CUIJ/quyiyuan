@@ -1,0 +1,61 @@
+<ion-content class="has-header" ng-class="{'has-footer': suggestStatus()}" scroll="true" scrollbar-y="false" has-bouncing="true" has-subheader="true">
+    <div class="row glb_div" ng-if="!suggestStatus()">
+        <h5 class="pad-t-5 qy-grey6 col-20 text-ellipsis" kyee-i18n-directive code="all:satisfaction_hospital_menu.hospital_doctor.zhuYuan_zhengTiPingJia" default="整体评价"></h5>
+        <h5 class="col ta-r">
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 1)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 2)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 3)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 4)" ></i>
+            <i class="star_img1" ng-class="getXingCls(SUGGEST_SCORE, 5)" ></i>
+        </h5>
+    </div>
+
+    <div class="pad-b-14" ng-repeat="item in items">
+        <h5 class="qy-grey6 line_height">{{$index+1}}、{{item.ITEM_VALUE?item.ITEM_VALUE:item.ITEM_NAME}}</h5>
+        <h5 ng-if="item.SPECIAL_TYPE==''">
+            <i class="star_img" ng-click="starClick($index, 1)" kyee-operation-monitor-directive="starClick"
+               ng-class="item.SCORE_VALUE >=1 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" ng-click="starClick($index, 2)" kyee-operation-monitor-directive="starClick"
+               ng-class="item.SCORE_VALUE >=2 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" ng-click="starClick($index, 3)" kyee-operation-monitor-directive="starClick"
+               ng-class="item.SCORE_VALUE >=3 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" ng-click="starClick($index, 4)" kyee-operation-monitor-directive="starClick"
+               ng-class="item.SCORE_VALUE >=4 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+            <i class="star_img" ng-click="starClick($index, 5)" kyee-operation-monitor-directive="starClick"
+               ng-class="item.SCORE_VALUE >=5 ?'icon-favorite2':'icon-favorite empty_star'" ></i>
+        </h5>
+        <div ng-if="item.SPECIAL_TYPE!=''" class="row div_rdio">
+            <input type="radio" class="f14 rdio" kyee-operation-monitor-directive="starClick" ng-class="isItemChecked(item,1)" name="group" ng-click="starClick($index, 1)"/>
+            <div class="f14 col">
+                <span kyee-i18n-directive code="all:satisfaction_hospital_menu.hospital_doctor.zhuYuan_yes" default="是"></span>
+            </div>
+            <input type="radio" class="f14 rdio" kyee-operation-monitor-directive="starClick" ng-class="isItemChecked(item,0)" name="group" ng-click="starClick($index, 0)"/>
+            <div class="f14 col">
+                <span kyee-i18n-directive code="all:satisfaction_hospital_menu.hospital_doctor.zhuYuan_no" default="否"></span>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="suggestStatus()" class="f12 pad-b-14 qy-grey6">
+        <h5 class="qy-grey6" kyee-i18n-directive code="all:satisfaction_hospital_menu.hospital_doctor.zhuYuan_placeTxtPingLun" default="评论内容"></h5>
+        <div>
+            <textarea class="suggest_input" id="inHospitalSuggestId" ng-model="suggestInfo.suggest" placeholder="{{placeText}}" ng-change="writeSuggest()"></textarea>
+        </div>
+    </div>
+
+    <div ng-if="!suggestStatus()" class="f12 pad-b-14 qy-grey6">
+        <h5 class="qy-grey6" kyee-i18n-directive code="all:satisfaction_hospital_menu.hospital_doctor.zhuYuan_placeTxtPingLun" default="评论内容"></h5>
+        <span>
+            {{suggestInfo.suggest}}
+        </span>
+        <span style="float: right;" class="f12 qy-grey4 s_t">{{SUGGEST_TIME}}
+        </span>
+    </div>
+
+</ion-content>
+
+<div ng-if="suggestStatus()" class="bar bar-footer pad-b-14" kyee-action-holder-directive="suggest_commit_btn">
+    <button class="button button-block button-size-l" kyee-operation-monitor-directive="submit" ng-click="KAH($event) || submit()">
+     <span kyee-i18n-directive code="all:satisfaction_hospital_menu.hospital_doctor.zhuYuan_tiJiaoPingLunDoctor" default="提交评论"></span>
+    </button>
+</div>

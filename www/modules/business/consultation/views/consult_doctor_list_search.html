@@ -1,0 +1,90 @@
+<ion-view class="qy-bg-grey2 consultation_common qy_consult_doctor_list">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title>
+            <span>咨询医生</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content on-touch="hideFilter()" on-drag-start="hideFilter()" delegate-handle="consult_doctor_list_search">
+        <!-- 搜索框 start -->
+        <form ng-submit="search()" class="position-r mar-b-14 mar-t-10">
+        <input ng-focus="hideFilter()" ng-model="$parent.keyWords.keyWordsValue" ng-class="{'no_input':!$parent.keyWords.keyWordsValue}" type="search" placeholder="请输入医院、科室、医生等关键词搜索" >
+        <!-- class="radius4" -->
+        <i ng-if="$parent.keyWords.keyWordsValue" ng-click="clearKeyWords()" class="ion-close-circled text-center inline position-a qy-grey4 f16"></i>
+        <i ng-click="search()" class="icon-seach inline position-a qy-green border-l text-center"></i>
+        </form>
+        <!-- 搜索框 end -->
+
+        <!-- 医生列表 start -->
+        <ul>
+            <li ng-show="viewDoctorList" ng-repeat="doctor in doctorListSearched track by $index" ng-click="goToDoctorInfo(doctor)" class="mar-t-10">
+                <div class="qy-bg-white">
+                    <div class="fl-r mar-r-14 free_img"  ng-if="doctor.isFree == 1">
+                        <img src="resource/images/base/free.png" class="free">
+                    </div>
+                    <figure class="pad-td-14 flex mar-lr-14 border-d-dash">
+                        <div class="pos-r">
+                            <div ng-if="doctor.active == 1" class="pos-a align-center f12 qy-bg-orange qy-fff flag">活跃</div>
+                            <img ng-if="doctor.sex == 1" ng-src="{{doctor.photo}}" onerror="this.src='resource/images/base/head_default_man.jpg'" class="doctor_img flex-auto" alt="">
+                            <img ng-if="doctor.sex != 1" ng-src="{{doctor.photo}}" onerror="this.src='resource/images/base/head_default_female.jpg'" class="doctor_img flex-auto" alt="">
+                        </div>
+                        <figcaption class="flex_auto">
+                            <div class="clearfix lineh25 hidden text-ellipsis" ng-style="{'max-width': (KyeeEnv.innerSize.width - 150) +'px'}">
+                                <span class="hospital inline fl-l f16 text-ellipsis qy-grey7 width-max5em">{{doctor.name}}</span>
+                                <span class="hospital inline fl-l f12 qy-blue mar-l-10 pad-t-2" ng-style="{'max-width': (KyeeEnv.innerSize.width - 150)*(4/5) +'px'}">{{doctor.title}}</span>
+                            </div>
+                            <div class="position-r f12 qy-grey6 text-ellipsis mar-t-7  lineh12">
+                            <span class="f12 qy-orange border-r pad-r-5" ng-if="doctor.score">
+                            <span class="fw-b mar-r-d-4">{{doctor.score}}</span>
+                                                            分
+                                </span>
+                                <span class="" ng-if="!doctor.score">
+                                    <span class="f12 none_comment" kyee-i18n-directive code="noyHaveCare" default="暂无评价"></span>
+                                </span>
+                                <span ng-class="doctor.score?'pad-l-10':'pad-l-14'"><span ng-if="doctor.doctorCount != 0">咨询量：{{doctor.doctorCount}}</span></span>
+                            </div>
+                            <div ng-style="{'width': (KyeeEnv.innerSize.width - 100) +'px'}" class="f12 qy-grey6 text-ellipsis pad-t-4 hidden">
+                                <span ng-style="{'max-width': ((KyeeEnv.innerSize.width - 100)/5)*3+'px'}" class="hospital">{{doctor.hospital}}</span>
+                                <span class="pad-l-10 dept_name">{{doctor.dept}}</span>
+                            </div>
+                            <div class="flex ">
+                                <div class="flex pad-r-12" ng-if="doctor.imState == 1 || doctor.imState == 5">
+                                    <i class="text-center inline im_color f14 icon-wx-chat"></i>
+                                    <span class="pad-l-2 qy-grey6 f12">图文咨询</span>
+                                </div>
+                                <div class="pad-r-12 flex" ng-if="doctor.phoneState == 1 || doctor.phoneState == 5">
+                                    <i class="text-center inline  qy-orange f14 icon-telephone"></i>
+                                    <span class="pad-l-2 qy-grey6 f12">电话咨询</span>
+                                </div>
+                                <div class="flex" ng-if="doctor.videoState == 1 || doctor.videoState == 5">
+                                    <i class="text-center inline  qy-lightblue f14 icon-video"></i>
+                                    <span class="pad-l-2 qy-grey6 f12">视频咨询</span>
+                                </div>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <div class="lineh40 f12   pad-b-14 text-ellipsis" style="flex-wrap: wrap" ng-class="doctor.feature == '暂无信息'?'qy-grey5':'qy-grey6'">
+                        {{doctor.feature}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!-- 医生列表 end -->
+
+        <!--空数据-->
+        <div ng-if="doctorListSearched.length == 0" class="empty-text">
+            <i class="icon-icon_3 empty-icon"></i>
+            {{emptyText}}
+        </div>
+        <!-- 上拉加载更多 start-->
+        <ion-infinite-scroll ng-if="doctorList.length > 0 && isShowLoadMore" spinner="ios-small" on-infinite="loadMore()" distance='1%' immediate-check="false">
+        </ion-infinite-scroll>
+        <!-- 上拉加载更多 end-->
+
+        <!-- 分页加载了所有数据 start-->
+        <div ng-if="doctorList.length > 0 && !isShowLoadMore" class="text-center f12 qy-grey5 lineh40">
+            已加载全部数据
+        </div>
+        <!-- 分页加载了所有数据 end-->
+    </ion-content>
+</ion-view>

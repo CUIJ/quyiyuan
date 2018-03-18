@@ -1,0 +1,96 @@
+<ion-view class="qy_personal_home">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="details" default="详细资料"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+              <!-- <span ng-if="fromGroupId && !isMyFriend" ng-click="goReport()"
+                   kyee-i18n-directive code="report" default="举报" class="f14 personal_btn r14 color_6">
+              </span> -->
+              <!-- <span ng-if="isMyFriend" ng-click="delete(user.userId)"
+                     kyee-i18n-directive code="delete" default="删除" class="f14 personal_btn r14 color_6">
+              </span> -->
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+        <div class="mar-t-10 qy-bg-white border-td pad-b-14 line70">
+            <img class="head-img fl-l"
+                 ng-src="{{user.userPhoto ||
+                 ('2' == user.sex ? 'resource/images/patients_group/user_female.png':'resource/images/patients_group/user_male.png')}} "
+                 onerror="javascript:this.src='resource/images/patients_group/user_male.png'"
+                 ng-click="showBigPic()"/>
+            <!-- <div class="fl-l mar-l-14 line70" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}" >
+                <div class="fl-l max-w85 text-ellipsis f18">{{user.userPetname}}</div>
+                <div class="fl-l mar-l-6 max-w20 line70 icon-man color_man f12"
+                     ng-class="{'icon-woman color_woman':user.sex == 2}"></div>
+            </div> -->
+            <div class="fl-l mar-l-14 pad-td-10" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+              <div class="line30 clearfix">
+                <div class="fl-l max-w85 text-ellipsis f16 line30">{{user.remark || user.userPetname}}</div>
+                <div class="fl-l mar-l-6 max-w20 line30 icon-man color_man f12" ng-class="{'icon-woman color_woman':user.sex == 2}"></div>
+              </div>
+              <!-- <div class="line20 color_9" ng-show="user.remark">昵称 : {{user.userPetname}}</div> -->
+            </div>
+        </div>
+
+        <div class="mar-t-10 qy-bg-white border-td pad-l-14">
+            <!-- <div class="line50 pad-r-14 border-d" ng-click="goSetRemark()" ng-show="isMyFriend">
+                <div class="fl-l color_9" kyee-i18n-directive code="remark" default="备注名称"></div>
+                <div class="fl-l pad-l-14 text-ellipsis" ng-style="{'width':KyeeEnv.innerSize.width - 102 + 'px'}">
+                {{user.remark ? user.remark : ""}}
+                </div>
+                <i class="fl-r f12 ion-chevron-right color_9"></i>
+            </div> -->
+            <div class="line50 f14 pad-r-14">
+                <div class="fl-l color_9 userPosition" kyee-i18n-directive code="location" default="所在地区"></div>
+                <div class="fl-l pad-l-14 text-ellipsis"  ng-class="{'qy-grey4': !user.userRegion}"
+                     ng-style="{'width':KyeeEnv.innerSize.width - 102 + 'px'}">
+                    {{user.userRegion ? user.userRegion : "暂无位置信息"}}
+                </div>
+            </div>
+
+            <!-- <div class="row commonGroups pad-t-20 border-t" ng-if="groupList && groupList.length > 0">
+                <span class="color_9 line20 hotelGroupLabel wh-sp-n dis-in-b" kyee-i18n-directive code="SavedGroups" default="所在群组"></span>
+                <ion-scroll scrollbar-x="false"  scrollbar-y="false" zoom="false" paging="false"  direction="x" class="mar-l-14 mar-r-14 ">
+                    <ul class="display-flex"  ng-style="{'width':groupList.length * (50+14) + 14 + 'px'}">
+                        <li class="fl-l group_item_flow position-r"  ng-repeat="group in groupList " ng-click="goGroupDetails(group.groupId)">
+                            <img ng-src="{{group.groupPhoto || 'resource/images/icons/logo_default.png'}}"
+                                 onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                            <div class="group_item_name position-a ta-c text-ellipsis line20 f12">
+                                {{group.groupName}}
+                            </div>
+                        </li>
+                    </ul>
+                </ion-scroll>
+                <!--<div class="qy-bg-white  ta-c" ng-class="{'doctor-schedule-page':groupList.length>1,'doctor-schedule-no-page':groupList.length<=1}">-->
+                    <!--<i ng-if="groupList.length>1" class="circle" ng-class="{'ion-record ionchecked':page==schedulepage,'ion-ios-circle-outline':page!=schedulepage}" ng-repeat="page in pageArr"></i>-->
+                <!--</div>-->
+            </div> 
+        </div>
+        
+        <!-- 好友关系部分 -->
+<!-- 
+        <div ng-if="false == isMyFriend" class="pad-t-10 mar-b-16">
+            <button class="button button-block button-size-l qy-bg-green"
+                    kyee-i18n-directive code="addFriends" default="加好友" ng-click="sendFriendRequest(user.userId)">
+            </button>
+        </div>
+        <div ng-if="isMyFriend" class="pad-t-10 mar-b-16">
+            <button  class="button button-block button-size-l qy-bg-green"
+                    kyee-i18n-directive code="sendMessage" default="发消息" ng-click="sendMessage()">
+            </button>
+        </div> -->
+    </ion-content>
+
+    <div kyee-overlay-directive
+         location="center"
+         width="{{overlayPicData.width}}"
+         height="{{overlayPicData.height}}"
+         data="overlayPicData"
+         template="modules/business/patients_group/views/show_picture.html"
+         bind="bind(params)"
+         class="show_big_pic">
+    </div>
+</ion-view>

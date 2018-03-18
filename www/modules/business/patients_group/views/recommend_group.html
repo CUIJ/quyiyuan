@@ -1,0 +1,57 @@
+<ion-view class="qy_recommend_group">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="searchGroup" default="找群组"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+
+        <ul class="list pad-l-14 qy-bg-white border-td mar-t-10" ng-if="groups.length>0">
+            <li class="pad-r-14 position-r line70" ng-repeat="group in groups"
+                ng-class="{false:'border-b',true:''}[$index==groups.length-1]"
+                ng-click="goGroupDetails(group.groupId)">
+                <div class="line70 position-a left_0">
+                    <img class="group_logo" ng-src="{{group.groupPhoto || 'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                </div>
+                <div class="position-a mar-td-10 mar-l-14 r14 left50" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                    <div class="line30 w100">
+                        <div class="fl-l clear line30 w80">
+                            <div class="fl-l max-w60 mar-r-10 text-ellipsis color_3">{{group.groupName}}</div>
+                            <span class="max-w30 bg-label-blue groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==2">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 qy-bg-orange groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==1">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 bg-label-red groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==0">
+                                {{group.groupLabel}}
+                            </span>
+                        </div>
+                        <!--<div class="f12 line20 color_9">
+                            <div class="w100 text-ellipsis">{{group.groupDeclared}}</div>
+                        </div>-->
+                        <div class="fl-r text-right line30 f14 w20 color_9 text-ellipsis" ng-if="group.groupMemberCounts >= 50">
+                            <span>{{group.groupMemberCounts}}人</span>
+                        </div>
+                    </div>
+                    <!--<div class="fl-r text-right line30 f14 w20 color_9 text-ellipsis">-->
+                        <!--<span>{{group.groupMemberCounts}}人</span>-->
+                    <!--</div>-->
+                    <div class="f12 line20 color_9">
+                        <div class="w100 text-ellipsis">{{group.groupDeclared}}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!--无数据提示信息-->
+        <div ng-if="!groups || groups.length == 0 " class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDept" default="暂无推荐群组"></span>
+        </div>
+    </ion-content>
+</ion-view>

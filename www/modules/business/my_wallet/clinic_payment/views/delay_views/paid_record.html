@@ -1,0 +1,236 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年9月22日21:03:17
+* 创建原因：我的钱包--门诊业务缴费详细记录页面
+* 任务号：KYEEAPPC-3468
+* 创建人: 董茁
+* 创建日期:2016年07月29日19:03:17
+* 修改原因门诊附加费用的显示
+* 任务号：KYEEAPPC-7183
+-->
+<ion-view class="qy_paid_record" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="缴费详情"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" ng-if="paidInfo.DELETE_FLAG==1 && isFromClinicPaid==true" ng-click="delete(paidInfo)"  ><span kyee-i18n-directive code="delete" default="删除"></span></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-white f14">
+        <div ng-if="!isEmpty" class="pad-b-14 top_box border-d" ng-style="{'height':(paidInfo.EQUAL_FLAG == 'false')?'126px':'106px'}">
+            <!--支付状态（汉字）-->
+            <p class="f14"  ng-click="errorMsgClick(paidInfo)" ng-class="{'qy-red':paidInfo.ORIG_ACCOUNT_FLAG==2}">{{paidInfo.ACCOUNT_DESC}}
+                <i class="icon icon-icon_1 f16" style="position: relative;top: 2px;" ng-if="paidInfo.ORIG_ACCOUNT_FLAG!=1&&paidInfo.ERROR_MSG!=undefined&&paidInfo.ERROR_MSG!=''&&(paidInfo.ACCOUNT_FLAG==5||(paidInfo.ACCOUNT_FLAG==2&&paidInfo.PAYTYPE_FLAG=='3'&&paidInfo.SHOW_ERROR_MSG=='1'))"></i>
+            </p>
+
+            <!--大金额-->
+            <div ng-if="paidInfo.ACCOUNT_SUM" class="amount qy-green">{{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}</div>
+
+            <!--退费申请/退费详情-->
+            <div class="refund f14 qy-green" >
+                <span ng-if="paidInfo.BUTTON_NAME && paidInfo.ORIG_ACCOUNT_FLAG!=2" ng-click="refundApply(paidInfo)">
+                    {{paidInfo.BUTTON_NAME}}<i class="icon icon-arrow_right"></i>
+                </span>
+                <span ng-if="paidInfo.BUTTON_NAME && paidInfo.ORIG_ACCOUNT_FLAG==2" ng-click="refundDetail(paidInfo)">
+                    {{paidInfo.BUTTON_NAME}}<i class="icon icon-arrow_right"></i>
+                </span>
+            </div>
+
+            <div ng-if="paidInfo.EQUAL_FLAG == 'false'" class="tip qy-grey5 f12">{{paidInfo.CLINIC_TOTAL_FEE_INFO}}</div>
+
+        </div>
+
+        <!--退费详情-->
+        <div ng-if="paidInfo.RETURN_STATUS && paidInfo.ORIG_ACCOUNT_FLAG!=2" class="mar-b-14 qy-orange refund_block border-d-dash" ng-click="refundDetail(paidInfo)">
+            <i class="icon icon-remind f18"></i>
+            <span>{{paidInfo.RETURN_STATUS}}</span>
+            <i class="icon icon-arrow_right qy-grey5 fl-r"></i>
+        </div>
+
+        <!--医院名称-->
+        <label ng-if="!isEmpty" class="item item-input f14 mar-l-14 qy-bg-white hospital_line" style="min-height: 41px;">
+            <i class="icon icon-hospital2 f20 pad-r-10"></i>
+            <div class="text-ellipsis qy-grey7" style="width: 98%;">{{paidInfo.HOSPITAL_NAME}}</div>
+        </label>
+
+        <!--创建时间+缴费项目-->
+        <dl ng-if="!isEmpty" class="container border-d">
+            <dd ng-if="paidInfo.USER_NAME">
+                <span class="container_item" kyee-i18n-directive code="userName" default="就诊者："></span>
+                <span>{{paidInfo.USER_NAME}}</span>
+            </dd>
+            <dd ng-if="paidInfo.CARD_NO">
+                <span class="container_item" kyee-i18n-directive code="newCardNo" default="就诊卡："></span>
+                <span>{{paidInfo.CARD_NO}}</span>
+            </dd>
+            <dd ng-if="paidInfo.PRESC_ATTR">
+                <span class="container_item" kyee-i18n-directive code="prescAttr" default="处方号："></span>
+                <span>{{paidInfo.PRESC_ATTR}}</span>
+            </dd>
+            <dd ng-if="paidInfo.RECEIPT_NO">
+                <span class="container_item" kyee-i18n-directive code="receiptNo" default="收费单号："></span>
+                <span>{{paidInfo.RECEIPT_NO}}</span>
+                <div ng-if="showRcodeImgAbs" class="ta-c">
+                    <img class="one_code"  ng-src="{{paidInfo.BAR_CODE}}">
+                    <div class="qy-grey7 fw-500 mar-d-10" style="">{{paidInfo.RECEIPT_NO}}</div>
+                </div>
+
+            </dd>
+            <dd ng-if="paidInfo.PAY_DATE">
+                <span class="container_item" kyee-i18n-directive code="newPayDate" default="缴费时间："></span>
+                <span>{{paidInfo.PAY_DATE}}</span>
+            </dd>
+        </dl>
+
+        <!--缴费项目-->
+        <div ng-if="isPermit">
+        <ul ng-if="!isEmpty"  class="pay_box pad-l-14">
+            <!--发药/检查/检验图标-->
+            <img ng-if="paidInfo.GETDRUG_FLAG==1&&(paidInfo.ACCOUNT_FLAG==1||paidInfo.ACCOUNT_FLAG==4||paidInfo.ACCOUNT_FLAG==5)" class="tip_img" src="resource/images/myWallet/take_medicine.png">
+            <img ng-if="paidInfo.GETDRUG_FLAG==2&&(paidInfo.ACCOUNT_FLAG==1||paidInfo.ACCOUNT_FLAG==4||paidInfo.ACCOUNT_FLAG==5)" class="tip_img" src="resource/images/myWallet/inspected.png">
+            <img ng-if="paidInfo.GETDRUG_FLAG==3&&(paidInfo.ACCOUNT_FLAG==1||paidInfo.ACCOUNT_FLAG==4||paidInfo.ACCOUNT_FLAG==5)" class="tip_img" src="resource/images/myWallet/tested.png">
+            <li class="pay_head qy-grey7 pad-r-14" >
+                <span kyee-i18n-directive code="payDetails" default="缴费项目"></span>
+            </li>
+            <!--药品名称（类别）+科室/取药窗口+金额-->
+            <li class="pay_detail border-t " ng-repeat="detailItem in paidInfo.PAYDETAIL">
+                <div class="detail_head qy-lightblue pad-r-14" ng-if="detailItem.GROUP_NAME!='NoDrugWindowsFlag'">
+                    <i class="icon icon-drug2 f18"></i><span>{{detailItem.GROUP_NAME}}</span>
+                </div>
+                <div class="row detail_item pad-r-14"  ng-class="$last?'':'border-d'" ng-repeat="detail in detailItem.GROUP_DATA">
+                 <span style=" padding-top: 4px;" ng-click="selectPic(detail) ">
+                    <i  ng-if="detail.IS_CONFIRM!=1&&!detail.confirm" class="f20 qy-green"   style="margin-right: 10px;margin-top: 9px"  ng-class="detail.selectflag?'icon-choose':'icon-none-choose'" ></i>
+                     <i  ng-if="detail.IS_CONFIRM==1||detail.confirm" class="f20 qy-grey4 icon-choose"   style="margin-right: 10px;margin-top: 9px" ></i>
+                 </span>
+                    <span  ng-click="showDetail(detail,paidInfo)" class="col col_70 text-ellipsis"><!--<i  ng-if="paidInfo.IS_ADD!='1'"  class="icon icon-icon_1 qy-green"></i>-->{{detail.ITEM_NAME}}</span>
+                    <span  ng-click="showDetail(detail,paidInfo)" class="col col_20 ta-r">{{'¥ '+convertMoney(detail.ITEM_COSTS,true)}}</span>
+                </div>
+            </li>
+        </ul>
+        <!--温馨提示-->
+        <div style="background: #fafafa;padding: 10px;border: 1px solid #e7e7e7;">
+            <div class="qy-grey7 f14" style=" margin-top: 9px; padding-left: 4px">温馨提示</div>
+            <div class="qy-grey6" style="background: white;margin-top: 9px;padding: 10px;border: 1px solid #e7e7e7;">
+                <lable>
+                    {{tipText}}
+                </lable>
+            </div>
+
+        </div>
+
+        <div style="height: 50px;    padding-top: 10px;padding-right: 14px;">
+            <div  ng-click="toAllChoose()" style="float: left;padding-left: 14px; padding-top: 5px;position: relative;width: 130px;" >
+                <i class="f20 qy-green" style="margin-right: 7px;margin-top: 9px ;" ng-if="!canSelectAll" ng-class="allChoose?'icon-choose':'icon-none-choose'" ></i>
+                <i class="f20 qy-grey4 icon-choose" style="margin-right: 7px;margin-top: 9px ;"ng-if="canSelectAll"></i>
+                <span style="position: absolute;top: 6px;" ng-if="!allChoose||canSelectAll"  ng-class="{'allChooseFont':canSelectAll}">全选</span>
+                <span style="position: absolute;top: 6px" ng-if="allChoose&&!canSelectAll">取消全选</span>
+            </div>
+            <!--确认按钮-->
+            <div  ng-if="canConfirm" ng-click="confirm()" style="border-radius: 2px ;width: 100px;height: 30px; float: right;text-align: center;background:#5baa8a ;color: white;padding-top: 5px;" >
+                确定
+            </div>
+            <div  ng-if="!canConfirm" ng-click="confirm()" style="border-radius: 2px ;width: 100px;height: 30px; float: right;text-align: center;background:#f4f4f4 ;color: #CCCCCC;padding-top: 5px;" >
+                确定
+            </div>
+        </div>
+       </div>
+
+        <div ng-if="!isPermit">
+            <!--缴费项目-->
+            <ul ng-if="!isEmpty"  class="border-d pay_box pad-l-14">
+                <!--发药/检查/检验图标-->
+                <img ng-if="paidInfo.GETDRUG_FLAG==1&&(paidInfo.ACCOUNT_FLAG==1||paidInfo.ACCOUNT_FLAG==4||paidInfo.ACCOUNT_FLAG==5)" class="tip_img" src="resource/images/myWallet/take_medicine.png">
+                <img ng-if="paidInfo.GETDRUG_FLAG==2&&(paidInfo.ACCOUNT_FLAG==1||paidInfo.ACCOUNT_FLAG==4||paidInfo.ACCOUNT_FLAG==5)" class="tip_img" src="resource/images/myWallet/inspected.png">
+                <img ng-if="paidInfo.GETDRUG_FLAG==3&&(paidInfo.ACCOUNT_FLAG==1||paidInfo.ACCOUNT_FLAG==4||paidInfo.ACCOUNT_FLAG==5)" class="tip_img" src="resource/images/myWallet/tested.png">
+                <li class="pay_head qy-grey7 pad-r-14" >
+                    <span kyee-i18n-directive code="payDetails" default="缴费项目"></span>
+                </li>
+                <!--药品名称（类别）+科室/取药窗口+金额-->
+                <li class="pay_detail border-t " ng-repeat="detailItem in paidInfo.PAYDETAIL">
+                    <div class="detail_head qy-lightblue pad-r-14" ng-if="detailItem.GROUP_NAME!='NoDrugWindowsFlag'">
+                        <i class="icon icon-drug2 f18"></i><span>{{detailItem.GROUP_NAME}}</span>
+                    </div>
+                    <div class="row detail_item pad-r-14" ng-class="$last?'':'border-d'" ng-repeat="detail in detailItem.GROUP_DATA" ng-click="showDetail(detail,paidInfo)">
+                        <span class="col col_70 text-ellipsis"><i  ng-if="paidInfo.IS_ADD!='1'"  class="icon icon-icon_1 qy-green"></i>{{detail.ITEM_NAME}}</span>
+                        <span class="col col_30 ta-r">{{'¥ '+convertMoney(detail.ITEM_COSTS,true)}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <!--保险字段-->
+        <ul class="pad-b-14 detail_box pad-d-20" ng-if="!(paidInfo.ACCOUNT_PAY==undefined && paidInfo.INSUR_PAY==undefined && paidInfo.MYSELF_PAY==undefined &&
+                    paidInfo.INSUR_SELF_PAY==undefined && paidInfo.CLASS_SELF_PAY==undefined && paidInfo.OTHER_APY==undefined)">
+            <li class="detail_head qy-grey7" >
+                <span kyee-i18n-directive code="payDetails1" default="支付详情"></span>
+            </li>
+            <ul class="qy-bg-grey1 container">
+                <!--费用总额-->
+                <li class="row" ng-if="paidInfo.ACCOUNT_SUM && paidInfo.ACCOUNT_SUM>0" >
+                    <span class="container_item"  kyee-i18n-directive code="newAccountSum" default="费用总额："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.ACCOUNT_SUM)}}</span>
+                </li>
+                <!--统筹金额-->
+                <li class="row" ng-if="paidInfo.INSUR_PAY && paidInfo.INSUR_PAY>0" >
+                    <span class="container_item"  kyee-i18n-directive code="insurPay" default="统筹支付："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.INSUR_PAY)}}</span>
+                </li>
+                <!--账户金额-->
+                <li class="row" ng-if="paidInfo.ACCOUNT_PAY && paidInfo.ACCOUNT_PAY>0" >
+                    <span class="container_item"  kyee-i18n-directive code="accountPay" default="账户支付："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.ACCOUNT_PAY)}}</span>
+                </li>
+                <!--自费金额-->
+                <li class="row" ng-if="paidInfo.MYSELF_PAY && paidInfo.MYSELF_PAY>0" >
+                    <span class="container_item"  kyee-i18n-directive code="myselfPay" default="自费金额："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.MYSELF_PAY)}}</span>
+                </li>
+                <!--自负金额-->
+                <li class="row" ng-if="paidInfo.INSUR_SELF_PAY && paidInfo.INSUR_SELF_PAY>0" >
+                    <span class="container_item"  kyee-i18n-directive code="insurSelfPay" default="自负金额："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.INSUR_SELF_PAY)}}</span>
+                </li>
+                <!--现金支付-->
+                <li class="row" ng-if="paidInfo.PERSONALCASH_PAY && paidInfo.PERSONALCASH_PAY>0" >
+                    <span class="container_item" kyee-i18n-directive code="personalCashPay" default="现金支付："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.PERSONALCASH_PAY)}}</span>
+                </li>
+                <li class="row" ng-if="paidInfo.CLASS_SELF_PAY && paidInfo.CLASS_SELF_PAY>0" >
+                    <span class="container_item" kyee-i18n-directive code="classSelfPay" default="分类自负金额："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.CLASS_SELF_PAY)}}</span>
+                </li>
+                <!--其它金额-->
+                <li class="row" ng-if="paidInfo.OTHER_APY && paidInfo.OTHER_APY>0">
+                    <span class="container_item" kyee-i18n-directive code="otherApy" default="其他："></span>
+                    <span class="qy-grey7 f16">{{'¥'+convertMoney(paidInfo.OTHER_APY)}}</span>
+                </li>
+            </ul>
+        </ul>
+
+        <!--空信息-->
+        <div ng-if="isEmpty" class="empty-text">
+            <i ng-if="emptyText!=undefined"  class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+
+        <!--一维码区域-->
+        <div  class="pad-b-14 pad-t-10 qy-bg-grey2" style="height: 125px;" ng-if="paidInfo.PAYMENT_FEE_SUCCESS_MSG && paidInfo.RECEIPT_NO&&paidInfo.IS_OPEN_ONEDIMENCODE==1">
+            <div class="f14 pad-d-10">温馨提示</div>
+            <div class="success_information fn-break qy-bg-white" style="border: 1px solid #e7e7e7;">
+                <span ng-if="!showRcodeImgAbs" class="col f14 detail_msg"  ng-bind-html="paidInfo.PAYMENT_FEE_SUCCESS_MSG|kyee_to_html" id="paidSuccessMsgID" ></span>
+                <span ng-if="showRcodeImgAbs"  class="col f14 detail_msg">{{paidInfo.PAYMENT_FEE_SUCCESS_MSG}}</span>
+            </div>
+        </div>
+        <!--二维码区域-->
+        <div  class="pad-b-14 pad-t-10 qy-bg-grey2" style="height: 125px;" ng-if="paidInfo.PAYMENT_FEE_SUCCESS_MSG && paidInfo.IS_OPEN_ONEDIMENCODE==0">
+            <div class="f14 pad-d-10">温馨提示</div>
+            <div class="success_information fn-break qy-bg-white" style="border: 1px solid #e7e7e7;">
+                <span  class="col f14 detail_msg"  ng-bind-html="paidInfo.PAYMENT_FEE_SUCCESS_MSG|kyee_to_html" id="paidSuccessMsgIDTwo" ng-click="getTwoDimenCode()"></span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

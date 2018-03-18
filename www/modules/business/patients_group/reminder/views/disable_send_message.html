@@ -1,0 +1,14 @@
+<ion-view class="qy_disable_send_message">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="disableSendMessage" default="禁言"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2 scroll-content ionic-scroll has-header">
+        <div class="mar-t-10 border-td f14 pad-b-14 qy-bg-white msgContent">
+            您在{{data.groupName}}的不当言论已受到{{data.reportCount}}次病友举报，系统将禁止您在{{data.startTime}}至{{data.endTime}}内发布任何内容，禁言解除后请规范言论，如多次发布违规内容，你将被管理员移出该群。
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,341 @@
+<ion-view class="qy_conversation qy_show_pictrue" ng-click="hiddenMenuTab()">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <div class="f18 text-ellipsis">{{groupInfo.tname}}</div>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <span ng-click="goGroupDetails(groupInfo)" class="groupFlag position-a r14 icon-group-q color_6">
+            </span>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <!--群公告信息模块 start-->
+    <div class="group_announcement bg-color-light-pink color_orange_ff9900 position-a" ng-if="groupAnnouncement"
+         ng-style="{'top':announcementTop+'px'}"
+         ng-click="goAnnouncementDetail()">
+        <div class="position-a announcement_label mar-r-5 line40" kyee-i18n-directive code="groupAnnouncement" default="群公告"></div>
+        <div class="position-a announcement_text text-ellipsis line40">
+            <span class="position-a" ng-class="{'announcement_scroll_active': 14 < groupAnnouncement.length }" ng-bind-html="TrustInputContent(groupAnnouncement);"></span>
+        </div>
+        <div class="position-a delete_announcement ta-c icon-icon_6 font20 line40" ng-click="deleteAnnouncement()"></div>
+    </div>
+    <!--群公告信息模块 end-->
+
+    <ion-content has-bouncing="true" scrollbar-y="false" class="qy-bg-grey1 pad-b-14 f14" ng-style="{'bottom':contentBottom+'px','top': (groupAnnouncement ? (announcementTop + 40): announcementTop) +'px'}" ng-click="hideBottomContent()" id="footerBar" delegate-handle="conversation_content">
+        <!--下拉加载更多 start-->
+        <ion-refresher pulling-text="" pulling-icon="" refreshing-icon="" refreshing-text="" class="refresher-icon" on-refresh="doRefresh()">
+        </ion-refresher>
+        <!--下拉加载更多 end-->
+
+        <!--加载更多提示消息 start-->
+        <div class="mar-td-10 ta-c group_tips" ng-if="noMoreMessage.length >0">
+            <span class="mar-td-5 notice_prompt f12 qy-bg-grey4 qy-fff">
+                {{noMoreMessage}}
+            </span>
+        </div>
+        <!--加载更多提示消息 end-->
+
+        <!--提示信息 start-->
+        <div class="ta-c mar-td-10 group_tips">
+            <div class="pad-b-14 mar-td-10 border-all border_radius_5 qy-bg-white"
+                 ng-if="(firstGoIn && groupInfo.groupType === 0) && recommendGroup.length>0 ||
+                 (!firstGoIn && recommendGroup && recommendGroup.length>0)" >
+                <div class="item clear line40" ng-if="recommendGroup && recommendGroup.length>0">
+                    <div class="fl-l qy-bg-green recommend_img mar-td-10 position-r">
+                        <i class="icon-favorite qy-fff position-a"></i>
+                    </div>
+                    <div class="fl-l mar-l-10 max-w80 text-ellipsis f14">你可能感兴趣的群</div>
+                </div>
+                <div class="item clear line50 border-t position-r" ng-if="recommendGroup && recommendGroup.length>0"
+                     ng-repeat="group in recommendGroup">
+                    <div ng-click="goGroupDetails(group)" class="fl-l" ng-style="{'width':KyeeEnv.innerSize.width - 102 + 'px'}">
+                        <div class="fl-l line50 group_logo">
+                            <img ng-src="{{group.groupPhoto || 'resource/images/icons/logo_default.png'}}"
+                                 onerror="javascript:this.src='resource/images/icons/logo_default.png'" />
+                        </div>
+                        <div class="fl-l mar-b-10 text-ellipsis f14" ng-style="{'max-width':KyeeEnv.innerSize.width - 222 + 'px'}">
+                            {{group.tname}}
+                        </div>
+                        <div class="fl-l mar-r-10" ng-if="group.groupType">
+                            <span class="f12 qy-fff label qy-bg-orange" ng-if="group.groupLabel && group.groupType==1 ">{{group.groupLabel}}</span>
+                            <span class="f12 qy-fff label bg-label-blue" ng-if="group.groupLabel &&group.groupType==2">{{group.groupLabel}}</span>
+                        </div>
+                    </div>
+                    <span class="line30 qy-fff qy-bg-green border_radius_5 position-a group_add_btn"
+                          ng-click="goGroupDetails(group)">
+                        进入
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--提示信息 end-->
+
+        <div ng-repeat="message in talkData track by $index" class="mar-td-15 position-r" >
+            <div class="text-c line30" ng-if="message.showTimeFlag == 1">
+                <span class="pad-b-10 qy-bg-grey4 qy-fff border_radius_2 f12 display-inline-b line20">
+                    {{message.showTime}}
+                </span>
+            </div>
+            <div class="mar-td-10 ta-c group_tips" ng-if="message.type == 'tip'">
+                <span class="mar-td-5 notice_prompt f12 qy-bg-grey4 qy-fff">
+                    {{message.content}}
+                </span>
+            </div>
+            <!-- 群通知 -->
+            <div class="mar-td-10 ta-c group_tips" ng-if="message.type == 'notification'">
+                <span class="mar-td-5 notice_prompt f12 qy-bg-grey4 qy-fff">
+                    {{message.content}}
+                </span>
+            </div>
+
+
+            <!--显示发送消息 start-->
+            <div class="qy_send_msg mar-tb-30 position-r ta-r" ng-if="message.isShowSendFrame">
+                <div class="mar-l-10 position-a send_img">
+                    <img class="user_icon"
+                         ng-src="{{senderInfo.userPhoto ||
+                         ('2' == senderInfo.sex ? 'resource/images/patients_group/user_female.png':'resource/images/patients_group/user_male.png')}}"
+                         ng-click="goPersonalSetting()"
+                         onerror="javascript:this.src='resource/images/patients_group/user_male.png'"/>
+                </div>
+                <div class="position-r max-w65 display-inline-b ta-l send_content" on-hold="longPressEvent(message,$index)">
+                    <div class="send_text text_msg chat_sender_bg border-all-green border_radius_4 color_3 clear">
+                        <!--图片消息 start-->
+                        <div class="ta-c" ng-if="'image' == message.type">
+                            <img class="pic_wh" ng-click="showBigPic(message.attach.filePath || message.attach.url,message.direction,$event,message)" 
+                            ng-src="{{message.attach.filePath || message.attach.url}}"
+                                 onerror="javascript:this.src='resource/images/patients_group/img_load_fail.png';this.className = 'pic_wh_load_fail' "/>
+                        </div>
+                        <!--图片消息 end-->
+
+                        <!--文本消息 start-->
+                        <div ng-if="'text' == message.type" class=" break-all" ng-bind-html="TrustInputContent(message.content)" ng-click="openUrl(message.content)"></div>
+                        <!--文本消息 end-->
+
+                        <!--语音消息 start-->
+                        <div ng-if="'audio' == message.type && !isWeb" class="audio_msg fl-r" ng-click="playAudio(message,$index);$event.stopPropagation();"
+                             ng-style="{'width': (30 + message.attach.dur/1000 * 3) + 'px'}">
+                            <div class="voice_gif position-r"
+                                 ng-class="{'voice_play': message.id == voiceMessage.playMsgId}">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                            </div>
+                            <!--<audio preload="load" id="{{message.qyMsgId}}">
+                                <source ng-src="{{trustAsResourceUrl(message.localPath)}}" type="audio/amr">
+                                暂不支持该类型语音文件播放
+                            </audio>-->
+                        </div>
+                        <!-- <div ng-if="'audio' == message.type && isWeb" class="break-all" ng-bind-html="TrustInputContent(message.content)" ng-click="openUrl(message.content)"></div> -->
+                        
+                        <!--语音消息 end-->
+                    </div>
+                    <div class="arrow_right">
+                        <span></span>
+                    </div>
+                    <i class="icon-exclamation-mark f20 resend_icon color-red position-a" ng-if="'fail' === message.status"
+                       ng-click="reSend(message,$index)"></i>
+                    <!-- <span>{{message.status}}</span> -->
+                    <div class="load_img position-a" ng-if="'sending' === message.status">
+                        <img ng-src="{{'resource/images/patients_group/loading.gif'}}" />
+                    </div>
+
+                    <!--消息菜单操作 start-->
+                    <div class="position-a message_menu" ng-if="message.showMenuFlag">
+                        <ul class="menu_tab row qy-bg-grey7 border_radius_4 qy-fff">
+                            <li class="menu_tab_item text-c border-r" ng-if="(platform == 'Android' || platform == 'iOS') && message.type == 'text'" ng-click="copyMessage(message)">复制</li>
+                            <li class="menu_tab_item text-c border-r" ng-if="'success' === message.status" ng-click="revokeMessage(message,$index)">撤回</li>
+                            <li class="menu_tab_item text-c" ng-if="'sending' != message.status && !isWeb" ng-click="deleteMessage(message,$index)">删除</li>
+                        </ul>
+                        <div class="menu_arrow_down" ng-style="{'right': ('fail' !== message.status ? 17 : 33) +'px'}" ng-hide="'sending' == message.status || (isWeb && 'fail' == message.status)">
+                            <span></span>
+                        </div>
+                    </div>
+                    <!--消息菜单操作 end-->
+                </div>
+            </div>
+            <!--显示发送消息 end-->
+
+            <!--显示接收消息 start-->
+            <div class="qy_receive_msg mar-tb-30 position-r ta-l" 
+            ng-if="message.isShowReceiveFrame">
+                <div class="mar-r-10 position-a receive_img">
+                    <img ng-if="2 != message.userRole" ng-src="{{message.userPhoto ||
+                    (2 == message.sex ? 'resource/images/patients_group/user_female.png'
+                             : 'resource/images/patients_group/user_male.png')}}"
+                         class="user_icon" ng-click="goPersonalDetails(message)"
+                         onerror="javascript:this.src='resource/images/patients_group/user_male.png'"/>
+                    <img ng-if="2 == message.userRole" ng-src="{{message.userPhoto ||
+                    (2 == message.sex ? 'resource/images/patients_group/doctor_female.png'
+                             : 'resource/images/patients_group/doctor_male.png')}}"
+                         class="user_icon" ng-click="goDoctorDetails(message)"
+                         onerror="javascript:this.src='resource/images/patients_group/doctor_male.png'"/>
+                </div>
+                <div class="position-r max-w65 display-inline-b ta-l receive_content" on-hold="longPressEvent(message,$index)">
+                    <div class="line20 qy-grey5 f12 text-ellipsis">{{ message.fromNick}}</div>
+
+                    <div class="position-r fl-l receive_text text_msg qy-bg-white border-all border_radius_4 color_3">
+                        <!--图片消息 start-->
+                        <div class="text-c" ng-if="'image' == message.type">
+                            <img class="pic_wh" ng-click="showBigPic(message.attach.filePath || message.attach.url,message.direction,$event,message)" 
+                            ng-src="{{message.attach.thumbPath || message.attach.url}}"
+                                 onerror="javascript:this.src='resource/images/patients_group/img_load_fail.png';this.className = 'pic_wh_load_fail' "/>
+                        </div>
+                        <!--图片消息 end-->
+
+                        <!--文本消息 start-->
+                        <div ng-if="'text' == message.type" class="break-all" ng-bind-html="TrustInputContent(message.content)" ng-click="openUrl(message.content)"></div>
+                        <!--文本消息 end-->
+
+                        <!--语音消息 start-->
+                        <div ng-if="'audio' == message.type && !isWeb" class="audio_msg" ng-click="playAudio(message,$index);$event.stopPropagation();"
+                             ng-style="{'width': (30 + message.attach.dur/1000 * 3 ) + 'px'}">
+                            <div ng-class="{'voice_play': message.id == voiceMessage.playMsgId}" class="voice_gif position-r">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                            </div>
+                            <span class="unread_state" ng-if="message.status != 'read' "></span>
+                            <!--<audio preload="load" id="{{message.qyMsgId}}">
+                                <source ng-src="{{trustAsResourceUrl(message.localPath)}}" type="audio/amr">
+                                暂不支持该语音文件播放
+                            </audio>-->
+                        </div>
+                        <!--语音消息 end-->
+                        <!-- <div ng-if="'audio' == message.type && isWeb" class="break-all" ng-bind-html="TrustInputContent(message.content)" ng-click="openUrl(message.content)"></div> -->
+                        
+
+                    </div>
+                    <div class="arrow_left qy-bg-grey1">
+                        <span></span>
+                    </div>
+
+                    <!--消息菜单操作 start-->
+                    <div class="position-a message_menu" ng-if="message.showMenuFlag&&!isWeb">
+                        <ul class="menu_tab row qy-bg-grey7 border_radius_4 qy-fff">
+                            <li class="menu_tab_item text-c border-r" ng-if="(platform == 'Android' || platform == 'iOS')
+                            &&  message.type == 'text'" ng-click="copyMessage(message)">复制</li>
+                            <li class="menu_tab_item text-c" ng-if="'sending' !== message.status && !isWeb" ng-click="deleteMessage(message,$index)">删除</li>
+                        </ul>
+                        <div class="menu_arrow_down" ng-hide="'sending' == message.status">
+                            <span></span>
+                        </div>
+                    </div>
+                    <!--消息菜单操作 end-->
+                </div>
+            </div>
+            <!--显示接收消息 end-->
+
+            <!--显示提示消息 start-->
+            <div class="mar-td-10 ta-c group_tips" ng-if="message.remark">
+                <span class="mar-td-5 notice_prompt f12 qy-bg-grey4 qy-fff">
+                    {{message.remark}}
+                </span>
+            </div>
+            <!--显示提示消息 end-->
+        </div>
+    </ion-content>
+
+    <!--录音中区域显示 start-->
+    <div id="pop_recorder" class="pop_voice_modal" ng-show="voiceMessage.showVoiceModal">
+        <div class="position-a voice_record_block_bg" ng-class="{'bg-color-red':voiceMessage.cancelFlag}"></div>
+        <div class="voice_record_block position-a">
+            <div class="record_gif_block position-r" ng-if="!voiceMessage.cancelFlag && !voiceMessage.shortRecordFlag">
+                <div class="position-a icon-record color-f"></div>
+                <div class="position-a ta-c gif_animation">
+                    <div class="record_gif record_gif_trapezoid4 mar-t-8"></div>
+                    <div class="record_gif record_gif_trapezoid3 mar-t-8"></div>
+                    <div class="record_gif record_gif_trapezoid2 mar-t-8"></div>
+                    <div class="record_gif record_gif_trapezoid1 mar-t-8"></div>
+                    <div class="record_gif record_gif_trapezoid0 mar-t-8"></div>
+                </div>
+            </div>
+            <div class="record_gif_block pad-t-30" ng-if="voiceMessage.cancelFlag">
+                <div class="icon-revocation ta-c color-f"></div>
+            </div>
+            <div class="record_gif_block pad-t-30" ng-if="voiceMessage.shortRecordFlag">
+                <div class="icon-tip ta-c color-f"></div>
+            </div>
+            <div class="position-a voice_tit_text color-f f14 ta-c">{{voiceMessage.cancel_tit}}</div>
+        </div>
+    </div>
+    <!--录音中区域显示 end-->
+
+    <ion-footer-bar class="footer_div border-t display-block" keyboard-attach ng-style="{'height':footerBarHeight + 'px'}">
+        <div class="row" class="compatibility">
+            <i class="icon-phone font32 line32 qy-color position-a left_14 bottom12"
+               ng-if="showVoiceArea"
+               ng-class="{false:'icon-phone',true:'icon-keyboard'}[voiceOpenFlag]"
+               ng-style="{ 'bottom': (emojiOpenFlag || attachOpenFlag ?  emojiDivHeight : 12)+'px' }"
+               ng-click="showOrHideVoiceDiv()"></i>
+            <i class="icon-keyboard font32 line32 qy-color position-a left_14 bottom12"
+               ng-if="!showVoiceArea"
+               ng-style="{ 'bottom': (emojiOpenFlag || attachOpenFlag ?  emojiDivHeight : 12)+'px' }"
+               ng-click="getFocus()"></i>
+            <textarea  msd-elastic ng-show="!voiceOpenFlag" id="inputDiv"
+                       class="send_input pad-td-5 f14 position-a bottom12"
+                       ng-model="foo"
+                       ng-focus="inputFocus($event)"
+                      ng-click="inputClick($event)"
+                      ng-keydown="inputKeydown($event)" ng-keyup="inputKeyup($event)" ng-change="inputChange()"
+                      ng-style="{'width':KyeeEnv.innerSize.width-162+'px','bottom': (emojiOpenFlag || attachOpenFlag ?  emojiDivHeight : 12)+'px'}"></textarea>
+            <div class="voice_block ta-c qy-color f14 position-a bottom12"
+                 ng-if="voiceOpenFlag"
+                 ng-class="{'chat_sender_bg': '松开 结束'== voiceMessage.record_tit}"
+                 on-hold="startRecording();$event.preventDefault();" on-drag-up="cancelRecording();$event.preventDefault();"
+                 on-release="endAudioRecording();$event.preventDefault();">{{voiceMessage.record_tit}}
+            </div>
+            <i class="icon-smilies font32 line32 qy-color position-a bottom12"
+               ng-style="{ 'bottom': (emojiOpenFlag || attachOpenFlag ?  emojiDivHeight : 12)+'px' }"
+               ng-click="showOrHideEmojiDiv()"> </i>
+            <i ng-if="!foo" class="icon-add2 font32 line32 qy-color position-a r14 bottom12"
+               ng-style="{ 'bottom': (emojiOpenFlag || attachOpenFlag ?  emojiDivHeight : 12)+'px' }"
+               ng-click="showOrHideAttachDiv()"> </i>
+            <span ng-if="foo" class="send_button qy-bg-green line32 qy-fff position-a r14 f12"
+                  ng-style="{ 'bottom': (emojiOpenFlag || attachOpenFlag ?  emojiDivHeight : 12)+'px' }"
+                  ng-click="sendImMsg()">发送</span>
+        </div>
+        <!--表情区域-->
+        <ion-slide-box delegate-handle="emoji-slide" show-pager="{{emojiData.length>1}}"
+                       class="pad-b-14 w100 position-a bottom0 pad-td-10"
+                       ng-style="{height:emojiDivHeight+'px'}" ng-if="emojiOpenFlag">
+            <ion-slide ng-repeat="emojiPageData in emojiData">
+                <div class="row" ng-repeat="emojiLineData in emojiPageData">
+                    <div ng-repeat="emoji in emojiLineData" class="emoji_cursor pad-t-15 pad-d-15 display-inline-b" ng-click="chooseEmoji(emoji)">
+                        <img ng-src="{{emoji.emojiUrl}}" ng-if="emoji.emojiUrl" class="emoji_img"
+                             ng-style="{'margin-left': emojiPadding+'px', 'margin-right': emojiPadding+'px'}">
+                        <div ng-if="emoji.chineseSign == 'emptyIcon'" class="display-inline-b h25"  ng-style="{'width': emoji.emptyBlock+'px'}"></div>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+        <!--附加区域-->
+        <div class="w100 pad-b-14 pad-t-25 pad-d-20 position-a f10 bottom0"
+             ng-style="{height:emojiDivHeight+'px'}" ng-if="attachOpenFlag">
+            <div class="">
+                <div class="mar-l-40 fl-l width50">
+                    <div class="icon-Photo qy-color chat_module_Icon f28"  ng-click="choosePicture()"></div>
+                    <span class="fl-l width50 ta-c line30 qy-grey6">图片</span>
+                </div>
+                <div class="mar-l-20 fl-l width50" ng-if="isWeb == false">
+                    <div class="icon-Camera qy-color chat_module_Icon f28" ng-click="goToCamera()"></div>
+                    <span class="fl-l width50 ta-c line30 qy-grey6 ">拍照</span>
+                </div>
+            </div>
+        </div>
+    </ion-footer-bar>
+
+	<div kyee-overlay-directive
+         location="center"
+         width="{{overlayPicData.width}}"
+         height="{{overlayPicData.height}}"
+         data="overlayPicData"
+         template="modules/business/patients_group/views/show_picture.html"
+         bind="bind(params)"
+         class="show_big_pic">
+    </div>
+    <form enctype="multipart/form-data" ng-submit="saveWebImg()" method="post">
+        <input id="webChoosePictureGroup" type="file" file-model="myFile" accept="image/*" class="fn-dn">
+    </form>
+</ion-view>

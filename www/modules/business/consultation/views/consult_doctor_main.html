@@ -1,0 +1,211 @@
+<ion-view  class="qy-bg-grey2 consultation_common qy_consult_doctor_main">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title>
+            <span>咨询医生</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="searchDoctor()">
+                <i class="icon-seach qy-fff"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="has-header"  delegate-handle="consult_doctor_main">
+        <!--热门科室-->
+        <div class="info-list qy-bg-white border-td mar-td-10 pad-b-14">
+            <div class="title qy-grey5 flex justify-between">
+                <div class="f14">科室分类</div>
+            </div>
+            <ul class="flex flex-wrap dept_list">
+                <li ng-repeat="dept in enty.groups.deptList.items track by $index"
+                    ng-click="chooseDept(dept)"
+                    class="ta-c info-item pad-td-10">
+                    <i class="inline radius50p f20 lineh40" ng-class='dept.icon'></i>
+                    <div class="lineh12 f12 qy-grey6 pad-t-8">{{dept.name}}</div>
+                </li>
+            </ul>
+            <div class="f12 mar-d-20 qy-grey5 ta-c" ng-click="slideDeptList()">
+                查看更多科室
+                <span class="icon qy-grey4 mar-l-5" ng-class="isFolding?'icon-arrow_down':'ion-chevron-up'"></span>
+            </div>
+        </div>
+        <!--推荐医生-->
+        <div class="info-list qy-bg-white border-td">
+            <div class="title qy-grey5 pad-b-14">推荐医生</div>
+            <div ng-if="enty.groups.topDoctor.items.length <= 4">
+                <div class="flex scrollBox">
+                    <div class="info-item pad-lr-14"
+                         ng-click ="goDoctorNav(topDoctor,'topDoctor')"
+                         ng-repeat="topDoctor in enty.groups.topDoctor.items"
+                         ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}">
+                        <div>
+                            <div ng-if="topDoctor.sex == 1" class="imgbox">
+                                <img class="head_image"
+                                     ng-src="{{topDoctor.photo}}"
+                                     onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+                            </div>
+                            <div ng-if="topDoctor.sex != 1" class="imgbox">
+                                <img class="head_image"
+                                     ng-src="{{topDoctor.photo}}"
+                                     onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+                            </div>
+                        </div>
+                        <div class="qy-grey7 ta-c mar-t-10 text-ellipsis" ng-bind="topDoctor.name"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="topDoctor.hospital"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="topDoctor.dept"></div>
+                    </div>
+                </div>
+            </div>
+            <ion-scroll ng-if="enty.groups.topDoctor.items.length > 4"
+                        zoom="false" direction="x" scrollbar-x="false"  scrollbar-y="false"
+                        on-drag-up="onDragUp()" on-drag-down="onDragDown()">
+                <div class="flex scrollBox">
+                    <div class="info-item pad-lr-14"
+                         ng-click ="goDoctorNav(topDoctor,'topDoctor')"
+                         ng-repeat="topDoctor in enty.groups.topDoctor.items"
+                         ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}">
+                        <div>
+                           <div ng-if="topDoctor.sex == 1" class="imgbox">
+                               <img class="head_image"
+                                    ng-src="{{topDoctor.photo}}"
+                                    onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+                           </div>
+                            <div ng-if="topDoctor.sex != 1" class="imgbox">
+                                <img class="head_image"
+                                     ng-src="{{topDoctor.photo}}"
+                                     onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+                            </div>
+                        </div>
+                        <div class="qy-grey7 ta-c mar-t-10 text-ellipsis" ng-bind="topDoctor.name"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="topDoctor.hospital"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="topDoctor.dept"></div>
+                    </div>
+                </div>
+            </ion-scroll>
+        </div>
+        <!--关注医生-->
+        <div class="info-list qy-bg-white border-td mar-td-10" ng-if="enty.groups.careDoctor.items.length">
+            <div class="title qy-grey5 pad-b-14">我关注的医生</div>
+            <div  ng-if="enty.groups.careDoctor.items.length <= 4">
+                <div class="flex scrollBox">
+                    <div class="info-item pad-lr-14"
+                         ng-click ="goDoctorNav(careDoctor,'careDoctor')"
+                         ng-repeat="careDoctor in enty.groups.careDoctor.items"
+                         ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}">
+                        <div>
+                            <div ng-if="careDoctor.sex == 1" class="imgbox">
+                                <img class="head_image"
+                                     ng-src="{{careDoctor.photo}}"
+                                     onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+                            </div>
+                            <div ng-if="careDoctor.sex != 1" class="imgbox">
+                                <img class="head_image"
+                                     ng-src="{{careDoctor.photo}}"
+                                     onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+                            </div>
+                        </div>
+                        <div class="qy-grey7 ta-c mar-t-10 text-ellipsis" ng-bind="careDoctor.name"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="careDoctor.hospital"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="careDoctor.dept"></div>
+                    </div>
+                </div>
+            </div>
+            <ion-scroll ng-if="enty.groups.careDoctor.items.length > 4"
+                        zoom="false" direction="x" scrollbar-x="false"  scrollbar-y="false"
+                        on-drag-up="onDragUp()" on-drag-down="onDragDown()">
+                <div class="flex scrollBox">
+                    <div class="info-item pad-lr-14"
+                         ng-click ="goDoctorNav(careDoctor,'careDoctor')"
+                         ng-repeat="careDoctor in enty.groups.careDoctor.items"
+                         ng-style="{width: (KyeeEnv.innerSize.width)*0.25+'px'}">
+                        <div>
+                            <div ng-if="careDoctor.sex == 1" class="imgbox">
+                                <img class="head_image"
+                                     ng-src="{{careDoctor.photo}}"
+                                     onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+                            </div>
+                            <div ng-if="careDoctor.sex != 1" class="imgbox">
+                                <img class="head_image"
+                                     ng-src="{{careDoctor.photo}}"
+                                     onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+                            </div>
+                        </div>
+                        <div class="qy-grey7 ta-c mar-t-10 text-ellipsis" ng-bind="careDoctor.name"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="careDoctor.hospital"></div>
+                        <div class="qy-grey5 ta-c text-ellipsis f12" ng-bind="careDoctor.dept"></div>
+                    </div>
+                </div>
+            </ion-scroll>
+        </div>
+
+        <!--名医动态-->
+        <div class="info-list qy-bg-white border-td mar-td-10" ng-if="doctorActionList.length">
+            <div class="title qy-grey5 flex justify-between pad-b-14">
+                <div class="f14">名医动态</div>
+                <div class="f12" ng-if="showMore" ng-click="goFamousDoctor()">更多动态<i class="ion-chevron-right mar-l-10"></i></div>
+            </div>
+            <div class="pad-l-14">
+                <div class="flex pad-td-20 align-top pad-r-14"
+                     ng-class="$index>0?'border-t':''"
+                     ng-repeat="action in doctorActionList">
+                    <div class="flex-50" ng-click="goDoctorInfo(action)">
+
+                        <div ng-if="action.sex == 1" class="imgbox">
+                            <img class="head_image"
+                                 ng-src="{{action.photo?action.photo:'resource/images/base/head_default_man.jpg'}}"
+                                 onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+                        </div>
+                        <div ng-if="action.sex != 1" class="imgbox">
+                            <img class="head_image"
+                                 ng-src="{{action.photo?action.photo:'resource/images/base/head_default_female.jpg'}}"
+                                 onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+                        </div>
+                    </div>
+                    <div class="mar-l-10">
+                        <div class="qy-grey5" ui-sref="consult_famous_doctor">
+                            <span class="f14">{{action.doctorName}}</span>
+                            <span class="mar-l-5 f12">{{action.deptName}}</span>
+                        </div>
+                        <div class="qy-grey5 f12" ui-sref="consult_famous_doctor">
+                            {{action.hospitalName}}
+                        </div>
+                        <div class="qy-grey7 mar-t-5 text-hidden text-wrap"
+                             ng-class="(!(action.lines > 3) || action.isShowAll)?'height-auto':'height-60'"
+                             ui-sref="consult_famous_doctor">{{action.content}}</div>
+                        <div class="qy-blue f14 mar-t-5"
+                             ng-if="action.lines > 3"
+                             ng-click="toggleShowAll(action)">{{action.isShowAll?'收起':'全文'}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--推荐医院-->
+        <div class="info-list qy-bg-white border-td mar-t-10">
+            <div class="title qy-grey5 flex justify-between pad-b-14">
+                <div>推荐医院</div>
+            </div>
+            <div class="pad-l-14">
+
+                <div class="flex pad-td-20 align-top pad-r-14"
+                     ng-click = "enty.groups.topHospital.clickItem(item)"
+                     ng-class="$index < enty.groups.topHospital.items.length-1?'border-d':''"
+                     ng-repeat="item in enty.groups.topHospital.items">
+                    <div>
+                        <img class="logo_img"
+                             ng-src="{{item.logoUrl?item.logoUrl:'resource/images/patients_group/logo.png'}}"
+                             onerror="javascript:this.src='resource/images/patients_group/logo.png'"/>
+                    </div>
+                    <div class="mar-l-10">
+                        <div class="qy-grey7">
+                            <span ng-bind="item.hospitalName">青大附属医院</span>
+                            <span class="rank f12" ng-bind="item.hospitalLevel">三级医院</span>
+                        </div>
+                        <div class="qy-grey5">开通咨询医生数量：<span ng-bind="item.num">49</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

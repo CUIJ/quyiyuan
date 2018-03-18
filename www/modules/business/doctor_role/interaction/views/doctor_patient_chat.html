@@ -1,0 +1,61 @@
+<ion-content class="chat_content" scroll="true" has-bouncing="true" padding="false">
+
+  <ion-refresher pulling-text="{{$root.lang.pullingText}}"  pulling-icon="" refreshing-icon=""
+       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="queryChatWords(false)">
+  </ion-refresher>
+
+  <div ng-if="UNREAD_NUM > 0" class="ta-c pad-t-5" ng-click="openUnreadMessage()">
+    <button class="button button-size-s button-color-red ta-c">
+      <span kyee-i18n-directive code="newMessages" default="新留言{{UNREAD_NUM}}条 >"></span></button>
+  </div>
+
+  <ul ng-repeat="word in words" class="words_div">
+    <li class="row show_name_sec">
+      <span class="show_name">{{showName(word)}}：</span>
+      <span class="col words_text" ng-class="{'doctor_text':word.WORDS_FLAG == 1}" >
+        {{word.WORDS_TEXT}}
+      </span>
+    </li>
+    <li class="row show_operate_sec" ng-if="showOperateBtn($index)">
+      <div class="col words_operate_btn" ng-class="{'clear_border': $index == words.length-1}">
+        <span ng-click="deleteRootWord($index)" ng-if="showDeleteBtn($index)" kyee-i18n-directive code="delete" default="删除&nbsp/"></span>
+        <span ng-click="postResetWordBtn($index)" class="qy-green" kyee-i18n-directive code="reply" default="回复"></span>
+      </div>
+    </li>
+
+    <ion-list>
+      <ion-item ng-repeat="reset in word.RESET" class="words_div row reset_div"
+                ng-class="{'clear_border': $parent.$parent.$index == words.length-1}">
+        <div class="mar_60"></div>
+        <div ng-click="operateReset($parent.$parent.$index,$index)" class="col operate_div">
+          {{showSendName($parent.$parent.$index, $index)}} <span class="qy-green" kyee-i18n-directive code="reply" default="回复"></span>
+          {{showReceiveName($parent.$parent.$index, $index)}}：{{reset.RESET_TEXT}}
+        </div>
+      </ion-item>
+    </ion-list>
+  </ul>
+
+  <div kyee-list-picker-directive
+       data="pickerItems"
+       select-finash="selectItem(params)"
+       bind="bind(params)"></div>
+
+  <div ng-if="showEmpty" class="empty-text">
+    <p>{{emptyText}}</p>
+  </div>
+
+
+</ion-content>
+
+<div id="submitInout" class="bar bar-footer footer_border" style="display: none;">
+  <textarea  ng-bind="reset" ng-model="reset" placeholder="{{getPlaceholderText()}}" class="text_area"></textarea>
+  <div ng-click="submitWords(reset)" class="submit_btn"><span kyee-i18n-directive code="send" default="发送"></span></div>
+</div>
+
+<ion-infinite-scroll
+        ng-if="moreDataCanBeLoaded()"
+        icon="ion-loading-c"
+        on-infinite="loadMore()">
+</ion-infinite-scroll>
+
+

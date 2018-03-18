@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <!-- IOS AddToHome 配置 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="趣医院 V2">
+    <link rel="shortcut icon" sizes="16x16" href="resource/images/base/logo.png">
+    <link rel="shortcut icon" sizes="196x196" href="resource/images/base/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="resource/images/base/logo.png">
+
+    <title>趣医院</title>
+	<link type="text/css" rel="stylesheet" href="resource/js_framework/ionic/css/ionic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="resource/js_framework/plugins/addtohomescreen/style/addtohomescreen.css"/>
+	<link type="text/css" rel="stylesheet" href="build/scss/base.css"/>
+    <link type="text/css" rel="stylesheet" href="build/css/font.css"/>
+  </head>
+
+  <body ng-app="kyee.framework.bootstrap" class="platform-android platform-cordova platform-webview">
+
+	<ion-nav-view name="main_view"></ion-nav-view>
+
+    <ion-tabs id="tabbar" class="tabs-striped tabs-icon-top">
+      <ion-tab title="首页" icon="home-tab" ui-sref="home"></ion-tab>
+      <ion-tab title="我的趣医" icon="myquyi-tab" ui-sref="myquyi->MAIN_TAB.medicalGuide"></ion-tab>
+      <ion-tab title="{{loginState}}" icon="jiuzhenzhe-tab" ng-controller="TabsController" ng-click="loginOrToPersonalCenter();"></ion-tab>
+      <ion-tab title="新消息" icon="message_new-tab" ui-sref="messagecenter->MAIN_TAB" badge="2" badge-style="badge-assertive"></ion-tab>
+    </ion-tabs>
+
+    <div kyee-compile-directive template="include/widgets.html"></div>
+
+    <!-- DEV -->
+	<script type="text/javascript" src="resource/js_framework/ionic/js/ionic.bundle.js"></script>
+	<script type="text/javascript" src="build/js/kyee.build.js"></script>
+
+    <!-- deployment -->
+    <!--<script type="text/javascript" src="build/js/kyee.build.all.min.js"></script>-->
+  </body>
+</html>

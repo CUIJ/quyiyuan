@@ -1,0 +1,24 @@
+<ion-view>
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="hospitalIntroductionTitle" default="预约挂号条款"></span>
+        </ion-nav-title>
+
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="pad-b-14 pad-td-10">
+        <div  style="line-height: 20px;" ng-show="appointRulerShow">
+            <div class="mar-d-5 " ng-show="appointNotificationShow && onlyOne" >
+                <span class="f14">{{appointRule}}</span>
+            </div>
+            <div class="mar-d-10"  ng-bind-html="APPOINT_NOTIFICATION_SHOW|kyee_to_html" ng-show="appointNotificationShow"></div>
+
+            <div class="mar-d-5 " ng-show="registNotificationShow && onlyOne">
+                <span class="f14">{{registRule}}</span>
+            </div>
+            <div class="mar-d-10" ng-bind-html="REGIST_NOTIFICATION_SHOW|kyee_to_html" ng-show="registNotificationShow"></div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+<div class="kyee_framework_share">
+    <div id="{{id}}_shareDiv" class="share_container_init share_container_hide" align="center">
+        <div class="row pad-d-10 border-b">
+
+            <div class="col" align="center" ng-click="share2weixinhy()">
+                <img ng-src="resource/js_framework/kyee_framework/images/wxhy.png" class="share_image">
+                <p kyee-i18n-directive code="wxfriendBtn" default="微信好友"></p>
+            </div>
+
+            <div class="col" align="center" ng-click="share2weixinpyq()">
+                <img ng-src="resource/js_framework/kyee_framework/images/pyq.png" class="share_image">
+                <p kyee-i18n-directive code="friendBtn" default="朋友圈"></p>
+            </div>
+
+            <div class="col" align="center" ng-click="share2weibo()">
+                <img ng-src="resource/js_framework/kyee_framework/images/weibo.png" class="share_image">
+                <p kyee-i18n-directive code="weiboBtn" default="微博"></p>
+            </div>
+
+            <div class="col" align="center" ng-click="share2qq()">
+                <img ng-src="resource/js_framework/kyee_framework/images/qzone.png" class="share_image">
+                <p kyee-i18n-directive code="qzoneBtn" default="QQ空间"></p>
+            </div>
+        </div>
+
+        <div class="qy-bg-white pad-td-10 f14 qy-grey7" ng-click="hide()"
+             kyee-i18n-directive code="cancelBtn" default="取消分享">
+        </div>
+
+    </div>
+
+    <div id="{{id}}_backdrop" class="share_background_init share_background_hide"></div>
+</div>

@@ -1,0 +1,119 @@
+<ion-view class="qy_presition">
+    <!--<ion-nav-bar align-title="center" class="qy-header">-->
+    <!--<ion-nav-back-button></ion-nav-back-button>-->
+    <!--<ion-nav-title>-->
+    <!--<span>我的处方</span>-->
+    <!--</ion-nav-title>-->
+
+    <!--</ion-nav-bar>-->
+    <ion-content has-bouncing="true" padding="false" ng-class="{'putong':data.PatientPecipe==1,'jizhen':data.PatientPecipe==3,'erke':data.PatientPecipe==2}"   style="width:100%">
+        <div class="pad-t-14 pad-lr-20 flex justify-between">
+            <div class="ditail-icon">
+                <span>{{data.PatientChufang}}</span>
+            </div>
+            <div class="icon-cross f20" ng-click="closePopDetail()">
+
+            </div>
+        </div>
+        <div class="detaile-title">{{data.PatientHospitalName}}</div>
+        <div class="chufangjie">{{data.PatientChufangName}}</div>
+        <div class="border-title"></div>
+        <div class="pad-lr-20 presition-detail flex pad-t-10">
+            <div class="presition-detail-name flex">
+                <div>姓名:</div><div class="presition-detail-name-border">{{data.PatientName}}</div>
+            </div>
+            <div class="presition-detail-sex flex">
+                <div style="">性别:</div><div class="presition-detail-sex-border">{{data.PatientSex}}</div>
+            </div>
+
+        </div>
+        <div class="pad-lr-20 presition-detail flex pad-t-5">
+
+
+            <div class="presition-detail-age flex">
+                <div >年龄:</div><div class="presition-detail-age-border">{{data.PatientAge}}</div>
+            </div>
+            <div class="presition-detail-weight flex">
+                <div >体重:</div><div class="presition-detail-weight-border">{{data.PatientWeight}}<span ng-if="data.PatientWeight">kg</span></div>
+            </div>
+            <div class="presition-detail-phone flex">
+                <div>电话:</div><div class="presition-detail-phone-border">{{data.PatientPhone}}</div>
+            </div>
+
+        </div>
+        <div class="pad-lr-20 presition-detail flex pad-t-5">
+            <div class="presition-detail-address flex">
+                <div>地址(单位):</div><div class="presition-detail-address-border">{{data.PatientAddress}}</div>
+            </div>
+
+        </div>
+        <div class="pad-lr-20 presition-detail flex pad-t-5">
+            <div class="presition-detail-first flex">
+                <div>临床(初步)诊断:</div><div class="presition-detail-first-border">{{data.PatientDiang}}</div>
+            </div>
+        </div>
+        <div class="pad-lr-20 presition-detail flex pad-t-5">
+            <div class="presition-detail-sick flex">
+                <div>过敏及特殊病史:</div><div class="presition-detail-sick-border">{{data.PatientllergyA}}</div>
+            </div>
+        </div>
+
+        <div class="pad-lr-20 presition-detail flex pad-t-5">
+            <div class="presition-detail-date flex">
+                <div>开方日期:</div><div class="presition-detail-date-border">{{data.PatientKaiDate}}</div>
+            </div>
+        </div>
+        <div class="rp-title">
+            Rp:
+        </div>
+
+        <ul class="rp-name">
+            <li ng-repeat="item in data.PatientDetail">
+                <div class="flex justify-between">
+                    <div>
+                        <span class="medical-name">{{item.DRUG_NAME}}</span><span class="medical-count">{{item.DRUG_SPEC}}</span>
+                    </div>
+                    <div class="medical-count">
+                        *{{item.QUANTITY}}{{item.PACKAGE_UNITS}}
+                    </div>
+                </div>
+                <div class="medical-use">
+                    用法：<span>{{item.ADMINISTRATION}}</span><span class="mar-l-20">{{item.DOSAGE}}/次</span><span class="mar-l-20">{{item.FREQUENCY}}</span>
+                </div>
+            </li>
+
+
+        </ul>
+        <div class="mar-b-20">
+
+            <div class="mar-l-20 mar-r-20 border-d">
+
+            </div>
+            <div  class="rp-content flex align_items_c ">
+                <div class="flex align_items_c" ng-if="data.PatientisSign">
+                    <!--医师：<span>{{data.PatientDoctor}}</span>-->
+                    医师:<img class="sign-img" ng-src="{{data.PatientDoctorSigin}}" onerror="src='resource/images/base/no-sign.png'"/>
+                </div>
+                <div class="flex" ng-if="!data.PatientisSign" >
+                    <!--医师：<span>{{data.PatientDoctor}}</span>-->
+                    医师：<span>{{data.PatientDoctor}}</span>
+                </div>
+                <div style="position:absolute;left:200px;">
+                    药品金额：<span class="rp-monery">￥{{data.PatientMonery}}</span>
+                </div>
+            </div>
+            <div class="rp-content flex">
+                <div>
+                    审核调配药师：<span>{{data.PatientVERIFY}}</span>
+                </div>
+                <div style="position:absolute;left:200px;">
+                    复合发药药师：<span>{{data.PatientASSIGN}}</span>
+                </div>
+            </div>
+            <div class=" rp-last">
+                注意事项：处方经诊治医生签名后生效。
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

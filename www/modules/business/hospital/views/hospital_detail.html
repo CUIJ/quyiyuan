@@ -1,0 +1,18 @@
+<ion-view>
+
+	<ion-nav-bar align-title="center" class="qy-header">
+		<ion-nav-back-button></ion-nav-back-button>
+		<ion-nav-title>
+			<span kyee-i18n-directive code="hospitalIntroductionTitle" default="医院介绍"></span>
+		</ion-nav-title>
+		<ion-nav-buttons side="right" >
+			<a class="button button-clear txt" ng-if="ADV_LOCAL" ng-click="goBrowser()">
+				<span kyee-i18n-directive code="details" default="详情"></span>
+			</a>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+
+	<ion-content has-bouncing="true" padding="false" class="pad-b-14 pad-td-10">
+		<div ng-bind-html="hospitalDetailData.ADV_HOSPITAL_INTRO|kyee_to_html"></div>
+	</ion-content>
+</ion-view>

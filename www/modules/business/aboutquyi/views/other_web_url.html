@@ -1,0 +1,19 @@
+<ion-view class="qy_aboutquyi_web">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="urlAddTitle" default="网址"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true" overflow-scroll="true">
+
+        <div class="web_content">
+            <iframe ng-src="{{openUrl}}" class="web_frame">
+            </iframe>
+        </div>
+
+    </ion-content>
+
+</ion-view>

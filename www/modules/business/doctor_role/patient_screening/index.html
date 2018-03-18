@@ -1,0 +1,108 @@
+<ion-view class="qy_patient_screening">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="treatPatientsTittle" default="诊疗病人"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" ng-click="showFiltersOrNot()" kyee-i18n-directive code="conditionsScreen" default="条件筛选">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+
+    <ion-content has-bouncing="true" padding="false" scroll="false">
+        <div ng-if="showFilters" class="pad-b-14">
+
+            <div class="pad-t-10">
+                <span kyee-i18n-directive code="attendanceStatus" default="就诊状态："></span>
+                <button class="button-size-s btn_style" ng-class="{'qy-bg-green qy-fff':visitStatus==2}"
+                     ng-click="visitOrNot(2)">
+                    <span kyee-i18n-directive code="seeDoctor" default="已就诊"></span>
+                </button>
+                <button class="button-size-s btn_style" ng-class="{'qy-bg-green qy-fff':visitStatus==-1}"
+                     ng-click="visitOrNot(-1)">
+                    <span kyee-i18n-directive code="notSeeDoctor" default="未就诊"></span>
+                </button>
+            </div>
+
+            <div class="pad-t-10">
+                <span kyee-i18n-directive code="clinicDate" default="就诊日期："></span>
+                <button class="button-size-s btn_style" ng-click="chooseDate('start')">
+                    {{startDate}}
+                </button>
+                <span>~</span>
+                <button class="button-size-s btn_style" ng-click="chooseDate('end')">
+                    {{endDate}}
+                </button>
+            </div>
+
+            <div class="pad-t-10">
+                <span kyee-i18n-directive code="clinicTimes" default="就诊次数："></span>
+                <button class="button-size-s btn_style btn_width" ng-class="{'qy-bg-green qy-fff':visitTimes == 1}"
+                     ng-click="chooseVisitTime(1)">
+                    <span kyee-i18n-directive code="oneTime" default="1次"></span>
+                </button>
+
+                <button class=" button-size-s btn_style btn_width" ng-class="{'qy-bg-green qy-fff':visitTimes == 2}"
+                     ng-click="chooseVisitTime(2)">
+                    <span kyee-i18n-directive code="twoToFiveTimes" default="2~5次"></span>
+                </button>
+                <button class=" button-size-s btn_style btn_width" ng-class="{'qy-bg-green qy-fff':visitTimes == 6}"
+                     ng-click="chooseVisitTime(6)">
+                    <span kyee-i18n-directive code="sixToTenTimes" default="6~10次"></span>
+                </button>
+                <button class=" button-size-s btn_style" ng-class="{'qy-bg-green qy-fff':visitTimes == 10}"
+                     ng-click="chooseVisitTime(10)">
+                    <span kyee-i18n-directive code="moreThanTenTimes" default="10次以上"></span>
+                </button>
+            </div>
+
+        </div>
+
+        <i class="ta-c icon filter" ng-click="showFiltersOrNot()"
+             ng-class="{'ion-arrow-down-b':!showFilters,'ion-arrow-up-b':showFilters}">
+        </i>
+
+        <ul ng-if="startDate!=endDate" class="row qy-grey4 border-td">
+            <li class="col fw-b qy-grey5 ta-c" >{{startDate+' ~ '+endDate}}</li>
+        </ul>
+
+        <ul ng-if="startDate==endDate" class="row qy-grey4 border-td">
+            <li class="col ta-l"  ng-click="prevDay()"> <i class=" icon ion-chevron-left qy-grey4" ></i><span style="padding-left: 5px;" kyee-i18n-directive code="beforeDay" default="前一天"></span></li>
+            <li class="col f12 fw-b qy-grey5 ta-c" >{{startDate}}</li>
+            <li class="col ta-r" ng-click="nextDay()"><span style="padding-right: 5px;" kyee-i18n-directive code="afterDay" default="后一天"></span><i class=" icon ion-chevron-right qy-grey4" ></i> </li>
+        </ul>
+
+        <ion-scroll ng-style="{'height':height+10+'px'}" class="qy-bg-grey2">
+            <div class="row border-d item qy-bg-white" ng-repeat="patientInfo in patientData" ng-click="toPatientDetail(patientInfo, $index)">
+
+                <div class="col col-20 text-ellipsis">{{patientInfo.OFTEN_NAME}}</div>
+
+                <div class="col">
+                    <span>{{patientInfo.SEX}}/</span>
+                    <span>{{patientInfo.AGE}}岁/</span>
+                    {{patientInfo.showTime}}
+                    <span ng-if="timeShowType == 3" kyee-i18n-directive code="times" default="次数:"></span>{{patientInfo.REG_COUNT}}
+                    <span ng-class="{'qy-red':patientInfo.VISIT_STATUS!=2}">{{patientInfo.visitStatusStr}}</span>
+
+                    <div class="qy-green" ng-if="patientInfo.READ_NUM!=0&&patientInfo.READ_NUM!=undefined"><span kyee-i18n-directive code="newMessage" default="新留言"></span></div>
+                </div>
+
+                <div class="col col-10 ta-r">
+                    <i class="icon ion-ios-play qy-green"></i>
+                </div>
+            </div>
+
+            <div ng-if="isEmpty" class="empty-text empty_height">
+                <i class="icon icon-icon_3 empty-icon"></i>
+                <p>
+                    <span kyee-i18n-directive code="noEligiblePatients" default="暂无符合条件的病人"></span>
+                </p>
+            </div>
+
+        </ion-scroll>
+    </ion-content>
+    <div kyee-date-picker-directive year-range="{{yearRange}}" bind="bind(params)" on-select-finash="onFinash(params)"></div>
+</ion-view>

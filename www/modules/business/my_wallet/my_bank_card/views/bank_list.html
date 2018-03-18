@@ -1,0 +1,30 @@
+<ion-view class="qy_bank_card qy-bg-grey2">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="选择发卡行"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" scroll="false" class="qy-bg-grey1">
+
+        <div class="bar item-input-inset search pad-b-14">
+            <label class="item-input-wrapper search-item">
+                <i class="icon icon-seach placeholder-icon mar-l-10" style="padding:0;"></i>
+                <input type="search" placeholder="{{bankListPlaceHolder}}" ng-model="keyword" ng-change="scrollResize()">
+            </label>
+        </div>
+
+        <ion-scroll  has-bouncing="true" ng-if="!isEmpty" ng-style="{'height':((KyeeEnv.innerSize.height)-88)+'px'}" scrollbar-y="false"
+                    class="qy-bg-white">
+            <div class="border-td" style="margin-top: 2px;">
+                <div ng-repeat="bank in bankList | filter : keyword" ng-click="selectBank(bank)">
+                    <div ng-class="{'border-d':($index) != bankList.length -1}" class="mar-l-14 pad-td-10 f14 qy-bg-white">
+                        {{bank.BANK_NAME}}
+                    </div>
+                </div>
+            </div>
+        </ion-scroll>
+
+    </ion-content>
+
+</ion-view>

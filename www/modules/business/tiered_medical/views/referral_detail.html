@@ -1,0 +1,122 @@
+<ion-view class="referral_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            转诊导诊详情
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false">
+        <div class="appoint-tips qy-green f14 ta-c flex justify-center" ng-if="referralData.formattedData.reservationTime != ''">
+            <span class="icon qy-green f20 mar-r-5"
+                  ng-class="referralData.formattedData.isReservation == '1'?'icon-choose':'icon-failure'"></span>
+            <span>{{referralData.formattedData.isReservation == '1'?'已预约':'未预约'}}</span>
+            <span>（{{referralData.formattedData.isReservation == '1'?'预约时间':'拟转入时间'}}：{{referralData.formattedData.reservationTime}}）</span>
+        </div>
+        <div class="referral-in padding-10 border-d qy-bg-white">
+            <div class="referral-in-info pad-lr-14 f14 qy-grey7">
+                <div class="referral-info-item flex">
+                    <span class="label-color">转入医院：</span>
+                    <span class="text-ellipsis"
+                          ng-style="{'max-width': (KyeeEnv.innerSize.width-140)+'px'}">
+                        {{referralData.formattedData.inHospitalIdName}}
+                    </span>
+                    <i class="icon icon-direction f18 qy-green mar-l-10"
+                        ng-click="goToHospitalLocat()"></i>
+                </div>
+                <div class="referral-info-item flex align-item-start"
+                     ng-if="referralData.formattedData.inDeptName && referralData.formattedData.inDeptName != ''">
+
+                    <div class="label-color">转入科室：</div>
+                    <div>
+                        <span>{{referralData.formattedData.inDeptName}}</span>
+                        <span class="qy-grey5 mar-l-5"
+                              ng-if="referralData.formattedData.deptArea && referralData.formattedData.deptArea !=''">
+                            ({{referralData.formattedData.deptArea}})
+                            <i class="icon icon-location f18 qy-green top-3" ng-click="goToDeptLocat()"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="referral-info-item flex"
+                     ng-if="referralData.formattedData.inDoctorName && referralData.formattedData.inDoctorName != ''">
+                    <span class="label-color">转入医生：</span>
+                    <span>{{referralData.formattedData.inDoctorName}}</span>
+                </div>
+                <div class="referral-info-item flex"
+                     ng-if="referralData.formattedData.inDoctorPhone && referralData.formattedData.inDoctorPhone != ''">
+                    <span class="label-color">联系电话：</span>
+                    <span>{{referralData.formattedData.inDoctorPhone}}</span>
+                    <i class="icon icon-phone-consult flex f18 qy-green mar-l-10" ng-click="goTel(referralData.formattedData.inDoctorPhone)"></i>
+                </div>
+            </div>
+            <div class="rereferral-in-code flex justify-center mar-t-10">
+                <figure ng-style="{width: (KyeeEnv.innerSize.width-60)+'px'}">
+                    <img ng-style="{width: (KyeeEnv.innerSize.width-60)+'px'}"
+                          ng-src="{{'data:image/jpg;base64,'+ referralData.formattedData.referralBar}}">
+                    <figcaption class="f12 qy-grey7 ta-c">转诊单条形码，可以扫码查询</figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="referral-out border-td mar-t-10 qy-bg-white qy-grey7">
+            <div class="f16 qy-grey7 pad-lr-14">
+                <div class="padding-15 border-d qy-grey7">转出信息</div>
+            </div>
+            <div class="referral-out-info pad-lr-14 f14 padding-10">
+                <div class="referral-info-item flex">
+                    <span class="label-color">转出医院：</span>
+                    <span class="text-ellipsis"
+                          ng-style="{'max-width': (KyeeEnv.innerSize.width-112)+'px'}">
+                        {{referralData.formattedData.outHospitalIdName}}
+                    </span>
+                </div>
+                <div class="referral-info-item flex"
+                     ng-if="referralData.formattedData.outDeptName && referralData.formattedData.outDeptName != ''">
+                    <span class="label-color">转出科室：</span>
+                    <span>{{referralData.formattedData.outDeptName}}</span>
+                </div>
+                <div class="referral-info-item flex"
+                     ng-if="referralData.formattedData.outDoctorName && referralData.formattedData.outDoctorName != ''">
+                    <span class="label-color">转出医生：</span>
+                    <span>{{referralData.formattedData.outDoctorName}}</span>
+                </div>
+                <div class="referral-info-item flex"
+                     ng-if="referralData.formattedData.outDoctorPhone && referralData.formattedData.outDoctorPhone != ''">
+                    <span class="label-color">联系电话：</span>
+                    <span>{{referralData.formattedData.outDoctorPhone}}</span>
+                    <i class="icon icon-phone-consult flex f18 qy-green mar-l-10" ng-click="goTel(referralData.formattedData.outDoctorPhone)"></i>
+                </div>
+            </div>
+        </div>
+        <div class="referral-state border-td mar-t-10 qy-bg-white pad-lr-14">
+            <div class="f16 qy-grey7">
+                <div class="padding-15 border-d qy-grey7">转诊动态</div>
+            </div>
+            
+            <div class="progress-bar">
+
+                <div ng-class="getPadding()">
+                    <div class="flex progress-bar-state" id="progress-bar-state"></div>
+                    <div class="flex progress-bar-des space-between mar-t-5 f12">
+
+                    <span  ng-class="getDespClass($index)"
+                           ng-repeat="data in referralData.formattedData.referralPlanProcess">
+                        {{data.operateName}}
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="progress-des f14 qy-grey7 pad-d-20 line24">
+                {{referralData.formattedData.referralDynamic}}
+            </div>
+        </div>
+        <div class="referral-attention border-td mar-t-10 qy-bg-white pad-lr-14"
+             ng-if="referralData.formattedData.attention && referralData.formattedData.attention != ''">
+            <div class="f16 qy-grey7">
+                <div class="padding-15 border-d qy-grey7">注意事项</div>
+            </div>
+            <div class="f14 qy-grey7 pad-td-20 line24">
+                {{referralData.formattedData.attention}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

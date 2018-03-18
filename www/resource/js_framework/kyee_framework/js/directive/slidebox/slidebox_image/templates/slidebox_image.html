@@ -1,0 +1,11 @@
+<div>
+	<ion-scroll delegate-handle="{{id}}" paging="true" has-bouncing="true" zooming="false" direction="x" scrollbar-x="false" ng-style="{'height':height}" style="margin: 0px; padding: 0px;width: {{width}}px">
+		<div style="width: {{images.length}}00%; margin: 0px; padding: 0px;" class="row">
+			<div ng-repeat="image in images" ng-click="onImageClick(image)" class="col" style="margin: 0px; padding: 0px;">
+				<!--设置锚点-->
+				<a id="{{id + '_' + $index}}"></a>
+				<img width="100%" ng-style="{'height':height}" ng-src="{{image.url}}"/>
+			</div>
+		</div>
+	</ion-scroll>
+</div>

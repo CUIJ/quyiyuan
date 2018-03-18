@@ -1,0 +1,92 @@
+<ion-view class="qy_clinic_claim qy-bg-grey1">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="填写理赔资料"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('clinic_claim')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false">
+        <div class="head qy-bg-white border-d">
+            <ul class="head_row">
+                <li class="left">
+                    <i class="icon icon-choose qy-green pad-t-20"></i>
+                    <div class="line_green line line_b"></div>
+                </li>
+                <li class="right">
+                    <div ng-if="picTotal==0" class="qy-green right_cont single_cont" style="top:1px" kyee-i18n-directive code="head0" default="未添加事故资料" ></div>
+                    <div ng-if="picTotal>0" class="qy-green right_cont" kyee-i18n-directive code="head1" default="事故资料已添加成功，待上传..." ></div>
+                    <div ng-if="picTotal>0" class="f12">
+                        <span kyee-i18n-directive code="head2" default="共有"></span>{{picTotal}}<span kyee-i18n-directive code="head3" default="张照片"></span>
+                    </div>
+                </li>
+            </ul>
+            <ul class="head_row">
+                <li class="left">
+                    <div class="line_grey line line_t"></div>
+                    <i class="icon icon-file qy-grey4"></i>
+                    <div class="line_grey line line_b"></div>
+                </li>
+                <li class="right">
+                    <div class="right_cont qy-grey7 mar-d-20 single_cont" kyee-i18n-directive code="head4" default="补充门诊缴费凭证资料"></div>
+                </li>
+            </ul>
+        </div>
+        <ion-scroll ng-style="{'height':(picTotal>0?(KyeeEnv.innerSize.height-221):(KyeeEnv.innerSize.height-200))+'px'}" class="container" id="clinicClaim">
+            <p class="pad-b-14 container_head qy-bg-white border-t mar-t-10" kyee-i18n-directive code="contentHead" default="请勾选与本次理赔相关的门诊缴费凭证资料" ></p>
+            <ul class="pad-b-14 box border-d qy-bg-white">
+                <li class="box_item row" ng-class="isChooseFir?'qy-bg-grey1':''">
+                    <div class="item_l" ng-click="chooseItem('1')">
+                        <i class="icon f18 pad-r-14"
+                       ng-class="{'icon-choose qy-green': isChooseFir, 'icon-radiobox_2 qy-grey5': !isChooseFir}"></i></div>
+                    <div class="col">
+                        <span kyee-i18n-directive code="content" default="无相关门诊缴费凭证" ></span>
+                    </div>
+                </li>
+                <li class="box_item row" ng-repeat="paid in paidData" ng-class="paid.checked?'qy-bg-grey1':''">
+                    <div class="item_l" ng-click="chooseItem('2',paid)">
+                        <i class="icon f18"
+                           ng-class="{'icon-choose qy-green': paid.checked, 'icon-radiobox_2 qy-grey5': !paid.checked}"></i>
+                    </div>
+
+                    <ul class="item_r col" ng-click="goDetail(paid)">
+                        <li class="text-ellipsis" ng-style="{'width':(KyeeEnv.innerSize.width-102)+'px'}">
+                            <span class="text-ellipsis" ng-if="paid.DEPT_NAME">
+                                <span kyee-i18n-directive code="registFee" default="挂号费"></span>{{paid.DEPT_NAME}}
+                            </span>
+                            <span class="text-ellipsis" ng-if="!paid.DEPT_NAME&&paid.IS_ADD != '1'">
+                                <span class="fl-l" kyee-i18n-directive code="payFee" default="诊间付费"></span>
+                            </span>
+                            <span class="text-ellipsis" ng-if="!paid.DEPT_NAME&&paid.IS_ADD == '1'">
+                                <span kyee-i18n-directive code="payAdd" default="附加材料费"></span>
+                            </span>
+                        </li>
+                        <li class="r_second">
+                            <span class="qy-grey5 f12">{{paid.payTime}}</span>
+                            <span class="qy-grey7 f16 amount" style="font-weight: bold;">¥{{paid.amount}}<i class="icon icon-arrow_right f14 qy-grey5"></i></span>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+
+            <div class="ta-c bottom_tip" ng-if="noLoad && paidData.length>0 ">
+                <div class="box"></div>
+            </div>
+            <ion-infinite-scroll ng-if="noLoad" on-infinite="loadMore()" icon="ion-loading-c" immediate-check="false">
+            </ion-infinite-scroll>
+        </ion-scroll>
+
+        <div class="bar-footer pad-b-14">
+            <button class="button-size-l button button-block"
+                    kyee-operation-monitor-directive="goPay" ng-click="nextStep()">
+                <span kyee-i18n-directive code="nextBtn" default="下一步" ></span>
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

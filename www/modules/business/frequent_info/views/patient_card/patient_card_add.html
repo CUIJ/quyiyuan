@@ -1,0 +1,111 @@
+<ion-view cache-view="false" class="patient_card_add qy-bg-grey2">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="addHospCard" default="查询就诊卡"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <i ng-if="!showInfo.CARD_TYPE" class="icon icon-icon_3 right-icon-s  icon_style" style="color:#fff; font-size:24px; margin-top: 6px" ng-click="showTipInfo()"></i>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="has-footer qy-bg-grey2" >
+
+        <!--<img ng-click="imgClick()" class="mar-t-10 mar-b-14 card_url" ng-src="{{showInfo.CARD_URL}}"-->
+             <!--onerror="javascript:this.src='resource/images/center/default_card.png'"/>-->
+
+        <div style="    margin-top: 10px;" class="list border-t qy-bg-white item_border_top_bottom">
+            <label ng-if="!isTiyanHospital" class=" item-input item-icon-right mar-l-14 item_padding item_border_bottom_white"
+                   ng-class="{'the_grey4': !isPatientCardEntry}"
+                   kyee-operation-monitor-directive="go2Hospital"
+                   ng-click="go2Hospital(); ">
+                <span class="input-label text-ellipsis hosp"
+                      kyee-i18n-directive code="goToHospital" default="医院："></span>
+                <span class="f14 hosp_name text-ellipsis">{{hospital.NAME}}</span>
+                <i class="icon icon-arrow_right icon_width icon_position" ng-if="isPatientCardEntry&&canBeSelect" style="color: #999999;"></i>
+            </label>
+            <label ng-if="isTiyanHospital" class=" item-input item-icon-right mar-l-14 item_padding item_border_bottom_white"
+                   ng-class="{'the_grey4': !isPatientCardEntry}">
+                <span class="input-label text-ellipsis hosp"
+                      kyee-i18n-directive code="goToHospital" default="医院："></span>
+                <span class="f14 hosp_name text-ellipsis">{{hospital.NAME}}</span>
+            </label>
+            <div ng-if="!showInfo.CARD_TYPE" >
+                <label class=" item-input item-icon-right mar-l-14 item_padding item_border_top_gray item_border_bottom_white">
+                    <span class="input-label text-ellipsis card_patientName" kyee-i18n-directive code="cardPatientName" default="姓名："></span>
+                    <span class="f14 hosp_name text-ellipsis">{{patientInfo.PATIENT_NAME}}</span>
+                </label>
+
+                <label ng-if="patientIdNoShow" class=" item-input item-icon-right mar-l-14 item_padding item_border_top_gray item_border_bottom_white">
+                    <span class="input-label text-ellipsis card_idNo" kyee-i18n-directive code="cardPatientIdNum" default="身份证："></span>
+                    <span class="f14 hosp_name text-ellipsis">{{patientIdNoShow}}</span>
+                </label>
+                <label ng-if="patientPhoneShow" class=" item-input item-icon-right mar-l-14 item_padding item_border_top_gray item_border_bottom_white">
+                    <span class="input-label text-ellipsis card_phoneNum" kyee-i18n-directive code="cardPatientPhone" default="手机号："></span>
+                    <span class="f14 hosp_name text-ellipsis">{{patientPhoneShow}}</span>
+                </label>
+                <label class=" item-input item-icon-right mar-l-14 item_padding item_border_top_gray item_border_bottom_white"
+                       kyee-operation-monitor-directive="go2Type" ng-click="go2Type();">
+                    <span class="input-label text-ellipsis card_type_top"
+                      kyee-i18n-directive code="goToType" default="卡类型："></span>
+                    <input class="pleass_card" readonly="readonly" type="text" ng-model="card.NAME" value="" placeholder="请选择卡类型">
+                    <i ng-if="iconIsShow" class="icon icon-arrow_right icon_width"></i>
+                </label>
+                <div ng-if="showInfo.SHOW_INPUT_BOX" class=" item-input item-icon-right mar-l-14 item_padding item_border_top_gray item_border_bottom_white">
+                     <span class="input-label text-ellipsis card_num"
+                      kyee-i18n-directive code="cardNum" default="卡号："></span>
+                    <input style="padding-right: 90px;" type="text" ng-model="card.NUM" value="" placeholder="{{card.defaultText}}" >
+                        <div ng-if="card.CARD_URL && showInfo.IS_SCAN_CODE" style="    width: 88px;position: absolute; right: 20px;top: 14px;">
+                        <span ng-click="imgClick()" style="border-right: 1px solid #b5b5b5;">
+                            <i class="ion-ios-information-outline ion_s" style="top:0px"></i>
+                            <span style="color: #5baa8a; padding-right: 2px;" kyee-i18n-directive code="example" default="示例"></span>
+                        </span>
+                        <span ng-if="true" style="position: relative;top: 1px;font-size: 14px;color: #5baa8a;padding-left: 5px;" class="icon-scan"
+                              kyee-operation-monitor-directive="scan" ng-click="scan();" ></span>
+                    </div>
+                    <span ng-if="!card.CARD_URL && showInfo.IS_SCAN_CODE" style="font-size: 18px; color: #5baa8a;padding-left: 8px;" class="icon-scan"
+                          kyee-operation-monitor-directive="scan" ng-click="scan();" ></span>
+                    <span ng-if="card.CARD_URL && !showInfo.IS_SCAN_CODE"
+                          kyee-operation-monitor-directive="imgClick" ng-click="imgClick()" style="width: 60px;position: absolute;right: 14px;top: 13px;">
+                            <i class="icon-icon_1 ion_s"></i>
+                            <span style="color: #5baa8a; padding-right: 2px;" kyee-i18n-directive code="example" default="示例"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="qy-orange" style="margin-top: -10px;" ng-if="showInfo.showSpecialMessage && !showHealthCardTip">
+            <div style="float: left;margin-right: 10px;margin-top: 1px;">
+                <i style=" font-size: 14px;margin-left: 14px;"  class=" icon-icon_4"></i>
+            </div>
+            <div style="width:90%;font-size: 12px;">
+                <span>{{showInfo.CARD_SPECIAL_DESCRIPTION}}</span>
+            </div>
+        </div>
+
+        <div class="qy-orange" style="margin-top: -10px;" ng-if="showHealthCardTip">
+            <div style="float: left;margin-right: 10px;margin-top: 1px;">
+                <i style=" font-size: 14px;margin-left: 14px;"  class=" icon-icon_4"></i>
+            </div>
+            <div style="width:90%;font-size: 12px;">
+                <span>{{healthCardTip}}</span>
+            </div>
+        </div>
+
+        <div class="bar-footer pad-b-14 qy-bg-grey2" ng-if="!showInfo.CARD_TYPE">
+            <button class="button button-block button-size-l" ng-click="addCard();"
+            kyee-operation-monitor-directive="addCard"
+                    kyee-i18n-directive code="baoAddCard" default="查询"></button>
+        </div>
+        <!--p style="color: #b5b5b5;" class="mar-b-14">温馨提示：</p-->
+        <!--p style="color: #b5b5b5;" class="mar-td-10 mar-b-14">{{addCardDescription}}</p-->
+        <!--p style="color: #b5b5b5;" ng-if="showInfo.MSG && !showInfo.SHOW_INPUT_BOX" class="pad-b-14 qy-red">{{showInfo.MSG}}</p-->
+    </ion-content>
+    <div
+            kyee-overlay-directive
+            location="center"
+            height="192"
+            width="300"
+            data="data"
+            template="modules/business/frequent_info/views/patient_card/patient_card_show.html"
+            bind="bind(params)"></div>
+</ion-view>

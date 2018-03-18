@@ -1,0 +1,36 @@
+<ion-view class="ncss_main_page">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="ncms" default="新型农村合作医疗"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-grey2 ">
+    <ion-scroll zooming="true" direction="x" scrollbar-x="false" style="background-color: white">
+        <div class="mar-t-10 f14 " style="margin-bottom:11px; white-space: nowrap;">
+                <a ng-click="tabClick(1)" ui-sref-active="tab_active" ui-sref="ncms.famialy"
+                      class="ta-c grey1  item_padding_r0_l0 mar-l-10 pad-t-10 pad-d-10 pad-t-5 mar-r-10"
+                   kyee-i18n-directive code="myHome" default="我的家庭"></a>
+                <a ng-click="tabClick(2)" ui-sref-active="tab_active" ui-sref="ncms.famialy_member"
+                      class="ta-c grey1  item_padding_r5_l0 mar-l-10 pad-t-10 pad-d-10 pad-t-5 mar-r-10"
+                   kyee-i18n-directive code="familyMembers" default="家庭成员"></a>
+                <a ng-click="tabClick(3)" ui-sref-active="tab_active" ui-sref="ncms.payment_record"
+                      class="ta-c grey1  item_padding_r5_l0 mar-l-10 pad-t-10 pad-d-10 pad-t-5 mar-r-10"
+                   kyee-i18n-directive code="paymentRecord" default="缴费记录"></a>
+                <a ng-click="tabClick(4)" ui-sref-active="tab_active" ui-sref="ncms.out_reim"
+                      class="ta-c grey1  item_padding_r5_l0 mar-l-10 pad-t-10 pad-d-10 pad-t-5 mar-r-10"
+                   kyee-i18n-directive code="outpatientReimbursement" default="门诊报销"></a>
+                <a ng-click="tabClick(5)" ui-sref-active="tab_active" ui-sref="ncms.hosp_reimbursement"
+                      class="ta-c grey1  item_padding_r5_l0 mar-l-10 pad-t-10 pad-d-10 pad-t-5 mar-r-10"
+                   kyee-i18n-directive code="hospitalizationExpenses" default="住院报销"></a>
+        </div>
+    </ion-scroll>
+        <div ui-view="ncms_view" class=" " ng-style="{'height':(KyeeEnv.innerSize.height - 107)+'px'}"></div>
+    </ion-content>
+
+</ion-view>

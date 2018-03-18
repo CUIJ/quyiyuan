@@ -1,0 +1,85 @@
+/*Report Main*/
+.qy_report_multipe .report_footer {
+  bottom: 23px; }
+.qy_report_multipe .report_footer_bar {
+  height: 23px;
+  text-align: center;
+  display: inline-block; }
+.qy_report_multipe .report_subfilter {
+  padding: 6px; }
+  .qy_report_multipe .report_subfilter .subfilter_btn {
+    margin: 0 5px; }
+.qy_report_multipe .report_head {
+  overflow: hidden;
+  padding: 10px 8px;
+  margin-bottom: 10px; }
+.qy_report_multipe .report_li {
+  padding: 8px 10px;
+  overflow: hidden;
+  margin-bottom: 8px; }
+.qy_report_multipe .item_name {
+  white-space: pre-line; }
+.qy_report_multipe .icon-exam:before {
+  content: "\e900"; }
+.qy_report_multipe .icon-lab:before {
+  content: "\e901"; }
+
+/*inspection view*/
+.qy_inspection .report_search {
+  position: relative; }
+  .qy_inspection .report_search input {
+    padding-top: 1px; }
+.qy_inspection .item_date {
+  float: right;
+  width: 6.5em;
+  text-align: right; }
+
+/*inspection_detail view*/
+.qy_inspection_detail .w_39 {
+  width: 48%; }
+.qy_inspection_detail .w_100 {
+  width: 100%; }
+.qy_inspection_detail .item_name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 50%;
+  display: inline-block; }
+.qy_inspection_detail .pad_b_5 {
+  padding-left: 5px;
+  padding-right: 5px; }
+
+/* check_detail view */
+.qy_check_detail .content_table {
+  border-right: 1px solid #e7e7e7; }
+  .qy_check_detail .content_table table {
+    border-bottom: 1px solid #e7e7e7; }
+    .qy_check_detail .content_table table td, .qy_check_detail .content_table table th {
+      border-left: 1px solid #e7e7e7;
+      border-top: 1px solid #e7e7e7;
+      height: 30px;
+      line-height: 30px;
+      vertical-align: middle; }
+    .qy_check_detail .content_table table td {
+      padding-left: 2%;
+      white-space: pre-line; }
+.qy_check_detail .w_20 {
+  width: 20%; }
+.qy_check_detail .w_30 {
+  width: 30%; }
+.qy_check_detail .w_96 {
+  width: 96%; }
+.qy_check_detail .w_100 {
+  width: 100%; }
+.qy_check_detail .check_img {
+  height: auto;
+  display: block; }
+
+/* check_detail_img view */
+.qy_check_detail_img {
+  background: #000;
+  opacity: .95 !important; }
+  .qy_check_detail_img .va_m {
+    vertical-align: middle; }
+  .qy_check_detail_img .w_100 {
+    width: 100%; }

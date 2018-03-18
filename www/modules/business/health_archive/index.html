@@ -1,0 +1,17 @@
+<ion-view class="" cache-view="false" >
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="backCenter()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span >健康档案</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right" >
+            <a class="button button-clear"ng-show="userSource!='3'"  ng-click="openRightMenu('my_health_archive')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  has-bouncing="true" scrollbar-y="false" class="qy-bg-grey2" delegate-handle="confirm_appoint_content">
+        <div kyee-sideview-directive border = "none" bgcolor ="#f4f4f4" active-tab-color="#dceffc"  active-tab="BACK_ID"
+             height="{{$root.KyeeEnv.innerSizeSource.height-18-44}}" config="config"></div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,150 @@
+<ion-view class="qy-bg-grey2 qy_treatment_plan">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="treatmentPlan" default="治疗计划"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="scroll-content ionic-scroll has-header">
+
+        <div class="qy-bg-white height100 width100">
+
+            <div class="width78 height100 fl-l position_r">
+                <img class="disease_img" src="resource/images/patients_group/pic.png">
+            </div>
+
+            <div class="height100 mar-r-14 mar-l-78">
+                <span ng-show="treatmentPlan.specialDiseaseTypeName && 'null' != treatmentPlan.specialDiseaseTypeName" class="disease_span">{{treatmentPlan.specialDiseaseTypeName}}</span>
+                <span class="creator">
+                    <span kyee-i18n-directive code="treatmentPlanCreator" default="创建人:"></span>
+                    <span ng-if="treatmentPlan.creatorName && 'null' != treatmentPlan.creatorName" ng-style="{'width': (KyeeEnv.innerSize.width - 149)+'px'}" class="creator_detail">{{treatmentPlan.creatorName}}</span>
+                </span>
+                <span class="hospital">
+                    <span kyee-i18n-directive code="hospital" default="医院:"></span>
+                    <span ng-if="treatmentPlan.hospitalName && 'null' != treatmentPlan.hospitalName" ng-style="{'width': (KyeeEnv.innerSize.width - 134)+'px'}" class="creator_detail">{{treatmentPlan.hospitalName}}</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="qy-bg-white treat_ment_div">
+            <div class="treatment"></div>
+            <div class="fl-l position_r mar-l-14">
+                <span class="treatment_line" kyee-i18n-directive code="treatmentPlan" default="治疗计划"></span>
+            </div>
+        </div>
+
+        <div class="qy-bg-white position_absolute width100 mar-t-1">
+
+            <div class="duty">
+                <span class="left_time"><i class="icon_record_l"></i> </span>
+                <span class="mar-l-9 f16 qy-green" kyee-i18n-directive code="duty_object" default="责任对象"></span>
+            </div>
+
+            <div class="duty_detail">
+
+                <div class="pad-t-10-impormant row" ng-if="treatmentPlan.responsibilityHospitalName && 'null' != treatmentPlan.responsibilityHospitalName">
+                    <span class="left_time"><i class="icon_record_s"></i> </span>
+                    <span class="mar-l-10 qy-grey7" kyee-i18n-directive code="responsibilityHospitalName"
+                          default="医疗机构:"></span>
+                    <div class="col">
+                        <span class="pad-l-4 qy-grey7">{{treatmentPlan.responsibilityHospitalName}}</span>
+                    </div>
+                </div>
+
+                <div class="pad-t-10-impormant row" ng-if="treatmentPlan.responsibilityDeptName && 'null' != treatmentPlan.responsibilityDeptName">
+                    <span class="left_time"><i class="icon_record_s"></i> </span>
+                    <span class="mar-l-10 qy-grey7" kyee-i18n-directive code="duty_dept" default="责任科室:"></span>
+                    <div class="col">
+                        <span class="pad-l-4 qy-grey7">{{treatmentPlan.responsibilityDeptName}}</span>
+                    </div>
+                </div>
+
+                <div class="pad-t-10-impormant row" ng-if="treatmentPlan.responsibilityDoctorName && 'null' != treatmentPlan.responsibilityDoctorName">
+                    <span class="left_time"><i class="icon_record_s"></i> </span>
+                    <span class="mar-l-10 qy-grey7" kyee-i18n-directive code="duty_doctor" default="责任医生:"></span>
+                    <div class="col">
+                        <span class="pad-l-4 qy-grey7">{{treatmentPlan.responsibilityDoctorName}}</span>
+                    </div>
+                </div>
+                <div class="height_20"></div>
+            </div>
+
+            <div class="mar-l-24 mar-r-14">
+                <span class="left_time"><i class="icon_record_l"></i> </span>
+                <span class="mar-l-9 f16 qy-green" kyee-i18n-directive code="revisit_solution" default="复查方案"></span>
+            </div>
+
+            <div class="duty_detail">
+
+                <div ng-repeat="question in treatmentPlan.questionList" class="pad-t-10 ">
+                    <!-- 单选 单选主观 -->
+                    <div ng-if="question.questionTypeCode == '01700010' || question.questionTypeCode == '01700040'"
+                         class="row">
+                        <span class="left_time"><i class="icon_record_s"></i> </span>
+                        <div>
+                            <span class="mar-l-10 qy-grey7">{{$index+1}}.</span>
+                        </div>
+                        <div class="col">
+                            <span class="qy-grey7" ng-if="question.questionContent">{{question.questionContent}}:</span>
+                            <span class="pad-l-4 qy-grey7" ng-if="question.questionTypeCode == '01700010' && question.optionsList[0].optionContent">{{question.optionsList[0].optionContent}}</span>
+                            <span class="pad-l-4 qy-grey7" ng-if="question.questionTypeCode == '01700040' && question.optionsList[0].optionContent">{{question.optionsList[0].optionContent}}</span>
+                            <span class="qy-grey7" ng-if="question.questionTypeCode == '01700040' && question.optionsList[0].subjectiveAnswer && 'null' != question.optionsList[0].subjectiveAnswer">({{question.optionsList[0].subjectiveAnswer}})</span>
+                        </div>
+                    </div>
+                    <!-- 多选 多选主观 -->
+                    <div ng-if="question.questionTypeCode == '01700020' || question.questionTypeCode == '01700050'"
+                         class="row">
+                        <span class="left_time"><i class="icon_record_s"></i> </span>
+                        <div>
+                            <span class="mar-l-10 qy-grey7">{{$index+1}}.</span>
+                        </div>
+                        <div class="col">
+                            <div class="qy-grey7" ng-if="question.questionContent">{{question.questionContent}}</div>
+                            <div class="pad-t-10" ng-repeat="option in question.optionsList">
+                                <span class="qy-grey5" ng-if="option.optionContent">{{option.optionContent}}</span>
+                                <span class="qy-grey5" ng-if="option.subjectiveAnswer && 'null' != option.subjectiveAnswer && question.questionTypeCode == '01700050'">({{option.subjectiveAnswer}})</span>
+                                <span class="qy-grey5" ng-if="option.optionContent">;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 主观 -->
+                    <div ng-if="question.questionTypeCode == '01700030'" class="row">
+                        <span class="left_time"><i class="icon_record_s"></i> </span>
+                        <div>
+                            <span class="mar-l-10 qy-grey7">{{$index+1}}.</span>
+                        </div>
+                        <div class="col">
+                            <div class="qy-grey7" ng-if="question.questionContent">{{question.questionContent}}</div>
+                            <div class="pad-t-10">
+                                <span class="lineh24 qy-grey5"
+                                      ng-if="question.subjectiveAnswer && 'null' != question.subjectiveAnswer">{{question.subjectiveAnswer}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="height_20"></div>
+            </div>
+
+            <div class="mar-l-24 mar-r-14">
+                <span class="left_time"><i class="icon_record_l"></i> </span>
+                <span class="mar-l-9 f16 qy-green" kyee-i18n-directive code="revisit_date" default="复诊时间"></span>
+            </div>
+
+            <div class="duty_detail">
+
+                <div class="pad-t-10" ng-if="treatmentPlan.revisitDate && 'null' != treatmentPlan.revisitDate">
+                    <span class="left_time"><i class="icon_record_s"></i> </span>
+                    <span class="qy-grey7 mar-l-10">{{treatmentPlan.revisitDate}}</span>
+                </div>
+
+                <div class="pad-t-10 pad-d-20">
+                    <span class="left_time"><i class="icon_record_o"></i> </span>
+                    <span class="color_orange_ff9900 f14 mar-l-10" kyee-i18n-directive code="treatSuggest"
+                          default="请遵照治疗计划，以到达最佳治疗效果。"></span>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

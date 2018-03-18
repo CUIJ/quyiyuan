@@ -1,0 +1,31 @@
+<ion-view title="附加就诊者" class="add-patient-info">
+    <ion-nav-bar  class="quyiyuan_nav_header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+       <ion-nav-buttons side="right">
+        <a class="button button-clear ion-person-add" style="padding-top: 9%; font-size: 28px; width: 40px;"
+           ng-click="ToNew()" ></a>
+       </ion-nav-buttons>
+    <ion-content>
+        <!--class="flip"-->
+    <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
+        <ion-item ng-repeat="item in all" ng-click="pitchOn(item)" style="padding: inherit;">
+            <div class="height_style">
+            <div class="margin_style">
+                <div class="inline_style">
+                    <span style="color: #666;font-size: 16px;padding-left: 20px;">{{ item.OFTEN_NAMES }}</span>
+                </div>
+                <div class="block_style">
+                    <span style="color: #666;font-size: 16px;">{{ item.SEX }}&nbsp;&nbsp;/&nbsp;&nbsp;{{ item.age}}岁</span>
+                </div>
+                <ion-option-button class="button-info" ng-click="edit(item)" style="background-color:#fb5151;color: #fff" kyee-i18n-directive code="deleteBtn" default="删除">
+                </ion-option-button>
+            </div>
+            </div>
+        </ion-item>
+    </ion-list>
+        <div style="width: 100%;padding-top: 68%;text-align: center;" ng-if="userInfo.isNot">
+            <span style="color: #c9c9c9;font-size: 18px;padding-top: .8em;" kyee-i18n-directive code="noPatientWarning" default="您目前还没有附加就诊者"></span>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,42 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2016年9月27日15:05:42
+* 创建原因：就诊卡费用历史记录
+* 任务号：
+-->
+<ion-view class="qy_patient_card_records qy-bg-grey1" cache-view="false">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-if="!fromHospital||(fromHospital&&showRecharge&&showRefund)" kyee-i18n-directive code="title1" default="历史记录"></span>
+            <span ng-if="fromHospital&&showRecharge&&!showRefund" kyee-i18n-directive code="title2" default="充值记录"></span>
+            <span ng-if="fromHospital&&!showRecharge&&showRefund" kyee-i18n-directive code="title3" default="退费记录"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <!--双Tab-->
+    <div class="bar bar-subheader row switchtable pad-b-14 border-d " ng-if="!fromHospital||(fromHospital&&showRecharge&&showRefund)">
+        <div class="col qy-grey7" ng-click="loadRecharge(true)" ng-class="{'selected':showHead == 'recharge'}" kyee-operation-monitor-directive="prePayHistory">
+            <span kyee-i18n-directive code="title2" default="充值记录"></span>
+        </div>
+        <div class="col qy-grey7" ng-click="loadRefund()" ng-class="{'selected':showHead == 'refund'}" kyee-operation-monitor-directive="inHospitalHistory">
+            <span kyee-i18n-directive code="title3" default="退费记录"></span>
+        </div>
+    </div>
+    <ion-content has-bouncing="true" class="has-header qy-bg-grey1" ng-class="!fromHospital||(showRecharge&&showRefund)?'double_header':''" delegate-handle="patient_card_records">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh()"></ion-refresher>
+        <!--充值记录-->
+        <div ng-show="showView == 'recharge'" kyee-compile-directive template="modules\business\patient_card_recharge\views\delay_views\card_recharge_records.html"></div>
+
+        <!--退费记录-->
+        <div ng-show="showView == 'refund'" kyee-compile-directive template="modules\business\patient_card_recharge\views\delay_views\card_recharge_refund_record.html"></div>
+
+        <!--背景提示-->
+        <div ng-show="isEmpty" class="empty-text">
+            <i ng-show="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

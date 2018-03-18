@@ -1,0 +1,112 @@
+<ion-view class="qy_coupons queue_clinic" >
+    <ion-nav-bar align-title="center" class="qy-header" >
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="myQueue" default="我的叫号"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right" >
+            <a ng-if="heidQueueDept" class="button button-clear txt" kyee-action-holder-directive="myQueue" ng-click="KAH($event) || showQueueClinic()" >
+                <span kyee-i18n-directive code="queuingCall" default="排队叫号"></span>
+            </a>
+
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey1 " delegate-handle="queue_clinic" scrollbar-y="false">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefreshBtn()">
+        </ion-refresher>
+
+        <div class="row f14 line-h30 position-r border-d"  ng-if="showPoint && !dataNotHidden && !isEmpty(title) && !isEmpty(text)" style="height: 70px;border: 0px;background-color: #fff">
+            <div class="position-a" style="width: 100%; height: 100%; background-color:#ff9900;opacity:0.1"></div>
+            <div style="color: #ff9900; ">
+                <p class="pad-l-12" style="padding-right: 46px;padding-top: 14px"><span class="f16" style="padding-right: 6px">{{title}}</span>{{text}}</p>
+                <i ng-click="closeRefreshGuide()" class="icon ion-close-round f16" style="margin: 0px 14px;position: absolute;top: 12px;right: 0px; padding-top: 12px"></i>
+            </div>
+        </div>
+        <div class="pad-b-24" ng-if="!dataNotHidden" ng-repeat="queue in queueClinicData" >
+
+            <h5 class="mar-t-15 text-ellipsis">{{queue.DEPT_NAME}} — {{queue.DOCTOR_NAME}}</h5>
+            <div class="confirm_box" ng-if="(queue.CURRENT_CALL_NUMBER) && (queue.DOCTOR_STATUS !== '3')">
+                <div class="border-d-dash qy-grey7 f14">
+                    <p class="ta-c qy-grey7" kyee-i18n-directive code="visiting" default="就诊中"></p>
+                    <p class="ta-c">
+                        <span class="line_number">{{queue.CURRENT_CALL_NUMBER}}</span>
+                        <span kyee-i18n-directive code="hao" default="号"></span>
+                    </p>
+                    <p class="ta-c qy-grey6">{{REFRESH_TIME}}<span kyee-i18n-directive code="refresh" default="秒后刷新"></span></p>
+                </div>
+                <ul class="row border-d-dash">
+                    <li class="col pad-l-10">
+                        <h5 class="mar-t-15 mar-d-5"  kyee-i18n-directive code="myCalledNumber" default="我的就诊号"></h5>
+                        <p class="f14">{{queue.PATIENT_NUMBER}}<span kyee-i18n-directive code="hao" default="号"></span></p>
+                    </li>
+                    <li class="col ta-l pad_l_24">
+                        <h5  class="mar-t-15 mar-d-5"  kyee-i18n-directive code="numberOfWaiting" default="剩余等待人数"></h5>
+                        <p>{{queue.REMAINING_NUMBER}}<span class="f14" kyee-i18n-directive code="renShu" default="人"></span></p>
+                    </li>
+                </ul>
+                <dl class="f14 pad-d-15" style="margin-bottom: 0px" ng-if="queue.T_QUEUE_CALLED_NUMBER_LIST">
+                    <dt class="ta-c pad-t-15" ng-click="showQueueCalled($index)"  kyee-i18n-directive code="calledHistory" default="历史叫号时间一览">
+
+                        <i class="icon  qy-grey4"  ng-class="{'icon-arrow_up':showClledArr[$index]==0,'icon-arrow_down':showClledArr[$index]==-1}"></i>
+                    </dt>
+                    <dd class="row mar-t-10 ta-c qy-grey5" ng-repeat="clled in queue.T_QUEUE_CALLED_NUMBER_LIST" ng-show="showClledArr[$parent.$index]==0">
+                        <div class="fixed-width ta-r pad-r-22 small_head_box">
+                            {{clled.CALLED_TIME_SHOW}}
+                            <img src="resource\images\queue\head.svg" width="22" class="small_head">
+                        </div>
+                        <div class="col ta-l pad-l-22 pad-td-10">
+                            {{clled.CAllED_NUMBER}}<span kyee-i18n-directive code="visited" default="号已就诊"></span>
+                        </div>
+                    </dd>
+                </dl>
+                <img src="resource\images\queue\img_round_bg_l.png" class="round_bg_l">
+                <img src="resource\images\queue\img_round_bg_r.png" class="round_bg_r">
+            </div>
+            <div class="confirm_box1" ng-if="(!queue.CURRENT_CALL_NUMBER) && (queue.DOCTOR_STATUS !== '3') ">
+                <div class="border-d-dash qy-grey7 f14">
+                    <p class="ta-c qy-orange"  kyee-i18n-directive code="notOpen" default="尚未开诊"></p>
+                    <p class="ta-c rap">
+                        <i class="icon icon-icon_5 line_men"></i>
+                    </p>
+
+                </div>
+                <ul class="row ">
+                    <li class="col pad-l-10">
+                        <h5 class="mar-t-15 mar-d-5"  kyee-i18n-directive code="myVisitNum" default="我的就诊号"></h5>
+                        <p>{{queue.PATIENT_NUMBER}}<span class="f14"  kyee-i18n-directive code="hao" default="号"></span></p>
+                    </li>
+                    <li class="col pad_l_24">
+                        <h5  class="mar-t-15 mar-d-5" kyee-i18n-directive code="lastWaiting" default="剩余等待人数"></h5>
+                        <p class="f14" kyee-i18n-directive code="none" default="暂无"></p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="confirm_box1" ng-if="queue.DOCTOR_STATUS == '3'">
+                <div class="border-d-dash qy-grey7 f14">
+                    <p class="ta-c qy-orange"  kyee-i18n-directive code="xiaban" default="下班"></p>
+                    <p class="ta-c rap">
+                        <i class="icon icon-icon_5 line_men"></i>
+                    </p>
+
+                </div>
+                <ul class="row ">
+                    <li class="col pad-l-10">
+                        <h5 class="mar-t-15 mar-d-5"  kyee-i18n-directive code="myVisitNum" default="我的就诊号"></h5>
+                        <p>{{queue.PATIENT_NUMBER}}<span class="f14"  kyee-i18n-directive code="hao" default="号"></span></p>
+                    </li>
+                    <li class="col pad_l_24">
+                        <h5  class="mar-t-15 mar-d-5" kyee-i18n-directive code="lastWaiting" default="剩余等待人数"></h5>
+                        <p class="f14" kyee-i18n-directive code="none" default="暂无"></p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="pad-b-24 empty-text empty_icon_text" ng-if="dataNotHidden">
+            <i class="icon icon-icon_3 empty-icon " ></i>
+            <span  class="queue_empty_text" kyee-i18n-directive code="notYourNum" default="暂无您的叫号信息"></span>
+        </div>
+    </ion-content>
+</ion-view>

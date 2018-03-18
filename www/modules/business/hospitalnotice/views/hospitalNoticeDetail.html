@@ -1,0 +1,24 @@
+    <ion-view title="{{noticeDetailInfro[0].C_TYPE}}" class="qy_hospitalnotice" ng-init="initView()">
+        <ion-nav-bar align-title="center" class="qy-header">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="right">
+                <a class="button button-clear" ng-click="openRightMenu('hospitalNoticeDetail')">
+                    <i class="icon ion-navicon"></i>
+                </a>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+    <ion-content class="detail_content" animation="slide-left-right"  scroll="true" has-bouncing="true"  padding="false">
+        <div style="padding-top: 4px;">
+        <div style="padding-left: 14px;font-size: 20px" class="detail_title qy-bg-white">
+            <span>{{noticeDetailInfro[0].TITLE}}</span>
+        </div>
+        <div style="padding-left: 14px;margin-left: 0px;padding-bottom: 7px;border-bottom: 1px solid #e7e7e7;color:#999999" class="f14 row detail_titleCon1">
+            <div>{{noticeDetailInfro[0].ADDTIME}}</div>
+            <span class=" font_space">{{noticeDetailInfro[0].C_TYPE}}</span>
+        </div>
+        </div>
+        <div style="padding-left: 14px;padding-right: 14px;" class="detail_html_style">
+            <div ng-bind-html="noticeContent|kyee_to_html"></div>
+        </div>
+    </ion-content>
+</ion-view>

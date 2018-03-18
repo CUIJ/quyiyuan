@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <!-- IOS AddToHome 配置 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="趣医院">
+    <link rel="shortcut icon" sizes="16x16" href="resource/images/base/logo.png">
+    <link rel="shortcut icon" sizes="196x196" href="resource/images/base/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="resource/images/base/logo.png">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="build/scss/base.css"/>
+    <script type="text/javascript">
+        function isWeiXin(){
+            var ua = window.navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        //趣医正式微信公众号入口地址
+        if (isWeiXin() && window.location.origin == "http://app.quyiyuan.com" && window.location.href.indexOf("PublicServiceType")!=-1){
+            window.location.href = "https:"+window.location.href.substring(5);
+        }
+    </script>
+</head>
+
+<body ng-app="kyee.framework.bootstrap"  ng-class="$root.lookAndFeel +'Custom'">
+
+<ion-side-menus>
+
+    <ion-side-menu-content drag-content="false">
+
+        <ion-nav-view name="main_view"></ion-nav-view>
+
+        <div class="home_tabs" id="tabbar" ng-controller="TabsController">
+
+            <ion-tabs id="tabbar" delegate-handle="tabbar" class="tabs-icon-top" ng-if="($root.ROLE_CODE != 3 && $root.ROLE_CODE != 5)">
+                <ion-tab ng-if="true" title="{{$root.lang.homeText}}" icon-on="icon-hospitalize" icon-off="icon-hospitalize"  ng-click="gotoHome()"></ion-tab>
+                <ion-tab ng-if="true" title="{{$root.lang.serviceText}}" icon-on="icon-serve" icon-off="icon-serve" ng-click="gotoHospitalTab()" ></ion-tab>
+                <!--病友圈增加消息tab add by wyn -->
+                <ion-tab ng-if="$root.IS_SHELL_LOAD"  title="{{$root.lang.messageText}}"
+                         ng-class="{'bg-color-red border-radius-5 new_message_flag': ($root.unreadMessageCount + $root.unreadImMessageCount) > 0}"
+                         icon-on="icon-quanzi" icon-off="icon-quanzi" ng-click="goMessageTab()"></ion-tab>
+                <ion-tab ng-if="true" title="{{$root.lang.recordText}}" icon-on="icon-medical-history" icon-off="icon-medical-history"
+                         ng-click="goMedicalrecord()"></ion-tab>
+                <!--个人中心主页开发（APK）  By  张家豪  KYEEAPPC-4404-->
+                <ion-tab ng-if="true" title="{{$root.lang.walletText}}" icon-on="icon-me" icon-off="icon-me" ng-click="goMyWallet()"></ion-tab>
+            </ion-tabs>
+
+            <ion-tabs id="tabbar" delegate-handle="tabbar" class="tabs-icon-top" ng-if="$root.ROLE_CODE == 3">
+                <ion-tab title="{{$root.lang.homeText}}" icon-on="icon-hospitalize" icon-off="icon-hospitalize" ui-sref="doctorHome->MAIN_TAB"></ion-tab>
+                <ion-tab title="{{$root.lang.centerText}}" icon-on="icon-person-hom" icon-off="icon-person-hom" ui-sref="doctorCenter->MAIN_TAB"></ion-tab>
+            </ion-tabs>
+
+            <!--ROLE_CODE=5表示从医院公众号过来-->
+            <ion-tabs id="tabbar" delegate-handle="tabbar" class="tabs-icon-top" ng-if="$root.ROLE_CODE == 5">
+                <ion-tab ng-if="true" title="{{$root.lang.homeText}}" icon-on="icon-hospitalize" icon-off="icon-hospitalize"  ng-click="gotoHome()"></ion-tab>
+                <ion-tab ng-if="$root.IS_SHELL_LOAD"  title="{{$root.lang.messageText}}"
+                         ng-class="{'bg-color-red border-radius-5 new_message_flag1': ($root.unreadMessageCount + $root.unreadImMessageCount) > 0}"
+                         icon-on="icon-quanzi" icon-off="icon-quanzi" ng-click="goMessageTab()"></ion-tab>
+                <ion-tab ng-if="true" title="{{$root.lang.recordText}}" icon-on="icon-medical-history" icon-off="icon-medical-history"  ng-click="goMedicalrecord()"></ion-tab>
+                <ion-tab ng-if="true" title="{{$root.lang.walletText}}" icon-on="icon-me" icon-off="icon-me" ng-click="goMyWallet()"></ion-tab>
+            </ion-tabs>
+        </div>
+
+    </ion-side-menu-content>
+
+    <ion-side-menu side="right" width="80" is-enabled="!$root.hideRightMenu">
+
+        <div kyee-compile-directive template="include/rightmenu.html"></div>
+
+    </ion-side-menu>
+
+</ion-side-menus>
+
+<!-- 下列注释请误删除 -->
+<!--CORDOVA_PLACEHOLDER-->
+<!--<script type="text/javascript" src="cordova.js"></script>-->
+<script type="text/javascript" src="https://cdn.kyeegroup.com/repository/private/kyee-web-monitor/0.1.50/kyee-clairvoyant.js"></script>
+
+<script type="text/javascript" src="build/js/framework/framework.all.min.js"></script>
+<script type="text/javascript" src="build/js/kyee.build.all.js"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=uMVQ0CciKQ3IuGCPkYjntAMD&s=1"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+</body>
+</html>

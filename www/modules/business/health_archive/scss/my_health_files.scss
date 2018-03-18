@@ -1,0 +1,516 @@
+.my_health_files{
+  .header_images {
+    background-position: center !important;
+    background-size: 55px 55px !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    width: 55px;
+    height: 55px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    text-align: center;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+  .doc_img_box_health{
+    line-height: 50px;
+    overflow: hidden;
+  }
+  .border_none{
+    border-bottom: none !important;
+  }
+  .head_image{
+    display: block;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border-radius: 8px;
+  }
+  .border_top_none{
+    border-top: none !important;
+  }
+  .item_padding_0{
+    padding: 0px !important;
+  }
+  .patient{
+    width: 60%;
+    white-space: normal;
+    display: block;
+  }
+  .line_30 {
+    font-size: 14px;
+    line-height: 50px;
+  }
+  .fixed_width1 {
+    display: inline-block;
+    width: 70px;
+    min-width: 70px;
+    white-space: nowrap;
+    color: #333;
+  }
+  .introduce_i{
+    position: relative;
+    top: -4px;
+  }
+  .span_dis_block {
+    display: inline-block;
+    color:#999;
+    padding-right: 10px;
+  }
+  .li_position{
+    position: relative;
+  }
+  .right_arrow{
+    position: absolute;
+    right: 3px;
+    top: 1px;
+    padding-right: 10px;
+  }
+}
+.treatment_information_list{
+  .check_color{
+    color:#6caaff;
+    border-bottom: 2px solid #6caaff;
+    //padding-bottom: 8px;
+  }
+  .check_no_color{
+    //padding-bottom: 11px;
+  }
+  .line_35{
+    line-height: 35px;
+  }
+  .div_line {
+    display: inline-block;
+  }
+
+}
+.treatment_check_list{
+  .bord_t_import{
+    border-top: 1px solid #e7e7e7 !important;
+  }
+  .li_bottom{
+    position: relative;
+    padding: 0;
+    background-color:  #fff;
+  }
+  .item-content{
+    position: relative;
+    z-index: 2;
+    padding: 10px 49px 10px 0px;
+    border: none;
+    background-color: #fff;
+  }
+  .div_hosname_date{
+    width:100%;
+    overflow: hidden;
+  }
+  .icon_show{
+    position: relative;
+    top: 1px;
+  }
+  .div_hosname_span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:60%;
+    display: inline-block;
+    float: left;
+  }
+  .line_35{
+    line-height: 35px;
+  }
+  .div_line {
+    display: inline-block;
+  }
+  .div_position{
+    position: relative;
+    .span_position{
+      position: absolute;
+      right: 20px
+    }
+    .i_position{
+      position: absolute ;
+      right:14px;
+      bottom:26px
+    }
+  }
+
+}
+.my_health_information{
+  .border{
+    border: 1px solid #e7e7e7;
+  }
+  .pad_l_14{
+    padding-left: 14px !important;
+  }
+  .height_50{
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+  }
+  .color_heart{
+    color: #D55555;
+  }
+  .mar_d_10{
+    margin-bottom: 10px !important;
+  }
+  .mar_t_10{
+    margin-top: 10px !important;
+  }
+  .right_arrow{
+    position: absolute;
+    right: 3px;
+    top: 15px;
+    padding-right: 10px;
+  }
+  .span_dis_block {
+    display: inline-block;
+    color:#999;
+  }
+  .mar_l_0{
+    margin-left: 0px !important;
+  }
+  .item-input{
+    padding: 5px 0px;
+    min-height: 50px;
+  }
+  .height_40{
+    min-height: 40px !important;
+  }
+  .height_0{
+    min-height: 0px !important;
+  }
+  .item-input_l{
+    padding: 9px 0px;
+    border-bottom: 1px solid #e7e7e7;
+    min-height: 50px;
+  }
+  .item_padding_0{
+    margin-left: 14px;
+    padding-left: 0px !important;
+  }
+  .item_padding_l{
+    border-bottom: 1px solid #e7e7e7;
+    margin-left: 14px;
+    padding-left: 0px !important;
+  }
+  .border_top_none{
+    border-top: none !important;
+  }
+  .border_bottom_none{
+    border-bottom: none !important;
+  }
+  .item_padding_l{
+    border-bottom: 1px solid #e7e7e7;
+    margin-left: 14px;
+    padding-left: 0px !important;
+  }
+  .posotion_ion {
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    bottom: 0px;
+  }
+  .patient{
+    width: 68%;
+    display: block;
+  }
+  .fixed_width1 {
+    display: inline-block;
+    width: 70px;
+    white-space: nowrap;
+    color: #264557;
+  }
+  .list_textcolor{
+    color: #264557;
+  }
+}
+.clinic_hospital_detail{
+  .height_0{
+    min-height: 0px !important;
+  }
+  .height_50{
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+  }
+  .line_33{
+    line-height: 33px;
+  }
+  .mar_t_12{
+    margin-top: 12px !important;
+  }
+  .pad_b_16{
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+  .pad_t_20{
+    padding-top: 20px !important;
+  }
+  .pad_d_20{
+    padding-bottom: 20px !important;
+  }
+  .mar_b_10{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .border{
+    border: 1px solid #e7e7e7;
+  }
+  .height_40{
+    min-height: 40px !important;
+  }
+  .right_arrow{
+    position: absolute;
+    right: 3px;
+    top: 15px;
+    padding-right: 14px;
+  }
+  .span_dis_block {
+    display: inline-block;
+    color:#333;
+  }
+  .mar_l_0{
+    margin-left: 0px !important;
+  }
+  .item-input{
+    padding: 5px 0px;
+    min-height: 50px;
+  }
+  .item-input_l{
+    padding: 9px 0px;
+    border-bottom: 1px solid #e7e7e7;
+    min-height: 50px;
+  }
+  .item_padding_0{
+    margin-left: 14px;
+    padding-left: 0px !important;
+  }
+  .item_padding_l{
+    border-bottom: 1px solid #e7e7e7;
+    margin-left: 14px;
+    padding-left: 0px !important;
+  }
+  .border_top_none{
+    border-top: none !important;
+  }
+  .border_bottom_none{
+    border-bottom: none !important;
+  }
+  .item_padding_l{
+    border-bottom: 1px solid #e7e7e7;
+    margin-left: 14px;
+    padding-left: 0px !important;
+  }
+  .posotion_ion {
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    bottom: 0px;
+  }
+  .patient{
+    width: 68%;
+    display: block;
+  }
+  .fixed_width1 {
+    display: inline-block;
+    white-space: nowrap;
+    color: #264557;
+  }
+  .fixed_width2 {
+    display: inline-block;
+    white-space: nowrap;
+    color: #333333;
+  }
+  .mar_l_16{
+    margin-left: 16px;
+  }
+  .mar_l_30{
+    margin-left: 30px;
+  }
+  .information{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+    color:white;
+    background-color: #5baa8a;
+    border: 1px solid #5baa8a;
+    border-radius: 2px;
+  }
+  .information_empty{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+    background-color: #fafafa;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+  }
+}
+.medication_prescription_detail{
+  .pad_d_8{
+    padding-bottom: 8px;
+  }
+  .pad_d_14{
+    padding-bottom: 14px;
+  }
+  .color_grey_6{
+    color:#666 !important;
+  }
+  .height_0{
+    min-height: 0px !important;
+  }
+  .back_color{
+    background: #fafafa !important;
+  }
+  .pad_t_12{
+    padding-top: 12px;
+  }
+  .pad_d_12{
+    padding-bottom: 12px;
+  }
+  .pad_top_none{
+    padding-top: 0px !important;
+  }
+  .mar_l_16{
+    margin-left: 16px;
+  }
+  .right_arrow{
+    position: absolute;
+    right: 3px;
+    top: 15px;
+    padding-right: 14px;
+  }
+  .item-input{
+    padding: 0px 0px;
+    min-height: 50px;
+  }
+  .item_padding_0{
+    padding-left: 0px !important;
+    margin-left: 0px !important;
+  }
+  .border_top_none{
+    border-top: none !important;
+  }
+  .border_bottom_none{
+    border-bottom: none !important;
+  }
+  .fixed_width1 {
+    display: inline-block;
+    white-space: nowrap;
+    color: #333333;
+  }
+}
+.treatment_check_detail{
+  .line_35{
+    line-height: 35px;
+  }
+  .div_line {
+    display: inline-block;
+  }
+  .del_button{
+    font-size: 14px !important;
+    color: #fff;
+  }
+  .w_39{
+    width: 48%;
+  }
+  .w_100 {
+    width: 100%;
+  }
+  .item_name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+  }
+  .pad_b_5{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .lab_title_bianhao{
+    text-align: center;
+  }
+  .report_empty_font{
+    color: #cccccc;
+  }
+  .lab_pad10{
+    height: 36px;
+    overflow:hidden;
+  }
+  .lab_detail_line{
+    line-height: 26px;
+  }
+  .border_none{
+    border-bottom: none !important;
+  }
+  .item_padding_0{
+    padding: 0px !important;
+  }
+  .patient{
+    width: 60%;
+    white-space: normal;
+    display: block;
+  }
+  .line_40 {
+    font-size: 14px;
+    line-height: 30px;
+    min-height: 30px !important;
+    border-bottom:none !important;
+    padding-right: 14px !important;
+    padding-left: 32px !important;
+  }
+  .span_postion{
+    display: inline-block;
+    width: 4px;
+    height: 14px;
+    position: absolute;
+    left: 16px;
+    top: 18px;
+  }
+  .fixed_width1 {
+    display: inline-block;
+    width: 70px;
+    min-width: 70px;
+    white-space: nowrap;
+  }
+  .introduce_i{
+    position: relative;
+    top: 3px;
+  }
+  .span_dis_block {
+    display: inline-block;
+  }
+  .li_position{
+    position: relative;
+  }
+}
+.medical_information{
+  .pad_d_8{
+    padding-bottom: 8px;
+  }
+  .pad_d_14{
+    padding-bottom: 14px;
+  }
+    .border {
+      border-bottom: 1px solid #e7e7e7;
+      border-left: 1px solid #e7e7e7;
+      border-right: 1px solid #e7e7e7;
+    }
+    .border_d_dashed {
+      border-bottom: 1px dashed #e7e7e7;
+    }
+}
+.mar_d_10{
+  margin-bottom: 10px !important;
+}
+.mar_t_10{
+  margin-top: 10px !important;
+}
+
+

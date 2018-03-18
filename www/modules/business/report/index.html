@@ -1,0 +1,40 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: WangYuFei
+* 日期: 2015年5月7日13:46:40
+* 创建原因：KYEEAPPC-1957 报告单-html
+* 修改时间：2015年8月21日14:12:58
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3097
+* 修改原因：报告单样式整改
+*/-->
+<ion-view title="报告单" class="qy_report">
+    <!--标题栏-->
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backView()"></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <!--选项卡-->
+    <div class="bar bar-subheader" >
+        <!--选项卡 0:检验单  1:检查单-->
+        <div class="row switchtable">
+            <!--检验单选项-->
+            <a class="col off" kyee-action-holder-directive="inspection_btn" ng-click="isTabActive = '0'"
+               ng-class="{'on': isTabActive == '0'}">检验单</a>
+            <!--检查单选项-->
+            <a class="col off" kyee-action-holder-directive="check_btn" ng-click="isTabActive = '1'"
+               ng-class="{'on': isTabActive == '1'}">检查单</a>
+        </div>
+    </div>
+    <ion-content has-bouncing="true" padding="false" scroll="false" class="has-subheader report_footer qy-bg-grey1" ng-style="{height:ionContentHeight}">
+        <div kyee-compile-directive template="modules/business/report/views/eles/inspection.html"></div>
+        <div kyee-compile-directive template="modules/business/report/views/eles/check.html" ></div>
+    </ion-content>
+    <ion-footer-bar class="report_footer_bar qy-grey5">
+        检验、检查数据仅供参考，以院方实际数据为准
+    </ion-footer-bar>
+</ion-view>

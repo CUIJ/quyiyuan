@@ -1,0 +1,144 @@
+<ion-view class="qy_add_auto_grab" cache-view="false">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backFromAddClinic()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-if="doctorInfo.ADD_CLINIC_TYPE=='0'" kyee-i18n-directive  code="pushHID" default="添加有号提醒"></span>
+            <span ng-if="doctorInfo.ADD_CLINIC_TYPE=='1'" kyee-i18n-directive  code="rushHID" default="添加自动抢号"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-click="rushTips()">
+                <i class="icon icon-help-nav addrush_header_right"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2"
+              delegate-handle="add_clinic_management_new">
+        <!--号源日历-->
+    <div class="schedule_calendar qy-bg-white calendar_border" ng-if="dateList.length>0">
+        <div class="row qy-bg-grey2 pad-b-14 border-d">
+            <span class="col line40 f12 ta-c" ng-repeat="day in dayNames">
+                <span class="va-middle">{{day}}</span>
+            </span>
+        </div>
+        <div>
+            <span class = "solid_point_orange"></span>
+            <span class="mar-l-4 f12 text_pushAble" kyee-i18n-directive code="pushAble" default="可抢号"></span>
+            <span class = "solid_point_blue mar-l-4"></span>
+            <span class="mar-l-4 f12 text_pushHIDWaiting" kyee-i18n-directive code="pushHIDWaiting" default="待放号"></span>
+        </div>
+        <div class="mar-b-14">
+            <ion-slide-box class="w100">
+                <ion-slide ng-repeat="schedulePageData in scheduleData">
+                    <table class="calendar-month f14" cellspacing="0">
+                        <tr>
+                            <td colspan="1" align="left" class="f14 ta-c va-middle qy-grey7 fw-b"
+                                style="padding-top: 12px;padding-bottom: 12px">
+                                <span>{{schedulePageData.month}}月</span>
+                            </td>
+                            <td colspan="1" class="ta-l va-middle qy-grey7 fw-b"
+                                style="padding-top: 12px;padding-bottom: 12px">
+                                <i ng-if="$index==0" class="f16 ion-arrow-right-b"></i>
+                            </td >
+                            <td colspan="5"></td>
+                        </tr>
+                        <tr ng-repeat="scheduleLineDate in schedulePageData.data">
+                            <td ng-repeat="scheduleItem in scheduleLineDate" width="14%" colspan="{{scheduleItem.colspan}}" class="va-middle ta-c">
+                                <div class="scheduleItem" ng-class="scheduleItem.styleClass" id="{{scheduleItem.dayCode}}"
+                                     ng-click="selectDate(scheduleItem,scheduleLineDate,$index)">
+                                    <div class="f14 fw-b" style="line-height: 1em; padding-top: 8px;">{{scheduleItem.dayCode}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-repeat=" ss in schedulePageData.monthLongArry">
+                            <td colspan="7" style="height:44px"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                            <td colspan="1"  class="fw-b qy-grey5 ta-r va-middle" style="padding-top: 12px;padding-bottom: 12px">
+                                <i ng-if="$index > 0" class="f16 ion-arrow-left-b"></i>
+                            </td>
+                            <td colspan="1" class="f14 fw-b qy-grey5 ta-c va-middle" style="padding-top: 12px;padding-bottom: 12px">
+                                <span>{{schedulePageData.anotherMonth}}月</span>
+                            </td>
+                        </tr>
+                    </table>
+                </ion-slide>
+            </ion-slide-box>
+            <!--<div class="f14 qy-grey5 ta-l va-middle pad-d-10" style="padding-left: 3px;width: 100%">-->
+                <!--<div class="qy-grey7 f14 select_all" ng-click="longTerm()">-->
+                    <!--<i class="f16" ng-class="{'ion-android-checkbox-outline-blank qy-grey5':(LONG_TERM=='0'),'ion-android-checkbox-outline qy-green':(LONG_TERM!='0')}" ></i>-->
+                    <!--<span class="mar-l-5 text-ellipsis" kyee-i18n-directive code="unlimitClinic" default="就诊日期不限"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <ul class="list qy-bg-white" ng-if="dateList.length>0">
+        <!--<li class="qy-bg-grey2 qy-bg-white pad-b-14 pad-td-10">-->
+            <!--<table>-->
+                <!--<tr ng-if="doctorInfo.ADD_CLINIC_TYPE=='0'">-->
+                    <!--<td class="qy-orange f12" width="50px" kyee-i18n-directive code="pushAble" default="可抢号:"></td>-->
+                    <!--<td class="f12 qy-grey6" kyee-i18n-directive code="pushAbleExplain" default="当有患者退订等情况时系统第一时间为您发送短信通知"></td>-->
+                <!--</tr>-->
+                <!--<tr ng-if="doctorInfo.ADD_CLINIC_TYPE=='1'">-->
+                    <!--<td class="qy-orange f12" width="50px" kyee-i18n-directive code="pushAble" default="可抢号:"></td>-->
+                    <!--<td class="f12 qy-grey6" kyee-i18n-directive code="rushAbleExplain" default="当有患者退订等情况时系统自动为您抢号"></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td class="qy-blue f12" width="50px" kyee-i18n-directive code="pushHIDWaiting" default="待放号:"></td>-->
+                    <!--<td class="f12 qy-grey6" kyee-i18n-directive code="pushHIDWaitingExplain" default="医生的计划出诊日"></td>-->
+                <!--</tr>-->
+                <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<td class="qy-green f14" width="50px">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="" kyee-i18n-directive  code="NoLimitText" default="日期不限:"></span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<span class="pad-l-10" kyee-i18n-directive  code="limitText" default="限:"></span>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<td class="f12 qy-grey6" kyee-i18n-directive  code="NoLimitTextExplain" default="系统为您安排30天内最近的可用号源"></td>&ndash;&gt;-->
+                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+            <!--</table>-->
+        <!--</li>-->
+        <div ng-if="doctorInfo.ADD_CLINIC_TYPE=='1'"  style="line-height: 50px;max-height: 50px;"
+              class="row item item_bot border-td pad_b_14">
+            <span kyee-i18n-directive code="patientName" default="就诊人" class="f14 fixed_width1 text-ellipsis"
+                  style = "margin-right: 8px;display: inline-block;line-height: 50px;height: 50px;width: 58px;"></span>
+            <span class="f14">{{patientName}}</span>
+            <div class="phone_right set_item_nar f14" ng-if="!HAS_RUSH_ID" ng-click="changepatient()">
+              <span class="m_r_6 qy-grey5 f14" kyee-i18n-directive code="patientNameChoose" default="选择"></span>
+              <i class="icon ion-chevron-right qy-grey5 f14"></i>
+            </div>
+        </div>
+        <div ng-if="doctorInfo.ADD_CLINIC_TYPE=='1'" style="padding: 0;"
+             class="row item item_bot item-input choose_card item-icon-right pad_b_14">
+            <span kyee-i18n-directive  code="cardNo" default="就诊卡" class="f14 fixed_width1 text-ellipsis"
+                  style="margin-right: 8px;display: inline-block;line-height: 50px;height: 50px;width: 58px;"></span>
+            <input ng-readonly="trueOrfalse()" style="padding-right: 5px;" ng-class="{'canWrite':!trueOrfalse()}" type="text" ng-model="patientInf.CARD_SHOW"
+                   placeholder="{{placeholder}}" autocomplete="off" ng-change="inputCardNo()">
+            <div class="card_sel f14" ng-click="showpatientCardNo()"ng-if="!HAS_RUSH_ID">
+                <span class="m_r_6 qy-grey5 f14" kyee-i18n-directive  code="cardNoChoose" default="选择"></span>
+                <i class="ico ion-chevron-right qy-grey5 f14"></i>
+            </div>
+        </div>
+        <div ng-if="doctorInfo.ADD_CLINIC_TYPE=='1'&& FEE_SHOW" style="padding: 0;"
+             class="row item item_bot border-d pad_b_14">
+            <span kyee-i18n-directive  code="fee" default="挂号费" class="f14 fixed_width1"
+                  style="margin-right: 8px;display: inline-block;line-height: 50px;height: 50px;width: 58px;"></span>
+            <span class="small_box_fee" ng-repeat="fee in feeList track by $index" class="col doctor-box qy-fff" style="margin-right: 5px"
+                  ng-click="changeFee(fee,$index)" ng-class="{'bg-green':choosedItem == $index}">{{fee}}元</span>
+        </div>
+    </ul>
+        <div ng-if="doctorInfo.ADD_CLINIC_TYPE=='1'&& DECLARATION_SHOW" class="mar-b-14"style="margin-top: 20px;text-align: justify">
+            <div class="qy-grey7 f14 mar-d-5">
+                声明
+            </div>
+            <div class="f12 qy-grey6" ng-bind-html="DECLARATION_SHOW|kyee_to_html">
+            </div>
+        </div>
+        <div class="pad-b-14 qy-bg-grey2" ng-click="KAH($event) || confirm(dateList)" ng-if="dateList.length>0">
+            <button class="button button-block button-size-l " kyee-i18n-directive code="confirm" default="确认"></button>
+        </div>
+
+</ion-content>
+
+</ion-view>
+<div kyee-compile-directive template="modules/business/appoint/views/delay_views/selected.html"></div>

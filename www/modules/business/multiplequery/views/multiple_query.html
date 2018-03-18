@@ -1,0 +1,222 @@
+<ion-content has-bouncing="true" padding="false" class="has-header" >
+
+    <div ng-if="searchHistorys.length  && searchStatus == 1" class="grey pad-b-14 pad-td-10 row f14">
+            <span class="col-80 col"
+                  kyee-i18n-directive code="historyQuery" default="历史搜索"></span>
+        <a class="col-20 col qy-green clear-history-btn ta-r text-ellipsis" ng-click="onClearHistory()">
+            <span kyee-i18n-directive code="clear" default="清除"></span>
+        </a>
+    </div>
+    <div ng-if="!searchHistorys.length && searchStatus == 1" class="empty-text fontB grey">
+        <i class="icon icon-icon_3 empty-icon"></i>
+        <span kyee-i18n-directive code="noQueryHistory" default="暂无搜索历史"></span>
+    </div>
+    <div ng-if="searchStatus == 3" class="empty-text fontBB grey f14">
+        <span kyee-i18n-directive code="notFindResults" default="抱歉，未找到符合条件的结果"></span>
+        <br>
+        <span kyee-i18n-directive code="changeWords" default="请换个关键词试试~"></span>
+    </div>
+    <div class=" fontM qy-bg-grey2 pad-b-14 pad-t-10"  style="  max-height: 145px; overflow: hidden;" ng-if="searchStatus == 1&&searchHistorys.length">
+            <span ng-repeat="item in searchHistorys" class="mar-r-5 mar-d-5 qy-bg-grey1 history_item f14" ng-click="onHistoryClick(item)">
+                {{item}}
+            </span>
+    </div>
+    <div class="" >
+        <!--避免在华为机型下结果不显示的问题-->
+        <div style="height:1px;">&nbsp;</div>
+
+        <!-- 当前医院搜索信息 -->
+        <div ng-if="searchStatus == 2 && (currentHosData.deptData.length >0 ||currentHosData.doctorData.length>0)">
+            <div ng-if="currentHosData.deptData.length<=3 && currentHosData.doctorData.length<=3" style="line-height: 50px;" class="row result_item_title">
+                <div class="border-d" style="position: relative;top:1px">
+                    <i class="icon-hospital2 f20 mar-l-14 qy-grey5" style="padding-top: 15px;margin-right: 8px;"></i>
+                </div>
+
+                <div class="col f14" >
+                    <span >当前医院包含</span>
+                    <font class="qy-red">{{keyWordsValue}}</font>
+                    <span >的搜索结果</span>
+                </div>
+            </div>
+            <div style="line-height: 50px;height: 50px" class="row result_item_titl" ng-if="currentHosData.deptData.length>3 || currentHosData.doctorData.length>3" ng-click="goMultipleCurrentHospital()">
+                <div class="border-d" style="position: relative;top:1px" >
+                    <i class="icon-hospital2 f20 mar-l-14 qy-grey5" style="padding-top: 15px;margin-right: 8px;"></i>
+                </div>
+                <div class="col f14" >
+                    <span >当前医院包含</span>
+                    <font class="qy-red">{{keyWordsValue}}</font>
+                    <span >的搜索结果</span>
+                </div>
+                <span class="ta-r col col-10 pad-r-14 icon ion-chevron-right qy-grey8"></span>
+            </div>
+            <div ng-if="searchStatus == 2 && currentHosData.deptData.length">
+                <div style="line-height: 50px;height: 50px" class="row pad-l-14" ng-if="currentHosData.deptData.length<=3" ng-click="onSearchResultClick(currentHosData.deptData[0])">
+                 <!--<span style="padding-top: 15px;padding-right: 5px" class="item_logo">
+                     <img class="result-img col" src="resource/images/home/s_dept.png"/>
+                 </span>-->
+                    <span ng-bind-html="currentHosData.deptData[0].showText|kyee_to_html" class="border-t col f14 text-ellipsis"></span>
+                <span class="col pad-r-14 border-t qy-grey5" style="text-align: right">
+                    科室
+                </span>
+                </div>
+                <div class="pad-l-14">
+                    <div style="line-height: 50px;"  ng-repeat="deptData in currentHosData.deptData" class="row border-t" ng-if="($index!=0&&$index<5)||(currentHosData.deptData.length>5&&$index==0)"
+                         ng-click="onSearchResultClick(deptData)">
+                        <span ng-bind-html="deptData.showText|kyee_to_html" class="col f14 text-ellipsis"></span>
+                        <span class="col pad-r-14 qy-grey5" style="text-align: right">科室</span>
+                    </div>
+                </div>
+
+            </div>
+            <div ng-if="searchStatus == 2 && currentHosData.doctorData.length">
+                <div class="row pad-l-14" style="line-height: 50px;height: 50px" ng-if="currentHosData.doctorData.length<=3" ng-click="onSearchResultClick(currentHosData.doctorData[0])">
+                    <!--<span style="padding-top: 15px;padding-right: 5px" class="item_logo" ng-if="currentHosData.doctorData.length<=3">
+                     <img class="result-img col" src="resource/images/home/s_doctor.png"/>
+                 </span-->
+                    <span ng-bind-html="currentHosData.doctorData[0].showText|kyee_to_html" class="border-t col f14 text-ellipsis"></span>
+                    <span class="col pad-r-14 border-t qy-grey5 text-ellipsis" style="text-align: right">{{currentHosData.doctorData[0].DOCTOR_TITLE}}</span>
+                </div>
+                <div class="pad-l-14">
+                    <div style="line-height: 50px;" ng-repeat="doctorData in currentHosData.doctorData" class="border-t row" ng-if="($index!=0&&$index<3)||(currentHosData.doctorData.length>3&&$index==0)"
+                         ng-click="onSearchResultClick(doctorData)">
+                        <span ng-bind-html="doctorData.showText|kyee_to_html" class="col f14 text-ellipsis"></span>
+                        <span class="col pad-r-14 qy-grey5 text-ellipsis" style="text-align: right">{{doctorData.DOCTOR_TITLE}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div ng-if="searchStatus == 2 && (currentHosData.deptData.length|| currentHosData.doctorData.length >0)" style="line-height: 40px" class="text-center qy-bg-grey2 border-d border-t qy-grey6">
+            <span style="font-size: 10px;position: relative;top: -3px;" class="">——</span><span class="mar-l-10 mar-r-10">其他医院搜索结果</span><span style="font-size: 10px;font-size: 10px;position: relative;top: -3px;" >——</span>
+        </div>
+
+        <!--疾病列表-->
+        <div ng-if="searchStatus == 2 && searchResults.diseaseData.length" class="result_item">
+            <div style="line-height: 40px;" class="row mar-d-5 result_item_title border-d" ng-if="searchResults.diseaseData.length>6" ng-click="goToDiseaseList()">
+                    <span style="padding-top: 10px; " class="item_logo mar-l-14">
+                        <img class="result-img col" src="resource/images/home/s_disease.png"/>
+                    </span>
+                <div ng-if="searchResults.diseaseData.length>6" class="col pad-d-5 f14">
+                    <span kyee-i18n-directive code="queryContains" default="查看更多包含"></span>
+                    <font class="qy-red">{{keyWordsValue}}</font>
+                    <span kyee-i18n-directive code="theDisease" default="的疾病"></span>
+                </div>
+                <span class="ta-r col col-10 pad-r-14 icon ion-chevron-right qy-grey8 "></span>
+            </div>
+
+            <div class="row pad-l-10" ng-if="searchResults.diseaseData.length<=6" ng-click="onSearchResultClick(searchResults.diseaseData[0])">
+                 <span style="padding-top: 10px;" class="item_logo img_top" ng-if="searchResults.diseaseData.length<=6">
+                     <img class="result-img col" src="resource/images/home/s_disease.png"/>
+                 </span>
+                <span ng-bind-html="searchResults.diseaseData[0].showText|kyee_to_html" class="border-d col pad-td-5 f14"></span>
+                    <span class="col pad-r-14 border-d pad-t-5 qy-grey5" style="text-align: right"
+                          kyee-i18n-directive code="disease" default="疾病"></span>
+            </div>
+            <div class="pad-l-10" style="margin-left: 24px;">
+                <div style="line-height: 40px;" ng-repeat="diseaseData in searchResults.diseaseData"  class="border-d pad-d-5 row"  ng-if="($index!=0&&$index<6)||(searchResults.diseaseData.length>6&&$index==0)"
+                     ng-click="onSearchResultClick(diseaseData)">
+                    <span ng-bind-html="diseaseData.showText|kyee_to_html" class="col f14"></span>
+                        <span class="col pad-r-14 qy-grey5" style="text-align: right">
+                        <span kyee-i18n-directive code="disease" default="疾病"></span>
+                        </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 医院列表 -->
+        <div ng-if="searchStatus == 2 && searchResults.hospitalData.length" class="result_item">
+            <div style="line-height: 40px;" class="row mar-d-5 result_item_title border-d " ng-if="searchResults.hospitalData.length>3" ng-click="goMultipleHospital()">
+                    <span style="padding-top: 10px;" class="item_logo mar-l-14">
+                        <img class="result-img" src="resource/images/home/s_hospital.png"/>
+                    </span>
+                <div ng-if="searchResults.hospitalData.length>3" class="col f14 pad-d-5" >
+
+                    <span kyee-i18n-directive code="queryContains" default="查看更多包含"></span>
+                    <font class="qy-red">{{keyWordsValue}}</font>
+                    <span kyee-i18n-directive code="theHospital" default="的医院"></span>
+                </div>
+                <span class="ta-r col col-10 pad-r-14 icon ion-chevron-right qy-grey8"></span>
+            </div>
+            <div style="line-height: 40px;" class="row pad-l-10" ng-if="searchResults.hospitalData.length<=3" ng-click="onSearchResultClick(searchResults.hospitalData[0])">
+                     <span style="padding-top: 10px;" class="item_logo">
+                         <img class="result-img col" src="resource/images/home/s_hospital.png"/>
+                     </span>
+                <span ng-bind-html="searchResults.hospitalData[0].showText|kyee_to_html" class="border-d col f14"></span>
+                    <span class="col pad-r-14 border-d qy-grey5" style="text-align: right">
+                        {{searchResults.hospitalData[0].CITY_NAME}}
+                    </span>
+            </div>
+            <div style="margin-left: 24px;" class="pad-l-10">
+                <div style="line-height: 40px;" ng-repeat="hospitalData in searchResults.hospitalData"
+                     ng-if="($index!=0&&$index<3)||(searchResults.hospitalData.length>3&&$index==0)"
+                     class="border-d pad-d-5 row" ng-click="onSearchResultClick(hospitalData)">
+                    <span ng-bind-html="hospitalData.showText|kyee_to_html" class="col f14"></span>
+                    <span class="col pad-r-14 qy-grey5" style="text-align: right">{{hospitalData.CITY_NAME}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!--科室列表-->
+        <div ng-if="searchStatus == 2 && searchResults.deptData.length" class="result_item">
+            <div style="line-height: 40px;" class="row mar-d-5 result_item_title border-d" ng-if="searchResults.deptData.length>5" ng-click="goMultipleDept()">
+                    <span style="padding-top: 10px;" class="item_logo mar-l-14">
+                        <img class="result-img" src="resource/images/home/s_dept.png"/>
+                    </span>
+                <div ng-if="searchResults.deptData.length>5" class="col f14 pad-d-5" >
+                    <span kyee-i18n-directive code="queryContains" default="查看更多包含"></span>
+                    <font class="qy-red">{{keyWordsValue}}</font>
+                    <span kyee-i18n-directive code="theDept" default="的科室"></span>
+                </div>
+                <span class="ta-r col col-10 pad-r-14 icon ion-chevron-right qy-grey8"></span>
+            </div>
+            <div style="line-height: 40px;" class="row pad-l-10" ng-if="searchResults.deptData.length<=5" ng-click="onSearchResultClick(searchResults.deptData[0])">
+                 <span style="padding-top: 10px;" class="item_logo">
+                     <img class="result-img col" src="resource/images/home/s_dept.png"/>
+                 </span>
+                <span ng-bind-html="searchResults.deptData[0].showText|kyee_to_html" class="border-d col f14"></span>
+                <span class="col pad-r-14 border-d qy-grey5" style="text-align: right">
+                    {{searchResults.deptData[0].HOSPITAL_NAME}}
+                </span>
+            </div>
+            <div style="margin-left: 24px;" class="pad-l-10">
+                <div style="line-height: 40px;" ng-repeat="deptData in searchResults.deptData" class="border-d pad-d-5  row"
+                     ng-if="($index!=0&&$index<5)||(searchResults.deptData.length>5&&$index==0)"
+                     ng-click="onSearchResultClick(deptData)">
+                    <span ng-bind-html="deptData.showText|kyee_to_html" class="col f14"></span>
+                    <span class="col pad-r-14 qy-grey5" style="text-align: right">{{deptData.HOSPITAL_NAME}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!--医生列表-->
+        <div ng-if="searchStatus == 2 && searchResults.doctorData.length" class="result_item">
+            <div style="line-height: 40px;" class="row mar-d-5 result_item_title border-d" ng-if="searchResults.doctorData.length>3" ng-click="goMultipleDoctor()">
+                    <span style="padding-top: 10px;" class="item_logo mar-l-14">
+                        <img class="result-img col" src="resource/images/home/s_doctor.png"/>
+                    </span>
+                <div ng-if="searchResults.doctorData.length>3" class="col pad-d-5 f14" >
+                    <span kyee-i18n-directive code="queryContains" default="查看更多包含"></span>
+                    <font class="qy-red">{{keyWordsValue}}</font>
+                    <span kyee-i18n-directive code="theDoctor" default="的医生"></span>
+                </div>
+                <span class="ta-r col col-10 pad-r-14 icon ion-chevron-right qy-grey8"></span>
+            </div>
+            <div class="row pad-l-10" ng-if="searchResults.doctorData.length<=3" ng-click="onSearchResultClick(searchResults.doctorData[0])">
+                 <span style="padding-top: 10px;" class="item_logo" ng-if="searchResults.doctorData.length<=3">
+                     <img class="result-img col" src="resource/images/home/s_doctor.png"/>
+                 </span>
+                <span ng-bind-html="searchResults.doctorData[0].showText|kyee_to_html" class="border-d col f14"></span>
+                <span class="col pad-r-14 border-d qy-grey5" style="text-align: right">{{searchResults.doctorData[0].DOCTOR_TITLE}}</span>
+            </div>
+            <div style="margin-left: 24px;" class="pad-l-10">
+                <div style="line-height: 40px;" ng-repeat="doctorData in searchResults.doctorData"  class="border-d pad-d-5 row"  ng-if="($index!=0&&$index<3)||(searchResults.doctorData.length>3&&$index==0)"
+                     ng-click="onSearchResultClick(doctorData)">
+                    <span ng-bind-html="doctorData.showText|kyee_to_html" class="col f14"></span>
+                    <span class="col pad-r-14 qy-grey5" style="text-align: right">{{doctorData.DOCTOR_TITLE}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

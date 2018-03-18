@@ -1,0 +1,99 @@
+<ion-view class="qy_doctor_message_board">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="咨询留言"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('doctorMessageBoard')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+
+        <ion-refresher ng-if="bindingFlag" pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon"  on-refresh="queryChatWords(false)">
+        </ion-refresher>
+
+        <div class="row pad-b-14" style="background-image: url('resource/images/icons/docbg.jpg');">
+<!--            <div ng-class="{'path_show':defaultImage}" class="doc_img_box">
+                <img class="head_image" ng-src="{{data.DOCTOR_PIC_PATH}}" onerror="javascript:this.src='resource/images/base/doc_head_default_man.png'">
+            </div>-->
+            <div ng-class="{'path_show':defaultImage}" class="doc_img_box">
+                <img class="head_image" ng-src="{{data.DOCTOR_PIC_PATH}}"
+                     onerror="javascript:this.src='resource/images/base/head_default_man.jpg'">
+            </div>
+            <ul class="col doctor_info_box mar-t-20">
+                <li class="text-ellipsis f16 qy-deepblack mar-d-15">
+                    {{data.DOCTOR_NAME}}
+                </li>
+                <li class="doctor_desc text-ellipsis">
+                    {{data.HOSPITAL_NAME}}
+                </li>
+                <li>  {{data.DEPT_NAME}}
+                    <span  ng-if="bindingFlag" ng-click="onPostRootClick()" class="fl-r chat_right" kyee-operation-monitor-directive="leaveMsgForDoctor">
+                        <img src="resource/images/doctorRole/chat.png" class="img_chat"/>
+                        给医生留言
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="content_sec qy-bg-white" ng-if="!showEmpty" style="min-height: {{KyeeEnv.innerSize.height-182+'px'}}">
+
+            <div ng-if="UNREAD_NUM > 0" class="ta-c pad-t-5" ng-click="openUnreadMessage()" kyee-operation-monitor-directive="openUnreadMessage">
+                <button class="button button-size-s button-color-red ta-c">新留言{{UNREAD_NUM}}条 ></button>
+            </div>
+
+            <ul ng-repeat="word in words" class="words_div">
+                <li class="row show_name_sec">
+                    <span class="show_name">{{showName(word)}}：</span>
+                    <span class="col words_text" ng-class="{'doctor_text':word.WORDS_FLAG == 1}" >
+                        {{word.WORDS_TEXT}}
+                    </span>
+                </li>
+                <li class="row show_operate_sec" ng-if="showOperateBtn($index)">
+                    <div class="col words_operate_btn" ng-class="{'clear_border': $index == words.length-1}">
+                        <span ng-click="deleteRootWord($index)" ng-if="showDeleteBtn($index)" kyee-operation-monitor-directive="deleteRootWord">删除&nbsp/</span>
+                        <span ng-click="postResetWordBtn($index)" class="qy-green" kyee-operation-monitor-directive="postResetWord">回复</span>
+                    </div>
+                </li>
+
+                <ion-list>
+                    <ion-item ng-repeat="reset in word.RESET" class="row words_div reset_div" ng-class="{'clear_border': $parent.$parent.$index == words.length-1}">
+                        <div class="mar_60"></div>
+                        <div ng-click="operateReset($parent.$parent.$index,$index)" class="col operate_div">
+                            {{showSendName($parent.$parent.$index, $index)}} <span class="qy-green">回复</span>
+                            {{showReceiveName($parent.$parent.$index, $index)}}：{{reset.RESET_TEXT}}
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ul>
+
+            <div kyee-list-picker-directive
+                 data="pickerItems"
+                 select-finash="selectItem(params)"
+                 bind="bind(params)"></div>
+
+        </div>
+
+        <ion-infinite-scroll
+                ng-if="moreDataCanBeLoaded()"
+                icon="ion-loading-c"
+                on-infinite="loadMore()">
+        </ion-infinite-scroll>
+
+        <div ng-if="showEmpty" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p kyee-i18n-directive>{{emptyText}}</p>
+        </div>
+    </ion-content>
+
+    <div ng-if="chatInputShowFlag" class="bar bar-footer footer_border">
+        <textarea ng-bind="reset" ng-model="reset" placeholder="{{getPlaceholderText()}}" class="text_area"></textarea>
+        <div ng-click="submitWords(reset)" class="submit_btn">发送</div>
+    </div>
+
+</ion-view>

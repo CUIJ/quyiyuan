@@ -1,0 +1,205 @@
+//index.html
+
+.qy_medical_order{
+  .order_list{
+    padding-top: 20px;
+    margin: 0;
+  }
+  .no_data_reminder{
+    color: #c9c9c9;
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+  }
+  .white_background{
+    background-color: white;
+  }
+  .supplier_icon{
+    font-size: 18px;
+    color: darkorange;
+    position: relative;
+    left: 10px;
+  }
+  .merchant_div{
+    padding: 10px;
+  }
+  .order_list_div{
+    padding: 10px 0 10px 0;
+    border-bottom: solid 1px lightgrey;
+    border-top: solid 1px lightgrey;
+  }
+  .order_item_div{
+    padding: 5px 0 5px 0;
+  }
+  .order_status_span{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #EF2C3D;
+  }
+  .drug_name_div{
+    padding-left: 20px;
+  }
+  .price_div{
+    text-align: right;
+    padding-right: 10px;
+  }
+  .more_div{
+    text-align: right;
+    padding-right: 25px;
+    letter-spacing: 3px;
+  }
+  .total_price_div{
+    border: 0;
+    text-align: right;
+    margin-top: 10px;
+  }
+  .pay_div{
+    padding: 5px;
+    text-align: right;
+  }
+  .pay_button{
+    color: #54B181;
+    border-color: #54B181;
+    margin-left: 15px;
+    padding: 3px 25px 3px 25px;
+  }
+  .logistics_div{
+    padding: 5px;
+    text-align: right;
+  }
+  .logistics_button{
+    color: #54B181;
+    border-color: #54B181;
+    margin-left: 15px;
+    padding: 3px 25px 3px 25px;
+  }
+}
+
+//order_detail.html
+
+.qy_order_detail{
+  .content{
+    position: absolute;
+    bottom: 70px;
+  }
+  .white_background{
+    background-color: white;
+  }
+  .pd_left_10{
+    padding-left: 10px;
+  }
+  .button_style{
+    color: #54B181;
+    border-color: #54B181;
+    margin-left: 15px;
+    padding: 3px 10px;
+  }
+  .merchant_div{
+    padding: 10px;
+  }
+  .order_list_div{
+    padding: 10px 0 10px 0;
+    border-bottom: solid 1px lightgrey;
+    border-top: solid 1px lightgrey;
+  }
+  .order_item_div{
+    padding: 5px 0 5px 0;
+  }
+  .total_price_div{
+    border: 0;
+    text-align: right;
+    margin-top: 10px;
+  }
+  .price_div{
+    text-align: right;
+    padding-right: 10px;
+  }
+  .order_status_div{
+    padding: 15px;
+  }
+  .order_status_span{
+    color: #EF2C3D;
+  }
+  .logistics_div{
+    margin-top: 20px;
+    padding: 15px;
+  }
+  .logistics_icon{
+    position: relative;
+    top: 10px;
+  }
+  .pay_div{
+    margin-top: 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+  }
+  .pay_button{
+    border-radius: 4px;
+    width: 90%;
+    height: 42px;
+    background-color: #0F9D58;
+    color: white;
+  }
+  .person_div{
+    margin-top: 20px;
+    padding: 15px;
+  }
+  .address_div{
+    padding-top: 5px;
+  }
+  .range_div{
+    padding-top: 10px;
+    text-align: right;
+  }
+}
+
+//logistics_detail.html
+
+.qy_logistics_detail{
+  .white_background{
+    background-color: white;
+  }
+  .logistics_icon{
+    color: lightgreen;
+    margin-left: -10px;
+    position: relative;
+    top: 10px;
+    font-size: 18px;
+  }
+  .express_div{
+    padding: 15px;
+  }
+  .express_span{
+    padding-left: 10px;
+  }
+  .express_status_span{
+    color: #EF2C3D;
+    padding-left: 10px;
+  }
+  .info_div{
+    margin-top: 5px;
+    margin-left: 13px;
+  }
+  .info_content_div{
+    padding-left: 5px;
+  }
+  .info_content_inner_div{
+    margin-top: 20px;
+    border-left: 2px solid lightgreen;
+    margin-left: 20px;
+  }
+  .track_div{
+    padding-top: 10px;
+  }
+  .track_span{
+    padding-left: 20px;
+  }
+  .update_time_span{
+    padding-left: 28px;
+  }
+}

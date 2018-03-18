@@ -1,0 +1,25 @@
+<ion-view class="qy_perpaid_record" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="预缴历史"></span>
+        </ion-nav-title>
+        <!--<ion-nav-buttons side="right">-->
+            <!--<a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">-->
+                <!--<i class="icon ion-navicon"></i>-->
+            <!--</a>-->
+        <!--</ion-nav-buttons>-->
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" ng-click="click();">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+           refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(false)">
+        </ion-refresher>
+
+        <div kyee-compile-directive template="modules\business\my_wallet\perpaid\views\delay_views\perpaid_record.html" ></div>
+
+        <div ng-if="isEmpty" class="empty-text">
+            <i ng-if="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,151 @@
+/*schedule-dept[index] view*/
+.quyiyuan-schedule-dept {
+
+}
+.quyiyuan-schedule-doctor{
+  .calendar_box {
+    .calendar_height{
+      height: 28px;
+      line-height: 28px;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+  }
+  .calendar_box .body {
+    line-height: 25px;
+    text-align: center;
+    background-color: #fafafa;
+    font-size: 12px;
+  }
+  .deptInfo{
+
+    .dept-dic{
+      display: -webkit-box;
+      -webkit-line-clamp:3;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+    }
+    .dept-dic-all{
+      text-align: center;
+    }
+  }
+  .dept{
+    font-weight: bold;
+  }
+  .doctor-score{
+    position: relative;
+    text-align: center;
+    padding-left: 14px;
+    padding-right: 14px;
+    .doctor-left{
+      position: absolute;
+      left: 7px;
+      padding-bottom: 43px;
+      top: 7px;
+      padding-top: 40px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+    .doctor-right{
+      position: absolute;
+      right: 7px;
+      top: 7px;
+      padding-top: 40px;
+      padding-bottom: 43px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+    .doctorrows{
+     display: -webkit-box;
+    }
+    .doctorcol{
+      border-radius: 2px;
+      border: 1px solid #efefef;
+      width: 22%;
+      margin-left: 5px;
+      margin-right: 5px;
+      line-height: 17px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+/*      float: left;*/
+    }
+    .doctorcol_border{
+      border: 1px solid #5baa8a !important;
+    }
+    .currentpage{
+      width: 100%;
+    }
+    .doctorshow{
+      display: -webkit-box;
+     /* overflow: hidden;*/
+    }
+    .doctorclinic{
+      color: #CCCCCC;
+    }
+    .pad_td_10 { padding-top: 10px}
+  }
+  .doctorcol-box{
+    text-align: center;
+  }
+  .doctortitle{
+    margin-left: 5px;
+  }
+  .doctordic{
+    display: -webkit-box;
+    -webkit-line-clamp:2;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+  .calendar_height{
+    height: 28px;
+    line-height: 28px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+  }
+  .doctor-date {
+    line-height: 40px;
+  }
+  .body{
+    .week-date{
+      padding-top: 1px;
+    }
+    .doctor-box{
+      border-bottom: 1px solid #fff;
+      border-right: 1px solid #fff;
+      background-clip: padding-box;
+    }
+    .rowday{
+      min-height: 40px;
+      line-height: 40px;
+    }
+    .days{
+      background-color: #5baa8a;
+    }
+    .weekToday{
+      color: #5baa8a;
+      line-height: 14px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+    .weekDate{
+      line-height: 14px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+  }
+.doctor-schedule-page{
+  text-align: center;
+/*  margin-bottom: 20px;
+  padding-top: 10px;*/
+}
+.circle{
+  font-size: 6px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+  .ionchecked{
+    color: #959595;
+  }
+}

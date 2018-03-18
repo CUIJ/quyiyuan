@@ -1,0 +1,152 @@
+/* Scss Document */
+.qy_multiple_dept {
+  background: #fafafa;
+  .hospital_level{
+    background-color: orange;
+    padding: 2px 2px 0 2px;
+    line-height: 14px;
+  }
+  .search_button {
+    font-size: 17px;
+    border-radius: 0 2px 2px 0
+  }
+  .search_button.active,.search_button.activated,.search_button:hover{
+    background: white;
+    opacity: 1;
+    color: #5baa8a;
+  }
+
+  .hospital_info{
+    white-space: pre-line;
+    line-height: 24px;
+    padding-bottom: 10px;
+  }
+  .dept_position{
+    padding-right: 10px;
+    margin-left: 14px;
+    position: relative;
+    padding-top: 5px;
+  }
+  .font_position{
+    padding-left: 50px;
+    padding-bottom: 10px;
+  }
+  .name_position{
+    margin-left: 50px;
+  }
+  .dept_address{
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 5px;
+  }
+  .doctor_img{
+    height: 87px;
+    width: 70px;
+  }
+  .cur_doctor_img{
+    height: 70px;
+    width: 50px;
+  }
+  .doctor_dic{
+    white-space: pre-line;
+    line-height: 17px;
+  }
+  .doctor_tittle{
+    padding-right:5px;
+    margin-left: 10px;
+  }
+  .doctor_name{
+    padding-bottom: 5px;
+  }
+  .first_width{
+    max-width: 65%;
+  }
+  .second_width{
+    max-width: 30%;
+  }
+  .hospital_img{
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    height: 100%;
+  }
+  .cur_dept_img{
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    position: relative;
+    top: 10px;
+    border-radius: 4px;
+  }
+  .hospital_tittle{
+    position: relative;
+  }
+  .special_dept{
+    padding-bottom: 10px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .special_line{
+    text-decoration: underline;
+  }
+  .hospital_name{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .search-item {
+    height: 28px;
+    padding: 0;
+    border-radius: 2px;
+  }
+
+  .item-input-wrapper {
+    position: relative;
+    border-right: 1px solid #e7e7e7;
+  }
+  .ion-close-circled {
+    position: absolute;
+    right: 0px;
+    top: 7px;
+  }
+  .placeholder-icon{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .icon-seach {
+    font-size: 17px;
+  }
+}
+
+.qy_multiple_dept .item-avatar > img:first-child {
+  position: absolute;
+  top: 16px;
+  left: 0px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.qy_multiple_dept .icon-position {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 24px;
+}
+
+.qy_multiple_dept .icon-flag {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 22px;
+}
+
+.qy_multiple_dept .list > a:last-child {
+  border-bottom: none;
+}

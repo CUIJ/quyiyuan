@@ -1,0 +1,11 @@
+<ion-view title="服务器正在维护">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ui-sref="home->MAIN_TAB"></ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content scrollbar-y="false" has-bouncing="true" padding="false">
+        <iframe width="100%" height="{{KyeeEnv.innerSize.height}}px" style="background-color: white;" src="{{$root.upgrade_page_src}}"></iframe>
+    </ion-content>
+
+</ion-view>

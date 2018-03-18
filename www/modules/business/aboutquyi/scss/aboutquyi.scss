@@ -1,0 +1,293 @@
+.qy_aboutquyi
+{
+  .list-a li {
+    margin: 0px;
+    margin-left: 14px;
+  }
+  li:last-child{
+    margin: 0px;
+  }
+  /*brand and QRCode image*/
+  .brand_img
+  {
+    padding:10px;
+    height: 150px;
+  }
+
+  /*the arrow show there is more to show*/
+  .right_arr_icon
+  {
+    float: right;
+    color: #999;
+  }
+
+  /*show is there new version*/
+  .new_flag_hide
+  {
+    display: none;
+  }
+
+  .new_flag_show
+  {
+    display: block !important;
+  }
+
+  .new_version_icon
+  {
+    float: right;
+    margin-right: 10px;
+  }
+
+  .list-a li {
+    font-size: 14px;
+
+  }
+
+  .a_underline{
+    text-decoration: underline;
+  }
+
+  .button-size-l.activated, .button-size-l.active{
+    border: 1px solid #5baa8a;
+    color: #5baa8a;
+    background: #fff;
+    opacity: .8;
+  }
+  .button-size-l:hover{
+    color: #5baa8a;
+  }
+
+}
+
+/*in help page, the style of the web content*/
+.qy_aboutquyi_web
+{
+  .web_content
+  {
+    height: 100%;
+    width: 100%;
+  }
+
+  .web_frame
+  {
+    min-height: 100%;
+    width: 100%;
+  }
+}
+.qy_aboutquyi_riskweb{
+  .web_content
+  {
+    height: 100%;
+    width: 100%;
+  }
+
+  .web_frame
+  {
+    min-height: 100%;
+    width: 100%;
+  }
+}
+
+
+/*in help page, the style of the list item*/
+.qy_aboutquyi_help
+{
+  .help_list_item
+  {
+    margin: 0 !important;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /*the arrow show there is more to show*/
+  .right_arr_icon
+  {
+    float: right;
+    margin-top: 3px;
+  }
+  .li_backcolor_click{
+    background-color: white;
+  }
+  .border_orange{
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid orange;
+    background-color: orange;
+    width: 22px;
+    text-align: center;
+    color: white;
+  }
+  .border_lightgrey{
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid lightgrey;
+    background-color: lightgrey;
+    width: 22px;
+    text-align: center;
+    color: white;
+  }
+}
+
+.qy_aboutquyi_feedback
+{
+  /*in feedback page, the style of the text field*/
+  .feedback_textfield
+  {
+    padding: 14px;
+  }
+
+  .suggest_text_area
+  {
+    width: 100%;
+    //border: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 14px;
+
+  }
+  .feedbackcontent::-webkit-input-placeholder{color:#ccc;font-size: 12px;}
+  .mar_t_20{
+    margin-top: 20px !important;
+  }
+  .suggest_list
+  {
+    .suggest_item
+    {
+      padding: 14px;
+      border-bottom: 1px solid #e7e7e7;
+    }
+    .item_time
+    {
+      display: inline-block;
+      width:60%;
+      line-height: 1.5em;
+    }
+    .item_status
+    {
+      display: inline-block;
+      width: 38%;
+      text-align: right;
+      line-height: 1.5em;
+    }
+
+  }
+}
+
+.qy_aboutquyi_newfeedback{
+    .bar .buttons-right{
+      height:43px;
+      line-height:43px;
+      text-align: right;
+      right:14px;
+      top: 5px;
+      .groupFlag{
+        right:0;
+        font-size: 20px;
+        margin:12px 0;
+      }
+    }
+    .user_icon{
+      width: 40px;
+      height: 40px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+  .user_ico_xiaoqu{
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 50px;
+  }
+    .send_img{
+      right:0;width:40px;height:40px;
+    }
+    .send_content{
+      margin-right:54px;
+      .text_msg{
+        padding:9px 8px;
+      }
+      .arrow_right{
+        width:0;
+        height:0;
+        border-width:7px 0 7px 7px;
+        border-style:solid;
+        border-color:transparent transparent transparent #5baa8a;
+        top:15px;
+        position:absolute;
+        right:-6px;
+        span{
+          display:block;
+          width:0;
+          height:0;
+          border-width:8px 0 8px 8px;
+          border-style:solid;
+          border-color:transparent transparent transparent #d2eddc;
+          position:absolute;
+          top:-8px;
+          left:-9px;
+        }
+      }
+    }
+    .receive_img{
+      left:0;width:40px;height:40px;
+    }
+    .receive_content{
+      margin-left:54px;
+      .text_msg{
+        padding:9px 8px;
+        max-width:100%;
+      }
+      .arrow_left{
+        width:0;
+        height:0;
+        border-width:7px 7px 7px 0;
+        border-style:solid;
+        border-color:transparent #e7e7e7 transparent transparent;
+        top:13px;
+        left:-7px;
+        position:absolute;
+        span{
+          display:block;
+          width:0;
+          height:0;
+          border-width:8px 8px 8px 0;
+          border-style:solid;
+          border-color:transparent #fff transparent transparent;
+          position:absolute;
+          top:-8px;
+          left:1px;
+        }
+      }
+    }
+    .footer_div {
+      position: absolute;
+      bottom: 0;
+      min-height: 56px;
+      overflow: hidden;
+    }
+    .footer_div{
+      padding: 0px;
+      .left_14{left:14px;}
+      .icon-smilies{
+        right:46px;
+        margin-right:14px;
+      }
+      .chat_module_Icon{
+        border:1px solid #5baa8a;
+        border-radius: 5px;
+        padding:10px;
+      }
+    }
+    .qy_send_msg,.qy_receive_msg{
+      min-height: 40px;
+    }
+    a.text_href.activated,a.text_href.active{
+      background-color: #5baa8a !important;
+      opacity: 0.5;
+    }
+  .fresh_height{
+    height: 40px;
+    top: -70px;
+  }
+}

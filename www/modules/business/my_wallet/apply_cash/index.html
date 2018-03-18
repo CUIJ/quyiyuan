@@ -1,0 +1,109 @@
+<ion-view class="qy_apply_cash">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="myTitle" default="我的零钱"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click=" openRightMenu('apply_cash')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div class="ta-r top_box pad-d-20 qy-bg-white mar-d-10">
+            <span class="qy-green ta-r" kyee-i18n-directive code="canApplyMoney" default="我的零钱"></span>
+
+            <p class="fw-b f28 qy-green mar-d-5">¥{{records.CURRENT_BALANCE}}</p>
+        </div>
+        <div class="qy-bg-white  pad-b-14 apply_type_tittle border-td" style="padding-top: 13px;padding-bottom: 11px;">
+            <span class="f14" kyee-i18n-directive code="selectApplyWay" default="请选择提现方式"></span>
+
+            <div ng-if="isShowapplyTips" class="apply_tips" ng-click="showTips()">
+                <i class="icon icon-icon_1 qy-green icon_position f16"></i>
+                <p kyee-i18n-directive code="applyTips" default="提现小提示"></p>
+
+            </div>
+        </div>
+        <div class="pad-b-14 pad-td-10 qy-bg-white row border-d mar-d-10">
+            <div ng-if="isSupportPhoneFeeCharge(records.APPLY_CASH_TYPE)" ng-click="forwardPhoneFeeCharge()" class="mar-l-5">
+                <img src="resource/images/myWallet/recharge.png" class="img_label">
+
+                <div class="img_text text-ellipsis" kyee-i18n-directive code="applyByRecharge" default="话费充值"></div>
+            </div>
+            <div ng-if="isSupportRebateBank(records.APPLY_CASH_TYPE)" ng-click="forwardRebateBank()"
+                 ng-class="{'mar-l-20':isSupportRebateBank(records.APPLY_CASH_TYPE)&&isSupportPhoneFeeCharge(records.APPLY_CASH_TYPE),
+                 'mar-l-5':isSupportRebateBank(records.APPLY_CASH_TYPE)&&!isSupportPhoneFeeCharge(records.APPLY_CASH_TYPE)}">
+                <img src="resource/images/myWallet/bank.png" class="img_label">
+
+                <div class="img_text text-ellipsis" kyee-i18n-directive code="applyByBank" default="银行卡提现"></div>
+            </div>
+        </div>
+
+        <div class="main_content qy-bg-white" ng-if="showCashDetail">
+            <div class="pad-t-10 pad-b-14 border-d border-t ovf-h" style="padding-bottom: 8px">
+                <span class="balance_label f14" kyee-i18n-directive code="myApplyRecords" default="零钱明细"></span>
+                <button ng-if="records.ISNJPLATFORM == 'true'" ng-click="onGetNjRecordBtn()"
+                        class="button button-size-s button-color-green fl-r">{{records.NAMEBTN}}
+                </button>
+            </div>
+
+            <ion-scroll has-bouncing="false" scrollbar-y="false" zooming="false"  direction="y" class="pad-l-14"
+                        ng-style="{'height':(KyeeEnv.innerSize.height - 355)+'px'}">
+                <ul>
+                    <li ng-repeat="record in records.DETAIL_RECORD" class="pad-r-14">
+                       <!-- gaomeng 2016-03-08 新增零钱支付并调整业务类型的显示方式-->
+                        <div ng-if="record.TYPE == 1">
+                            <div class="operate_type" >
+                                <span ng-if="record.BUSINESS_TYPE !=0" class="f14">{{record.SHOW_INFORMATION}}</span>
+                                <span ng-if="record.BUSINESS_TYPE != 2 && record.BUSINESS_TYPE!=3 && record.BUSINESS_TYPE!=6"
+                                      class="f14" kyee-i18n-directive code="cardLastFour" default="银行卡提现(卡号后四位：{{record.BANK_CARD_NO_F}})"
+                                    params="record">
+                                </span>
+                                <span ng-if="record.BUSINESS_TYPE != 2 && record.BUSINESS_TYPE!=6" style=" position: absolute; right: 0px;"  ng-click="showDetail(record)">{{record.FLAG}}
+                                     <i ng-if="record.SHOW_DETAIL_ICON" class="icon-icon_1 detail_icon qy-green"></i>
+                                </span>
+                                <span ng-if="record.BUSINESS_TYPE == 2" style=" position: absolute; right: 0px;">处理成功</span>
+                            </div>
+                            <div class="pad-t-5" style="position: relative;padding-bottom: 8px;">
+                                <span class="qy-grey5" style="clear: both;">{{record.OPERATE_TIME}}</span>
+                                <span class="fw-b f14" ng-if="(record.BUSINESS_TYPE != 2 && record.BUSINESS_TYPE!=6)||record.BUSINESS_TYPE == 2" style=" position: absolute; right: 0px; color: #f90">{{record.AMOUNT}}</span>
+                                <span class="fw-b f14" ng-if="!((record.BUSINESS_TYPE != 2 && record.BUSINESS_TYPE!=6)||record.BUSINESS_TYPE == 2)" style=" position: absolute; right: 0px; color: #f90;top:-7.5px;">{{record.AMOUNT}}</span>
+                            </div>
+                        </div>
+                        <!--返现增加活动结束日期-->
+                        <div ng-if="record.TYPE == 0&&record.SHOW_ACTIVITY_END" >
+                           <div class="operate_type">
+                               <span class=" f14" >{{record.SHOW_INFORMATION}}</span>
+                               <span class=" f14 fw-b"style=" position: absolute; right: 0px; color: #5baa8a;" >{{record.AMOUNT}}</span>
+                           </div>
+                            <div class="pad-t-5 pad-d-10 qy-grey5" style="position: relative;" >
+                                <span style="clear: both;">{{record.OPERATE_TIME}}</span>
+                                <!--修改人：任妞  修改时间：2016年8月23日 下午4:30:20 任务单：KYEEAPPC-7548  将活动日期改到2016/8/31-->
+                                <span ng-if="record.BUSINESS_TYPE !=0" style=" position: absolute; right: 0px;">活动截止日期<span style="padding-left: 5px">2016/08/31</span></span>
+                                <span ng-if="record.BUSINESS_TYPE ==0" style=" position: absolute; right: 0px;">活动截止日期<span style="padding-left: 5px">2016/09/30</span></span>
+                            </div>
+                        </div>
+                        <!--退费不显示活动结束日期-->
+                        <div ng-if="record.TYPE == 0&&!record.SHOW_ACTIVITY_END" >
+                            <div class="operate_type"> <span class=" f14" >{{record.SHOW_INFORMATION}}</span>
+                            </div>
+                            <div class="pad-t-5 pad-d-10 " style="position: relative;" >
+                                <span style="clear: both;" class="qy-grey5">{{record.OPERATE_TIME}}</span>
+                                <span  class="f14 fw-b" style=" position: absolute; right: 0px; color: #5baa8a;top:-7.5px;">{{record.AMOUNT}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="empty-text empty_text_height" ng-if="showEmpty">
+                    <p class="ta-c" kyee-i18n-directive code="emptyTip" default="您目前还没有余额明细"></p>
+                </div>
+            </ion-scroll>
+        </div>
+    </ion-content>
+</ion-view>

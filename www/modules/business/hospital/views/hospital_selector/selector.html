@@ -1,0 +1,18 @@
+<ion-view class="qy_select_city">
+
+
+	<ion-nav-bar align-title="center" class="qy-header">
+		<ion-nav-back-button></ion-nav-back-button>
+		<ion-nav-title>{{pageTitle}}</ion-nav-title>
+		<ion-nav-buttons side="right" >
+			<a class="button button-clear txt text-ellipsis" style="width:100px;" ng-if="isShowBtn" ng-click=" backToProvince();">
+				<span class="text-ellipsis city_position">{{cityeName}}</span>
+				<i class="ion-chevron-down ion_color"></i>
+			</a>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+
+	<ui-view name="hospital_selector_list_view"></ui-view>
+
+</ion-view>
+

@@ -1,0 +1,32 @@
+<ion-view class="multiple_query_search" cache-view="false">
+    <div class="bar qy-header  bar-header item-input-inset qy-bg-green pad-r-10">
+        <a ng-click="goToHome()" class="button back-button buttons button-clear header-item" style="margin-left: 5px;top:-1px;">
+            <i class="icon ion-android-arrow-back"></i>
+        </a>
+        <!--<div class="item-input-wrapper qy-bg-white row" style="border-radius: 2px 0 0 2px;">
+            <form class="search_container" ng-submit="onSearch()">
+                <input kyee-i18n-directive type="search" placeholder="{{placeHoderText}}" class="col col-90" style="border-radius: 2px 2px;" ng-keyup="onKeyup()" ng-model="keyWords.keyWordsValue">
+            </form>
+            <a class="col col-10" ng-show="keyWords.keyWordsValue"><i class="icon ion-close-circled  qy-grey4 pad-b-10 f16" ng-click="clearKeyWords()" ></i></a>
+        </div>
+        <button class="button  button-icon icon icon-seach qy-bg-white qy-green search_button"  ng-click="onSearch()">
+        </button>-->
+        <div class="item-input-wrapper qy-bg-white row" style="border-radius: 2px; margin:0;padding:0;border:0;">
+            <form class="search_container" ng-submit="onSearch()"
+                  ng-style="{'margin-right':40+'px','position':'relative','width':'83%','overflow':'hidden'}" >
+                <input kyee-i18n-directive type="search" placeholder="{{placeHoderText}}" class="col col-90"
+                       ng-keyup="onKeyup()" ng-model="keyWords.keyWordsValue">
+            </form>
+            <a class="col col-10" ng-show="keyWords.keyWordsValue" style="width:40px;">
+                <i class="icon ion-close-circled qy-grey4 mar-r-10 f16" ng-click="clearKeyWords()"></i>
+            </a>
+            <button class="button button-icon icon icon-seach qy-bg-white qy-green search_button"
+                    style="border-left:1px solid #e7e7e7;right:0;position:absolute;" ng-click="onSearch()">
+            </button>
+        </div>
+
+    </div>
+
+    <ui-view name="multiple_query_list_view"></ui-view>
+
+</ion-view>

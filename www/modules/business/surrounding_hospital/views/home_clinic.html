@@ -1,0 +1,73 @@
+<ion-view class="clinic_home">
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div class="clinic_top qy-fff">
+            <i class="icon ion-android-arrow-back back_b" ng-click="goBack()"></i>
+            <div class="row">
+                <div class="img-bor1 mar-l-16">
+                    <div class="img-bor2">
+                    <img class="img-in" ng-src="{{clinicInfo.LOGO_PHOTO ? clinicInfo.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                    </div>
+                </div>
+                <div class="col mar-l-14 line-h30">
+                    <div class="f18 text-ellipsis" ng-style="{'max-width':KyeeEnv.innerSize.width-95+'px'}">{{clinicInfo.HOSPITAL_NAME}}</div>
+                    <div class="f14 dis-f" ><span class="text-ellipsis" ng-style="{'max-width':KyeeEnv.innerSize.width-140+'px'}">{{clinicInfo.MAILING_ADDRESS}}</span><i class="icon icon-location map_icon f18 mar-l-8 pad-t-6" ng-click="toMap()"></i></div>
+                </div>
+            </div>
+        </div>
+        <!--<ul  class="border-t border-d qy-bg-white pad-l-16 mar-t-10">-->
+            <!--<li class="height50 pos_r" ng-repeat="item in menu track by $index">-->
+                <!--<i ng-class=""></i>-->
+                <!--<div class="border-d mar-l-34 f14">{{item.MODULE_NAME}}</div>-->
+                <!--<i class="ion-chevron-right qy-grey5 pos_a top0 right14"></i>-->
+            <!--</li>-->
+        <!--</ul>-->
+            <ul class="qy-bg-white pad-l-16 mar-t-10 border-t border-d">
+
+                <li class="height50 pos_r" ng-repeat="item in sudokuDataList track by $index "  ng-click="item.enable===0||openModule(item)" ng-disabled="item.enable===0" kyee-operation-monitor-directive="{{item.elementCode}}">
+                <i ng-class="item.icon" class="pos_a f24 top12"></i>
+                <div class="border-d mar-l-35">
+                <div class="f14 dis-in-b">{{item.name}}</div>
+                <div ng-if="$index==0||$index==1" class="mar-r-32 fl-r f12 qy-grey6 dis-in-b text-ell" ng-class="(item.enable==0||item.enable=='0')?'notOpenText':''">{{item.shortcuts_image_url}}</div>
+                </div>
+                <img ng-if="(item.enable==0||item.enable=='0')" src="resource\images\hospital\not-open.png" class="pos_a noimg right-0 top-0">
+                <i ng-if="!(item.enable==0||item.enable=='0')" class="ion-chevron-right qy-grey6 pos_a top2 right14" ng-class="(item.enable==0||item.enable=='0')?'notOpenText':''"></i>
+                </li>
+                <li ng-click="showMore()" ng-if="sudokuMainList.length>4" class="center-text border-t pad-r-8 flex-center">
+                    <span>{{showMoreText}}</span>
+                    <i ng-class="showMoreMenu?'icon-arrow_down':'icon-arrow_up'" class="f14 mar-tl-3"></i>
+                </li>
+            </ul>
+        <div ng-if="clinicDept" class="clinicDept qy-bg-white border-d border-t mar-t-10 pad-20-14">
+            <div class="row"><span>服务科室</span><div ng-if = 'CLINIC_DEPT_INFO.length>16' class="col text-right f12 qy-grey5" ng-click="appoint()"><span>更多</span><i class="icon ion-chevron-right qy-grey5 mar-l-5"></i></div></div>
+            <ul ng-if="CLINIC_DEPT_INFO.length>0" class="flex flex-wrap mar-t-20">
+                <li ng-repeat="dept in CLINIC_DEPT_INFO | limitTo: 16 track by $index" class="text-center dept mar-d-14" >
+                    <i ng-class="dept.icon" class="f20 dis-in-b" ng-click="fowardPage(dept)"></i>
+                    <div class="f12 qy-grey6 mar-t-4">{{dept.DEPT_NAME}}</div>
+                    <div ng-if="dept.IS_KEY==='1'" class="f12 dis-in-b specialDept">特色</div>
+                </li>
+            </ul>
+            <div ng-if="CLINIC_DEPT_INFO<=0" class="no-data border-t qy-grey5 align-center">
+                该诊所暂无可服务科室
+            </div>
+        </div>
+        <div ng-if="clinicDoctor" class="clinicDoctor qy-bg-white border-d border-t mar-t-10 pad-20-20">
+            <div>服务医生</div>
+            <ul ng-if="doctorarr>0" class="flex flex-wrap ta-c">
+                <li class="border-d pad-d-16 mar-t-20" ng-repeat="doctor in doctorarr | orderBy:'-DOCTOR_SCORE'" ng-click="showDoctorInfo(doctor,$index)">
+                    <img ng-if = "doctor.DOCTOR_SEX!=1" ng-src="{{doctor.DOCTOR_PIC_PATH ? (doctor.DOCTOR_PIC_PATH):('resource/images/base/doc_head_default_man.png')}}"
+                    onerror="javascript:this.src='resource/images/base/doc_head_default_man.png'">
+                    <img ng-if = "doctor.DOCTOR_SEX==1" ng-src="{{doctor.DOCTOR_PIC_PATH ? (doctor.DOCTOR_PIC_PATH):('resource/images/base/doc_head_default_female.png')}}"
+                    onerror="javascript:this.src='resource/images/base/doc_head_default_female.png'">
+                    <div class="f14 qy-grey7 mar-t-11">{{doctor.DOCTOR_NAME}}</div>
+                    <div ng-if="doctor.DOCTOR_SCORE" class="f14 mar-t-4"><span class="qy-orange">{{doctor.DOCTOR_SCORE}}</span>分</div>
+                    <div ng-if="!doctor.DOCTOR_SCORE" class="mar-t-4"><span class="qy-grey5 f12">暂无评分</span></div>
+                </li>
+            </ul>
+            <div ng-if="doctorarr.length<=0" class="no-data border-t qy-grey5 align-center">
+                该诊所暂无可服务医生
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

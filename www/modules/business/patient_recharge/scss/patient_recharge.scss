@@ -1,0 +1,70 @@
+.qy_patient_recharge{
+  .card_arrow{
+    font-size: 14px;
+  }
+  .mar_d_0{
+    margin-bottom: 0;
+  }
+  .hospital_btn{
+    margin-right: 10px;
+    width:100px;
+  }
+  .amount{
+    line-height: 14px;
+    input{
+      padding-top: 4px;
+      line-height: 14px;
+    }
+  }
+  .prompt{
+    position: relative;
+    top: 2px;
+    padding-right: 5px;
+  }
+  .pad_l_0{
+    padding-left: 0 !important;
+  }
+  .empty-text{
+    padding-top: 30%;
+  }
+}
+
+.qy_recharge_records{
+  .records_container{
+    li {
+      margin-left: 14px;
+      margin-right: 14px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      width: auto;
+    }
+    li:last-child {
+      border: 0;
+    }
+  }
+  .footer_bar{
+    height: auto;
+    background-color: black;
+    opacity: 0.7;
+    display: block;
+    .foot_bar_div {
+      margin: 0;
+      //word-break: break-all;
+      word-wrap: break-word;
+      padding-right: 35px;
+    }
+    .icon-cross{
+      padding: 8px;
+      margin-top: -5px;
+    }
+  }
+  .tip_height{
+    height:60px;
+  }
+  .tip_show{
+    word-break: normal;
+  }
+  .one_line{
+    line-height: 40px;
+  }
+}

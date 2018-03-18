@@ -1,0 +1,28 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年10月14日16:08:26
+* 创建原因：住院每日清单详情弹框
+* 任务号：KYEEAPPC-3277
+-->
+<div class="qy_payment_detail_popup">
+    <div class="ta-c">
+        <span class="f14" kyee-i18n-directive code="popDetail" default="项目明细"></span>
+        <!--<i class="icon icon-icon_2 icon_flo qy-red icon_size fl-r" ng-click="closeDialog()"></i>-->
+    </div>
+
+    <ul class="fl-c ovf-h border-t-dash mar-t-10 pad-td-20" ng-style="{'width': (KyeeEnv.innerSize.width-56)+'px'}">
+        <li ng-if="detailPopup.ITEM_NAME" class="row pad-d-5"><span kyee-i18n-directive code="popItemName" default="项目："></span>{{detailPopup.ITEM_NAME}}</li>
+        <li ng-if="detailPopup.ITEM_NO" class="row pad-d-5"><span kyee-i18n-directive code="popItemNo" default="编码："></span>{{detailPopup.ITEM_NO}}</li>
+        <li ng-if="detailPopup.AMOUNT && detailPopup.AMOUNT>0" class="row pad-d-5"><span kyee-i18n-directive code="popAmount" default="数量："></span>{{convertMoney(detailPopup.AMOUNT)}}</li>
+        <li ng-if="detailPopup.UNITS && detailPopup.AMOUNT && detailPopup.AMOUNT>0" class="row pad-d-5"><span kyee-i18n-directive code="popUnits" default="单位："></span>{{detailPopup.UNITS}}</li>
+        <li ng-if="detailPopup.ITEM_SPEC" class="row pad-d-5"><span kyee-i18n-directive code="popItemSpec" default="规格："></span>{{detailPopup.ITEM_SPEC}}</li>
+        <li ng-if="detailPopup.ITEM_PRICE" class="row pad-d-5">
+            <div class="fee_div"><span kyee-i18n-directive code="popPrice" default="单价："></span>{{'¥ '+convertMoney(detailPopup.ITEM_PRICE)}}</div>
+        </li>
+        <li ng-if="detailPopup.SHOULD_PAY_FEE" class="row pad-d-5">
+            <div class="fee_div"><span kyee-i18n-directive code="popShouldPay" default="金额："></span>{{'¥ '+convertMoney(detailPopup.SHOULD_PAY_FEE)}}</div>
+        </li>
+    </ul>
+
+</div>

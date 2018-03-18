@@ -1,0 +1,12 @@
+<ion-view class="qy_patient_group_web">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive default="">{{webUrl}}</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" scroll="true" overflow-scroll="true" class="iframe-wrapper">
+        <iframe src='{{webUrl}}' data-tap-disabled="true">
+        </iframe>
+    </ion-content>
+</ion-view>

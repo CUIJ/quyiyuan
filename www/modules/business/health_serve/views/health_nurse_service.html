@@ -1,0 +1,33 @@
+<ion-view class="qy-bg-grey2 health_nurse_service">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title>
+            <span>护士服务</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="has-header qy-bg-white">
+        <div class="flex border-d">
+            <div class="nav-item width-33 ta-c nav-mar"
+                 kyee-operation-monitor-directive="getOnlineService"
+                    ng-if="navData.nurseConsult.isShow"
+                    ng-click="navData.nurseConsult.handleClick()">
+                <div class="icon icon-nurseConsult icon-font qy-lightblue"></div>
+                <div class="f14 qy-grey7 mar-t-10" ng-bind="navData.nurseConsult.showText">护士咨询</div>
+            </div>
+            <div class="nav-item width-33 ta-c nav-mar"
+                    kyee-operation-monitor-directive="withTheDiagnosisInto"
+                    ng-if="navData.nurseWithDiagnosis.isShow"
+                    ng-click="navData.nurseWithDiagnosis.handleClick()">
+                <div class="icon icon-nurse-acco icon-font qy-orange"></div>
+                <div class="f14 qy-grey7 mar-t-10">护士陪诊</div>
+            </div>
+            <div class="nav-item width-33 ta-c nav-mar"
+                    ng-if="navData.nurseCome.isShow"
+                    ng-click="navData.nurseCome.handleClick()">
+                <div class="icon icon-home-service icon-font qy-yellowgreen"></div>
+                <div class="f14 qy-grey7 mar-t-10">护士上门</div>
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

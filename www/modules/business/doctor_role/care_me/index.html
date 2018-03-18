@@ -1,0 +1,40 @@
+<!--
+    产品名称：quyiyuan
+    创建人: 张家豪
+    创建日期:2015年7月1日15:01:55
+    创建原因：关注我的患者
+-->
+<ion-view class="qy_care_me">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="carePatientsTittle" default="关注我的患者"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false">
+<div class="border-d">
+        <ul class="item" ng-click="onItemClick(item)" ng-repeat="item in records">
+            <li class="row ovf-h pad-td-10 mar-l-14" ng-class="{'border-d':($index) != records.length -1}">
+                <span class="col col-25 text-ellipsis fw-b f14">{{ item.OFTEN_NAME }}</span>
+                <span class="col ta-c text-ellipsis">{{ item.SEX }}/{{ item.AGE }}<span kyee-i18n-directive code="ageClinicTime" default="岁/就诊次数："></span>{{item.REGIST_NUMBER}}次</span>
+                <span class="col col-25 ta-r text-ellipsis qy-green mar-r-14 pad-r-14" ><span kyee-i18n-directive code="vitality" default="活跃度："></span>{{item.HEAT}}</span>
+            </li>
+        </ul>
+    </div>
+
+        <ion-infinite-scroll
+                ng-if="moreDataCanBeLoaded()"
+                immediate-check="false"
+                icon="ion-loading-c"
+                on-infinite="queryDoctorFuns()">
+        </ion-infinite-scroll>
+
+        <div ng-if="showEmpty" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>
+                <span kyee-i18n-directive code="noFocusInformation" default="暂无关注信息"></span>
+            </p>
+        </div>
+    </ion-content>
+</ion-view>

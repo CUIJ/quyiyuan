@@ -1,0 +1,91 @@
+<ion-view class="consult_order_detail" cache-view="false" >
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>订单详情</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-grey2 f14" scrollbar-y="false"
+                 ng-style="{bottom: showFootButton ? '56px' : '0px'}">
+        <div class="qy-bg-white pad-b-14 line_50">
+            <i class="inline text-center f16 qy-fff icon_type" ng-class="orderInfo.consultIcon"></i>
+            <span class="inline f14 qy-grey7 mar-l-5">{{orderInfo.consultName}}</span>
+            <span class="inline f14 qy-green right_14">{{orderInfo.orderStateName}}</span>
+        </div>
+        <figure class="qy-bg-grey1 pad-b-14 pad-td-15 flex">
+            <img ng-src="{{!!doctorInfo.doctorPhoto?doctorInfo.doctorPhoto:'resource/images/base/head_default_man.jpg'}}" onerror="this.src='resource/images/base/head_default_man.jpg'" class="doctor-img" alt="">
+            <figcaption class="flex_auto">
+                <div class="clearfix line-height_25">
+                    <span class="inline fl-l f16 text-ellipsis qy-deepblue" style="max-width: 40%">{{doctorInfo.doctorName}}</span>
+                    <span class="inline fl-l f12 qy-blue mar-l-14">{{doctorInfo.doctorTitle}}</span>
+                    <span class="inline f12 qy-grey5 fl-r">{{doctorInfo.orderCreateTime}}</span>
+                </div>
+                <!--<div class="text-ellipsis line-height_25 f12 qy-grey7">{{doctorInfo.hospitalName}}</div>-->
+                <div class="text-ellipsis line-height_25 f12 qy-grey7 position-r">{{doctorInfo.hospitalName}}<span ng-if="orderInfo.payAmount" class="inline line-height_25 f12 qy-green position-a pay_amount">{{'￥'+orderInfo.payAmount.toFixed(2)}}</span></div>
+                <div class="text-ellipsis line-height_25 f12 qy-grey7 position-r">{{doctorInfo.deptName}}<span ng-if="orderInfo.payStateName" class="inline line-height_25 f12 qy-orange position-a pay_amount">{{orderInfo.payStateName}}</span></div>
+            </figcaption>
+        </figure>
+        <ul class="qy-bg-white border-d pad-b-14 pad-td-20">
+            <li class="qy-grey7 line_15 col_line">患者信息</li>
+            <li class="flex mar-t-16 line_14">
+                <div class="mar-r-10 flex_average text-ellipsis">
+                    <span class="qy-deepblue">姓名:</span>
+                    <span class="qy-grey7 mar-l-16">{{patientInfo.patientName}}</span>
+                </div>
+                <div class="mar-r-10 flex_average">
+                    <span class="qy-deepblue">年龄:</span>
+                    <span class="qy-grey7 mar-l-16">{{patientInfo.patientAge}}</span>
+                </div>
+            </li>
+            <li class="flex mar-t-16 line_14">
+                <div class="flex_average">
+                    <span class="qy-deepblue">性别:</span>
+                    <span class="qy-grey7 mar-l-16">{{patientInfo.patientSex}}</span>
+                </div>
+                <div class="flex_average">
+                    <span class="qy-deepblue">电话:</span>
+                    <span class="qy-grey7 mar-l-16">{{patientInfo.patientPhone}}</span>
+                </div>
+            </li>
+        </ul>
+        <ul class="border-td qy-bg-white mar-t-10 pad-l-14">
+            <li class="mar-t-16 border-d-dash">
+                <span class="qy-grey7 inline line_15 col_line">疾病名称</span>
+                <p class="text-ellipsis mar-r-14 mar-td-16 qy-grey5 line_14">{{diseaseInfo.diseaseName}}</p>
+            </li>
+            <li class="mar-t-16 border-d-dash pad-r-14">
+                <span class="qy-grey7 inline line_15 col_line">病情描述</span>
+                <p class="mar-td-15 qy-grey5">{{diseaseInfo.diseaseDescription}}</p>
+            </li>
+            <li class="mar-t-16 pad-r-14">
+                <span class="qy-grey7 inline line_15 col_line">疾病史</span>
+                <p class="mar-td-15 qy-grey5">{{diseaseInfo.diseaseHistory || '暂无'}}</p>
+            </li>
+            <li ng-if="IMGLIST.length>0" class="flex flex_wrap border-t-dash pad_td_16 pad-r-14">
+                <div class="flex_inline" ng-repeat="img in IMGLIST">
+                    <img ng-src="{{img.imgUrl}}" ng-click="showBigPicture($index)"
+                         ng-style="{'margin-right':($index+1)%4==0?'0':'10px','margin-top':$index<4?'0':'10px'}"
+                         width="{{imageWidth}}" height="{{imageWidth}}"/>
+                </div>
+            </li>
+        </ul>
+        <!--评价信息-->
+        <div ng-if="satisfactionData.isShowSatisfaction" class="mar-t-10 qy-bg-white f14 border-td">
+            <div class="line_50 pad-l-14 border-d">评价医生</div>
+            <ul class="mar-l-14 pad_td_16">
+                <li class="flex line_22 satisfy_item" ng-repeat="item in satisfactionData.items" ng-style="{'margin-top':$first?'0px':'16px'}">
+                    <span>{{item.ITEM_NAME}}</span>
+                    <i class="mar-l-16 " ng-class="item.SCORE_VALUE>=1?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-class="item.SCORE_VALUE>=2?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-class="item.SCORE_VALUE>=3?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-class="item.SCORE_VALUE>=4?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                    <i class="mar-l-10 " ng-class="item.SCORE_VALUE>=5?'icon-favorite2 full_star':'icon-favorite empty_star'"></i>
+                </li>
+            </ul>
+            <p ng-if="!!satisfactionData.suggestValue" class="mar-l-14 pad-td-15 pad-r-14 border-t" style="margin-bottom: 0;margin-top: 0">{{satisfactionData.suggestValue}}</p>
+        </div>
+    </ion-content>
+    <div ng-if="showFootButton" class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button class="button button-block button-size-l" ng-click="goToChat()">查看咨询记录</button>
+    </div>
+</ion-view>

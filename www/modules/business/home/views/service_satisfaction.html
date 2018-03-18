@@ -1,0 +1,19 @@
+<ion-view class="qy_service_satisfaction">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>服务满意度评价</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" scroll="true" overflow-scroll="true" class="qy-grey6">
+        <span>{{topTip}}</span>
+        <div class="display-flex mar-t-36">
+            <img class="imgsty border"src="{{photo}}" on-hold="saveImg()">
+            <span class="mar-t-16">微信扫一扫</span>
+        </div>
+        <div class="mar-t-36">{{bottomTip}}</div>
+    </ion-content>
+
+</ion-view>

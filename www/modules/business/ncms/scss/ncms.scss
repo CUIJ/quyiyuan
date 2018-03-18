@@ -1,0 +1,164 @@
+.ncss_main_page {
+  .scroll_tab {
+    top: 45px;
+    width: 100%;
+    margin-bottom: -8px;
+    margin-top: 2px;
+  }
+  .tab_active {
+    border-bottom-color: #03984F;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    color: #03984F;
+  }
+  .item_padding_r5_l0 {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    width: 20%;
+  }
+  .position_top {
+    position: relative !important;
+    top: 53px !important;
+  }
+}
+
+.family_members {
+  .input-label{
+    display: table;
+    padding: 7px 10px 7px 0;
+    max-width: 200px;
+    width: 35%;
+  }
+  .zx_padding_inherit{
+    padding: inherit !important;
+}
+  .black_button {
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    border: none !important;
+  }
+  .light_gray {
+    background-color: #efeff4 !important;
+  }
+  .it_looks_even_more_neat{
+    width: 35% !important;
+  }
+}
+
+.hospitalization_reimbursement {
+  .repeat_style {
+    padding: inherit !important;
+  }
+  .patient_name {
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color: #222222 !important;
+    border: none !important;
+  }
+  .date_of_visit {
+    color: #828282 !important;
+    width: 40% !important;
+  }
+  .year{
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color:#222222 !important;
+    border: none !important;
+  }
+  .month{
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color:#222222 !important;
+    border: none !important;
+  }
+  .day{
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color:#222222 !important;
+    border: none !important;
+  }
+  .query{
+    position: initial !important;
+  }
+  .gray_white{
+    background-color: #efeff4 !important;
+  }
+  .repeat_style{
+    padding: inherit !important;
+  }
+  .it_looks_even_more_neat{
+    width: 40% !important;
+  }
+  .separator{
+    width: 100% !important;
+    height: 5px !important;
+    background-color: #efeff4 !important;
+    color: #efeff4 !important;
+  }
+}
+
+.ncss_payment_record {
+  .year_div {
+    height: 50px;
+    padding-bottom: 0px;
+  }
+  .span_year {
+    display: inline-block;
+    width: 67px;
+    border-bottom-color: #F3F3F3;
+    border-bottom-style: solid;
+    border-bottom-width: 4px;
+    color: #AFAFAF;
+  }
+  .span_active {
+    border-bottom-color: #2F9FE6;
+    color: #2F9FE6;
+  }
+  .lateral_full{
+    width: 100% !important;
+  }
+  .it_looks_even_more_neat{
+    width: 40% !important;
+  }
+}
+
+.out_reim {
+  .zx_patient_name{
+    color:#828282 !important;
+    width: 40% !important;
+  }
+  .zx_patient_name_combination{
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color:#222222 !important;
+    border: none !important;
+  }
+  .zx_date_of_visit{
+    color:#828282 !important;
+    width: 40% !important;
+  }
+  .zx_year{
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color:#222222 !important;
+    border: none !important;
+  }
+  .zx_month{
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color:#222222 !important;
+    border: none !important;
+  }
+  .zx_day{
+    padding-left: 0px !important;
+    background-color: #ffffff !important;
+    color:#222222 !important;
+    border: none !important;
+  }
+  .zx_query{
+    position: initial !important;
+  }
+  .it_looks_even_more_neat{
+    width: 40% !important;
+  }
+}

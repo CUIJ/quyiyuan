@@ -1,0 +1,124 @@
+<!--已缴费记录-->
+<ion-view class="qy_clinic_payment_hos qy_clinic_paid_hos qy-bg-grey1">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>缴费记录</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" scroll="false" class="qy-bg-grey1 " >
+        <!--刷新-->
+        <!--头部-->
+        <div ng-if="isShowHead" class="row clinic_head  pad-d-20 pad-t-10 pad-l-14">
+            <div style="overflow: hidden;" class="user_photo">
+                <div class="text-center name_bg_name"  >
+                    <span class="name_">{{currentCustomPatient.PATIENT_NAME_SHOW}}</span>
+                </div>
+            </div>
+            <ul class="col mar-l-10">
+                <li class="white">
+                    <span class="f16">{{currentCustomPatient.PATIENT_NAME}}</span>
+                    <span class="f12" style="padding-left: 10px">{{currentCustomPatient.SEX}}</span>
+                    <span>/</span>
+                    <span class="f12">{{currentCustomPatient.AGE}}</span>
+                <li ng-if=" QUERY_PAY_TYPE==3 || QUERY_PAY_TYPE==5" class="mar-t-6 white right_text f14" >
+                <span class="pad-lr-8 white main-color f14 text-center inline line_h20 idNO client_intro"
+                >身份证：{{currentCustomPatient.ID_NO_SHOW}} </span>
+                </li>
+                <li ng-if=" QUERY_PAY_TYPE==4" class="mar-t-6 white right_text f14 search_box" >
+                    <span class="pad-lr-8 white main-color f14 text-center inline line_h20 client_intro">手机号码： </span>
+                    <span ng-if="!toEdit" class=""> {{phoneNumber}}</span>
+                    <input ng-if="toEdit" placeholder="请输入手机号" name=""  ng-model="input.PhoneNumber" ng-blur="blur()" ng-change="focus()">
+                    <span class="border-l mar-l-5 pad-l-5">
+                        <i class="icon-edit pad-r-5 white" ng-click="editPhone()"></i></span>
+                </li>
+                <li ng-if=" QUERY_PAY_TYPE ==1|| QUERY_PAY_TYPE==2" class="mar-t-6 white right_text f14">
+                    <span class="pad-lr-8 white main-color f14 text-center inline line_h20 client_intro">就诊卡号： </span>
+                    <span ng-if="!addCardTip"> {{currentCustomPatient.CARD}}</span>
+                    <span ng-if="addCardTip">{{addCardTip}}</span>
+                    <span class="border-l mar-l-5 pad-l-5">
+                        <i class="ion-chevron-down pad-r-5 white" ng-click="showPatientCardNo()"></i></span>
+                </li>
+            </ul>
+        </div>
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height-125)+'px'}">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(sortRule,false)">
+        </ion-refresher>
+        <div class="showTip pad-tb-8 pad-lr-14" ng-if="showTip">
+            <i class="icon icon-icon_4 f20 mar-r-5"></i>
+            <span class="f14">{{showTip}}</span>
+        </div>
+        <!--非跨院数据展示-->
+        <div ng-if="!isAllHospital" ng-repeat="item in paidData" >
+            <div class="pad-l-14 pad-t-5 pad-b-3 f12 border-d">
+                <span>{{item.VISIT_DATE}}</span>
+            </div>
+            <ul class="pad-l-14 qy-bg-white" ng-class="$last?'border-d':''"  ng-repeat="paidInfo in item.PAYMENT_INFO" >
+                <!--预约挂号记录-->
+                <li class="row time_box" ng-class="$last?'':'border-d'" ng-if="paidInfo.DEPT_NAME"  ng-click="goDetail(paidInfo)"
+                    kyee-operation-monitor-directive="registDetailOfOneHospital">
+                    <div class="col pad-r-14">
+                        <p class="text-ellipsis qy-grey7 f14" ng-style="{'width':(KyeeEnv.innerSize.width-120)+'px'}">
+                            <span kyee-i18n-directive code="registFee" default="挂号费"></span>
+                            {{paidInfo.DEPT_NAME}}
+                        </p>
+                        <p class="f12 qy-grey6" ><span class="mar-r-5">{{paidInfo.FORMAT_DATE.substr(5,10)}}</span><span>{{paidInfo.DAY_OF_WEEK}}</span></p>
+                    </div>
+                    <div class="icon_arrow">
+                        <span class="fw-b qy-grey7 f16"><span>¥</span><span> {{paidInfo.ACTUAL_AMOUNT}}</span></span>
+                        <i class="icon icon-arrow_right qy-grey6"></i>
+                    </div>
+                </li>
+                <!--门诊记录-->
+                <li class="row time_box" ng-class="$last?'':'border-d'" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD != '1'"  ng-click="showRecord(paidInfo)"
+                    kyee-operation-monitor-directive="paidRecordOfOneHospital">
+                    <div class="col pad-r-14">
+                        <p class="text-ellipsis qy-grey7 f14 pad-r-14">
+                            <span class="fl-l" kyee-i18n-directive code="payFee" default="诊间付费"></span>
+                            <span ng-if="paidInfo.IS_DISPLAY_ITEM_CLASS==1" ng-style="{'max-width':(KyeeEnv.innerSize.width-250)+'px'}" class="item_class text-ellipsis">&nbsp;{{paidInfo.ITEM_CLASS}}&nbsp;</span>
+                            <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                            <span class="qy-red position-a right_34" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">{{paidInfo.ACCOUNT_DESC}}</span>
+                        </p>
+                        <p class="f12 qy-grey6"><span class="mar-r-5">{{paidInfo.FORMAT_DATE.substr(5,10)}}</span><span>{{paidInfo.DAY_OF_WEEK}}</span></p>
+                    </div>
+                    <div class="icon_arrow">
+                        <span class="fw-b qy-grey7 f16" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                            <span>¥</span><span>{{convertMoney(paidInfo.ACCOUNT_SUM)}}</span>
+                        </span>
+                        <i class="icon icon-arrow_right qy-grey6"></i>
+                    </div>
+
+                </li>
+                <!--附加材料费-->
+
+                <li class="row time_box" ng-if="!paidInfo.DEPT_NAME&&paidInfo.IS_ADD == '1'" ng-class="$last?'':'border-d'" ng-click="showRecord(paidInfo)"
+                    kyee-operation-monitor-directive="paidRecordOfAllHospitalAsHospital">
+                    <div class="col pad-r-14">
+                        <p class="text-ellipsis qy-grey7 f14 pad-r-14">
+                            <span class="fl-l" kyee-i18n-directive code="payAdd" default="附加材料费"></span>
+                            <span class="qy-red" ng-if="paidInfo.PAY_CHANNEL=='0'&&paidInfo.ACCOUNT_DESC!=undefined&&paidInfo.ACCOUNT_DESC!=''">( {{paidInfo.ACCOUNT_DESC}} )</span>
+                            <span ng-if="paidInfo.PAY_CHANNEL=='1'">( {{payChannel1}} )</span>
+                        </p>
+                        <p class="f12 qy-grey6"><span class="mar-r-5">{{paidInfo.FORMAT_DATE.substr(5,10)}}</span><span>{{paidInfo.DAY_OF_WEEK}}</span></p>
+                    </div>
+
+                    <div class="icon_arrow">
+                        <span class="fw-b qy-grey7 f16" ng-class="paidInfo.ACCOUNT_DESC? 'qy-red':'qy-green'">
+                            <span>¥</span><span>{{convertMoney(paidInfo.ACCOUNT_SUM)}}</span>
+                        </span>
+                        <i class="icon icon-arrow_right qy-grey6"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--空信息-->
+        <div ng-if="isEmpty" class="empty-text pad_top">
+            <i ng-if="emptyText!=undefined"  class="icon empty-icon" ng-class="{'icon-icon_2 ':isPermission==false,'icon-icon_3':isPermission==true}"></i>
+            <p>{{emptyText[0]}}</p>
+            <p>{{emptyText[1]}}</p>
+        </div>
+        </ion-scroll>
+    </ion-content>
+    <div  kyee-compile-directive template="modules/business/report_multiple/views/selected.html"></div>
+</ion-view>

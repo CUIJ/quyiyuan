@@ -1,0 +1,50 @@
+<ion-view class="qy_card_balance qy-bg-grey2">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="title" default="余额查询"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('card_balance')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div class="list mar-t-10 border-td qy-bg-white">
+            <label class="item item-input mar-l-14" style="padding-left: 0;">
+                <span class="input-label" kyee-i18n-directive code="cardNum" default="就诊卡号："></span>
+                <input type="text" ng-model="cardInfo.cardNo" placeholder="{{placeCardNum}}">
+            </label>
+
+            <label class="item item-input mar-l-14" style="border: 0;">
+                <span class="input-label" kyee-i18n-directive code="cardName" default="姓名："></span>
+                <input type="text" ng-model="cardInfo.patientName" placeholder="{{placeCardName}}">
+            </label>
+        </div>
+
+        <div class="pad-b-14" style="padding-bottom: 6px;">
+            <button class="button button-block button-size-l" ng-click="queryCardBalance()" kyee-operation-monitor-directive="queryCardBalance">
+                <span kyee-i18n-directive code="search" default="查询"></span>
+            </button>
+        </div>
+
+        <ul class="list pad-b-14 f14" ng-if="isShowResult">
+            <li class="pad-d-10 fw-b" kyee-i18n-directive code="serchRet" default="查询结果"></li>
+            <li class="pad-d-10">
+                <span class="result_label" kyee-i18n-directive code="cardNO" default="卡号："></span>
+                <span>{{cardNo}}</span>
+            </li>
+            <li class="pad-d-10">
+                <span class="result_label" kyee-i18n-directive code="balance" default="余额："></span>
+                <span>{{balance}}</span>
+            </li>
+            <li class="pad-d-10">
+                <span class="result_label" kyee-i18n-directive code="date" default="时间："></span>
+                <span>{{date}}</span>
+            </li>
+        </ul>
+
+    </ion-content>
+
+</ion-view>

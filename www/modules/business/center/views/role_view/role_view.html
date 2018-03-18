@@ -1,0 +1,33 @@
+<ion-view class="row_view qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="switchingRoles" default="切换角色"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('role_view')" ng-hide="rightBtn">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content animation="slide-left-right" scroll="true" has-bouncing="true" class="qy-bg-grey2">
+        <div class="list mar-t-10 qy-bg-white new_item_border">
+            <ion-item kyee-operation-monitor-directive="messageClick" ng-click="messageClick($index)" ng-repeat="item in devList" class="role_item new_item_div mar-l-14"
+              ng-class="{'first_not_top_border':item.isFirst}">
+                <div class="row">
+                    <div class="col col-10">
+                        <i ng-class="{'ion-android-radio-button-on':changeStyle($index),'ion-android-radio-button-off':!changeStyle($index)}"></i>
+                    </div>
+                    <div class="col col-25 f14">
+                        {{item.ROLE_DESC}}
+                        <span style="display: none;" ng-class="{'changeHiddenStyle':changeStyle($index)}">
+                            {{currentChoose}}
+                        </span>
+                    </div>
+                </div>
+            </ion-item>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,66 @@
+<ion-view cache-view="true" class="qy-bg-grey2 qy_consultation_order">
+  <ion-nav-bar align-title="center" class="qy-header">
+    <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+    <ion-nav-title>
+      <span>咨询订单</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+      <a class="button button-clear" ng-click="openRightMenu('consultation_order')">
+        <i class="icon ion-navicon"></i>
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content>
+    <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon="" refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="refresh()"></ion-refresher>
+    <ul ng-if="!isEmpty">
+      <ion-list can-swipe="true">
+        <ion-item ng-repeat="order in orderList track by $index" class="item qy_appointment_list in mar-t-10 border-td">
+        <div>
+          <div class="clearfix qy-bg-white pad-b-14 border-t box-border lineh49">
+            <i class="inline text-center f16 qy-fff radius50p order_icon" ng-class="order.icon"></i>
+            <span ng-click="goToOrderDetail(order)" class="inline f14 qy-grey7 mar-l-5">{{order.consultText}}</span>
+            <span class="inline fl-r f14 qy-green">{{order.stateText}}</span>
+          </div>
+          <figure class="qy-bg-grey1 pad-b-14 pad-td-15 flex">
+            <img ng-click="goToDoctor(order)" ng-src="{{order.doctorPhoto}}" onerror="this.src='resource/images/base/head_default_man.jpg'" class="doctor-img" alt="">
+            <figcaption ng-click="goToOrderDetail(order)" class="flex_auto">
+              <div class="clearfix lineh25">
+                <span class="inline fl-l f16 text-ellipsis qy-deepblue" style="max-width: 40%">{{order.doctorName}}</span>
+                <span class="inline fl-l f12 qy-blue mar-l-5">{{order.doctorTitle}}</span>
+                <span class="inline f12 qy-grey5 fl-r">{{order.orderCreateTime}}</span>
+              </div>
+              <!--<div class="lineh25 f12 qy-grey7 text-ellipsis">{{order.hospitalName}}</div>-->
+              <div class="position-r lineh25 f12 qy-grey7 text-ellipsis">{{order.hospitalName}}<span ng-if="order.payAmount" class="inline lineh25 f12 qy-green position-a pay_amount">{{'￥'+order.payAmount.toFixed(2)}}</span></div>
+              <div class="position-r lineh25 f12 qy-grey7 text-ellipsis">{{order.deptName}}<span ng-if="order.payStateText" class="inline lineh25 f12 qy-orange position-a pay_amount">{{order.payStateText}}</span></div>
+            </figcaption>
+          </figure>
+          <div ng-click="goToOrderDetail(order)" class="pad-b-14 pad-td-10 qy-bg-white border-b">
+            <div class="f14 lineh22 pad-b-5 qy-deepblue" kyee-i18n-directive code="conDisease" default="病情描述："></div>
+            <div class="f14 qy-grey7 lineh20 disease_desc">{{order.diseaseDescription}}</div>
+          </div>
+        </div>
+        <div ng-if="order.isShowMyEvaluation" ng-click="goToOrderDetail(order)" class="qy-bg-white clearfix pad-b-14 border-b lineh49">
+          <span class="inline fl-l qy-grey7 f14">我的评分</span>
+          <span class="inline fl-r f14 text-right my_scores">
+            <i ng-class="order.scoreIcons[0]"></i>
+            <i ng-class="order.scoreIcons[1]"></i>
+            <i ng-class="order.scoreIcons[2]"></i>
+            <i ng-class="order.scoreIcons[3]"></i>
+            <i class="mar-r-5" ng-class="order.scoreIcons[4]"></i>
+          </span>
+        </div>
+        <div ng-if="order.isShowToToEvaluate" class="qy-bg-white clearfix pad-b-14 border-b lineh49 to_evaluate">
+          <span ng-click="goToConsultSatisfaction(order)" class="inline fl-r commentText f14">去评价</span>
+        </div>
+          <ion-option-button class="button"  ng-class="order.delFlag == 1 ? 'button-assertive' : 'qy-fff qy-bg-grey3'" ng-click="deleteOrderReminder(order)" kyee-i18n-directive code="deleteOrder" default="删除">
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ul>
+    <div ng-if="isEmpty" class="empty-text">
+      <i class="icon-icon_3 empty-icon"></i>
+      暂无订单
+    </div>
+
+  </ion-content>
+</ion-view>

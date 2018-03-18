@@ -1,0 +1,35 @@
+<ion-view class="qy_qrcode">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="all:add_patient_info.myTwoCode" default="我的二维码"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <!--//就诊者实名修改（APK）  By  张家豪  KYEEAPPC-4434-->
+    <div class="bar bar-subheader">
+        <div class="row switchtable">
+            <a class="col off"
+               kyee-operation-monitor-directive="selectStatus"
+               ng-click="selectStatus(0)" ng-class="{'on':activityClass == 0}"
+               kyee-i18n-directive code="all:add_patient_info.twoCode" default=" 二维码 "></a>
+            <a class="col off" ng-click="selectStatus(1)" ng-class="{'on':activityClass == 1}"
+               kyee-operation-monitor-directive="selectStatus"
+               kyee-i18n-directive code="all:add_patient_info.oneCode" default=" 条形码 "></a>
+        </div>
+    </div>
+    <ion-content class="has-subheader">
+
+
+        <div class=" qr_text mar-td-20" align="center" ng-class="{'mar-td-20':activityClass == 1}">
+            <img style="border: solid 1px #e7e7e7;" ng-src="{{picSrc}}" align="center" class="qr_image" ng-class="{'pad-td-20':activityClass == 1}">
+        </div>
+        <p class="mar-t-20 f16" align="center">
+            {{userInfo.name}}
+        </p>
+        <p class="f16" align="center">
+            {{userInfo.cardNo}}
+        </p>
+    </ion-content>
+</ion-view>

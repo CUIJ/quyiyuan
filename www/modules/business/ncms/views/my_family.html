@@ -1,0 +1,41 @@
+<div class="list out_reim" ng-if="userInfo.noShow">
+    <label class="item item-input ">
+        <span class="input-label it_looks_even_more_neat"
+              kyee-i18n-directive code="ruralGroup3" default="乡村组："></span>
+        <span class="input-label ">{{userInfo.township}}</span>
+    </label>
+    <label class="item item-input ">
+        <span class="input-label it_looks_even_more_neat"
+              kyee-i18n-directive code="nameOfThe3" default="户主姓名："></span>
+        <span class="input-label ">{{userInfo.name}}</span>
+    </label>
+    <label class="item item-input ">
+        <span class="input-label it_looks_even_more_neat"
+              kyee-i18n-directive code="population3" default="人口数："></span>
+        <span class="input-label ">{{userInfo.population}}</span>
+    </label>
+    <label class="item item-input ">
+        <span class="input-label it_looks_even_more_neat"
+              kyee-i18n-directive code="theIDCardNo3" default="户主身份证号："></span>
+        <span class="input-label ">{{userInfo.ID_NO_PASS}}</span>
+    </label>
+    <label class="item item-input ">
+        <span class="input-label it_looks_even_more_neat"
+              kyee-i18n-directive code="participating3" default="参合属性："></span>
+        <span class="input-label ">{{userInfo.participatingProperties}}</span>
+    </label>
+    <label class="item item-input ">
+        <span class="input-label it_looks_even_more_neat"
+              kyee-i18n-directive code="accountCategory3" default="户口类别："></span>
+        <span class="input-label ">{{userInfo.accountCategory}}</span>
+    </label>
+    <label class="item item-input ">
+        <span class="input-label it_looks_even_more_neat"
+              kyee-i18n-directive code="paymentAmount3" default="当年家庭缴费金额（元）："></span>
+        <span class="input-label ">{{userInfo.familyPrepaidAmount}}</span>
+    </label>
+</div>
+<div class="empty-text"  ng-if="userInfo.isNot">
+    <i class="icon icon-icon_3 empty-icon"></i>
+    <p>{{userInfo.text}}</p>
+</div>

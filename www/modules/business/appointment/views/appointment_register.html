@@ -1,0 +1,174 @@
+<ion-view class="quyiyuan_appointment_register_confirm" >
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive  code="appoinInfoTitle" default="确认预约信息"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('appointment_register_confirm')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="has-footer qy-bg-grey2">
+
+        <div class="ta-c top_box pad-td-20  mar-d-10"style="background-color: #ffffff" >
+            <button class="button button-size-s button-color-org" ng-click="goToLogin()" kyee-i18n-directive  code="goToLogin" default="已注册用户请点此登录"></button>
+        </div>
+        <div class="top_box pad-td-10  qy-bg-grey1 mar-d-10" style="padding: 0px">
+            <p class="text-ellipsis pad-r-1" style="padding-top: 15px">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="visitHospital" default="就诊医院："></span>
+                <span class="mar-l-20">{{appointmentRegister.HOSPITAL_NAME}}</span>
+            </p>
+
+            <p class="text-ellipsis">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="doctorName" default="医生姓名："></span>
+                <span class="mar-l-20">{{appointmentRegister.DOCTOR_NAME}}</span>
+            </p>
+
+            <p class="text-ellipsis ">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="type" default="门诊类型："></span>
+                <span class="mar-l-20">{{appointmentRegister.CLINIC_LABEL}}（{{appointmentRegister.DEPT_NAME}}）</span>
+            </p>
+
+            <p class="uyg-flex">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="visitDate" default="就诊日期："></span>
+                <span class="mar-l-20">{{appointmentRegister.CLINIC_DATE}} {{CLINIC_DURATION}}</span>
+            </p>
+
+            <div  class="uyg-flex margin_bottom_0px pad-b-14 pad-d-15" ng-if="(showFee == 1 && EXPENSE_DETAIL)" style="background: #FFF;>
+                <li style="position:relative" class="row line_30">
+                    <span class="f14 fixed_width1" span kyee-i18n-directive code="payAmount" default="支付费用："></span>
+                    <span class="f14 qy-green fw-b mar_l_20">{{appointAmount}}</span>
+                </li>
+                <div class="pad-td-10 pad-b-14 qy-bg-grey2">
+                    <!-- <div ng-repeat="col in rows" class="doctorcol ">-->
+                    <ul class=""  ng-repeat="fee in EXPENSE_DETAIL" ng-class="">
+                        <li style="position:relative">
+                            <span class="f14 fixed_width1 mar_l_15">{{fee.feedesc}}：</span>
+                           <span style="position:absolute; right:0px; width:50%">
+                               <span class="f14 qy-deepblue mar_l_20">¥{{fee.fee}}</span>
+                           </span>
+                        </li>
+                    </ul>
+                    <!-- </div>-->
+                </div>
+            </div>
+
+            <p ng-if="(showFee == 1 && !EXPENSE_DETAIL)" class="uyg-flex margin_bottom_0px" >
+                <span class="regist_width qy-deepblue" ng-if="FeeType == 0" kyee-i18n-directive  code="registAmout" default="挂号费用："></span>
+                <span class="regist_width qy-deepblue min-w70" ng-if="FeeType == 1" default="{{REG_FEE_REPLACE}}">{{REG_FEE_REPLACE}}</span>
+                <span class="mar-l-20 f14 qy-green fw-b">{{appointAmount}}</span>
+                <i class="icon icon-icon_3 qy-green right25" ng-show="appointmentRegister.IS_SHOW_FEE_DETAIL==1"
+                   ng-click="showRegistCostMsg()"></i>
+            </p>
+        </div>
+
+        <div ng-if="HOS_CHILD_REG=='1' && APPOINT_LIMIT_CODE=='11'" class="mar-d-10 text-c flex justify-center">
+            <div  ng-click="selectedChange(1)" ng-class="regPatientSelect=='1'?'qy-bg-green qy-fff':'qy-green'" class="select_box select_box1">儿童</div>
+            <div ng-click="selectedChange(0)" ng-class="regPatientSelect=='0'?'qy-bg-green qy-fff':'qy-green'" class="select_box select_box0">成人</div>
+        </div>
+
+        <div class="list qy-bg-grey1 mar-d-10">
+            <div class="item item-input">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="patient" default="就诊人："></span>
+                <input style="margin-left: 34px" type="text" ng-model="appointmentRegister.userName" placeholder="{{placeholderName}}">
+            </div>
+            <label class="item item-input" ng-if="regPatientSelect=='0'">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="idNo" default="身份证号："></span>
+                <input class="mar_l_20" type="text" ng-model="appointmentRegister.idCardNum" placeholder="{{placeholderidNo}}">
+            </label>
+
+            <!--<label class="item item-input" >-->
+                <!--<span class="regist_width qy-deepblue" kyee-i18n-directive  code="all:add_patient_info.bristolDate" default="出生日期："></span>-->
+                <!--<input class="mar_l_20" type="text" ng-model="appointmentRegister.bristolDate" placeholder="{{placeholderbristolDate}}">-->
+            <!--</label>-->
+
+            <div class="item item-input" ng-if="regPatientSelect=='1'&&HOS_CHILD_REG=='1' && APPOINT_LIMIT_CODE!='10'" style="padding-left: 0px; margin-left: 14px;">
+                <span class="zx_font_size"
+                      kyee-i18n-directive code="all:add_patient_info.bristolDate" default="出生日期："></span>
+                <div  ng-click="selectChildAge()" class="select_child_age border-d">
+                    <span ng-class="textColor" class="zx_font_size"></span>
+                    <span ng-class="textColor" class="zx_font_size qy-grey5">{{autoBirthday()}}</span>
+                    <i class="icon-calendar qy-green select_child_age_icon"></i>
+                </div>
+            </div>
+            <div class="item item-input-inset item-input button-bar child-top pad-l-14" style=" border-bottom: 1px solid white;" ng-if="regPatientSelect=='1'&&HOS_CHILD_REG=='1' && APPOINT_LIMIT_CODE!='10'">
+            <span class="input-label  child-centre zx_font_size"
+                  kyee-i18n-directive code="all:add_patient_info.sex" default="性别："></span>
+                <div class="select_sex">
+                <label class="item item-radio child-lower sex_select dis-in-b">
+                    <input  type="radio" name="group" ng-click="selectMen(); ">
+
+                    <div class="yes-or-no flex">
+                        <i class="lineh22" ng-class="{'f16 ion-android-radio-button-on addressRadioSelStyle qy-green':userInfo.sexView==1,'icon-radiobox_2 f14':userInfo.sexView!=1}"></i>
+                        <div class="yes-or-no-two zx_padding_left f14"
+                             kyee-i18n-directive code="all:add_patient_info.man" default="男"></div>
+                    </div>
+                </label>
+                <label class="item item-radio zx_font_size zx_border_background sex_select pad-l-2 dis-in-b" >
+                    <input type="radio" name="group" ng-click="selectWomen();">
+                    <div class="yes-or-no flex">
+                        <i class="lineh22" ng-class="{'f16 ion-android-radio-button-on addressRadioSelStyle qy-green':userInfo.sexView==2,'icon-radiobox_2 f14':userInfo.sexView!=2}"></i>
+                        <div class="yes-or-no-two zx_padding_left f14"
+                             kyee-i18n-directive code="all:add_patient_info.woman" default="女"></div>
+                    </div>
+                </label>
+                </div>
+            </div>
+            <label class="item item-input">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="phone" default="联系电话："></span>
+                <input class="mar_l_20" type="tel" ng-model="appointmentRegister.phoneNum" placeholder="{{placeholderPhone}}"
+                       ng-disabled="appointmentRegister.phoneNumDisabled">
+            </label>
+
+            <div class="item item-input" ng-show="appointmentRegister.isCheckMsg" style="position: relative;">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="phoneMsg" default="手机验证码："></span>
+                <input ng-click="isVoiceVerificationCodeFalse();" type="tel" class="mar_l_5"
+                       ng-model="appointmentRegister.validateCode" placeholder="{{placeholderCode}}" style="width:100px">
+              <button ng-disabled="appointmentRegister.validateBtnDisabled" ng-click="getValidateCode()"
+                        class="button button-small b_c_h" ng-bind-html="appointmentRegister.validateCodeText|kyee_to_html">
+                </button>
+            </div>
+            <!--以下代码只有导医注册时用到,暂时注掉-->
+            <div class="item item-input" ng-show="appointmentRegister.isGuideShow">
+                <span class="regist_width qy-deepblue" kyee-i18n-directive  code="medicalGuide" default="导医："></span>
+                <input type="text" ng-model="appointmentRegister.guideNum" placeholder="{{placeholderNumber}}" style="margin-left: 48px !important;">
+                <button ng-click="scan();" class="button button-small b_c_h" kyee-i18n-directive  code="QRcode" default="扫描二维码">
+                </button>
+            </div>
+            <label class="item item-input" ng-show="appointmentRegister.isRemarkShow">
+                <span class="left_name_m"  kyee-i18n-directive  code="remarks" default="备注："></span>
+                <input type="text" ng-model="appointmentRegister.remark" placeholder="{{placeholderRemarks}}" style="margin-left: 48px !important;">
+            </label>
+
+            <div class="pad-r-14 pad-td-10" style="background-color: #ffffff">
+                <i class="icon  icon_agree mar-r-10"
+                   ng-class="{'ion-android-checkbox-outline qy-green':appointmentRegister.contractSelected,'ion-android-checkbox-outline-blank':!appointmentRegister.contractSelected}"
+                   ng-click="selectAgrreContract()"></i>
+                   <span kyee-i18n-directive  code="registMember" default="同时注册趣医会员"></span>
+                <a ng-click="readContract()" class="agreement_span qy-green" kyee-i18n-directive  code="agreement" default="《趣医网软件许可协议》"> </a>
+            </div>
+        </div>
+    </ion-content>
+    <div>
+        <div class="bar bar-footer pad-b-14 qy-bg-grey2" style="height: 50px">
+            <button kyee-action-holder-directive="isRegisterAppointment" ng-click="KAH($event) || goToInputPassword()"
+                    class="button button-block button-size-l">
+                <span  kyee-i18n-directive  code="next" default="下一步"></span>
+            </button>
+        </div>
+        <div class="bar bar-footer ta-c w_100 mar-b-44 bounceUp" ng-if="isVoiceVerificationCode">
+            <div class="h_bc_w100">
+            <span class="po_co_t"  >
+                <span kyee-i18n-directive  code="aginGet" default="验证码已发送，如长时间未收到短信，请点此获取">
+                </span>
+                <span class="bo_bo" ng-click="voiceVerificationCode();"  kyee-i18n-directive  code="voiceVerification" default="语音验证码"></span>
+             </span>
+            </div>
+        </div>
+    </div>
+    <div kyee-date-picker-directive year-range="{{yearRange}}" bind="bind(params)"
+         on-select-finash="onFinash(params)"></div>
+
+</ion-view>

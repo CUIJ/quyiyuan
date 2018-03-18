@@ -1,0 +1,59 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年7月13日10:05:55
+* 创建原因：检查单详情页面
+* 任务号：KYEEAPPC-2640
+* 修改时间：2015年8月21日14:12:58
+* 修改人：程铄闵
+* 任务号：KYEEAPPC-3097
+* 修改原因：报告单样式整改
+* 修改人：吴伟刚
+* 任务号：KYEEAPPTEST-3060
+* 修改原因：检查单图片展示在某些机子上会被拉长，不够美观。予以优化
+-->
+<ion-view title="{{checkDetailData.EXAM_CLASS}}" class="qy_check_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false">
+        <div class="mar-b-14 mar-d-10 mar-t-20 content_table">
+            <table class="w_100">
+                <tr>
+                    <th class="w_20">申请日期</th>
+                    <td class="w_30" style="width: 30%">{{getDate(checkDetailData.REQ_DATE_TIME)}}</td>
+                </tr>
+                <tr>
+                    <th class="w_20">申请医生</th>
+                    <td class="w_30">{{checkDetailData.REQ_PHYSICIAN}}</td>
+                </tr>
+                <tr>
+                    <th>报告日期</th>
+                    <td>{{getDate(checkDetailData.REPORT_DATE_TIME)}}</td>
+                </tr>
+                <tr>
+                    <th>报告医生</th>
+                    <td>{{checkDetailData.REPORTER}}</td>
+                </tr>
+                <tr>
+                    <th>检查所见</th>
+                    <td colspan="3">{{checkDetailData.DESCRIPTION}}</td>
+                </tr>
+            </table>
+        </div>
+        <!--<div ng-repeat="imgItem in imgData track by $index" class="pad-td-5 ta-c pad-b-14">-->
+        <table width="100%" ng-repeat="imgItem in imgData track by $index">
+            <tr>
+                <td align="center" valign="middle" class="va_m ta-c">
+                    <img class="w_100 check_img" ng-click="clickImg(imgItem)" src="{{imgItem}}">
+                </td>
+            </tr>
+        </table>
+        <!--</div>-->
+    </ion-content>
+</ion-view>

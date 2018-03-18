@@ -1,0 +1,33 @@
+<ion-view class="multiple_query_city">
+<ion-content style="top:55px;height:100%;"  has-bouncing="true" has-header="true" padding="false">
+
+    <div class="row" style="padding: 0px;margin: 0px;">
+        <div class="col col-25" style="padding: 0px;margin: 0px;">
+            <ion-scroll delegate-handle="multipleProvinceList" has-bouncing="true" scrollbar-y="false"
+                        zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 50)+'px'}"
+                        style="background-color: #efeff4 !important;">
+                <div class="list quyiyuan-multiple-city_selector_list_province">
+                    <a ng-class="{'active_province' : provinceIdx == $index}"
+                       ng-click="loadCitys($index, '{{province.PROVINCE_ID}}','{{province.PROVINCE_CODE}}','{{province.PROVINCE_NAME}}')"
+                       ng-repeat="province in provinces"
+                      class="item unactive_province">
+                        {{province.PROVINCE_NAME}}
+                    </a>
+                </div>
+            </ion-scroll>
+        </div>
+        <div class="col col-75" style="padding: 0px;margin: 0px;">
+            <ion-scroll delegate-handle="multipleCityListScrollContainer" has-bouncing="true" scrollbar-y="false"
+                        zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 50)+'px'}">
+                <div class="list quyiyuan-multiple-city_selector_list_city">
+                    <a ng-click="selectCity(city)"
+                       ng-repeat="city in citys" class="item city_item">
+                        {{city.CITY_NAME}}
+                    </a>
+                </div>
+            </ion-scroll>
+        </div>
+    </div>
+
+</ion-content>
+</ion-view>

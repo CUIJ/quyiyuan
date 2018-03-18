@@ -1,0 +1,54 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年10月14日16:08:26
+* 创建原因：住院已结算详情
+* 任务号：KYEEAPPC-3523
+ * 修改者：程铄闵
+ * 修改时间：2016年6月17日10:22:51
+ * 修改原因：2.2.40版住院已结算（医院首页入口）
+ * 任务号：KYEEAPPC-6605
+ * 修改者：张婧
+ * 修改时间：2016年7月27日11:22:02
+ * 修改原因：添加单击钮统计
+ * 任务号：KYEEAPPC-6641
+-->
+<ion-view class="qy_inpatient_paid_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="费用明细"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt" ng-click="delete()" kyee-i18n-directive code="rightBtn" default="删除" kyee-operation-monitor-directive="deletePaidDetail"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <div class="f14">
+            <h5 class="pad-b-14 pad-t-10 pad-d-5 mar_td_0 qy-bg-white">{{detailData.HOSPITAL_NAME}}</h5>
+            <div class="pad-b-14 pad-d-10 qy-bg-white">{{convertDate(detailData.ADMISSION_DATE)}} - {{convertDate(detailData.DISCHARGE_DATE)}}</div>
+            <ul class="pad-d-5 qy-bg-white pad-l-14">
+                <li class="border-t" style="padding-top: 8px;"><span class="head_left" kyee-i18n-directive code="totalCost" default="总额："></span>{{convertMoney(detailData.TOTAL_COSTS)}}</li>
+                <li ng-if="detailData.INSUR_SELF_PAY" ><span class="head_left" kyee-i18n-directive code="insurSelfPay" default="自负金额："></span>{{convertMoney(detailData.INSUR_SELF_PAY)}}</li>
+            </ul>
+        </div>
+        <ul class="border-d">
+            <li class="row qy-bg-grey1 qy-grey7 border-td pad-b-14 pad-td-5 qy_h5_color">
+                <span class="col col-70 pad_r_5" kyee-i18n-directive code="itemName" default="项目名称"></span>
+                <span class="col col-30 ta-r" kyee-i18n-directive code="cost" default="金额"></span>
+            </li>
+            <li class="pad-l-14 qy-bg-white f14">
+                <div class="row detail_item pad-r-14" ng-repeat="detailItem in detailData.DETAIL_DATA"  ng-click="showDetail(detailItem)"
+                     ng-class="$last?'':'border-d'" kyee-operation-monitor-directive="showDetail">
+                    <span class="col col-70 pad_r_5 text-ellipsis pad-r-10">
+                        <!--<i class="icon-icon_3 qy-green f14 icon_tip"></i>-->
+                        {{detailItem.ITEM_NAME}}
+                    </span>
+                    <span class="col col-30 ta-r">
+                        {{convertMoney(detailItem.COSTS)}}
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

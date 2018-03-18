@@ -1,0 +1,41 @@
+<ion-view class="qy_bank_card">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="申请提现"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <div class="box-container box_container_height" ng-click="doShowRebateBankAdd()" ng-if="BankCardInfo.cardId != ''" style="margin: 10px 14px;">
+            <i class="icon icon-credit-card left-content mar-l-10 card_icon"></i>
+            <div class="center-content mar-l-10 title_height">
+                <span class="f14 qy-grey7 fw-b" >{{BankCardInfo.bankName}}</span>
+                <p class="text-ellipsis card_no">{{BankCardInfo.bankNo}}</p>
+            </div>
+            <i class="icon icon-arrow_right right-icon-s "></i>
+        </div>
+
+        <div class="box-container box_container_height" ng-click="onShowEditBankCardMsgTap()" ng-if="BankCardInfo.cardId == '' || BankCardInfo.cardId == null || BankCardInfo.cardId == undefined">
+            <i class="icon ion-plus left-content mar-l-10 card_plus"></i>
+            <div class="center-content mar-l-10 title_height">
+                <span class="f14 qy-grey7 fw-b" kyee-i18n-directive code="bankCard" default="银行卡"></span>
+                <p class="card_no" kyee-i18n-directive code="addBankCardBtnText" default="请添加银行卡"></p>
+            </div>
+            <i class="icon icon-arrow_right right-icon-s "></i>
+        </div>
+
+        <label class="item item-input mar-t-10 border-t" style="padding: 8px 14px;">
+            <span class="input-label" style="width:15%" kyee-i18n-directive code="inputAmountLabel" default="金额："></span>
+            <input ng-change="onInputAmount(inputVal.AMOUNT)" type="text"
+                   ng-model="inputVal.AMOUNT" placeholder="{{placetxt}}">
+        </label>
+
+        <div class="pad-b-14 pad-t-10">
+            <button type="text" class="button button-block button-size-l"
+                    kyee-action-holder-directive="isDeposit" ng-click="KAH($event) || onSubmitBtn()"><span kyee-i18n-directive code="submitBtnText" default="确认提现"></span></button>
+        </div>
+
+    </ion-content>
+
+</ion-view>

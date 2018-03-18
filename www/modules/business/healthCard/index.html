@@ -1,0 +1,86 @@
+<ion-view class="qy_patient_card_recharge health_Card qy-bg-grey2">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span>一卡通充值</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" scrollbar-y="false" class="qy-bg-grey2" >
+        <div>
+            <ul class="mar-t-10 qy-bg-white border-td">
+                <li class="item_h item_cont border-d" ng-click="showAreaArray()">
+                    <span class="item_left mar-l-14">地区：</span>
+                    <input  ng-model="areaInfo.AREA_NAME" readonly="readonly"  type="text"
+                           style=" width: 180px;"
+                           placeholder={{placeholder.pHArea}} autocomplete="off" class="mr_100 qy-bg-white item_input">
+                    <i class="icon ion-chevron-right qy-grey5"></i>
+                </li>
+                <li class="item_h item_cont"  ng-click="goCustomPatient()">
+                    <span class="item_left mar-l-14">姓名：</span>
+                    <input readonly="readonly" type="text" ng-model="patientInfo.OFTEN_NAME" class="mr_100 item_input">
+                    <i class="icon ion-chevron-right qy-grey5"></i>
+                </li>
+            </ul>
+
+            <div class="pad-lr-14 pad-t-14" ng-if="reset" >
+               <div ng-if="!isChooseInfo"  class="text-center qy-bg-white height_180 border-all border_radius_10">
+                <!--<div class="text-center qy-bg-white  border-all">-->
+                    <div class="mar_tb" style="">
+                        <i class="icon-icon_1 qy-grey5 font_size_60"></i>
+                    </div>
+                    <p class="qy-grey7 f14">您未选择地区</p>
+                </div>
+                <div ng-if="isChooseInfo && !isHasCard" class="text-center height_180 qy-bg-white  border-all border_radius_10">
+                    <div class="mar_tb">
+                        <i class="icon-icon_1 orange font_size_60"></i>
+                    </div>
+                    <p class="qy-grey7 f14" >未查询到您的一卡通，请重试</p>
+                </div>
+            </div>
+
+
+            <div class="pad-lr-14 pad-t-14" ng-if="isChooseInfo&&isHasCard" ng-repeat="card in healthCardInfo">
+                <div class=" qy-bg-white height_180 border-all border_radius_10">
+                    <div class="height_50 border-d pad-lr-14 pad-t-10">
+                        <i class="icon-hospital-img logo_color font30"></i>
+                        <span class="mar_l_7 f16 qy-grey7 position_r top_-7">{{card.cardName}}</span><span class="f12 qy-grey7 position_r top_-7" ng-if="card.cardNameLittle">({{card.cardNameLittle}})</span>
+                        <span class="border_green qy-green fl-r pad-l-5 position_r top_3 w_h border_radius_4" ng-click="goToHealthCardPay(card)">
+                            充值
+                        </span>
+                    </div>
+                    <div class="text-center mat_t_37">
+                        <span class="f14 qy-grey6 mar_r_4 va-middle">余额(元)</span>
+                        <span class="font24 qy-grey7 mar_r_4 fw-b va-middle">{{card.totalBalance}}</span>
+                        <i ng-click="showHealthCardDetails(card)" class="icon icon-icon_3 orange font24 va-middle"  ></i>
+                    </div>
+                    <div class="mar-l-14 mar_t_34 qy-grey5" ng-if="totalWidth>=350">
+                        <span class="f14 fw-b">{{card.cardNoShow}}</span>
+                        <span class="f12 fl-r mar-r-14">{{card.patientName}} {{card.sendCardDate}}</span>
+                    </div>
+                    <div class="mar-l-14 mat_t_20 qy-grey5" ng-if="totalWidth<350">
+                        <div class="f14 fw-b">{{card.cardNoShow}}</div>
+                        <span class="f12">{{card.patientName}} {{card.sendCardDate}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mar_t_30 pad-lr-14 " ng-if="tip">
+                <p class="f16 qy-grey7">温馨提示</p>
+                <div class="pad_20  f14 qy-bg-white border-all border_radius_4">
+                  <span class="qy-grey6">{{tip}}</span><span ng-if="supportHosList" class="tip_blue" ng-click="goToSupportHospital()">查看支持的医院 ></span>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
+<div  kyee-compile-directive template="modules/business/healthCard/views/selected.html"></div>
+<div
+        kyee-overlay-directive
+        location="center"
+        width="{{overlayData.width+40}}"
+        height="172"
+        data="healthCardDetails"
+        template="modules/business/healthCard/views/healthCardDetail.html"
+        bind="bind2(params)"></div>
+

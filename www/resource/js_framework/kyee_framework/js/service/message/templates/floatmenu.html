@@ -1,0 +1,14 @@
+<ion-popover-view style="background-color: black;height: {{popoverHeight}}px;padding: 0px;margin: 0px;width: {{popoverWidth}}px;">
+    <ion-content has-bouncing="true" padding="false" scrollbar-y="false" style="background-color: black;color: white;">
+
+        <ul class="list" style="background-color: black;margin: 0px;padding: 0px;">
+
+            <li ng-click="onPopoverItemClick(item)" collection-repeat="item in popoverItemsData" item-width="100%" item-height="35px" class="item item-icon-right" style="background-color: black;color: white;font-size: 14px;">
+                <div style="padding-left:15px;line-height: 30px;border-bottom: 1px solid white;">{{item.text}}</div>
+                <i ng-if="item.rightButton != undefined" class="icon {{item.rightButton.icon}}" style="font-size: 14px;">{{item.rightButton.text}}</i>
+            </li>
+
+        </ul>
+
+    </ion-content>
+</ion-popover-view>

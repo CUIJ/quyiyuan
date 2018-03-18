@@ -1,0 +1,14 @@
+<ion-view class="detail_map">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="surroundingHospitalTitle" default="周边医院"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div id="detailMap"></div>
+        <div ng-click="goBack()" class="border-t f14 hospitalNum bg-white po">共为您找到<span class="qy-orange"><span class="fw-500">{{number}}</span>家</span>"医疗机构"</div>
+    </ion-content>
+
+</ion-view>

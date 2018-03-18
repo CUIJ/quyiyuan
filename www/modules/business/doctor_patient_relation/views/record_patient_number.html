@@ -1,0 +1,71 @@
+<ion-view  class="doctor_patient_relation" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>完善个人信息</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+<ion-content has-bouncing="true" class="qy-bg-grey1">
+    <!--医生信息及留言部分-->
+    <div class="qy-bg-white pad-d-20">
+        <div class="inline pad-t-20 pad-l-14">
+            <img  ng-if="doctor_sex == 1" class="head_img fl-l" ng-src="{{doctor_pic?doctor_pic:'resource/images/base/head_default_female.jpg'}} "onerror="javascript:this.src='resource/images/base/head_default_female.jpg'"/>
+            <img  ng-if="doctor_sex != 1" class="head_img fl-l" ng-src="{{doctor_pic?doctor_pic:'resource/images/base/head_default_man.jpg'}} "onerror="javascript:this.src='resource/images/base/head_default_man.jpg'"/>
+            <div class="fl-l pad-l-12">
+                <div class="f16 qy-grey7">{{doctor_name}}</div>
+                <div class="f14 pad-t-7 qy-grey6">{{dept_name}}</div>
+                <div class="f14 qy-grey6">{{hos_name}}</div>
+            </div>
+        </div>
+        <div class="transform triangle-css3"></div>
+        <div class="qy-bg-grey2 mar-b-14 mar-t-14 bor-ra-10 pad-d-13">
+            <div class="pad-lr-14">
+                <div class="pad-t-12 f12 qy-grey6">{{doctor_name}}医生给您留言</div>
+                <div class="pad-t-7 f14 qy-grey7">
+                    请留下您的电话号码，方便医生对您关怀，此号码仅医生本人可见，请放心提供。
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="qy-bg-white mar-t-10">
+        <div class="item item-input item_padding_0">
+            <span class="f14 fixed_width1">手机号码：</span>
+            <input type="text" class="phone_input"
+                   ng-model="patientInfo.phoneNumber"
+                   ng-readonly="patientInfo.phoneNumberReadonly||btnDisabled"
+                   placeholder="请输入您的手机号码">
+            <button ng-disabled="btnDisabled" ng-click="getMsgCode()" class="button msg_button qy-grey6 qy-bg-grey3">
+                {{msgText}}
+            </button>
+        </div>
+        <div ng-if="notCheckCode!=1" class="item item-input item_padding_0 position_r border-none"
+             ng-class="{ 'border_none':isNeedAutoRegister=='1'}">
+            <span  class="f14 fixed_width1">验证码：</span>
+            <input type="text" style="padding-right: 94px;" ng-model="patientInfo.msgCode" placeholder="请输入验证码">
+        </div>
+    </div>
+    <div class="qy-orange pad-b-14 row message_div">
+        <i class="icon-icon_1 f18 message_i"></i>
+        <span class="f12 ">如果您是新用户，为方便后续您与医生的交流，系统会自动为您注册趣医账号，账号为手机号，初始密码为手机号后六位。</span>
+    </div>
+    <div ng-if="chooseContract" class="pad-b-14 mar-t-20" ng-click="submit()">
+        <button class="button button-block button-size-l">
+            <span>提交</span>
+        </button>
+    </div>
+    <div ng-if="!chooseContract" class="pad-b-14 mar-t-20">
+        <button class="button button-size-l button-block grey_bg_btn">
+            <span>提交</span>
+        </button>
+    </div>
+    <div class="mar-t-7 mar-b-14 text-center">
+        <span>
+            <i ng-if="chooseContract" class="icon-choose f16 qy-green chooseItem" ng-click="changeStatusOnContract()"></i>
+            <i ng-if="!chooseContract" class="icon-none-choose f16 chooseItem" ng-click="changeStatusOnContract()"></i>
+        </span>
+        <span class="f12 qy-grey7">我已阅读并同意 </span>
+        <span class="f12 qy-green" ng-click="viewContract()">在线咨询患者知情条款</span>
+
+    </div>
+</ion-content>
+</ion-view>

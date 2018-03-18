@@ -1,0 +1,65 @@
+<ion-view class="qy_query_friends">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="queryFriends" default="搜索好友"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" scrollbar-y="false" scroll="false">
+
+        <!--搜索框-->
+        <div class="mar-t-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="search_container position-r">
+                <form ng-submit="queryFriends(keywords.value)">
+                    <input id="keywords" type="text" placeholder="输入手机号/昵称" ng-model="keywords.value"
+                           ng-change="queryFriends(keywords.value)" class="text-ellipsis border-none">
+                </form>
+                <i class="position-a icon-icon_6 f14 clear_icon qy-grey4" ng-if="keywords.value.length>0"
+                   ng-click="clearInput()"></i>
+                <button class="button-icon icon-seach grid_img color_search" ng-click="queryFriends(keywords.value)"></button>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 0px;margin: 0px;">
+            <ion-scroll delegate-handle="friend_list" has-bouncing="true" scrollbar-y="false" zooming="false"
+                        direction="y" style="width: 100%;"
+                        ng-style="{height: (KyeeEnv.innerSize.height - 100)+'px'}">
+                <!--搜索结果-->
+                <div ng-if="resultData.length > 0">
+                    <div class="color_9 related_users" kyee-i18n-directive code="result" default="相关用户"></div>
+                    <div class="qy-bg-white pad-l-14 border-td">
+                        <ul class="result_list qy-grey7">
+                            <li ng-repeat="user in resultData" class="line50 border-b pad-r-14 position-r" ng-click="getDetail(user)">
+                                <img ng-if="user.sex == '2'" class="fl-l"
+                                     ng-src="{{user.userPhoto ? user.userPhoto:'resource/images/patients_group/user_female.png'}} "
+                                     onerror="javascript:this.src='resource/images/patients_group/user_female.png'"/>
+                                <img ng-if="user.sex != '2'" class="fl-l"
+                                     ng-src="{{user.userPhoto ? user.userPhoto:'resource/images/patients_group/user_male.png'}} "
+                                     onerror="javascript:this.src='resource/images/patients_group/user_male.png'"/>
+                                <div class="result_item mar-l-14 fl-l" ng-style="{'width':KyeeEnv.innerSize.width - 76 + 'px'}">
+
+                                    <div class="fl-l line50 max-w80 text-ellipsis"
+                                         ng-bind-html="user.showText|kyee_to_html"
+                                         ng-class="{'max-w65':user.haveCommonGroups > 0}"></div>
+                            <span ng-if="user.haveCommonGroups > 0 && !user.remark" kyee-i18n-directive code="savedSameGroup" default="同群病友"
+                                  class="qy-bg-green qy-fff f12 pad-lr-3 mar-l-6 pad_d_1"></span>
+                            <span ng-if="user.haveCommonGroups > 0 && !!user.remark" kyee-i18n-directive code="savedSameGroup" default="同群病友"
+                                  class="qy-bg-green qy-fff f12 pad-lr-3 mar-l-6 position-a pad_d_1 remark_with_group"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--无数据提示信息 start-->
+                <div ng-if="resultData.length == 0 && keywords.value.length > 0" class="empty-text">
+                    <i class="icon-icon_3 empty-icon"></i>
+                    <span kyee-i18n-directive  code="emptyDept" default="没有找到相关用户"></span>
+                </div>
+                <!--无数据提示信息 end-->
+            </ion-scroll>
+        </div>
+
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,22 @@
+<ion-content  has-bouncing="true" padding="false">
+
+    <ul class="pad-b-14">
+        <li class="border-d hospital_box" collection-repeat="hospital in hospitals"
+            ng-click="selectHospital(hospital.HOSPITAL_ID, hospital.HOSPITAL_NAME, hospital.MAILING_ADDRESS, hospital.PROVINCE_CODE, hospital.PROVINCE_NAME, hospital.CITY_CODE, hospital.CITY_NAME)">
+            <img class="hos_img" width="32px" height="32px" style="vertical-align: top;"
+                 ng-src="{{hospital.LOGO_PHOTO?hospital.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                 onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+
+            <div ng-style="{'max-width':getWidth(hospital)}" class="hos_name f14 text-ellipsis">{{hospital.HOSPITAL_NAME}}</div>
+
+            <img ng-if="hospital.IS_ONLINE==1" class="net_hos_img" style=""
+                 src="resource/images/icons/shipin.png">
+
+        </li>
+    </ul>
+    <div ng-if="showEmpty" class="empty-text">
+        <p>
+            <span kyee-i18n-directive code="currentPositionNoHospital" default="您当前所在位置暂无趣医上线医院"></span>
+        </p>
+    </div>
+</ion-content>

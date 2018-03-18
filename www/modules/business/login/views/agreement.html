@@ -1,0 +1,15 @@
+<ion-view  class="qy_agreement_view">
+    <ion-header-bar align-title="center" class="qy-header">
+        <a ng-click="backTohome();" class="button back-button buttons  button-clear header-item">
+            <i class="icon ion-android-arrow-back"></i>
+        </a>
+        <h2 class="title header_title"
+            kyee-i18n-directive code="all:agreement.agreement" default=" 协议"></h2>
+    </ion-header-bar>
+
+    <ion-content has-bouncing="true" padding="false" overflow-scroll="true" overflow-scroll="true">
+        <div style="height:100%; width:100%;">
+            <iframe ng-src="{{openUrl}}" style=" min-height: 100%; width:100%;"></iframe>
+        </div>
+    </ion-content>
+</ion-view>

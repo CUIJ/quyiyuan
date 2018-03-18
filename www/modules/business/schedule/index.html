@@ -1,0 +1,59 @@
+<ion-view  title="{{titleName}}" cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right" >
+            <a class="button button-clear txt text-ellipsis" style="width:100px;"  ng-click="changeHospital();" ng-if="branch_version=='00' && canBeSelect">
+                <span class="text-ellipsis qy-fff fl-l" style="width:68px">
+                       <span kyee-i18n-directive  code="chooseHospital" default="切换医院"></span>
+                </span>
+                <i class="ion-chevron-down qy-fff"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="appointment_dept_group" has-bouncing="true" has-header="true" padding="false" delegate-handle="scheduldept_list">
+        <div ng-if="isGroupDept=='1'&& (empty==2)">
+            <div class="row dept_group_row f14" >
+                <div class="col col-33 dept_group_col">
+                    <ion-scroll class="dept-group_dks"  has-bouncing="true" scrollbar-y="false"
+                                zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 50)+'px'}">
+                        <ul class="dept-group_dks">
+                            <li ng-click="showdept($index)" ng-repeat="dks in groupDept" ng-class="{'active_dks active_border_right_none' : dksIndex == $index,'active_border_right padding_td_11' : dksIndex != $index}"  class="deptname_item unactive_dks">
+                                {{dks.DKS_NAME}}
+                            </li>
+                        </ul>
+                    </ion-scroll>
+                </div>
+                <div class="col  dept_group_col">
+                    <ion-scroll  has-bouncing="true" scrollbar-y="false"
+                                 zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 50)+'px'}">
+                        <ul class="list dept_group_deptname">
+                            <li ng-click="selectSecondDept(dept)" ng-repeat="dept in deptData" class="deptname_item">
+                                {{dept.DEPT_NAME}}
+                                <span ng-show="dept.IS_KEY=='1'" class="deptname_ion"></span>
+                                <span ng-show="dept.IS_ONLINE=='1'" class="appoint_shipin_img"></span>
+                            </li>
+                        </ul>
+                    </ion-scroll>
+                </div>
+            </div>
+        </div>
+        <div  ng-if="isGroupDept!='1' && (empty==2)">
+
+            <div class="bar item-input-inset search pad-b-14 qy-bg-grey2 f14">
+                <label class="item-input-wrapper search-item mar-r-10 text-ellipsis" >
+                    <div class="div_search"><i class="icon icon-seach placeholder-icon mar-l-10 "></i></div>
+                    <input type="search" ng-model="keywords" ng-change="searchDept(keywords)" placeholder="{{placeholderDept}}">
+                </label>
+                <span class="qy-green text-ellipsis" style="display: block;" kyee-action-holder-directive="autodiagnosis" ng-click="KAH($event) || goTriage()" >
+                    <span style="text-decoration: underline" kyee-i18n-directive  code="symptomCheck" default="症状自查"></span>
+                </span>
+            </div>
+
+            <div kyee-indexed-list-directive data="data" bind="bind(params)" itemclick="selectDept(params)"  items-comparator="comparator(params)" height="{{KyeeEnv.innerSize.height - 92}}"></div>
+        </div>
+        <div ng-if="empty==1" class="empty-text" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive  code="emptyDept" default="医院暂无科室信息"></span>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,44 @@
+<ion-view class="qy_doctor_pwd_init">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="setPasswordTittle" default="设置密码"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+
+        <div class="list mar-t-20">
+
+            <label class="item item-input" ng-if="userInfo.phoneNum">
+                <span class="input-label" kyee-i18n-directive code="iphoneNo" default="手机号码："></span>
+                <span type="text">{{userInfo.phoneNum}}</span>
+            </label>
+
+            <div class="item item-input item-icon-right" ng-if="userInfo.phoneNum">
+                <span class="input-label" kyee-i18n-directive code="verificationCode" default="验证码："></span>
+                <input type="text" ng-model="userInfo.validateCode" placeholder="{{placeholderPhoneCode}}"/>
+                <button id="doctorAuth.validateCode" ng-disabled="userInfo.validateBtnDisabled"
+                        ng-click="getValiteCode();" class="button button-small login-number-button">
+                    {{innerText}}
+                </button>
+            </div>
+
+            <div class="item item-input item-icon-right">
+                <span class="input-label" kyee-i18n-directive code="password" default="密码："></span>
+                <input type="{{inputType}}" ng-model="pwdInfo.new_pwd" placeholder="{{placeholderPassword}}">
+                <button class="ion-ios-eye icon_btn_style" ng-click="iconClick()"
+                        ng-class="{'qy-green':isActive}">
+                </button>
+            </div>
+        </div>
+
+
+        <div class="pad-b-14">
+            <button ng-click="submentClick()" class="button button-block button-size-l">
+                <span kyee-i18n-directive code="submit" default="提交"></span>
+            </button>
+        </div>
+    </ion-content>
+
+</ion-view>

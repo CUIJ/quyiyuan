@@ -1,0 +1,27 @@
+.qy_navigation{
+  .detail_changeStyle{
+    background_color: #efeff4;
+  }
+  .item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
+  white-space:inherit;
+  }
+  .border_line{
+    border_top:0px;
+  }
+  .font_color{
+    color:#5baa8a;
+  }
+  .appoint_dept_search{
+    height: 42px;
+ }
+  .image_position{
+    width: 100%;
+    padding-top: 0.2em;
+    float: left;
+  }
+  .ion-android-pin:before {
+    content: "\f3a3";
+    font-size:20px;
+    color: red;
+  }
+}

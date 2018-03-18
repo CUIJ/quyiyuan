@@ -1,0 +1,50 @@
+<ion-view class="qy_change_setting">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="changeSettingTitle" default="设置"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-white has-footer">
+        <ul ng-if="isShowTipType[0]==1||isShowTipType[1]==1||isShowTipType[2]==1" class="pad-b-14 mar-t-10">
+            <li class="mar-d-10 f14">
+                <span kyee-i18n-directive code="sysTips" default="系统使用您的就诊者信息，查询您在"></span>【{{hospitalName}}】<span kyee-i18n-directive code="sysTipsEnd" default="的就医记录。您输入的信息，将有助于系统更准确、全面的为您查询就医记录（可选填或不填）"></span>
+            </li>
+            <li class="mar-d-10  item-input" ng-if="isShowTipType[0]==1">
+                <input placeholder="{{placeholderInputPatientCardNo}}" class="input_content " ng-model="inputBothCard.PATIENT_CARDNO">
+            </li>
+            <li class="mar-d-10  item-input" ng-if="isShowTipType[1]==1">
+                <input placeholder="{{placeholderInputHospitalCardNo}}" class="input_content " ng-model="inputBothCard.HOSPITAL_CARDNO">
+            </li>
+            <li class="mar-d-10  item-input" ng-if="isShowTipType[2]==1">
+                <input placeholder="{{placeholderInputBillCardNo}}" class="input_content " ng-model="inputBothCard.BILL_CARDNO">
+            </li>
+            <li class="pad-d-10 line_type">
+                <span kyee-i18n-directive code="noResultTips" default="若就诊者信息与您在医院填写信息不匹配，将查询不到对应的就医记录，您可以尝试修改"></span>
+                <a class="click_color qy-blue modify_patient" ng-click="modifyPatient()" kyee-i18n-directive code="patientInformation" default="就诊者信息"></a>
+            </li>
+            <li class="mar-td-10 f14" >【{{hospitalName}}】<span kyee-i18n-directive code="openedQueryItem" default="已开通查询项目"></span></li>
+            <li class="opened_color">
+                <span ng-style="{'background-color':backgroundColor[($index)%5]}"
+                      class="mar-r-5 opened_function mar-td-5" ng-repeat="item in showOpened">{{item}}</span>
+            </li>
+
+        </ul>
+        <ul ng-if="isShowTipType[0]==0&&isShowTipType[1]==0&&isShowTipType[2]==0">
+            <li class="mar-td-10 mar-b-14 border-d-dash pad-d-10">
+                <span kyee-i18n-directive code="noInputBoxTips" default="系统使用您的就诊者信息，查询您在"></span>【{{hospitalName}}】<span kyee-i18n-directive code="noInputBoxTipsEnd" default="的就医记录。若就诊者信息与您在医院填写信息不匹配，将查询不到对应的就医记录，您可以尝试修改"></span>
+                <a class="click_color qy-blue modify_patient" ng-click="modifyPatient()" kyee-i18n-directive code="patientInformation" default="就诊者信息"></a>
+            </li>
+            <!--<li class="pad-b-14 mar-d-10 f14" kyee-i18n-directive code="openedQueryItem" default="【{{hospitalName}}】已开通查询项目"></li>-->
+            <li class="mar-td-10 f14" >【{{hospitalName}}】<span kyee-i18n-directive code="openedQueryItem" default="已开通查询项目"></span></li>
+            <li class="pad-b-14 opened_color">
+                <span ng-style="{'background-color':backgroundColor[($index)%5]}"
+                      class="mar-r-5 opened_function mar-td-5" ng-repeat="item in showOpened">{{item}}</span>
+            </li>
+        </ul>
+    </ion-content>
+    <div ng-if="isShowTipType[0]==1||isShowTipType[1]==1||isShowTipType[2]==1" class="bar bar-footer pad-b-14">
+        <button class="button button-block button-size-l" ng-click="submit()"  kyee-i18n-directive code="submit" default="提交"></button>
+    </div>
+
+</ion-view>

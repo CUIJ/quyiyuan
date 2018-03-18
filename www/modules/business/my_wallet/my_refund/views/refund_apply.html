@@ -1,0 +1,56 @@
+<!--
+* 产品名称：quyiyuan
+* 修改人: 程铄闵
+* 修改日期:2015年10月21日15:08:01
+* 修改原因：申请退费页面
+* 任务号：KYEEAPPC-3596
+* 修改者：程铄闵
+* 修改时间：2015年11月4日14:28:15
+* 修改原因：国际化翻译
+* 任务号：KYEEAPPC-3801
+-->
+<ion-view class="qy_refund_apply">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="我的退费"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right" >
+            <a class="button button-clear"  ng-click=" openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <div class="list border-d pad-l-14 qy-bg-white list_top" >
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="tradeNo" default="订单编号："></span>
+                <input  type="text" ng-model="applyInfo.TRADE_NO" readonly>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="userName" default="姓名："></span>
+                <input type="text" ng-model="applyInfo.USER_NAME" placeholder={{placeholder.userName}}>
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="bankCardNo" default="银行卡号："></span>
+                <input type="text" ng-model="applyInfo.USER_BANK_LASTCARD" placeholder={{placeholder.bankCardNo}}>
+            </label>
+
+            <label class="item item-input border_bottom">
+                <span class="input-label" kyee-i18n-directive code="phoneNum" default="联系方式："></span>
+                <input type="text" ng-model="applyInfo.USER_PHONE_NUMBER" placeholder={{placeholder.phoneNum}}>
+            </label>
+
+        </div>
+        <div class="row">
+            <div class="col pad-b-14">
+                <button class="button button-block button-size-l" ng-click="KAH($event) || confirmBtn()" kyee-i18n-directive code="confirmBtn" default="确定"></button>
+            </div>
+            <div class="col pad-b-14">
+                <button class="button button-block button-size-l" ng-click="KAH($event) || cancelBtn()" kyee-i18n-directive code="cancelBtn" default="取消"></button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!--申请退费-->

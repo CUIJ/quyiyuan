@@ -1,0 +1,403 @@
+.qy_patient_card_recharge{
+  .item_h{
+    height: 51px;
+    line-height: 51px;
+  }
+  .item_cont{
+    position: relative;
+    .item_left{
+      display: inline-block;
+      width: 58px;
+      color: #264557;
+      position: absolute;
+    }
+    .item_input{
+      display: inline-block;
+      position: absolute;
+      top: 8px;
+      left: 58px;
+    }
+    .item_right{
+      position: absolute;
+      right: 25px;
+      top:0;
+    }
+    .icon-icon_3{
+      position: absolute;
+      top: 16px;
+      right: 61px;
+    }
+    .ion-chevron-right{
+      position: absolute;
+      right: 14px;
+      top:0;
+      padding-left: 3px;
+    }
+  }
+  .icon-hospital2{
+    font-size: 32px;
+  }
+  .small_btn{
+    position: absolute;
+    top: 12px;
+    min-width: auto;
+    right: 14px;
+  }
+  .box{
+    margin: 3px 0;
+    .icon{
+      display: block;
+      margin-top: 21px;
+      margin-bottom: 23px;
+      font-size: 80px;
+    }
+    .f16{
+      margin-bottom: 20px;
+    }
+  }
+  .hospital_bar{
+    display: block;
+    height: 70px;
+    .bar_cont{
+      position: relative;
+      padding-left: 46px;
+      padding-right: 90px;
+      height: 39px;
+      .bar_cont_l{
+        position: absolute;
+        left: 0;
+        top: 4px;
+      }
+      .bar_cont_r{
+        position: absolute;
+        right: 0;
+        bottom: 4px;
+        line-height: 31px;
+        height: 31px;
+      }
+    }
+  }
+}
+
+.qy_patient_card_records{
+  .ion-chevron-right{
+   // top:1px;
+    position: absolute;
+    right: -11px;
+  }
+  .double_header{
+    margin-top: 40px;
+  }
+  .switchtable{
+    height: 41px;
+    line-height: 38px;
+    .selected{
+      border-bottom: 2px solid #5baa8a;
+      color: #5baa8a !important;
+    }
+    .icon-arrow_down{
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
+.qy_card_recharge_records{
+  .container{
+    .head{
+      height: 40px;
+      line-height: 40px;
+      position: relative;
+      .head_time{
+        position: absolute;
+      }
+    }
+    .box{
+      border-radius: 4px;
+      border: 1px solid #e7e7e7;
+      background-color: #fafafa;
+      .box_head{
+        padding-bottom: 11px;
+        padding-top: 14px;
+      }
+      .box_head li{
+        margin-bottom: 3px;
+        .qy-deepblue{
+          width: 72px;
+          display: inline-block;
+        }
+      }
+      .box_bottom{
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+        .status{
+          padding-left: 5px;
+        }
+        .detail{
+          position: absolute;
+          right: 18px;
+        }
+        .ion-chevron-right{
+          position: absolute;
+          right: 14px;
+        }
+      }
+    }
+  }
+  .mar_td_0{
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .dis_inbl{
+    display: inline-block;
+  }
+  .records_container{
+    li {
+      margin-left: 14px;
+      margin-right: 14px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      width: auto;
+    }
+    li:last-child {
+      border: 0;
+    }
+  }
+  .button_color_grey{
+    border: 1px solid #b5b5b5;
+    color: #fff;
+    background: #b5b5b5;
+    opacity: .8;
+  }
+  .footer_bar{
+    height: auto;
+    background-color: black;
+    opacity: 0.7;
+    margin-bottom: -1px;
+    display: block;
+    .foot_bar_div {
+      margin: 0;
+      //word-break: break-all;
+      word-wrap: break-word;
+      padding-right: 35px;
+    }
+    .icon-cross{
+      padding: 8px;
+      margin-top: -5px;
+    }
+  }
+  .tip_height{
+    height:60px;
+  }
+  .tip_show{
+    word-break: normal;
+  }
+  .one_line{
+    line-height: 40px;
+  }
+  .del_icon{
+    position: absolute;
+    right: -12px;
+    top: 11px;
+    padding: 3px 14px 10px 10px;
+  }
+}
+
+.qy_card_recharge_confirm{
+  .button_color_grey{
+    border: 1px solid #CCCCCC;
+    color: #fff;
+    background: #ccc;
+  }
+  .head_left{
+    display: inline-block;
+    width: 72px;
+    color: #264557;
+  }
+  .item_h{
+    height: 51px;
+    line-height: 51px;
+  }
+  .item_h2{
+    height: 52px;
+    line-height: 52px;
+  }
+  .item_h3{
+    height: 41px;
+    line-height: 41px;
+  }
+  .item_cont{
+    position: relative;
+    .item_left{
+      display: inline-block;
+      width: 58px;
+      color: #264557;
+      position: absolute;
+    }
+    .item_input{
+      display: inline-block;
+      position: absolute;
+      top: 8px;
+      left: 58px;
+    }
+    .item_right{
+      position: absolute;
+      right: 25px;
+      top:0;
+    }
+    .icon-icon_3{
+      position: absolute;
+      top: 16px;
+      right: 61px;
+    }
+    .ion-chevron-right{
+      position: absolute;
+      right: 14px;
+      top:0;
+    }
+  }
+  .result_box{
+    padding-top: 40px;
+    padding-bottom: 40px;
+    .top{
+      height: 30px;
+      i{
+        font-size: 25px;
+      }
+      span{
+        position: relative;
+        bottom: 5px;
+      }
+    }
+    .bottom{
+      padding: 0 20px;
+    }
+  }
+  .input_amount{
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+  }
+}
+
+
+.qy_patient_card_refund{
+  .head_left{
+    display: inline-block;
+    width: 88px;
+  }
+  .row1{
+    margin-bottom: 7px;
+    line-height: 24px;
+  }
+  .item-input{
+    padding: 9px 0px;
+    border-bottom: 1px solid #e7e7e7;
+    min-height: 50px;
+  }
+  .bottom_left{
+    width: 100%;
+    margin: 0;
+    padding-top: 14px;
+    .icon-icon_1{
+      font-size: 14px;
+      position: relative;
+      top: 1px;
+      padding-right: 2px;
+    }
+  }
+  .myStyle{
+    margin-left: 14px;
+    margin-right: 14px;
+    height: 45px;
+    margin-top: 5px;
+  }
+  .myBox{
+    margin-top: 12px;
+    padding-top: 8px;
+  }
+  .container{
+    padding: 11px 0px 5px;
+    .row{
+      margin-bottom: 9px;
+      line-height: 33px;
+    }
+    .icon{
+      padding-right: 3px;
+    }
+  }
+  .m-lr-14{
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+  .container_item{
+    margin-right: 10px;
+    color: #666;
+  }
+  .bar-footer{
+    height: 50px;
+  }
+  .btn_bottom{
+    height: 50px;
+    .button_color_red{
+      border: 1px solid #f90;
+      color: #fff;
+      background: #f90;
+    }
+    .button_color_green{
+      border: 1px solid #5baa8a;
+      color: #fff;
+      background: #5baa8a;
+    }
+    .button_color_grey{
+      border: 1px solid #CCCCCC;
+      color: #f4f4f4;
+      background: #ccc;
+    }
+    .button_mar_t{
+      margin-top: 8px;
+    }
+    .bottom_left{
+      width: 100%;
+      margin: 0;
+      padding-top: 14px;
+      .icon-icon_1{
+        font-size: 14px;
+        position: relative;
+        top: 1px;
+        padding-right: 2px;
+      }
+    }
+    .but {
+      width: 80px;
+      border-radius: 0;
+      line-height: 46px;
+      font-size: 14px;
+      margin-left: -4px;
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+
+.qy_card_recharge_refund_record{
+  .ion-chevron-right{
+    top:-0.5px;
+    position: absolute;
+    right: -11px;
+  }
+
+  .information{
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid #e7e7e7;
+    margin-top:10px;
+  }
+  .icon-arrow_right{
+    position: relative;
+    top: 1px;
+    padding-left: 3px;
+  }
+}

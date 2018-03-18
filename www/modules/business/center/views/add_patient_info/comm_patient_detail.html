@@ -1,0 +1,239 @@
+<!--
+    产品名称：quyiyuan
+    创建人: 张家豪
+    创建日期:2015年5月4日10:16:55
+    创建原因：就诊者信息界面
+-->
+<ion-view class="add_patient_info comm-patient-detail add-patient-info">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="peopleInfo" default="就诊者信息"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a kyee-operation-monitor-directive="deletePatient" ng-if="showDelete" ng-click="deletePatient()" class="button button-clear txt"
+               kyee-i18n-directive code="deletePatient" default="删除">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content animation="slide-left-right" scroll="true" has-bouncing="true" class="qy-bg-grey2"
+                 ng-class="{'has-footer':userInfo.experience}">
+
+        <div class="photo-head">
+            <div class="col col-33 photo">
+                <div kyee-operation-monitor-directive="clickUpload" style="border: 0px solid rgb(221, 221, 221);" class="photo-img" ng-click="clickUpload()" ng-style="{'background':imgUrl}"></div>
+            </div>
+        </div>
+
+        <div class="list qy-bg-white" style="margin-bottom: 10px; ">
+            <label class="item item-input mar-l-14" style="padding-left: 0">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="name" default="姓名"></span>
+                <input class="zx_font_size text-ellipsis font_right" style="background-color: white;" type="text"
+                       ng-model="item.OFTEN_NAME" placeholder={{placeholder.name}}
+                       ng-change="changeInfo(1)"
+                       ng-readonly="userInfo.nameAndIdentityCcardInput"
+                       ng-class="userInfo.nameAndIdentityCcardInput?'font_grey':'font_black'"
+                       ng-class="{'qy-bg-grey2':userInfo.nameAndIdentityCcardInput}">
+            </label>
+
+            <div class="item item-input mar-l-14" style="padding-left: 0">
+                <span class="input-label zx_font_size" kyee-i18n-directive code="idNo" default="身份证号"></span>
+                <input ng-if="!(userInfo.isShowIdNo && !saveIdNo)" style="background-color: white;width: 60%; padding-right: 30px"
+                       class="zx_font_size text-ellipsis font_right" type="text" ng-readonly="userInfo.isShowIdNo && !saveIdNo"
+                       ng-model="item.ID_NO" placeholder={{placeholder.idNo}}
+                       ng-change="changeInfo(2)"
+                       ng-style="{'background-color':userInfo.isShowIdNo && !saveIdNo ? '#ffffff':''}">
+                <input ng-if="userInfo.isShowIdNo && !saveIdNo" style="background-color: white;width: 60%; padding-right: 30px"
+                       class="zx_font_size text-ellipsis qy-bg-grey2 font_right" type="text"
+                       ng-readonly="userInfo.isShowIdNo && !saveIdNo"
+                       ng-class="(userInfo.isShowIdNo && !saveIdNo)?'font_grey':'font_black'"
+                       ng-model="idNoHidden" placeholder={{placeholder.idNo}}>
+                <i kyee-operation-monitor-directive="showOrHideIdNo" ng-click="showOrHideIdNo()" class="icon icon-icon_3 tip_icon_style"></i>
+            </div>
+
+            <div class="item item-input mar-l-14" ng-if="userInfo.showAge"  style="padding-left: 0">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="birthDate" default="出生日期" > </span>
+
+                <div kyee-operation-monitor-directive="selectChildAge" ng-click="selectChildAge()" class="select_child_age font_right">
+                    <span class="zx_font_size ">{{birthdayAge()}}</span>
+                    <i class="icon-calendar qy-green select_child_age_icon"></i>
+                </div>
+            </div>
+            <div class="item item-input mar-l-14" style="padding-left: 0">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="sex" default="性别"></span>
+
+                <div placeholder={{placeholder.sex}} class="zx_font_size sex-select text-ellipsis font_grey" style="position: absolute;right: 16px;top:15px" >{{createSex()}}
+                </div>
+            </div>
+            <!--//添加就诊者修改（APK）  By  张家豪  KYEEAPPC-4424-->
+            <label class="item item-input mar-l-14" style="padding-left: 0" >
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="phoneNo" default="手机号码"></span>
+                <input class=" text-ellipsis font_right" type="tel" id="PhoneBtnC" ng-change="isShowVerificationCode()"
+                       ng-readonly="userInfo.phoneNumDisabled"
+                       ng-model="item.PHONE" placeholder={{userInfo.phoneText}}
+                       ng-style="{'background-color':userInfo.phoneNumDisabled ? '#ffffff':''}">
+            </label>
+
+            <div class="item item-input-inset item-input button-bar verification-code-one mar-l-14"
+                 ng-show="userInfo.smsInput" style="padding-left: 0">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="verificationCode" default="验证码"></span>
+                <label class="item-input-wrapper verification-code-three">
+                    <input style="padding-left:0;" type="tel" ng-model="item.loginNum"
+                           placeholder={{placeholder.valiteCode}}
+                           class=" verification-code-four">
+                </label>
+                <button style="min-height: 31px; right: 19px !important;" class="verification-code-five zx_font_size button_number_va"
+                        id="SmsBtnC"
+                        ng-disabled="userInfo.validateBtnDisabled"
+                        kyee-operation-monitor-directive="getValiteCode"
+                        ng-click="getValiteCode()">
+                    {{userInfo.validateMsgText}}
+                </button>
+            </div>
+            <div class="item item-input-inset item-input button-bar health-insurance-one mar-l-14"
+                 ng-show="userInfo.medicalPayc" style="padding-left: 0">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="hospCard" default="医保卡："></span>
+
+                <label class="item-input-wrapper white-color" ng-if="item.insuredCard" style="position: relative;right: 28px;">
+                    <input type="text" ng-readonly="true" ng-model="item.insuredCard" placeholder="" style="text-align: right">
+                </label>
+                <div style="position: absolute;right: 28px;top:15px">
+                    <span kyee-operation-monitor-directive="toBindinsuredCard" ng-click="toBindinsuredCard()" class="zx_font_size bind-MS-card health-insurance-two"
+                            ng-class="{'red': userInfo.bindFail,'qy-green': !userInfo.bindFail}">
+                        {{userInfo.healthCard}}
+                    </span>
+                    <i class=" ion-chevron-right list-ico qy-grey5"></i>
+                </div>
+            </div>
+            <div style="margin-left: 14px;padding-left: 0px" class="item item-input-inset item-input button-bar health-insurance-one mar-l-14 "
+                 ng-if="userInfo.showCard"
+                 ng-class="(birthAddressFlag||liveAddressFlag||occupationFlag||marriageFlag||parentNameFlag)?'select_underline':'unselect_underline'">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive code="hospTakeCard" default="就诊卡"></span>
+                    <label ng-click="toSelectCard()"class="item-input-wrapper visiting-card-one" ng-if="userInfo.CARD_SHOW" style="position: relative;right: 28px;">
+                        <input type="text" ng-readonly="true" ng-model="userInfo.CARD_SHOW" placeholder=""
+                               class=" visiting-card-two  font_right"  style="margin-right: 10px">
+
+                        <i ng-click="toSelectCard()"
+                           class=" ion-chevron-right list-ico qy-grey5">
+                        </i>
+                    </label>
+                <div style="position: absolute;right: 28px;top:15px" ng-if="!userInfo.CARD_SHOW">
+                    <span
+                            kyee-operation-monitor-directive="toSelectCard"
+                            ng-click="toSelectCard()"
+                            class="zx_font_size visiting-card-three qy-grey5 qy-green"
+
+                            kyee-i18n-directive code="select" default="选择">
+                    </span>
+                    <i ng-click="toSelectCard()"
+                       class=" ion-chevron-right list-ico qy-grey5">
+                    </i>
+                </div>
+            </div>
+            <div kyee-operation-monitor-directive="myQRCode" kyee-action-holder-directive="my_qr_code" ng-click="myQRCode();"
+                 class="item item-input-inset item-input button-bar health-insurance-one"
+                 style="padding-left: 14px">
+                <span class="input-label zx_font_size"
+                      kyee-i18n-directive  code="myTwo" default="二维码"></span>
+                <i style="position: absolute;right: 14px;" class=" ion-chevron-right list-ico qy-grey5"></i>
+            </div>
+            <label ng-if="birthAddressFlag" class="item item-input item_padding_0" style="margin-left: 14px;padding-left: 0;">
+                <span style="width: 25%;" class="f14 fixed_width1"  kyee-i18n-directive  code="comm_patient_detail.birthAddress" default="家庭住址"></span>
+                <input type="text" style="    margin-right: 3px !important;" class="address_input font_right "  readonly="true"  placeholder="{{BIRTH_ADDRESS_placeholder}}"  autocomplete="off" ng-model="addressModelBirth.ADDRESS" ng-click="goBirthAddress()">
+                <i kyee-operation-monitor-directive="toSelectCard" class=" ion-chevron-right list-ico center_icon qy-grey5  select_font_left" ></i>
+            </label>
+
+            <label ng-if="liveAddressFlag" class="item item-input item_padding_0" style="margin-left: 14px;padding-left: 0;">
+                <span style="width: 25%;" class="f14 fixed_width1"  kyee-i18n-directive  code="comm_patient_detail.presentAddress" default="现居住地"></span>
+                <input type="text" class="address_input font_right"  readonly="true" placeholder="{{PRESENT_ADDRESS_placeholder}}" autocomplete="off" ng-model="addressModelPresent.ADDRESS" ng-click="goPresentAddress()">
+                <i kyee-operation-monitor-directive="toSelectCard" class=" ion-chevron-right list-ico center_icon qy-grey5 select_font_left" style="padding-right: 1px"></i>
+            </label>
+            <label ng-if="liveAddressFlag" class="item item-input mar-l-14" style="padding-left: 0">
+                <span class="input-label zx_font_size" kyee-i18n-directive code="addressDetail" default="详细地址"></span>
+                <input class="zx_font_size text-ellipsis font_right" style="background-color: white;" type="text"
+                       ng-model="addressModelPresent.LIVE_ADDRESS_TEXT" placeholder="请输入详细地址">
+            </label>
+
+            <div ng-if="occupationFlag && expandInfo.inputStyle==1" class="item item-input-inset item-input button-bar health-insurance-one mar-l-14"   style="padding-left: 0">
+                <span class="input-label zx_font_size" kyee-i18n-directive code="occupation" default="职业"></span>
+                <label class="item-input-wrapper visiting-card-one">
+                    <input  type="text"  readonly="true" class="font_right" ng-click="selectOccupations()"
+                            kyee-operation-monitor-directive="showOccupations"
+                            ng-model="expandInfo.occupation" placeholder="{{OCCUPATION_placeholder}}" autocomplete="off">
+                </label>
+                <i class=" ion-chevron-right list-ico center_icon qy-grey5 select_font_left" style="padding-right: 14px"></i>
+            </div>
+             <label ng-if="occupationFlag && expandInfo.inputStyle==2" class="item item-input mar-l-14" style="padding-left: 0">
+                <span class="input-label zx_font_size" kyee-i18n-directive code="occupation" default="职业"></span>
+                <input class="zx_font_size text-ellipsis font_right" style="background-color: white;" type="text"
+                       ng-model="expandInfo.occupation" placeholder="请填写职业">
+            </label>
+            <label ng-if="marriageFlag" class="item item-input item_padding_0" style="margin-left: 14px;padding-left: 0;">
+                <span class="input-label  child-centre zx_font_size"  kyee-i18n-directive code="isMarried" default="婚否"></span>
+                <label class="item item-radio child-lower" ng-click="selectMarriaged(); ">
+                    <input kyee-operation-monitor-directive="selectMen" type="radio" name="group">
+
+                    <div class="yes-or-no zx_font_size">
+                        <i ng-class="{'icon-radiobox_1 qy-green':expandInfo.marriage==1,'icon-radiobox_2':expandInfo.marriage!=1}"></i>
+
+                        <div class="yes-or-no-two zx_font_size zx_padding_left" kyee-i18n-directive code="merried" default="已婚"></div>
+                    </div>
+                </label>
+                <label class="item item-radio zx_font_size zx_border_background" ng-click="selectNoMarriage(); ">
+                    <input kyee-operation-monitor-directive="selectWomen" type="radio" name="group">
+
+                    <div class="yes-or-no zx_font_size">
+                        <i ng-class="{'icon-radiobox_1 qy-green':expandInfo.marriage==2,'icon-radiobox_2':expandInfo.marriage!=2}"></i>
+
+                        <div class="yes-or-no-two zx_font_size zx_padding_left" kyee-i18n-directive code="unmerried" default="未婚"></div>
+                    </div>
+                </label>
+            </label>
+            <label ng-if="parentNameFlag" class="item item-input mar-l-14" style="padding-left: 0">
+                <span class="input-label zx_font_size" kyee-i18n-directive code="parentsName" default="家长姓名"></span>
+                <input class="zx_font_size text-ellipsis font_right" style="background-color: white;" type="text"
+                       ng-model="expandInfo.parentName" placeholder="请填写家长姓名">
+            </label>
+
+        </div>
+        <div ng-if="branchVerCode!='03'" class="item item-input-inset item-input button-bar health-insurance-one"
+             style="padding-left: 14px ;border-top:1px solid #e7e7e7 ">
+            <span class="input-label zx_font_size" kyee-i18n-directive code="realSutats" default="实名认证"></span>
+            <div  ng-click="toRealName(1)" style="position: absolute;right: 14px;top:14px">
+                <button class="real_name_button" ng-disabled="userInfo.realName"
+                        kyee-operation-monitor-directive="toRealName"
+                        style="margin-right: 3px">
+                    {{attestation()}}
+                </button>
+                <i class=" ion-chevron-right list-ico qy-grey5"></i>
+            </div>
+        </div>
+
+        <div ng-if="userInfo.nameAndIdentityCcardInput && item.FLAG!=0 && item.FLAG !=1 && '03'!=branchVerCode"
+             class=" f12 pad-t-10 pad-b-14 co" style="color: gray;margin-bottom: 10px;">
+            <span kyee-i18n-directive code="ifYouNeed" default="温馨提示：如需修改姓名/身份证号码，请点击"> </span>
+            <span ng-disabled="userInfo.realName" kyee-operation-monitor-directive="toRealName" ng-click="toRealName(2)"
+                  style="color:#357fbc;" kyee-i18n-directive
+                  code="uploadId" default="申请修改"> </span>
+            <span>。</span>
+        </div>
+    </ion-content>
+    <div ng-if="userInfo.experience" class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button kyee-operation-monitor-directive="submit"  ng-click="submit()" class="button button-block button-size-l"
+                kyee-i18n-directive code="addPatientSubmit" default="提 交">
+        </button>
+    </div>
+    <div ng-if="userInfo.dateZujian" kyee-date-picker-directive year-range="{{yearRange}}" bind="bind(params)"
+         on-select-finash="onFinash(params)"></div>
+    <div ng-if="userInfo.addressZujian" kyee-area-picker-directive allow="allow" mode="PCA" bind="bindDirective(params)"
+         title="" on-select-finash="onFinashAdrress(params)"></div>
+</ion-view>
+<div kyee-compile-directive template="modules/business/center/views/add_patient_info/occupations_select.html"></div>

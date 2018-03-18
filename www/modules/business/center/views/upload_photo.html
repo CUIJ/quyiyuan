@@ -1,0 +1,28 @@
+<!--
+    产品名称：quyiyuan
+    创建人: 程铄闵
+    创建日期:2015年5月21日16:01:16
+    创建原因：上传图片页面
+-->
+<div class="upload-photo-cls fadeUp">
+    <div class="upload-mask" ng-style="{height:maskHeight}" ng-click="cancelUpload()"></div>
+    <div style="display: none" class="upload-content" align="center">
+        <div class="upload-item bottom-line">
+            <button class="button button-block grey fontB" ng-click="goToCamera()"
+                    kyee-i18n-directive code="all:center.photograph" default="拍照">
+            </button>
+        </div>
+
+        <div class="">
+            <button class="button button-block grey fontB" ng-click="goToAlbum()"
+                    kyee-i18n-directive code="all:center.selectMobilePhoneAlbum" default="从手机相册选择">
+            </button>
+        </div>
+
+        <div class="cancel" align="center">
+            <button class="button button-block grey fontB" ng-click="cancelUpload()"
+                    kyee-i18n-directive code="all:center.cancel" default="取消">
+            </button>
+        </div>
+    </div>
+</div>

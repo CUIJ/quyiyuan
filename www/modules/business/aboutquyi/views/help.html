@@ -1,0 +1,49 @@
+<ion-view class="qy_aboutquyi_help qy-bg-grey2">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="helpTitleInfo" default="帮助与反馈"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('aboutquyi_help')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" delegate-handle="answer_detail"
+                 ng-style="{'height':KyeeEnv.innerSize.height-92 +'px'}">
+
+        <ul class="list-a" style="background-color: #f4f4f4;">
+
+            <li class="help_list_item qy-bg-white qy-grey7" kyee-i18n-directive code="commonQuestion" default="常见问题">
+            </li>
+
+            <li ng-click="showAnswer($index)" class="help_list_item li_backcolor_click"
+                ng-repeat="item in problemData">
+                <div ng-class="dex==$index? 'border_orange':'border_lightgrey'">{{$index+1}}</div>
+                <span style="color:#333333;">{{item.question}}</span>
+                <i ng-if="dex!=$index" class="icon ion-chevron-down icon-accessory right_arr_icon qy-grey5"></i>
+                <i ng-if="dex==$index" class="icon ion-chevron-up icon-accessory right_arr_icon qy-grey5"></i>
+                <br/>
+
+                <p ng-show="dex==$index" ng-bind-html="item.answer|kyee_to_html"
+                   style="margin-top: 10px;color:#999999;line-height: 26px;white-space: pre-line;margin-bottom: 0px;">
+                    {{item.answer}}</p>
+            </li>
+
+
+        </ul>
+    </ion-content>
+    <div ng-click="callCustomerService()" style="width: 50%; margin-left: 50%;" class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button class="button button-block button-size-l" kyee-i18n-directive code="CustomerServiceNum" default="客服电话">
+        </button>
+    </div>
+    <div style="width: 50%;" kyee-operation-monitor-directive="aboutquyi_feedback" kyee-action-holder-directive="aboutquyi_feedback"
+         ui-sref="aboutquyi_feedback" class="bar bar-footer pad-b-14 qy-bg-grey2">
+        <button style="background-color: white; color: #5baa8a;" class="button button-block button-size-l" kyee-i18n-directive code="feedback" default="意见反馈">
+        </button>
+    </div>
+
+</ion-view>

@@ -1,0 +1,131 @@
+<ion-view class="health_manage qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>健康管理</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content animation="slide-left-right" scroll="true" has-bouncing="true" class="qy-bg-grey1">
+        <div class="height_40 line40 f14 qy-bg-grey2">
+            <span class="mar-l-14">{{userInfo.NAME}}</span><span class="mar1-l-20">{{userInfo.sexView}}&nbsp/</span><span>&nbsp{{userInfo.age}}</span>
+        </div>
+        <div class="pad-lr-14 pad-tb-12">
+            <div class="qy-bg-white health_border pad-lr-14 mar-bottom-14 pos_relative" >
+                <div class="border-d-dash height50">
+                    <div class="line"></div>
+                    <span class="f16 qy-grey7 mar-l-6">血压管理</span>
+                    <span ng-if="userInfo.show[1]" class="f14 qy-grey5 mar-l-14">{{userInfo.pressData}}</span>
+                </div>
+                <div class="mar-tb-16">
+                    <div ng-if="userInfo.show[1]" ng-click="goToPressureManage()">
+                        <div ng-class="'level'+userInfo.pressureValue" class="width70 height40 backcl2 fl-l fontcl2 display-table pad-lr-7 align-center bor-rad"><span class="table-cell">{{userInfo.pressureLevel}}</span></div>
+                        <div class="mar-l-40 mar-l-10 display-inline-b">
+                            <i class="icon icon-diastolic-pressure fl-l mar-t-5 f30 press-color1"></i>
+                            <div class="fl-l f14 qy-grey7 mar-l-8">
+                                <div>收缩压</div>
+                                <span class="fw-500">{{userInfo.pressureHeight}}</span><span>mmHg&nbsp</span>
+                            </div>
+                            <i class="icon icon-diastolic-pressure fl-l mar-t-5 marl-l-20 mar-l-10 f30 press-color2"></i>
+                            <div class="fl-l f14 qy-grey7 mar-l-8">
+                                <div>舒张压</div>
+                                <span class="fw-500">{{userInfo.pressureLow}}</span><span>mmHg&nbsp</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!userInfo.show[1]" ng-click="addManage('pressure',true)">
+                        <i class="icon icon-add dis-b align-center f18 qy-grey5"></i>
+                        <div class="align-center line-h14 mar-t-8"><span class="f14 qy-grey5">暂无数据，请添加</span></div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="aside-l"></div>
+                    <div class="aside-r"></div>
+                </div>
+            </div>
+            <div class="qy-bg-white health_border pad-lr-14 mar-bottom-14 pos_relative" >
+                <div class="border-d-dash height50">
+                    <div class="line"></div>
+                    <span class="f16 qy-grey7 mar-l-6">血糖管理</span>
+                    <span ng-if="userInfo.show[2]" class="f14 qy-grey5 mar-l-14">{{userInfo.sugarData}}</span>
+                    <span class="f14 qy-grey7 marl-l-10">{{userInfo.measureTime}}</span>
+                </div>
+                <div class="mar-tb-16">
+                    <div ng-if="userInfo.show[2]" ng-click="goToSugarManage()">
+                        <div ng-class="'level'+userInfo.sugarValue" class="width70 height40 backcl fl-l fontcl display-table pad-lr-7 align-center bor-rad"><span class="table-cell">{{userInfo.sugarLevel}}</span></div>
+                        <div class="mar-l-40  display-inline-b sugar-color">
+                            <i class="icon icon-blood-sugar fl-l mar-t-5 f30"></i>
+                            <div class="fl-l f14 qy-grey7 marl-l-8">
+                                <div>血糖</div>
+                                <span class="fw-500">{{userInfo.sugar}}&nbsp</span><span>mmol/L&nbsp</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!userInfo.show[2]" ng-click="addManage('sugar',true)">
+                        <i class="icon icon-add dis-b align-center f18 qy-grey5"></i>
+                        <div class="align-center line-h14 mar-t-8"><span class="f14 qy-grey5">暂无数据，请添加</span></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="aside-l"></div>
+                <div class="aside-r"></div>
+            </div>
+        <div class="qy-bg-white health_border pad-lr-14 mar-bottom-14 pos_relative" >
+            <div class="border-d-dash height50">
+                <div class="line"></div>
+                <span class="f16 qy-grey7 mar-l-6">体重管理</span>
+                <span ng-if="userInfo.show[0]" class="f14 qy-grey5 mar-l-14">{{userInfo.weightData}}</span>
+            </div>
+            <div class="mar-tb-16">
+            <div ng-if="userInfo.show[0]" ng-click="goToWeightManage()">
+
+                <div ng-class="'level'+userInfo.weightValue" class="width70 height40 backcl fl-l fontcl display-table pad-lr-7 align-center bor-rad"><span class="table-cell">{{userInfo.weightLevel}}</span></div>
+                <div class="mar-l-40 display-inline-b">
+                    <i class="icon icon-weight fl-l mar-t-5 f30 weight-color"></i>
+                    <div class="fl-l f14 qy-grey7 marl-l-8">
+                        <div>体重</div>
+                        <span class="fw-500">{{userInfo.weight}}</span><span>kg</span>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!userInfo.show[0]" ng-click="addManage('weight',true)">
+                <i class="icon icon-add dis-b align-center f18 qy-grey5"></i>
+                <div class="align-center line-h14 mar-t-8"><span class="f14 qy-grey5">暂无数据，请添加</span></div>
+            </div>
+            </div>
+            <div class="clear"></div>
+            <div class="aside-l"></div>
+            <div class="aside-r"></div>
+        </div>
+
+
+            <div class="qy-bg-white health_border pad-lr-14 mar-bottom-14 pos_relative" >
+                <div class="border-d-dash height50">
+                    <div class="line"></div>
+                    <span class="f16 qy-grey7 mar-l-6">运动管理</span>
+                    <span ng-if="userInfo.show[3]" class="f14 qy-grey5 mar-l-14">{{userInfo.sportData}}</span>
+                </div>
+                <div class="mar-tb-16">
+                <div ng-if="userInfo.show[3]" ng-click="goToSportManage()">
+                    <div ng-class="'level'+userInfo.sportValue" class="width70 height40 backcl fl-l fontcl display-table pad-lr-7 align-center bor-rad"><span class="table-cell">{{userInfo.sportLevel}}</span></div>
+                    <div class="mar-l-40 display-inline-b">
+                        <i class="icon icon-sport fl-l mar-t-5 f30 sport-color"></i>
+                        <div class="fl-l f14 qy-grey7 marl-l-8">
+                            <div>运动时长</div>
+                            <span class="fw-500">{{userInfo.sportTime}}</span><span>min&nbsp</span>
+                        </div>
+
+                    </div>
+                    </div>
+                <div ng-if="!userInfo.show[3]" ng-click="addManage('sport',true)">
+                    <i class="icon icon-add  dis-b align-center f18 qy-grey5"></i>
+                    <div class="align-center line-h14 mar-t-8"><span class="f14 qy-grey5">暂无数据，请添加</span></div>
+                </div>
+                </div>
+                <div class="clear"></div>
+                <div class="aside-l"></div>
+                <div class="aside-r"></div>
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

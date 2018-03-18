@@ -1,0 +1,69 @@
+<ion-view class="qy_group_search">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="groupSearch" default="搜索群组"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" scrollbar-y="false" scroll="false">
+
+        <!--搜索框-->
+        <div class="mar-t-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="search_container position-r">
+                <form ng-submit="searchGroups(keywords.value)">
+                    <input id="searchKey" type="text" placeholder="医院名/科室名" ng-model="keywords.value"
+                           ng-change="searchGroups(keywords.value)" class="text-ellipsis border-none">
+                </form>
+                <i class="position-a icon-icon_6 f14 clear_icon qy-grey4" ng-if="keywords.value.length>0"
+                   ng-click="clearInput()"></i>
+                <button class="button-icon icon-seach grid_img color_search"
+                        ng-click="searchGroups(keywords.value)"></button>
+            </div>
+        </div>
+
+        <div class="color_9 related_groups" kyee-i18n-directive code="result" ng-if="groups.length > 0" default="相关群组"></div>
+
+        <ion-scroll delegate-handle="group_search_list" has-bouncing="true" scrollbar-y="false" zooming="false"
+                    direction="y" class="w100"
+                    ng-style="{height: (KyeeEnv.innerSize.height - 126)+'px'}">
+            <div ng-if="groups.length > 0" class="qy-bg-white pad-l-14 border-td">
+
+                    <ul>
+                        <li class="line70 border-b f14 pad-r-14 position-r"
+                            ng-repeat="group in groups" ng-click="goGroupDetails(group.groupId)">
+                            <div class="line70 position-a left_0">
+                                <img class="head_img mar-td-10"
+                                     ng-src="{{group.groupPhoto || 'resource/images/icons/logo_default.png'}}"
+                                     onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                            </div>
+                            <div class="mar-td-10 mar-l-14 position-a r14 ta-l left50"
+                                 ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                                <div class="clear line30">
+                                    <div class="fl-l max-w65 mar-r-10 text-ellipsis color_3" ng-bind-html="group.groupName|kyee_to_html"></div>
+                                    <span class="max-w30 bg-label-blue groupLabel text-ellipsis"
+                                          ng-if="group.groupLabel && group.groupType==2">
+                                {{group.groupLabel}}
+                            </span>
+                                    <span class="max-w30 qy-bg-orange groupLabel text-ellipsis"
+                                          ng-if="group.groupLabel && group.groupType==1">
+                                {{group.groupLabel}}
+                            </span>
+                                </div>
+                                <div class="f12 line20 color_9">
+                                    <div class="w100 text-ellipsis" >{{group.groupDeclared}}</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+            </div>
+
+            <!--无数据提示信息-->
+            <div ng-if="groups.length == 0" class="empty-text">
+                <i class="icon-icon_3 empty-icon"></i>
+                <span kyee-i18n-directive code="emptyDept" default="未搜索到相关群组，换个关键词试试吧"></span>
+            </div>
+
+        </ion-scroll>
+
+    </ion-content>
+</ion-view>

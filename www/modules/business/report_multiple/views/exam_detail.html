@@ -1,0 +1,87 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: zhangming
+* 日期: 2015年11月20日11:26:42
+KYEEAPPC-4372
+*检查单明细页
+*/-->
+<ion-view
+          ng-class="{'qy_exam_detail':pSouse!='1','qy_inspection_detail':pSouse == '1'}">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span>{{examDetailData.TITLE}}</span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear del_button" ng-if="showDelBtn" kyee-i18n-directive code="examDeleteCode" default="删除"
+               kyee-operation-monitor-directive="delExamItem"
+               ng-click="delExamItem(examDetailData.EXAM_ID,examDetailData.PATIENT_ID)"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content ng-show="(pSouse != '1')" has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <div ng-class="{'back_check':!isEmpty}" style="background-color: white;border-top: 1px #e7e7e7 solid;border-bottom: 1px #e7e7e7 solid;margin: 10px 0px;">
+            <div style="color: #264557;padding-top: 8px;" class="mar-b-14 mar-d-10 mar-t-10 f14">
+                <p><span kyee-i18n-directive code="exam_sqriqi" default="申请日期："></span> <span style="color: #666;">{{getDate(examDetailData.REQ_DATE_TIME)}}</span>
+                </p>
+
+                <p><span kyee-i18n-directive code="exam_sqyisheng" default="申请医生："></span> <span style="color: #666;">{{examDetailData.REQ_PHYSICIAN}}</span>
+                </p>
+
+                <p><span kyee-i18n-directive code="exam_bgriqi" default="报告日期："></span> <span style="color: #666;">{{getDate(examDetailData.REPORT_DATE_TIME)}}</span>
+                </p>
+
+                <p><span kyee-i18n-directive code="exam_bgyisheng" default="报告医生："></span> <span style="color: #666;">{{examDetailData.REPORTER}}</span>
+                </p>
+
+                <p class="row"><span kyee-i18n-directive code="exam_jcsj" default="检查所见："></span> <span
+                        style="color: #666;" class="col p_sapn">{{examDetailData.DESCRIPTION}}</span></p>
+
+                <p class="row"><span kyee-i18n-directive code="exam_yxjy" default="印象建议："></span><span
+                        style="color: #666;" class="col p_sapn">{{examDetailData.YXJY}}</span></p>
+            </div>
+            <table style="margin: 18px 0px;" width="100%" ng-repeat="imgItem in imgData track by $index">
+                <tr>
+                    <td align="center" valign="middle">
+                        <img ng-style="{'width':(KyeeEnv.innerSize.width-28)+'px'}" style="border: 1px #e7e7e7 solid;"
+                             kyee-operation-monitor-directive="clickImg"
+                             ng-click="clickImg(imgItem)" src="{{imgItem}}">
+                    </td>
+                </tr>
+            </table>
+            <div ng-if="isEmpty" class="exam_pic empty-text qy-grey5" style="margin: 18px 14px 18px 14px;height: 200px;line-height: 164px;">
+                <!--<span class="icon icon-icon_3 empty-icon"></span>-->
+
+                <p class="report_empty_font">{{emptyText}}</p>
+            </div>
+        </div>
+    </ion-content>
+    <ion-content style="top: 44px;" ng-show="(pSouse == '1')" has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <div ng-if="!isEmpty" class="titlebox pad-b-14 pad-td-10 qy-bg-white lab_title_bianhao">
+            <span class="qy-grey5">{{getDate(examDetailData.REQ_DATE_TIME)}}&nbsp;</span>
+            <span class="qy-grey5" kyee-i18n-directive code="exam_detail.code" default="编号："></span><span class="qy-grey5">{{examDetailData.LAB_TEST_NO}}</span>
+        </div>
+        <ion-scroll ng-if="displayPic==true" zooming="true" ng-style="{'height':(KyeeEnv.innerSize.height-97)+'px'}"
+                    direction="xy" class="w_100">
+            <img src="{{PHOTO_URL}}">
+        </ion-scroll>
+        <div ng-if="isEmpty" class=" empty-text qy-grey5 empty-div">
+            <div>
+                <span class="icon icon-icon_3 empty-icon"></span>
+                <p class="report_empty_font">{{emptyText}}</p>
+            </div>>
+        </div>
+    </ion-content>
+
+    <div ng-if="IS_OPEN_REPORT_CONSULT=='1'" class="footer_bar qy-fff pad-b-14 " style="    width: 100%;
+    border-top: 1px solid #e7e7e7;
+    padding-top: 12px;
+    padding-bottom: 18px;
+    height: 80px;">
+        <img  ng-src="resource/images/report/report.png" style=" height: 50px;">
+        <div class="fl-r ">
+            <!--<span ng-click="goToChatWithDoctor()" class="inline f14 text-center consulting_btn" ng-class="{'qy-bg-green qy-fff': canClickConsult, 'qy-grey4 qy-bg-grey2': canNotClickConsult}" kyee-i18n-directive code="consult" default="诊后咨询"></span>-->
+            <span ng-click="goToConsultNewDoctor()" style="top: 13px;
+    position: relative;" class="inline f14 text-center consulting_btn qy-bg-green qy-fff" ng-class="{'qy-bg-green qy-fff': canClickConsult, 'qy-grey4 qy-bg-grey2': canNotClickConsult}" kyee-i18n-directive code="consult" default="咨询医生"></span>
+        </div>
+    </div>
+</ion-view>

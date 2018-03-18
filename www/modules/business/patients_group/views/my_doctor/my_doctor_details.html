@@ -1,0 +1,86 @@
+<ion-view class="qy_my_doctor_details">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="myDoctorInfo" default="医生资料"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" delegate-handle="my_doctor_details">
+        <div class="mar-t-10 qy-bg-white border-td pad-b-14 line70">
+            <img class="head-img mar-td-10 position-a left_0" ng-if="doctorInfo.doctorPhoto"
+                 ng-src="{{doctorInfo.doctorPhoto}} "
+                 onerror="this.src='resource/images/patients_group/doctor_male.png'"
+                 ng-click="showBigPic()"/>
+            <img class="head-img mar-td-10 position-a left_0" ng-if="!doctorInfo.doctorPhoto"
+                 ng-src="{{2 == doctorInfo.doctorSex ? 'resource/images/patients_group/doctor_female.png' :
+                 'resource/images/patients_group/doctor_male.png'}} "
+                 onerror="this.src='resource/images/patients_group/doctor_male.png'"
+                 ng-click="showBigPic()"/>
+            <div class="position-a mar-l-14 r14 mar-td-5" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}" >
+                <div class="line30">
+                    <span class="fl-l max-w50 text-ellipsis f18">{{doctorInfo.doctorName}}</span>
+                    <span class="fl-l mar-l-10 text-ellipsis max-w40 qy-color">{{doctorInfo.doctorTitle}}</span>
+                </div>
+                <div class="line30 color_6 text-ellipsis text-left">{{doctorInfo.deptName}}</div>
+            </div>
+
+
+        </div>
+
+        <div class="mar-t-10 qy-bg-white border-td pad-l-14">
+            <div class="line50 border-b pad-r-14">
+                <div class="fl-l color_9" kyee-i18n-directive code="doctorHospital" default="所在医院"></div>
+                <div class="fl-l pad-l-14 text-ellipsis" ng-style="{'width':KyeeEnv.innerSize.width - 98 + 'px'}">
+                    {{doctorInfo.hospitalName}}
+                </div>
+            </div>
+            <div class="w100 group_item display-flex">
+                <span kyee-i18n-directive code="doctorGoodAt" default="医生特长" class="color_9 line50"></span>
+                <div class="group_declared pad-l-14 pad-td-15" ng-class="{'qy-grey4': !doctorInfo.doctorDic}"
+                     ng-style="{'width':KyeeEnv.innerSize.width - 98 + 'px'}">
+                    {{doctorInfo.doctorDic ? doctorInfo.doctorDic : "暂无医生特长"}}
+                </div>
+            </div>
+            <!-- <div class="row doctorInGroups pad-td-20 border-t" ng-if="groupList && groupList.length > 0">
+                <span class="color_9 line20" kyee-i18n-directive code="doctorInGroups" default="所在群组"></span>
+                <ul class="mar-b-14 display-flex" ng-style="{'width':KyeeEnv.innerSize.width - 98 + 'px'}">
+                    <li class="fl-l group_item position-r" ng-repeat="group in groupList" ng-click="goGroupDetails(group.tid)">
+                        <img ng-src="{{group.icon || 'resource/images/icons/logo_default.png'}}"
+                             onerror="this.src='resource/images/icons/logo_default.png'"/>
+                        <div class="group_item_name position-a ta-c text-ellipsis line20 f12">
+                            {{group.tname}}
+                        </div>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+
+        <!-- <div ng-if="0 == doctorInfo.friendStatus" class="pad-t-10 mar-b-16">
+            <button class="button button-block button-size-l qy-bg-green" kyee-i18n-directive code="reportDoctor"
+                    default="向医生报到" ng-click="sendReportRequest()">
+            </button>
+        </div>
+        <div ng-if="4 == doctorInfo.friendStatus" class="pad-t-10 mar-b-16">
+            <button class="button button-block button-size-l qy-bg-green" kyee-i18n-directive code="waitVerify"
+                    default="等待医生验证" ng-click="waitReportPrompt()">
+            </button>
+        </div>
+        <div ng-if="5 == doctorInfo.friendStatus" class="pad-t-10 mar-b-16">
+            <button class="button button-block button-size-l qy-bg-green"
+                     kyee-i18n-directive code="leaveMessage" default="咨询医生" ng-click="leaveMessage()">
+            </button>
+        </div> -->
+
+    </ion-content>
+
+    <div kyee-overlay-directive
+         location="center"
+         width="{{overlayPicData.width}}"
+         height="{{overlayPicData.height}}"
+         data="overlayPicData"
+         template="modules/business/patients_group/views/show_picture.html"
+         bind="bind(params)"
+         class="show_big_pic">
+    </div>
+</ion-view>

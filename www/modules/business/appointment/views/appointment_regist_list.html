@@ -1,0 +1,149 @@
+<ion-view  class="appointment" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive  code="appoinRecordTitle" default="预约记录"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="!$root.hideRightMenu" class="button button-clear" ng-click="openRightMenu('more->MAIN_TAB')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" class="qy-bg-grey2">
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="onRefreshBtn()">
+        </ion-refresher>
+        <div class="list " ng-if="appointListNotHidden" >
+            <ion-list can-swipe="true">
+                <ion-item class="item qy_appointment_list  mar-t-10  border-td" ng-repeat="appointList in resultData">
+                    <div class="qy-bg-white"  >
+                        <ul class="appointment_list_ul padding_0">
+                            <li ng-if="appointList.IS_REFERRAL!=2 || !appointList.REFERRAL_HOSPITAL_NAME" class="row pad-b-14 " ng-click="onAppointRecordListTap(appointList)" ng-class="{'border-d':isDisplay==$index}"
+                                style="line-height: 40px;">
+                                <img class="appointment_list_hospoital_img"
+                                     ng-src="{{appointList.LOGO_PHOTO?appointList.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                                     onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                                <span
+                                        class=" f14 text-ellipsis "
+                                        style="color:#666666;max-width: 42%;display: inline-block;">{{appointList.HOSPITAL_NAME}}</span>
+                                <span class="qy-grey5 f12 pad-l-8">{{appointList.REG_DATE_RESULT}}</span>
+                                <span  style="position: absolute;right: 14px;"
+                                       ng-if="(!appointList.SOURCE_NAME)&&!((appointList.payNotHiddden)&&(appointList.timeState))"
+                                       ng-style="{'color': appointList.STATUS_DESC_STYLE}"> {{appointList.APPOINT_STATUS_DESC}}</span>
+                                <!--<span ng-show="(appointList.payNotHiddden)&&(appointList.timeState)" ng-bind-html="appointList.leaveTime|kyee_to_html"></span>-->
+                                <span ng-show="(appointList.SOURCE_NAME)&&!((appointList.payNotHiddden)&&(appointList.timeState))">{{appointList.SOURCE_NAME}}</span>
+                            </li>
+                            <li ng-if="appointList.IS_REFERRAL == 2 && appointList.REFERRAL_HOSPITAL_NAME" class="row pad-b-14 " ng-click="onAppointRecordListTap(appointList)" ng-class="{'border-d':isDisplay==$index}"
+                                style="">
+                                <!--<img class="appointment_list_hospoital_img"-->
+                                     <!--ng-src="resource/images/icons/logo_default.png"-->
+                                     <!--onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>-->
+                                    <div style="height: 70px;width: 100%;">
+                                        <div style="height: 30px;">
+                                            <img class="appointment_list_hospoital_img"
+                                                 ng-src="{{appointList.REFERAL_LOGO_PHOTO?appointList.REFERAL_LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                                                 onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                                            <span style="display: inline-block;max-width: 57%;"
+                                                  class="text-ellipsis f14 qy-deepblue pad-r-10">{{appointList.REFERRAL_HOSPITAL_NAME}}</span>
+                                        </div>
+                                        <div style="">
+                                            <img class="appointment_list_hospoital_img"
+                                                 ng-src="{{appointList.LOGO_PHOTO?appointList.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                                                 onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                                            <span style="display: inline-block;max-width: 57%;"
+                                                  class="text-ellipsis f14 qy-deepblue pad-r-10">{{appointList.HOSPITAL_NAME}}</span>
+                                        </div>
+                                    </div>
+                                    <i style="position: absolute;left: 69%;top: 25px; font-size: 20px; color: #5baa8a;" class="icon icon-referrals"></i>
+                                <span  style="position: absolute;right: 14px;top: 9px;"
+                                       ng-if="(!appointList.SOURCE_NAME)&&!((appointList.payNotHiddden)&&(appointList.timeState))"
+                                       ng-style="{'color': appointList.STATUS_DESC_STYLE}"> {{appointList.APPOINT_STATUS_DESC}}</span>
+                                <span style="position: absolute;right: 14px;top: 9px;"
+                                      ng-show="(appointList.payNotHiddden)&&(appointList.timeState)" ng-bind-html="appointList.leaveTime|kyee_to_html"></span>
+                                <span style="position: absolute;right: 14px;top: 9px;"
+                                      ng-show="(appointList.SOURCE_NAME)&&!((appointList.payNotHiddden)&&(appointList.timeState))">{{appointList.SOURCE_NAME}}</span>
+                            </li>
+                            <li class="pad-b-14 qy-bg-grey1 "  >
+                                <div class="row " >
+                                    <div class="doc_img_box"ng-if="appointList.DOCTOR_SEX==1" ng-click="goToDoctorInfo(appointList)">
+                                        <img class="head_image"  ng-src="{{appointList.DOCTOR_PIC_PATH?appointList.DOCTOR_PIC_PATH:'resource/images/base/head_default_female.jpg'}} "
+                                             onerror="javascript:this.src='resource/images/base/head_default_female.jpg'">
+                                    </div>
+                                    <div class="doc_img_box"ng-if="appointList.DOCTOR_SEX!=1" ng-click="goToDoctorInfo(appointList)">
+                                        <img class="head_image"  ng-src="{{appointList.DOCTOR_PIC_PATH?appointList.DOCTOR_PIC_PATH:'resource/images/base/head_default_man.jpg'}} "
+                                             onerror="javascript:this.src='resource/images/base/head_default_man.jpg'">
+                                    </div>
+                                    <ul class="col pad-t-20" ng-click="onAppointRecordListTap(appointList)">
+                                        <li class="row " style="margin-bottom: 4px">
+                                            <div class="col text-ellipsis pad-r-10 ">
+                                                <span class="f16 mar-r-5" style="color:#333333"> {{appointList.DOCTOR_NAME}}</span>
+                                                <span class="qy-blue f12"> {{appointList.CLINIC_TYPE}}</span>
+                                            </div>
+                                        </li>
+                                        <li class="row " >
+                                            <div class="col text-ellipsis pad-r-10 f14" style="color:#666666">
+                                                {{appointList.DEPT_NAME}}
+                                            </div>
+                                        </li>
+                                        <li class="row score_margin" ng-if="appointList.COMMENT_SCORE">
+                                                <span class="fl-l f12 score_ping" ng-click="goToSeeComment(appointList,$event)" kyee-i18n-directive  code="myScoreNew" default="评" ></span>
+                                            <span class="fl-l qy-orange score_number" ng-click="goToSeeComment(appointList,$event)">{{appointList.COMMENT_SCORE}}</span>
+                                            <span class="fl-l qy-orange score_fen" ng-click="goToSeeComment(appointList,$event)" kyee-i18n-directive  code="giveScore" default="分" ></span>
+                                        </li>
+                                        <li class="row score_margin" ng-if="!appointList.COMMENT_SCORE&&appointList.SHOW_COMMENT">
+                                                <span class="fl-l f12 score_no"kyee-i18n-directive code="noyHaveCare" default="暂无评价" > </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="pad-b-14 ta-r pad-td-5"><!--ng-if="appointList.COMMENT_SCORE||appointList.SHOW_COMMENT  ||
+                                appointList.SHOW_CONSULT || appointList.SHOW_AGAIN_APPOINT ||appointList.SHOW_REAPPOINT||
+                                (appointList.payNotHiddden)&&(timeState)"-->
+                                <button  class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                         ng-if="appointList.SHOW_COMMENT"
+                                         ng-click="goToComment(appointList)">{{appointList.COMMENT_BUTTON_NAME}}
+                                </button>
+                                <button class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                        ng-if="appointList.SHOW_CONSULT" ng-click="consultDoctor(appointList)" kyee-i18n-directive  code="seeDoctor" default="咨询医生">
+                                </button>
+                                <button class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                        ng-if="appointList.SHOW_NEW_CONSULT" ng-click="goToConsultDoctorInfo(appointList)" kyee-i18n-directive  code="seeDoctor" default="咨询医生">
+                                </button>
+                                <button  class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                         ng-if="appointList.SHOW_AGAIN_APPOINT" ng-click="againAppoint(appointList)"kyee-i18n-directive  code="aginAppointment" default="再次预约">
+                                </button>
+                                <button  class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                         ng-if="appointList.SHOW_REAPPOINT" ng-click="reappoint(appointList)"kyee-i18n-directive  code="aginAppoint" default="重新预约">
+                                </button>
+                                <button class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                        ng-show="(appointList.payNotHiddden)&&(appointList.timeState)&&appointList.APPOINT_TYPE=='7'"
+                                        ng-click="onGoToPay(appointList)" kyee-i18n-directive  code="goPay" default="继续支付">
+                                </button>
+                                <button  class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                         ng-show="(appointList.payNotHiddden)&&(appointList.timeState)&&appointList.REGIST_TYPE=='8'"
+                                         ng-click="goToPayRegist(appointList)" kyee-i18n-directive  code="goPay" default="继续支付">
+                                </button>
+                                <!--电话预约的继续支付-->
+                                <button class="button button-size-s mar-l-3 button-color-green appoint-regist-button"
+                                        ng-show="(appointList.APPOINT_TYPE=='0'||appointList.REGIST_TYPE=='0')&&appointList.SHOW_TEL_APPOINT_PAY=='1'" ng-click="onAppointRecordListTap(appointList)">支付
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <ion-option-button class=" button "  style="color: #FFF !important;"  ng-class="appointList.DELET_FLAG==1 ? 'button-assertive' : 'qy-fff qy-bg-grey3'"
+                                       ng-click="delete($index,appointList)" >删除 </ion-option-button>
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <!--上拉加载更多-->
+        <ion-infinite-scroll icon="ion-loading-c" ng-if="hasmore" on-infinite="loadMore()" immediate-check="false" distance="1%" >
+        </ion-infinite-scroll>
+        <div ng-if="dataNotHidden" class="empty-text">
+            <i class="icon-icon_3 empty-icon"></i>
+            {{dataDetail}}
+        </div>
+    </ion-content>
+</ion-view>

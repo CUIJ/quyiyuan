@@ -1,0 +1,51 @@
+<ion-view class="qy_regist_view" xmlns="http://www.w3.org/1999/html">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive code="all:verify_name.findUserMessage" default="找回账号信息"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="regist_content qy-bg-grey2" has-bouncing="true" ng-class="{'has-footer':isVoiceVerificationCode}">
+        <div class="list regist_content_div qy-bg-white ">
+            <label class="item item-input item_padding mar-l-14">
+                <input type="text" class="phone_input" ng-model="userInfo.name" placeholder="{{hintName}}">
+            </label>
+            <div class="item item-input-inset login_num_div item_padding mar-l-14">
+                <label class="item-input-wrapper login_number_label">
+                    <input kyee-operation-monitor-directive="voiceVerificationCode" ng-click="isVoiceVerificationCodeFalse();" type="tel" class=""
+                           ng-model="userInfo.loginNum" placeholder="{{hintCode}}">
+                </label>
+                <button kyee-operation-monitor-directive="getValiteCode" ng-disabled="userInfo.validateBtnDisabled" ng-click="getValiteCode();"
+                        class="regist_my_button text-ellipsis regist_reset" >
+                    {{userInfo.validateMsgText}}
+                </button>
+            </div>
+
+            <div class="item item-input-inset button-bar div_style1 item_padding mar-l-14" style="border-bottom: 1px solid white;" >
+                <input type="password" class="pwd_input" ng-model="userInfo.PASSWORD" placeholder="{{hintPass}}">
+            </div>
+        </div>
+        <div class="regist_login_div pad-b-14">
+            <button kyee-operation-monitor-directive="verifyAndLogin" ng-click="verifyAndLogin();" class="button button-full button-size-l"
+                    kyee-i18n-directive code="all:verify_name.checkAndLogin" default="  验证并登录"    >
+
+            </button>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer bounceUp" ng-if="isVoiceVerificationCode" style="text-align: center; width: 100%;">
+        <div style=" height: 50px; background-color: #4f4f4f; width: 100%;">
+            <span style="position: relative; color: #ffffff; top:28%;"  >
+            <span
+                  kyee-i18n-directive code="all:verify_name.getCode"
+                  default="验证码已发送，如长时间未收到短信，请点此获取"> </span>
+
+            <span kyee-operation-monitor-directive="voiceVerificationCode" ng-click="voiceVerificationCode();" style="border-bottom: solid 1px #ffffff;"
+                      kyee-i18n-directive code="all:verify_name.voiceCode"
+                      default="语音验证码"  ></span>
+            </span>
+            </span>
+        </div>
+    </div>
+</ion-view>

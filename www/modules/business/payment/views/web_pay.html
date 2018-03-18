@@ -1,0 +1,25 @@
+<ion-view cache-view="false">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-if="!patientRechargeThirdPay" kyee-i18n-directive code="title" default="支付状态"></span>
+            <span ng-if="patientRechargeThirdPay">就诊卡充值</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a kyee-action-holder-directive="card_balance" class="button button-clear txt" ng-click="back()">
+                <span kyee-i18n-directive code="finish" default="完成"></span>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" scroll="true" overflow-scroll="true">
+
+        <div style="height:100%; width:100%;">
+            <iframe ng-src="{{openUrl}}" style=" min-height: 100%; width:100%;">
+            </iframe>
+        </div>
+
+    </ion-content>
+
+</ion-view>

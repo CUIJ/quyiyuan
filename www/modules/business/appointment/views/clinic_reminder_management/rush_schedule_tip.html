@@ -1,0 +1,16 @@
+<div class="qy-bg-white pad-b-14 pad-td-10">
+    <table>
+        <tr ng-if="doctorInfo.ADD_CLINIC_TYPE=='0'">
+            <td class="qy-orange f12" width="50px" kyee-i18n-directive code="pushAble" default="可抢号:"></td>
+            <td class="f12 qy-grey6" kyee-i18n-directive code="pushAbleExplain" default="当有患者退订等情况时系统第一时间为您发送短信通知"></td>
+        </tr>
+        <tr ng-if="doctorInfo.ADD_CLINIC_TYPE=='1'">
+            <td class="qy-orange f12" width="50px" kyee-i18n-directive code="pushAble" default="可抢号:"></td>
+            <td class="f12 qy-grey6" kyee-i18n-directive code="rushAbleExplain" default="当有患者退订等情况时系统自动为您抢号"></td>
+        </tr>
+        <tr>
+            <td class="qy-blue f12" width="50px" kyee-i18n-directive code="pushHIDWaiting" default="待放号:"></td>
+            <td class="f12 qy-grey6" kyee-i18n-directive code="pushHIDWaitingExplain" default="医生的计划出诊日"></td>
+        </tr>
+    </table>
+</div>

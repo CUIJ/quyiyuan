@@ -1,0 +1,432 @@
+.qy_clinic_claim{
+  .head{
+    padding-left: 30px;
+    .head_row{
+      position: relative;
+      .left{
+        position: absolute;
+        height: 64px;
+        padding-top: 19px;
+      }
+      .right{
+        padding-top: 18px;
+        margin-left: 38px;
+        min-height: 40px;
+      }
+      .right_cont{
+        height: 22px;
+        line-height: 22px;
+      }
+      .single_cont{
+        position: relative;
+        top: 2px;
+      }
+    }
+    .icon{
+      font-size: 22px;
+    }
+    .line{
+      height: 21px;
+      position: absolute;
+      left: 10px;
+    }
+    .line_b{
+      top: 40px;
+    }
+    .line_t{
+      top: 0;
+    }
+    .line_green{
+      border-left: 2px solid #5ba88a;
+    }
+    .line_grey{
+      border-left: 2px solid #ccc;
+    }
+  }
+  .container{
+    margin-top: 0;
+    .container_head{
+      height: 40px;
+      line-height: 40px;
+      margin-bottom: 0;
+    }
+    .box{
+      padding-bottom: 10px;
+      .box_item{
+        padding-left: 14px;
+        padding-right: 14px;
+        border: 1px solid #e7e7e7;
+        height: 60px;
+        line-height: 60px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        .icon{
+          position: relative;
+          top: 2px;
+        }
+      }
+      .item_l{
+        width: 30px;
+      }
+      .item_r{
+        padding-top: 9px;
+        li{
+          height: 19px;
+          line-height: 19px;
+          margin-bottom: 2px;
+        }
+        .r_second{
+          position: relative;
+          .amount{
+            position: absolute;
+            right: -5px;
+            .icon-arrow_right{
+              padding-left: 3px;
+              position: relative;
+              top: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bottom_tip{
+    padding: 0 14px 10px 14px;
+    margin-top: -1px;
+    .box{
+      position: relative;
+      height: 80px;
+      background-size: 170px;
+      width: 182px;
+      margin: 0 auto;
+      background-repeat:no-repeat;
+      background-image: url('../../resource/images/onekeyClaim/prompt.png');
+      .box_t{
+        font-size: 12px;
+        position: absolute;
+        bottom: 43px;
+        left: 84px;
+      }
+      .box_b{
+        position: absolute;
+        bottom: 10px;
+        left: 84px;
+      }
+    }
+  }
+}
+
+.qy_medical_records{
+  .head{
+    padding-left: 30px;
+    .head_row{
+      position: relative;
+      .left{
+        position: absolute;
+        height: 64px;
+        padding-top: 19px;
+      }
+      .right{
+        padding-top: 18px;
+        margin-left: 38px;
+        min-height: 40px;
+      }
+      .right_cont{
+        height: 22px;
+        line-height: 22px;
+        position: relative;
+        top: 2px;
+      }
+    }
+    .icon{
+      font-size: 22px;
+    }
+    .line{
+      height: 21px;
+      position: absolute;
+      left: 10px;
+    }
+    .line_b{
+      top: 40px;
+    }
+    .line_grey{
+      border-left: 2px solid #ccc;
+    }
+  }
+  .container{
+    .img_box{
+      position: relative;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      height: 80px;
+      img{
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        position: relative;
+      }
+      .icon-icon_6{
+        position: absolute;
+        top: -3px;
+        right: -3px;
+      }
+    }
+    .add_box{
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      border: 1px dashed #e7e7e7;
+      text-align: center;
+      .icon-add{
+        font-size: 30px;
+        line-height: 78px;
+      }
+    }
+    .del_div{
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      padding: 10px 10px 15px 15px;
+      .del_btn{
+        width: 16px;
+        height: 16px;
+        background: #f55440;
+        border-radius: 14px;
+        .ion-close-round{
+          font-size: 11px;
+          position: relative;
+          left: 4px;
+          bottom: 2px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.qy_accident_records{
+  .head{
+    padding-left: 30px;
+    .head_row{
+      position: relative;
+      .left{
+        position: absolute;
+        height: 64px;
+        padding-top: 19px;
+      }
+      .right{
+        padding-top: 18px;
+        margin-left: 38px;
+        min-height: 40px;
+      }
+      .right_cont{
+        height: 22px;
+        line-height: 22px;
+      }
+      .single_cont{
+        position: relative;
+        top: 2px;
+      }
+    }
+    .icon{
+      font-size: 22px;
+    }
+    .line{
+      height: 21px;
+      position: absolute;
+      left: 10px;
+    }
+    .line_b{
+      top: 40px;
+    }
+    .line_t{
+      top: 0;
+    }
+    .line_green{
+      border-left: 2px solid #5ba88a;
+    }
+    .line_grey{
+      border-left: 2px solid #ccc;
+    }
+  }
+  .container{
+    .img_box{
+      position: relative;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      height: 80px;
+      img{
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        position: relative;
+      }
+      .icon-icon_6{
+        position: absolute;
+        top: -3px;
+        right: -3px;
+      }
+    }
+    .add_box{
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      border: 1px dashed #e7e7e7;
+      text-align: center;
+      .icon-add{
+        font-size: 30px;
+        line-height: 78px;
+      }
+    }
+    .del_div{
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      padding: 10px 10px 15px 15px;
+      .del_btn{
+        width: 16px;
+        height: 16px;
+        background: #f55440;
+        border-radius: 14px;
+        .ion-close-round{
+          font-size: 11px;
+          position: relative;
+          left: 4px;
+          bottom: 2px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.qy_claim_inpatient_general{
+  .container_mid{
+    padding-top: 12px;
+    li{
+      padding-bottom: 8px;
+    }
+    .container_item{
+      width: 72px;
+      display: inline-block;
+      color: #264557;
+      margin-bottom: 3px;
+    }
+  }
+  .head{
+    padding-left: 30px;
+    .head_row{
+      position: relative;
+      .left{
+        position: absolute;
+        height: 64px;
+        padding-top: 19px;
+      }
+      .right{
+        padding-top: 18px;
+        margin-left: 38px;
+        min-height: 40px;
+      }
+      .right_cont{
+        height: 22px;
+        line-height: 22px;
+      }
+      .single_cont{
+        position: relative;
+        top: 2px;
+      }
+    }
+    .icon{
+      font-size: 22px;
+    }
+    .line{
+      height: 21px;
+      position: absolute;
+      left: 10px;
+    }
+    .line_b{
+      top: 40px;
+    }
+    .line_t{
+      top: 0;
+    }
+    .line_green{
+      border-left: 2px solid #5ba88a;
+    }
+    .line_grey{
+      border-left: 2px solid #ccc;
+    }
+  }
+  .container{
+    margin-top: 0;
+    .container_head{
+      height: 40px;
+      line-height: 40px;
+      margin-bottom: 0;
+    }
+    .box{
+      padding-bottom: 10px;
+      .box_item{
+        padding-left: 14px;
+        padding-right: 14px;
+        border: 1px solid #e7e7e7;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        .icon{
+          position: relative;
+          top: 2px;
+        }
+      }
+      .item_l{
+        width: 30px;
+      }
+      .item_r{
+        padding-top: 9px;
+        padding-bottom: 9px;
+        li{
+          height: 19px;
+          line-height: 19px;
+          margin-bottom: 2px;
+        }
+        .r_second{
+          position: relative;
+          .amount{
+            font-weight: bold;
+            position: absolute;
+            right: -5px;
+            .icon-arrow_right{
+              padding-left: 3px;
+              position: relative;
+              top: 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bottom_tip{
+    padding: 0 14px 20px 14px;
+    margin-top: -1px;
+    .box{
+      position: relative;
+      height: 80px;
+      background-size: 170px;
+      width: 182px;
+      margin: 0 auto;
+      background-repeat:no-repeat;
+      background-image: url('../../resource/images/onekeyClaim/prompt.png');
+      .box_t{
+        font-size: 12px;
+        position: absolute;
+        bottom: 43px;
+        left: 84px;
+      }
+      .box_b{
+        position: absolute;
+        bottom: 10px;
+        left: 84px;
+      }
+    }
+  }
+}
+

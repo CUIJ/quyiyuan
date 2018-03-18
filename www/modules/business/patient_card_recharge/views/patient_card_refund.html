@@ -1,0 +1,62 @@
+<ion-view class="qy_patient_card_refund" cache-view="false">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="就诊卡退费"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+                <span  ng-if="total>0" ng-click="queryRefund()"  class="button button-clear txt" style="position: relative;right: -12px;">退费记录</span>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class="qy-bg-grey1" scroll="false" >
+        <ion-scroll ng-style="{'height':(KyeeEnv.innerSize.height-92)+'px'}">
+            <div class="list mar_d_0 qy-bg-white border-t mar-t-10" ng-class="{'border-d':!isEmpty}">
+                <label class="item item-input f14 pad-td-10 pad-r-14 head mar-l-14"  >
+                    <span class="f14"   kyee-i18n-directive code="name" default="姓名："></span>
+                    <span class="f14 qy-grey6" style="margin-left: 45px;">{{cardRefund.PATIENT_NAME}}</span>
+                </label>
+                <label class="item item-input f14 pad-td-10 pad-r-14 head mar-l-14"  >
+                     <span class="f14 "  kyee-i18n-directive code="card" default="就诊卡："></span>
+                    <span class="f14 qy-grey6 " style="margin-left: 28px;">{{cardRefund.CARD_NO}}</span>
+                </label>
+                <label class="item  f14 pad-td-10 pad-r-14 head mar-l-14" style="padding-top: 13px;padding-bottom: 13px;" >
+                    <span class="f14"  kyee-i18n-directive code="cash" default="余额："></span>
+                    <span class="f14 qy-grey6" style="margin-left: 37px;" ng-if="cardRefund.TOTAL_AMOUNT" >¥{{convertMoney(cardRefund.TOTAL_AMOUNT)}}</span>
+                </label>
+            </div>
+            <!--退款项目-->
+            <div class="mar-t-10 item list mar_d_0 qy-bg-white border-t border-d" ng-if="isViewRefund==0" >
+                <div class="item border-d  pad-td-10 pad-r-14 head myStyle" >
+                    <i class="icon icon-icon_3 qy-green f16" style="position: relative;top: 2px;"  ng-click="noticeMessage()" ></i>
+                    <span class="f14" >根据您的缴费记录，您的退款将退至以下账户：</span>
+                </div>
+                <ul class="container item pad-b-14 pad-d-5 m-lr-14" >
+                    <li class="row mar-d-5" ng-repeat="item in cardRefund.REFUND_ARRAY">
+                        <span class="qy-grey7 f14 head_left" >{{item.REFUND_TITLE}}：</span>
+                        <span class="f14 qy-red ">¥{{convertMoney(item.REFUND_AMOUNT)}}</span>
+                        <span class="f12 qy-grey6" style="position: absolute;right: 0px;">{{item.REFUND_MESSAGE}}</span>
+                    </li>
+                    <!--ng-class="{'mar-d-5 border-t myBox row':cardRefund.REFUND_ARRAY!=undefined,'row1':cardRefund.REFUND_ARRAY==undefined}" -->
+                    <li  ng-if="cardRefund.OTHER_REFUND"  ng-class="cardRefund.REFUND_ARRAY?'mar-d-5 border-t myBox row':'row1'">
+                        <span class="head_left qy-grey7 f14">{{cardRefund.OTHER_REFUND.OTHER_TITLE}}：</span>
+                        <span class="f14 qy-grey6 " >¥{{convertMoney(cardRefund.OTHER_REFUND.OTHER_AMOUNT)}}</span>
+                        <span class="f12 qy-grey6" style="position: absolute;right: 0px;" >{{cardRefund.OTHER_REFUND.OTHER_MESSAGE}}</span>
+                    </li>
+                </ul>
+            </div>
+        </ion-scroll>
+        <div  class="bar bar-footer pad-l-14 border-t btn_bottom">
+            <div class="qy-grey7 bottom_left">
+                <div class="f14 line_h">
+                    <span kyee-i18n-directive code="num" default="退款金额："></span>
+                    <span class="f16 qy-red" ng-if="cardRefund.REFUND_MAX_AMOUNT">¥ {{convertMoney(cardRefund.REFUND_MAX_AMOUNT)}}</span>
+                </div>
+            </div>
+            <button  class="button but" ng-class="{'button-color-bg-green':isGrey==0,'button_color_grey':isGrey==1}"
+                    ng-click="KAH($event)||refundSubmitBtn()" kyee-operation-monitor-directive="refund">
+                <span kyee-i18n-directive code="refund" default="申请退款"></span>
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

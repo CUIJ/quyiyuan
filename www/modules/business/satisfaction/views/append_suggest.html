@@ -1,0 +1,21 @@
+<ion-modal-view ng-controller="AppendSuggestController" class="satisfaction_append_suggest">
+
+    <ion-header-bar align-title="center" class="qy-header">
+        <a ng-click="close()"class="button back-button button-clear header_button">
+            <i class="icon ion-android-arrow-back"></i>
+        </a>
+        <h2 class="title" kyee-i18n-directive code="all:satisfaction_menu.satisfaction_doctor.zhuiJiaPingJia" default="追加评价"></h2>
+    </ion-header-bar>
+
+    <ion-content has-bouncing="true">
+        <div style="padding-top: 10px" class="row pad-b-14 f12 qy-grey6">
+            <textarea  id="appendSuggestId" placeholder="{{zhujiaplaceholderTxt}}" class="append_input"
+                       ng-model="suggestInfo.suggest" ng-change="checkSuggest()"></textarea>
+        </div>
+
+        <div class="bar border_none pad-t-10 pad-b-14">
+            <button class="button button-block button-size-l" ng-click="appendSubmmit()"
+                    kyee-i18n-directive code="all:satisfaction_menu.satisfaction_doctor.tiJiaoZhuiJiaPingJia" default="提交"></button>
+        </div>
+    </ion-content>
+</ion-modal-view>

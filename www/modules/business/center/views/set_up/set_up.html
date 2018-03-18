@@ -1,0 +1,114 @@
+
+<!--产品名称：quyiyuan-->
+<!--修改人: 付添-->
+<!--创建日期:2015年12月10日09:08:42-->
+<!--创建原因：设置页面调整 -->
+<!--任务号：KYEEAPPC-4225-->
+<ion-view class="set_up">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span  kyee-i18n-directive code="setUp" default="设置" ></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2">
+        <div class="list mar-t-10 border_t border_bottom  "  style="margin-bottom: 0px;background-color: white;" >
+            <div  class="mar-l-14 item_border_top  row border_bottom">
+                <i class="ico icon-personal fz vf "  style="top: 2px;" ></i>
+                <div class="item item_mar_left item_border_bot col "  >
+                    <span  class="fz "  kyee-i18n-directive code="account" default="账号" style=" top: 2px;" ></span>
+                    <span ng-if="isLogin" class=" fc phone_right mar-r-14"  >{{user}}</span>
+                </div>
+            </div>
+            <div  kyee-operation-monitor-directive="realNameInfo" class="item" ui-sref="account_authentication">
+                <div style="    margin-left: 14px;padding-right: 14px;" class="item_border_top  row border_bottom">
+                    <i class="ico icon-card  fz vf "  style="    top: 1px;"></i>
+                    <div class="item_mar_left item_border_bot  col  "   >
+                        <span class="fz "  kyee-i18n-directive code="message" default="实名信息"></span>
+                    <span class="fc phone_right set_item_nar">
+                        <span ng-if="isLogin" class="m_r_3" kyee-i18n-directive>{{authStatus}}</span>
+                       <i class="ico  ion-chevron-right set_item_new qy-grey5 " ></i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div  kyee-operation-monitor-directive="changePhone" class="item"  ui-sref="change_phone">
+                <div style="    margin-left: 14px;padding-right: 14px;" class="item_border_top row border_bottom">
+                    <i class="ico icon-mobile  i_pad_l mfc "></i>
+                    <div  class="item_border_bot  col  "  style="margin-left: 6px" >
+                        <span class="fz   " kyee-i18n-directive code="phone" default="手机号码"></span>
+                        <span ng-if="isLogin" class="fz ">{{phone}}</span>
+                    <span class=" fc phone_right set_item_nar" >
+                        <span ng-if="isLogin"  class="m_r_3" kyee-i18n-directive code="change" default="更换"  ></span>
+                    <i class="ico  ion-chevron-right set_item_new qy-grey5 " ></i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div kyee-operation-monitor-directive="changePwd" class="item" ui-sref="change_pwd">
+                <div style="    margin-left: 14px;padding-right: 14px;" class=" item_border_top  row border_bottom" ng-if="!(userSource=='1' || userSource=='3' || userSource=='5' || userSource=='9')">
+                    <i class="ico  icon-key  i_pad_l trmdf" ></i>
+                    <div  class="item_border_bot  col "style="margin-left: 8px"  kyee-action-holder-directive="change_pwd">
+                        <span class="fz" kyee-i18n-directive code="pwd" default="登录密码" ></span>
+                    <span class=" fc phone_right set_item_nar" >
+                        <span ng-if="isLogin" class="m_r_3"  kyee-i18n-directive code="edit" default="修改"  ></span>
+                    <i class="ico  ion-chevron-right set_item_new qy-grey5" ></i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div kyee-operation-monitor-directive="addressManage" class="item pad-l-14 item_border_top row" ui-sref="address_manage">
+                <i class="ico icon-location fz vf"  ></i>
+                <div  class=" item_border_bot  col item_mar_left "   kyee-action-holder-directive="address_manage" >
+                <span class="fz " kyee-i18n-directive code="address" default="送药地址管理"></span>
+                <span class=" fc phone_right set_item_nar">
+                    <span ng-if="isLogin" class="m_r_3"   kyee-i18n-directive code="addOrEdit" default="添加/修改" ></span>
+                <i class="ico  ion-chevron-right set_item_new  qy-grey5" ></i>
+                </span>
+                </div>
+            </div>
+        </div>
+
+        <div kyee-operation-monitor-directive="openLuoYangNet"  class="item border_t pad_l_t mar-t-10 border_bottom"  ng-if="userSource=='12'" ng-click="openLuoYangNet()">
+            <i class="ico icon-menu fz " style="font-size:16px;top: 3px;" ></i>
+            <span class="fz p_l_5"  kyee-i18n-directive code="healhy" default="健康档案" ></span>
+                <span class=" fc">
+                  <i class="ico  ion-chevron-right set_item_new qy-grey5 " ></i>
+                </span>
+        </div>
+        <div  kyee-operation-monitor-directive="switching_roles" class="item border_t pad_l_t mar-t-10 border_bottom"  ui-sref="role_view"  kyee-action-holder-directive="switching_roles">
+            <i class="ico icon-characterchange fz vf" ></i>
+            <span class="fz p_l_5"  kyee-i18n-directive code="role" default="角色切换"style="  position: relative;top: -1px;"></span>
+                <span class=" fc">
+                  <i class="ico  ion-chevron-right set_item_new  qy-grey5" ></i>
+                </span>
+        </div>
+        <div kyee-operation-monitor-directive="languageSwitch" ng-if="languageSwitch" style="    line-height:22px;" class="item border_t pad_l_t mar-t-10 border_bottom "  ui-sref="changeLanguage"  kyee-action-holder-directive="change_Language">
+            <i class="ico ion-ios-cog-outline va_b vf " ></i>
+            <span class="fz p_l_5"  kyee-i18n-directive code="language" default="设置语言" style="top:-6px"></span>
+                <span class=" fc">
+                  <i class="ico  ion-chevron-right set_item_new  qy-grey5" ></i>
+                </span>
+        </div>
+        <div kyee-operation-monitor-directive="displayAdministratorLogin" ng-if="displayAdministratorScope" class="item border_t pad_l_t mar-t-10 border_bottom"  ng-click="displayAdministratorLogin()" kyee-action-holder-directive="administrator_login">
+            <i class="ico icon-introduce fz vf" style="top:-1px;" ></i>
+            <span class="fz p_l_5" style="  position: relative;top: -2px;" kyee-i18n-directive code="adminLogin" default="管理员登录"></span>
+                <span class="fc">
+                  <i class="ico  ion-chevron-right set_item_new  qy-grey5" ></i>
+                </span>
+        </div>
+        <div kyee-operation-monitor-directive="aboutquyi" class="item border_t pad_l_t mar-t-10 border_bottom"  kyee-action-holder-directive="aboutquyi"
+             ui-sref="aboutquyi" ng-if="!(userSource=='2'||userSource=='3'||userSource=='4' ||userSource=='12'||userSource=='4001')">
+            <i class="ico icon-qy_logo about_quyi_icon"  style="    color: #808080;    top: 0px;"></i>
+            <span class="fz p_l_5"  style="top:-3px" kyee-i18n-directive code="aboutQuyi" default="关于趣医"></span>
+                <span class=" fc" >
+                  <i class="ico  ion-chevron-right set_item_new  qy-grey5"></i>
+                </span>
+        </div>
+        <div ng-if="isLogin && !(userSource=='1' || (userSource=='3'&&ysbzWxFlag!='1') || userSource=='5' || userSource=='9')" class="pad-b-14 m_t_4">
+            <button kyee-operation-monitor-directive="Cancellation" ng-click="Cancellation();" class="button button-full button-size-l"
+                    kyee-i18n-directive code="cacle" default="退出登录" >
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,47 @@
+     <ion-view class="quyiyuan-navigation-out">
+        <ion-nav-bar align-title="center" class="qy-header">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-title>
+                <span kyee-i18n-directive code="title" default="院外导航"></span>
+            </ion-nav-title>
+        </ion-nav-bar>
+
+    <ion-content has-bouncing="true" has-subheader="true" scroll="false" padding="false" ng-class="{'has-footer':isShowBtns}">
+        <!--<div class="bar bar-footer near-hospital" ng-if="isShow" >-->
+            <!--<div class="button submit-btn near-hospital-txt"-->
+                 <!--ng-click="onNearByTap()" kyee-i18n-directive code="nearHospital" default="附近医院">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bar bar-footer near-hospital" ng-if="!isShow" >-->
+            <!--<div class="button submit-btn near-hospital-txt"-->
+                 <!--ng-click="onShowRouteTap()" kyee-i18n-directive code="goBackNav" default="返回导航" >-->
+            <!--</div>-->
+        <!--</div>-->
+            <div id="l-map" ng-hide="false" style="height: 300px;">
+        </div>
+        <ion-content style="top: 310px;" scroll="true">
+            <div id="r-result"></div>
+        </ion-content>
+
+    </ion-content>
+     <div class="bar bar-footer pad-b-14 border-t" ng-if="isShowBtns">
+         <div class="col ta-c my_footer text-ellipsis"
+              kyee-operation-monitor-directive="findByBus"
+              ng-click="findByBus()" ng-class="{'qy-green':selected==0}">
+             <i class="icon ion-android-bus"></i>
+             <span kyee-i18n-directive code="bus" default="公交车"></span>
+         </div>
+         <div class="col ta-c my_footer text-ellipsis"
+              kyee-operation-monitor-directive="findByFoot"
+              ng-click="findByFoot()" ng-class="{'qy-green':selected==1}">
+             <i class="icon ion-android-walk"></i>
+             <span kyee-i18n-directive code="walk" default="步行"></span>
+         </div>
+         <div class="col ta-c my_footer text-ellipsis"
+              kyee-operation-monitor-directive="findByCar"
+              ng-click="findByCar()" ng-class="{'qy-green':selected==2}">
+             <i class="icon ion-android-car"></i>
+             <span kyee-i18n-directive code="car" default="驾车"></span>
+         </div>
+     </div>
+</ion-view>

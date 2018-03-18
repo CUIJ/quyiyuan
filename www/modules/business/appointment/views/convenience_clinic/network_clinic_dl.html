@@ -1,0 +1,60 @@
+<ion-view class="qy-bg-grey2 consultation_common qy_consult_doctor_list qy_network_clinic_dl">
+  <ion-nav-bar align-title="center" class="qy-header">
+    <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+    <ion-nav-title>
+      <span>网络门诊</span>
+    </ion-nav-title>
+  </ion-nav-bar>
+
+  <ion-content on-touch="hideFilter()" on-drag-start="hideFilter()" delegate-handle="consult_doctor_list">
+
+    <ul>
+      <li ng-repeat="doctor in doctorList track by $index" ng-click="goToDoctorInfo(doctor)" class="mar-t-10 qy-bg-white">
+        <div class="border-b border-t pad-b-14 pad-t-14 pad_b_14 qy-bg-white">
+          <i class="icon-department dept-icon"></i>
+          <span class="pad-l-5 f14 dept-color">{{doctor.dept}}</span>
+        </div>
+        <div class="qy-bg-white">
+          <figure class="pad-td-15 flex pad-b-14">
+            <img ng-src="{{doctor.photo}}" onerror='this.src="resource/images/base/head_default_man.jpg"' class="doctor-img flex-auto" alt="">
+            <figcaption class="flex_auto">
+              <div class="clearfix lineh25">
+                <span class="inline fl-l f16 text-ellipsis qy-grey7 width-max5em">{{doctor.name}}</span>
+                <span class="inline fl-l f12 qy-blue mar-l-5">{{doctor.title}}</span>
+              </div>
+              <div class="mar-t-5 lineh25 f12 qy-grey6 text-ellipsis 】">{{doctor.hospital}}</div>
+              <div class="position-r lineh25 f12 qy-grey6 text-ellipsis score-pos">
+                <div class="" ng-if="doctor.score && doctor.score != 'null'">
+                  <span class="fl-l f12 give text-center" kyee-i18n-directive  code="myScore" default="评"></span>
+                  <span class="fl-l qy-orange score"  >{{doctor.score}}</span>
+                  <span class="fl-l qy-orange give_score"  kyee-i18n-directive  code="giveScore" default="分" ></span>
+                </div>
+                <div class="row" ng-if="!doctor.score || doctor.score == 'null'">
+                  <span class="fl-l f12 none_comment" kyee-i18n-directive code="noyHaveCare" default="暂无评价"></span>
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+          <div class="lineh14 f12 qy-grey6 pad_b_14 pad-b-14 line-wrap2" style="flex-wrap: wrap">
+            {{doctor.feature}}
+          </div>
+        </div>
+        <div class="qy-bg-white border-t border-b lineh50 clearfix pad-b-14 mar-t-14">
+          <div ng-if="doctor.onlineVisitState == 1" class="consult_item fl-l">
+            <i class="text-center inline radius50p qy_bg_clinic qy-fff f14 icon-outpatient"></i>
+            <span class="f14 qy-grey7">视频问诊</span>
+          </div>
+          <div ng-if="doctor.onlinePreState == 1" class=" second_item fl-l">
+            <i class="text-center inline radius50p bg_purchase_medicine qy-fff f14 icon-medicine"></i>
+            <span class="f14 qy-grey7">远程购药/开单</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- 医生列表 end -->
+
+    <div ng-if="isHasData" class="empty-text">
+      <i class="icon-icon_3 empty-icon"></i>{{emptyText}}
+    </div>
+  </ion-content>
+</ion-view>

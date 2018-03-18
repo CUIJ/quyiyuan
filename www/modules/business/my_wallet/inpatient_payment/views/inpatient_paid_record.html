@@ -1,0 +1,54 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 程铄闵
+* 创建日期:2015年10月14日16:08:26
+* 创建原因：住院已结算
+* 任务号：KYEEAPPC-3523
+ * 修改者：程铄闵
+ * 修改时间：2016年6月17日10:22:51
+ * 修改原因：2.2.40版住院已结算（医院首页入口）
+ * 任务号：KYEEAPPC-6605
+ * 修改者：张婧
+ * 修改时间：2016年7月27日11:13:32
+ * 修改原因：添加单击钮统计
+ * 任务号：KYEEAPPC-6641
+-->
+<ion-view class="qy_inpatient_paid_record qy_perpaid_record qy_inpatient_payment_query qy-bg-grey1">
+    <!--标题栏-->
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-if="permission.PRECHARGE_PERMISSION==1" kyee-i18n-directive code="title1" default="历史记录"></span>
+            <span ng-if="permission.PRECHARGE_PERMISSION!=1&&permission.INHOSPITAL_PERMISSION==1" kyee-i18n-directive code="title2" default="住院历史"></span>
+            <span ng-if="permission.PRECHARGE_PERMISSION!=1&&permission.INHOSPITAL_PERMISSION!=1" kyee-i18n-directive code="title3" default="住院费用"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <!--双Tab-->
+    <div class="bar bar-subheader row switchtable pad-b-14 border-d " ng-if="permission.PRECHARGE_PERMISSION==1">
+        <div class="col qy-grey7" ng-click="doRefresh(0,false)" ng-class="{'selected':isPaid == 0}" kyee-operation-monitor-directive="prePayHistory">
+            <span kyee-i18n-directive code="tabL" default="预缴历史"></span>
+        </div>
+        <div class="col qy-grey7" ng-click="doRefresh(1,false)"ng-class="{'selected':isPaid == 1}" kyee-operation-monitor-directive="inHospitalHistory">
+            <span kyee-i18n-directive code="tabR" default="住院历史"></span>
+        </div>
+    </div>
+
+    <ion-content has-bouncing="true" class="has-header qy-bg-grey1" ng-class="permission.PRECHARGE_PERMISSION==1?'double_header':''" delegate-handle="inpatient_paid_record">
+        <ion-refresher ng-show="showView != 'paid_query'" pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(isPaid,false)">
+        </ion-refresher>
+
+        <div ng-show="showView == 'paid_query'" kyee-compile-directive template="modules\business\my_wallet\inpatient_payment\views\delay_views\paid_query.html" ></div>
+
+        <div ng-show="showView == 'paid_record'" kyee-compile-directive template="modules\business\my_wallet\inpatient_payment\views\delay_views\paid_record.html" ></div>
+
+        <div ng-show="showView == 'perpaid_record'" kyee-compile-directive template="modules\business\my_wallet\perpaid\views\delay_views\perpaid_record.html" ></div>
+
+        <!--背景提示-->
+        <div ng-show="isEmpty" class="empty-text" ng-style="permission.PRECHARGE_PERMISSION==1?'padding-top:20%;':''">
+            <i ng-show="emptyText!=undefined" class="icon icon-icon_3 empty-icon"></i>
+            <p ng-bind-html="emptyText|kyee_to_html" id="inpatient_paid_id">{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,85 @@
+<!--产品名称：quyiyuan-->
+<!--修改人: 付添-->
+<!--创建日期:2015年12月10日09:08:42-->
+<!--创建原因：账号页面显示 -->
+<!--任务号：KYEEAPPC-4398-->
+<ion-view class="account_authentication" style="background-color: #fafafa;">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="backToFrom()"></ion-nav-back-button>
+        <ion-nav-title class="title-center">
+            <span>{{user.title}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="user.isShow=='true'" kyee-operation-monitor-directive="afterInput" ng-click="afterInput()" class="button button-clear txt" style=" color: #fff;"
+               kyee-i18n-directive code="afterInput" default="以后再填">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="new-password-content" ng-class="{'qy-bg-grey2':isAuthSuccess=='1'}" has-bouncing="true">
+        <div ng-if="isAuthSuccess=='0'" style="margin-top: 10px;border-top: 1px solid #e7e7e7;">
+            <div class=" item-input he mar-l-14 " style="padding-left: 0px">
+                <span class="input_label text-ellipsis" kyee-i18n-directive code="account" default="账号："></span>
+                <span class="text-ellipsis f14">{{user.phone}}</span>
+            </div>
+            <div class=" item-input  he mar-l-14" style="padding-left: 0px">
+                <span class="input_label text-ellipsis" kyee-i18n-directive code="name" default="姓名："></span>
+                <input type="text" ng-model="user.name" class="text-ellipsis" placeholder="{{hitName}}">
+            </div>
+            <div class="item-input he " style="">
+                <span class="input_label text-ellipsis" kyee-i18n-directive code="idNo" default="身份证："></span>
+                <input type="text" ng-model="user.idNo" class="text-ellipsis"
+                       placeholder="{{hitIdno}}">
+            </div>
+            <div class="pad-t-10 fcp" style="color: #666666;"
+                 kyee-i18n-directive code="tipOne"
+                 default="完善账号实名信息，享受特权服务">
+            </div>
+            <div class="pad-t-10 fcp_1">
+                <i class="icon ion-checkmark-circled cf"></i>
+                <span kyee-i18n-directive code="tipTwo" default="快捷的预约挂号体验"> </span>
+            </div>
+            <div class="pad-t-10 fcp_1">
+                <i class="icon ion-checkmark-circled cf"></i>
+                <span kyee-i18n-directive code="tipThree" default="账户零钱提现"> </span>
+            </div>
+            <div class="pad-t-10 fcp_1">
+                <i class="icon ion-checkmark-circled cf"></i>
+                 <span kyee-i18n-directive code="tipFor"
+                       default="客服精准定位,快速解决您预约挂号遇到的问题"> </span>
+            </div>
+        </div>
+        <div ng-if="isAuthSuccess=='1'" style="margin-top: 10px;">
+            <div class="pt">
+                <i class="icon ion-checkmark-circled pcf_2"></i>
+                <div class="f14 pad-t-20" kyee-i18n-directive code="accountFin" default="您已完善账号信息"></div>
+            </div>
+            <div class="qy-bg-white item_list_border" style="margin-top: 50px">
+                <div class="item m_th pad b_b mar-l-14">
+                    <span class="f14" kyee-i18n-directive code="accountName" default="姓名："></span>
+                    <span class=" float_rigth f14" style="    margin-left: 33px;">{{userSuccess.name}}</span>
+
+                </div>
+                <div class="item pad he b_b mar-l-14">
+                    <span class="f14" kyee-i18n-directive code="accountIdno" default="身份证："></span>
+                    <span class=" float_rigth f14 ">{{userSuccess.idNo}}</span>
+                </div>
+                <div ng-if="branchVerCode!='03'" class="item pad he b_b mar-l-14" style="  border-bottom: 1px solid white;">
+                    <span class="f14" kyee-i18n-directive code="accountStatus" default="认证状态："></span>
+                    <span kyee-operation-monitor-directive="goAuthUserPicture" class=" float_rigth f14 bbc"style=" margin-left: 5px;"  ng-click="goAuthUserPicture(1);">{{CertificationStatus}}</span>
+                </div>
+
+            </div>
+
+            <div ng-if="(FLAG== 0 || FLAG == -1 || FLAG == 2) && '03'!=branchVerCode" class=" f12 pad-t-10 pad-b-14 co">
+                <span kyee-i18n-directive code="ifYouNeed" default="如需修改姓名/身份证号码，请您"> </span>
+                <span kyee-operation-monitor-directive="goAuthUserPicture" ng-click="goAuthUserPicture(2);" class="bbc"
+                      kyee-i18n-directive code="uploadId" default="上传身份证照片"> </span>
+                <span>。</span>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14" ng-if="isAuthSuccess=='0'" style="margin-bottom: 20px;">
+        <button kyee-operation-monitor-directive="goAuthUser" class="button button-block button-size-l" ng-click="goAuthUser();"
+                kyee-i18n-directive code="submit" default="提 交"></button>
+    </div>
+</ion-view>

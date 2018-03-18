@@ -1,0 +1,228 @@
+<ion-view class="quyiyuan_regist_confirm">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="confirmRegistTitle" default="确认挂号信息"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear"  ng-click="openRightMenu('regist_confirm')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content ng-init="queryClientinfo()" has-bouncing="true" scrollbar-y="false" class="has-footer qy-bg-grey2"
+                 delegate-handle="confirm_regist_content">
+        <div class="mar-td-10 border-td qy-bg-white pad-l-14" >
+           <!-- <lable class="item item-input item_padding_0 pad_b_0">
+                <span class="input-label"><span kyee-i18n-directive code="doctorName" default="医生姓名："></span></span>
+                <span class="f14 ">{{Registconfrimdoctor.DOCTOR_NAME}}</span>
+            </lable>-->
+            <div class="border-d pad-td-15">
+                <span class="text-ellipsis pad-r-5 mar_b_0 f18 qy-deepblue">{{Registconfrimdoctor.DOCTOR_NAME}}
+                    <span class="doctoc_title qy-grey5">{{Registconfrimdoctor.DOCTOR_TITLE}} </span> </span>
+            </div>
+            <ul class="pad-box" >
+                <li class="row line_30" >
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="hospital" default="就诊医院："ng-if="IS_REFERRAL!=2"></span>
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="hospitalReferral" default="转诊医院："ng-if="IS_REFERRAL==2"></span>
+                    <span class="f14 col text-ellipsis pad-r-1 mar_l_20">{{Registconfrimdoctor.HOSPITAL_NAME}}</span>
+                </li>
+                <li class="row line_30">
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="outpatientType" default="门诊类型："ng-if="IS_REFERRAL!=2"></span>
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="outpatientTypeReferral" default="转诊类型："ng-if="IS_REFERRAL==2"></span>
+                    <span class="f14 text-ellipsis col mar_l_20">{{RegistconfrimSchedule.CLINIC_LABEL}}（{{deptData.DEPT_NAME}}）</span>
+                </li>
+                <li ng-if="LOC_INFO" class="row line_30">
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="outpatientLocation" default="门诊位置："></span>
+                    <span class="f14 mar_l_20">{{RegistconfrimSchedule.CLINIC_POSITION}}</span>
+                </li>
+                <li class="row line_30">
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="registDate" default="就诊日期："ng-if="IS_REFERRAL!=2"></span>
+                    <span class="f14 fixed_width1" kyee-i18n-directive  code="registDateReferral" default="转诊时间："ng-if="IS_REFERRAL==2"></span>
+                    <span class="f14 text-ellipsis col mar_l_20">{{RegistconfrimSchedule.CLINIC_DATE}} {{CLINIC_DURATION}}</span>
+                </li>
+                </ul>
+            <ul class="pad-box border-t" ng-if="showAmountData && ((fee != 0)||(isShowRegFee == 1)) || (PreferentialFlag!=3 && PreferentialFlag!=undefined)">
+            <li ng-if="isSupportMerge==0&&showAmountData && (((fee != 0)||(isShowRegFee == 1)) && registClinicData.EXPENSE_DETAIL)" class="row line_30"  style="position: relative;" ng-class="{'item-icon-right':RegistconfrimSchedule.IS_SHOW_FEE_DETAIL==1||registClinicData.IS_SHOW_FEE_DETAIL==1}">
+                <span class="f14 fixed_width1" ng-if="registClinicData.EXPENSE_DETAIL && FeeType == 0" kyee-i18n-directive code="payCost1" default="挂号费用："></span>
+                <span class="f14 fixed_width1 min-w70" ng-if="registClinicData.EXPENSE_DETAIL && FeeType == 1" >{{Fee_Name}}</span>
+                <span class="f14 fixed_width1" ng-if="registClinicData.EXPENSE_DETAIL && FeeType == 2" kyee-i18n-directive code="payCost2" default="支付费用："></span>
+                <span class="f14 qy-green fw-b mar_l_20">{{registAmount}}</span>
+                <span class="icon  icon-icon_3 qy-green" style="position: absolute;right: 25px;" ng-if="(RegistconfrimSchedule.IS_SHOW_FEE_DETAIL==1||registClinicData.IS_SHOW_FEE_DETAIL==1) && registClinicData.EXPENSE_DETAIL.length == 0" ng-click="showRegistCostMsg()"></span>
+            </li>
+            <li ng-if="showAmountData && (((fee != 0)||(isShowRegFee == 1)) && registClinicData.EXPENSE_DETAIL) && registClinicData.EXPENSE_DETAIL.length != 0">
+                <div  class="pad-td-10 pad-b-14 qy-bg-grey1">
+                    <!-- <div ng-repeat="col in rows" class="doctorcol ">-->
+                    <ul class=""  ng-repeat="fee in registClinicData.EXPENSE_DETAIL" ng-class="">
+                        <li style="position:relative">
+                            <span class="f14 fixed_width1 mar_l_15">{{fee.feedesc}}：</span>
+                       <span style="position:absolute; right:0px; width:50%">
+                           <span class="f14 qy-deepblue mar_l_20">¥{{fee.fee}}</span>
+                       </span>
+                        </li>
+                    </ul>
+                    <!-- </div>-->
+                </div>
+            </li>
+             <li ng-if="showAmountData && (((fee != 0)||(isShowRegFee == 1)) && !registClinicData.EXPENSE_DETAIL)" class="row line_30"  style="position: relative;" ng-class="{'item-icon-right':RegistconfrimSchedule.IS_SHOW_FEE_DETAIL==1||registClinicData.IS_SHOW_FEE_DETAIL==1}">
+                <span class="f14 fixed_width1"><span kyee-i18n-directive code="registCost" default="挂号费用："></span></span>
+                <div class="f14" >
+                    <span class="f14 qy-green fw-b mar_l_20">{{registAmount}}</span>
+                    <span class="icon  icon-icon_3 qy-green" style="position: absolute;right: 25px;" ng-if="RegistconfrimSchedule.IS_SHOW_FEE_DETAIL==1||registClinicData.IS_SHOW_FEE_DETAIL==1" ng-click="showRegistCostMsg()"></span>
+                </div>
+            </li>
+            <li class="row line_30" ng-if="PreferentialFlag!=3&&PreferentialFlag!=undefined">
+                <span class="f14 fixed_width1" kyee-i18n-directive code="activity" default="活动："></span>
+                <div class="activity_msg_button" style="background-color:{{buttonColor}}; margin-left: 48px">{{PreferentialMessage}}
+                    <i class="inner-circle-l"></i>
+                    <i class="inner-circle-r"></i>
+                </div>
+            </li>
+          </ul>
+          <ul  class="item_padding_0" style="margin-left: 0px !important; padding-top: 18px;padding-bottom: 18px" ng-if="isShowCasebookFee == 1">
+                <li>
+                    <i  ng-click="affirmCasebook()" ng-class="{'ion-ios-checkmark qy-green f16':checkBox == 1,
+                             'ion-ios-circle-outline qy-grey6 f16':checkBox == 0}" ></i>
+                    <span class="f14 fixed_width1" style="padding-left: 8px" kyee-i18n-directive  code="caseBook" default="购买病历本："></span>
+                    <span class="f14 qy-green fw-b">¥{{casebookFee}}</span>
+                </li>
+                <li>
+                    <span class="f12 qy-grey5" style="padding-left: 24px" kyee-i18n-directive  code="casebookMsg" default="就诊需单独购买病历本，已有则无需购买"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list qy-bg-white mar-d-10 border-t border-d" >
+            <div class="item item-input item_padding_0 item-icon-right border_top_none">
+                <span class="f14 fixed_width1">
+                    <span kyee-i18n-directive code="patients" default="就诊人："ng-if="IS_REFERRAL!=2"></span>
+                </span>
+                <span class="f14 fixed_width1">
+                    <span kyee-i18n-directive code="patientsReferral" default="转诊患者："ng-if="IS_REFERRAL==2"></span>
+                </span>
+                <span class="f14 patient" ng-class="{'mar_l_20':IS_REFERRAL==2,'mar_l_34':!(IS_REFERRAL==2)}" >{{PATIENT_NAME}}</span>
+                <div class="card_sel"ng-click="changepatient()" ng-if="!(IS_REFERRAL==2)">
+                    <a kyee-i18n-directive code="change" default="切换"></a>
+                    <i class="ico ion-chevron-right qy-grey5" ></i>
+                </div>
+            </div>
+            <div ng-show="!showCardNo" class="item item-input item-icon-right item_padding_0">
+                <span class="f14 fixed_width1"><span kyee-i18n-directive code="hospitalCard" default="就诊卡："></span></span>
+                <input ng-readonly="trueOrfalse()" style="padding-right: 5px;margin-left: 34px" ng-class="{'can_write':!trueOrfalse(),'readonly':trueOrfalse()}" type="text" ng-model="patientInf.CARD_SHOW"
+                       placeholder="{{placeholder}}" ng-change="inputCardNo()" class="">
+                <i class="icon icon-icon_3 qy-green mar_r_0" ng-click="showChardNoInf()"></i>
+                <div class="card_sel"  ng-click="showpatientCardNo()">
+                    <a kyee-i18n-directive code="choose" default="选择"></a>
+                    <i class="ico ion-chevron-right mar_r_14 qy-grey5"></i>
+                </div>
+            </div>
+            <label ng-if="cardInfo">
+                <p class="qy-tips" style="border-bottom: none;padding: 10px 14px 0px 14px;">
+                    <a ><span kyee-i18n-directive code="hospitalCardExplain" default="就诊卡是医院存储您就诊卡资料的磁性卡，是您与医院挂号，付款等交互的唯一实体凭据（某些地区可由医保卡代替），由于医疗的特殊和保密性需要，
+                每家医院的就诊卡不通用。为保证您的挂号等操作的顺利进行，请正确填选您正在使用的就诊卡。没有就诊卡的患者，请到您就诊的医院凭个人身份证办理就诊卡。"></span></a>
+
+                </p>
+            </label>
+
+            <lable ng-if="birthNumberSwitchNew == '0'" class="item item-input item_padding_0">
+                <span class="f14 fixed_width1"><span kyee-i18n-directive code="IDCardNo" default="身份证号："></span></span>
+                <span class="f14 mar_l_20">{{ID_NO_STAR}}</span>
+            </lable>
+            <div ng-if="birthNumberSwitchNew == '1'" class="item item-input item_padding_0">
+                <span class="f14 fixed_width1" kyee-i18n-directive  code="birthCertificateNo" default="出生证号："></span>
+                <input type="text" ng-model="patientInf.BIRTH_CERTIFICATE_NO" placeholder="{{BIRTH_CERTIFICATE_NO_placeholder}}" autocomplete="off" class="f14 mar_l_20">
+                <i class="icon icon-icon_3 qy-green" ng-click="showBirthCertificateNoTemplate()"></i>
+            </div>
+            <lable class="item item-input item_padding_0">
+                <span class="f14 fixed_width1"><span kyee-i18n-directive code="phoneNumber" default="手机号："></span></span>
+                <span class="f14" style="margin-left: 34px">{{PHONE_NUMBER}}</span>
+            </lable>
+            <label ng-if="patientBirthAddressSwitch == '1'" class="item item-input item_padding_0">
+                <span class="f14 fixed_width1"  kyee-i18n-directive  code="birthAddress" default="出生地区："></span>
+                <input type="text"  class="address_input"  readonly="true"  placeholder="{{BIRTH_ADDRESS_placeholder}}"  autocomplete="off" ng-model="addressModelBirth.ADDRESS" ng-click="goBirthAddress()">  <!--placeholder="{{address}}" -->
+                <div>
+                    <a  kyee-i18n-directive  code="choose" default="选择" style="right: 1px"></a>
+                    <i class="ico ion-chevron-right qy-grey5"></i>
+                </div>
+            </label>
+            <label ng-if="patientPresentAddressSwitch == '1'" class="item item-input item_padding_0">
+                <span class="f14 fixed_width1"  kyee-i18n-directive  code="presentAddress" default="现居住地："></span>
+                </span><input type="text"  class="address_input"  readonly="true" placeholder="{{PRESENT_ADDRESS_placeholder}}" autocomplete="off" ng-model="addressModelPresent.ADDRESS" ng-click="goPresentAddress()">
+                <div>
+                    <a  kyee-i18n-directive  code="choose" default="选择" style="right: 1px"></a>
+                    <i class="ico ion-chevron-right qy-grey5"></i>
+                </div>
+            </label>
+            <label ng-if="patientPresentAddressSwitch == '1'" class="item item-input item_padding_0">
+                <span class="f14 fixed_width1"  kyee-i18n-directive  code="presentAddressDetail" default="详细地址：" ></span>
+                <input type="text" class="address_input" placeholder="{{DETAIL_ADDRESS_placeholder}}" autocomplete="off" ng-model="addressModelPresent.LIVE_ADDRESS_TEXT" ><!--ng-model="addressModelPresent.LIVE_ADDRESS_TEXT"-->
+            </label>
+        </div>
+        <div ng-if="IS_REFERRAL==2&&REFERRAL_TERM_SHOW" class="border-td list qy-bg-white mar-d-10 f14 fixed_width1" >
+            <label class="item item-input item_padding_0 f14 qy-deepblue" style="border-top: none" kyee-i18n-directive  code="referralItem" default="转诊条款">
+            </label>
+            <label class="item item-input item_padding_0"ng-bind-html="REFERRAL_TERM|kyee_to_html">
+            </label>
+        </div>
+        <div class="qy-orange mar-b-14"ng-if="IS_REFERRAL==2">
+            <i class="icon icon-icon_4 f18" style="position: relative;top:3px"></i>
+            <span kyee-i18n-directive  code="stopItem" default="如遇专家班次停诊，系统会以短信通知，请保持手机畅通。"></span>
+        </div>
+        <div class="list qy-bg-white mar-d-10 border-t border-d" ng-if="IS_ONLINE==1" >
+            <!--<div class="qy-bg-grey1" style="height: 1em;"></div>-->
+            <div ng-if="Clientinfo.HAS_ADDRESS" class="item item-input item_padding_0 item-icon-right border_top_none">
+                <div class="f14 fixed_width1"><span kyee-i18n-directive code="receiver" default="收货人："></span></div>
+                <div class="f14" style="margin-left: 34px !important;">{{Clientinfo.ADDRESS_NAME}}</div>
+                <a class="change_address_font" ng-click="toAddAddress();">
+                    <span kyee-i18n-directive code="changeAddress" default="切换地址"></span>
+                    <i class="ico ion-chevron-right qy-grey5"></i>
+                </a>
+
+            </div>
+            <div ng-if="Clientinfo.HAS_ADDRESS" class="item item-input item_padding_0 border_d_0 address">
+                <div class="f14 fixed_width1"><span kyee-i18n-directive code="address" default="收货地址："></span></div>
+                <div class="col f14 text-ellipsis pad-r-1 mar_l_20">{{Clientinfo.ADDRESS_DETAIL}}</div>
+            </div>
+            <div ng-if="Clientinfo.HAS_ADDRESS" class="item item-input item_padding_0 align_right address_range border_top_none">
+                <a class="change_address_font fixed_width1 f14" ng-click="toSendAddress();">
+                    <span kyee-i18n-directive code="distributionRange" default="配送范围"></span>
+                    <i class="ico ion-chevron-right qy-grey5"></i>
+                </a>
+            </div>
+            <label ng-if="Clientinfo.HAS_ADDRESS" class="item item-input item_padding_0 end_line_border">
+                <div class="f14 fixed_width1"><span kyee-i18n-directive code="phoneNumber" default="手机号："></span></div>
+                <div class="f14" style="margin-left: 34px !important;">{{Clientinfo.ADDRESS_PHONE_NUMBER}}
+                </div>
+            </label>
+            <div ng-if="!Clientinfo.HAS_ADDRESS" class="item item-input item_padding_0 end_line_border " style="border-top: none">
+                <div class="col col-100  f14"><span kyee-i18n-directive code="noAddress" default="您还没有收货地址，"></span>
+                    <a class="qy-green text_decoration" ng-click="toAddAddress();">
+                        <span kyee-i18n-directive code="pleaseChooseAddress" default="请选择收货地址。"></span></a>
+                    <br>
+                    <sapn class="qy-orange " style="white-space: initial;">
+                        <span kyee-i18n-directive code="netVisitTips" default="温馨提示：网络问诊后如果产生订单，在您支付成功之后将会发货到您的收货地址。"></span>
+                    </sapn>
+                </div>
+            </div>
+
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey1"ng-if="IS_REFERRAL!=2">
+        <button ng-if="!Clientinfo.HAS_ADDRESS && IS_ONLINE==1" kyee-action-holder-directive="isRegist"  class="button button-block button-size-l  button-color-grey button_grey_color" disabled="false">
+            <span kyee-i18n-directive code="confirmRegist" default="确认挂号"></span>
+        </button>
+        <button ng-if="(IS_ONLINE==1 && Clientinfo.HAS_ADDRESS) || IS_ONLINE!=1" kyee-action-holder-directive="isRegist" ng-click="KAH($event) || registConfirm()" class="button button-block  button-size-l" kyee-operation-monitor-directive="countConfirmRegist">
+            <span kyee-i18n-directive code="confirmRegist" default="确认挂号"></span>
+        </button>
+    </div>
+    <div class="bar bar-footer pad-b-14 qy-bg-grey1"ng-if="IS_REFERRAL==2">
+        <button ng-if="!Clientinfo.HAS_ADDRESS && IS_ONLINE==1" kyee-action-holder-directive="isRegist"  class="button button-block button-size-l  button-color-grey button_grey_color" disabled="false">
+            <span kyee-i18n-directive code="confirmRegistReferral" default="确认转诊"></span>
+        </button>
+        <button ng-if="(IS_ONLINE==1 && Clientinfo.HAS_ADDRESS) || IS_ONLINE!=1" kyee-action-holder-directive="isRegist" ng-click="KAH($event) || registConfirm()" class="button button-block  button-size-l">
+            <span kyee-i18n-directive code="confirmRegistReferral" default="确认转诊"></span>
+        </button>
+    </div>
+    <div kyee-area-picker-directive allow="allow" mode="PCA" bind="bindDirective(params)" title="" on-select-finash="onFinashAdrress(params)"></div>
+</ion-view>
+<div kyee-compile-directive template="modules/business/regist/views/delay_views/selected.html"></div>

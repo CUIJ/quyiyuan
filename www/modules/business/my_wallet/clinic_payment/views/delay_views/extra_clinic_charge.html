@@ -1,0 +1,21 @@
+<!--
+* 产品名称：quyiyuan
+* 创建人: 董茁
+* 创建日期:2016年8月1日20:34:51
+* 创建原因：门诊缴费附加费弹出框
+*任务号：KYEEAPPC-7182
+ *
+-->
+<div class="qy_paid_detail_popup">
+    <div class="f14" style="padding-top:6px;">
+     {{messgae.ALERT_MSG}}
+    </div>
+    <ul class="fl-c ovf-h  pad-t-15" ng-style="{'width': (KyeeEnv.innerSize.width-150)+'px'}">
+        <li   ng-repeat="item in extraCharge.rows" class="row f12">
+            {{$index+1}}、{{item.ITEM_NAME}}：¥{{convertMoney(item.ITEM_COSTS)}}
+        </li>
+    </ul>
+    <div class="f12  pad-d-20 pad-t-10">
+        {{messgae.IS_CONTINUE}}
+    </div>
+</div>

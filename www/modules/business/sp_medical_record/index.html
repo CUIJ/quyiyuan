@@ -1,0 +1,117 @@
+<!--
+* 产品名称 quyiyuan.
+* 创建用户: yangmingsi
+* 日期: 2017年2月21日09:40:54
+* 任务号：KYEEAPPC-10018
+*/-->
+<ion-view class="medical_record">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span >就医记录</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a  ng-if="isNeedExtendInfo" ui-sref="custom_patient"  class="button button-clear txt"
+               kyee-i18n-directive code="myPatient" default="就诊者">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content  has-bouncing="true" padding="false"
+                  scrollbar-y="false">
+
+        <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div ng-if="isNeedExtendInfo" class="row pad-lr-14 height70 " ng-click="goToQuickEvaluate()">
+            <img class="img30 mar-t-20" src="resource\images\sp_medical_record\quickEvaluate.png" style="" />
+            <div class="col quick_evaluate pad-t-15 pad-l-12 ">
+                <p class=" f14">短信验证码快捷评价</p>
+                <p class="qy-grey5 f12">如您已收到评价验证码，可进行快捷评价</p>
+            </div>
+
+            <i class="icon ion-chevron-right qy-grey5 line_height70"></i>
+
+        </div>
+
+        <div  ng-if = "isAddExtendInfo==false && isNeedExtendInfo " style="    padding-left: 14px;background-color: #f1f2f6; height: 45px;">
+           <div style="position: relative; top: 10px;" class="f14">
+               <i class="icon-exclamation-mark f20"  style="color: #f8bb3c;position: relative;top: 3px;"></i>
+               <span> 就医记录不完整？</span>
+               <span style=" color: #0074b8;padding-left: 5px;padding-right: 3px;"
+                     ng-click="addExtendPatientInfo()" >补充信息</span>
+               <span>查询看看</span>
+           </div>
+        </div>
+
+        <div  ng-if = "isAddExtendInfo==true && isNeedExtendInfo" style=" padding-left: 14px;background-color: #f1f2f6; height: 45px;">
+            <div style="position: relative; top:10px;" class="f14">
+                <i class="icon-exclamation-mark f20"  style="color: #f8bb3c;position: relative;top: 3px;"></i>
+                <span> 请下拉页面查看更新</span>
+            </div>
+        </div>
+        <ul  ng-if = "isAddExtendInfo==true && isNeedExtendInfo"  style="height: 110px;" class="pad-l-14  border-d">
+            <li class="qy-bg-white pad-r-14  pad-t-14 f14" >
+                <span>患者姓名：</span>
+                <span>{{sat.OFTEN_NAME}}</span>
+            </li>
+            <li class="qy-bg-white pad-r-14  f14" style="padding-top: 10px;">
+                <span>手机号：</span>
+                <span>{{sat.PHONE_NUMBER}}</span>
+            </li>
+            <li class="qy-bg-white pad-r-14 f14" style="padding-top: 10px;" >
+                <span>就诊卡号：</span>
+                <span>{{sat.TREATMENT_CARD_NO}}</span>
+                <button ng-click="editExtendPatientInfo()" style="float: right;border:none !important;position: relative;
+ top: -5px; "
+                        class=" btn_Bg button button-color-bg-green button-size-s "> 修改信息</button>
+            </li>
+        </ul>
+
+        <p ng-if="isNeedExtendInfo" class=" font14 qy-grey7 mar-l-14 mar-t-10 mar_b15">选择时间</p>
+        <div ng-if="isNeedExtendInfo"  class="mar_b15">
+            <div ng-click="selectTime(0)" class="dateDiv">
+                <span class="font14 qy-grey7 ">{{startTime}}</span>
+                <i class="icon-calendar2 dateIcon" ></i>
+            </div>
+            <span class="span_">一</span>
+            <div ng-click="selectTime(1)"  class="dateDiv2 ">
+                <span class="font14 qy-grey7 ">{{endTime}}</span>
+                <i class="icon-calendar2 dateIcon " ></i>
+            </div>
+        </div>
+        <div ng-if="!isEmpty" class="list" ng-repeat="item in medicalData" ng-class="{'pad-t-14':!isNeedExtendInfo}">
+            <div class="mar-l-14">
+                <div class="item row pad_b15 border-d" ng-click="goToRecordDetail(item)">
+                    <div ng-if="item.type==1" class="mar-r-10  mar-t-10" >
+                        <img class="imgSize"
+                             src="resource\images\sp_medical_record\menzhen.png"></div>
+                    <div ng-if="item.type==2" class="mar-r-10 mar-t-10" >
+                        <img class="imgSize"
+                             src="resource\images\sp_medical_record\zhuyuan.png"></div>
+                    <div class="pad-r-10 text_height" style="width:80%;">
+                        <p ng-if="item.type==1" class="font15 qy-grey7">就诊：{{item.inTime}}</p>
+                        <p ng-if="item.type==2" class="font15 qy-grey7" style="display:block;">入院：{{item.inTime}}</p>
+                        <p ng-if="item.type==2&&item.outTime" class="font15 qy-grey7">出院：{{item.outTime}}</p>
+                        <p  class="font15 qy-grey7 spanPos">疾病：{{item.diagnoseName}}</p>
+                        <div style="clear: both">
+                            <div  class="f12 qy-grey5 hosName" >{{item.hospitalName}}  {{item.deptName}}</div>
+                            <div ng-if="item.isEvaluated==0" style="max-width:25%;" class="f12 qy-grey5  float_r">未完成评价</div>
+                            <div ng-if="item.isEvaluated==1" style="max-width:25%;" class="f12 qy-grey5  float_r" >已评价</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <!--ng-style="{'padding-top':KyeeEnv.innerSize.height<481 ? '28%':'80%'}"-->
+        <div  ng-if="isEmpty"  class="empty-text qy-grey5" style="    padding-top: 15%;">
+            <img class="emptyImg"
+                 src="resource\images\sp_medical_record\pic.png">
+            <p class="qy-grey4">暂无数据</p>
+        </div>
+
+    </ion-content>
+    <div kyee-date-picker-directive year-range="{{yearRange}}" bind="bind(params)"
+         on-select-finash="onFinash(params)"></div>
+</ion-view>

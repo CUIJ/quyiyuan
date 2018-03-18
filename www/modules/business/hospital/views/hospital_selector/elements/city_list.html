@@ -1,0 +1,33 @@
+<div class="bar bar-subheader sub_border f14">
+	<div class="local_info text-ellipsis">
+		<i class="icon ion-location icon_local"></i>
+		<span kyee-i18n-directive code="currentPosition" default="当前位置:"></span>
+		<span>{{provinceName}}</span>{{cityeName}}
+	</div>
+</div>
+<ion-content has-bouncing="true" padding="false" class="has-subheader f14" scroll="false">
+
+	<div class="row">
+		<!--省份列表-->
+		<div class="col col-25 province_sec">
+			<ion-scroll delegate-handle="provinceListScrollContainer" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 88)+'px'}">
+				<ul>
+					<li ng-repeat="province in provinces" ng-class="{'active' : provinceIdx == $index}"
+						ng-click="loadCitys($index, '{{province.PROVINCE_ID}}','{{province.PROVINCE_CODE}}','{{province.PROVINCE_NAME}}')"
+						class="province_list">{{province.PROVINCE_NAME}}</li>
+				</ul>
+			</ion-scroll>
+		</div>
+
+		<!--城市列表-->
+		<div class="col">
+			<ion-scroll delegate-handle="cityListScrollContainer" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 88)+'px'}">
+				<ul>
+					<li ng-click="selectCity(city)"
+						ng-repeat="city in citys" class="city_list" >{{city.CITY_NAME}}</li>
+				</ul>
+			</ion-scroll>
+		</div>
+	</div>
+
+</ion-content>

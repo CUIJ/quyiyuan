@@ -1,0 +1,50 @@
+<ion-view class="qy_multiple_dept">
+    <ion-content has-bouncing="true" padding="false" class="has-header qy-bg-grey2">
+        <div ng-if="currentHosData.deptData.length" class="list" style="margin-bottom: 0px;">
+        <div style="line-height: 50px;" class="row border-d qy-bg-grey2">
+            <i class="icon-hospitalized f20 mar-l-10 qy-grey5" style="padding-top: 15px;margin-right: 8px;"></i>
+            <div class="col f14" >
+                <span class="qy-grey6">当前医院包含</span>
+                <font class="qy-red">{{keyWords.keyWordsValue}}</font>
+                <span  class="qy-grey6">的科室</span>
+            </div>
+        </div>
+
+        <div class=" qy-bg-white border-d" ng-repeat="item in currentHosData.deptData" ng-click="selectMultipleDept(item)" >
+            <div class=" mar-l-14" ng-class="$last?'':'''border-d'" style="line-height: 50px">
+                <img class="cur_dept_img"  ng-src="{{item.DEPT_IMG?item.DEPT_IMG:'resource/images/dept/19.png'}}"
+                     onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                <span class="f14 qy-grey7" ng-bind-html="item.showText|kyee_to_html"></span>
+            </div>
+        </div>
+    </div>
+        <div ng-if="currentHosData.doctorData.length" class="list" style="margin-bottom: 0px;">
+            <div style="line-height: 50px;height: 50px" class="row border-d qy-bg-grey2">
+                <i class="icon-doctor2 f20 mar-l-10 qy-grey5" style="padding-top: 15px;margin-right: 8px;"></i>
+                <div class="col f14" >
+                    <span class="qy-grey6">当前医院包含</span>
+                    <font class="qy-red">{{keyWords.keyWordsValue}}</font>
+                    <span  class="qy-grey6">的医生</span>
+                </div>
+            </div>
+            <div class=" qy-bg-white border-d pad-r-14"  ng-repeat="item in currentHosData.doctorData" style="padding-top: 14px;height: 101px" ng-click="selectMultipleDoctor(item)" >
+                <div class="row mar-l-14">
+                <div class="mar-r-14" >
+                    <img class="cur_doctor_img"ng-src="{{item.DOCTOR_PHOTO ? item.DOCTOR_PHOTO:'resource/images/base/doc_head_default_m.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/headh.png'">
+                </div>
+                <div class="col f12">
+                    <div class="row">
+                        <span class="f14 qy-grey7 text-ellipsis first_width"  ng-bind-html="item.showText|kyee_to_html"></span>
+                        <span class="qy-blue doctor_tittle text-ellipsis second_width">{{item.DOCTOR_TITLE}}</span>
+                    </div>
+                    <div class="dept row qy-grey5">
+                        <span class="text-ellipsis second_width">{{item.DEPT_NAME}}</span>
+                    </div>
+                    <div class="row doctor_dic qy-grey5 pad-r-14">{{item.DOCTOR_DIC_D?item.DOCTOR_DIC_D:noDoctorDic.name}}</div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,14 @@
+<div class="row" style="background-color: #F4F4F4;">
+    <ion-scroll ng-style="{'height':barHeight+'px'}" style="border-right:1px solid #e7e7e7;background-color: white;" class="col" direction="y" scrollbar-x="false" scrollbar-y="false">
+        <ul class="list">
+            <li ng-style="{'background-color':item.activeTabColor}" ng-click="onInnerTabClick(item)" ng-repeat="item in config" class="item" style="width: 100%;height:76px;text-align: center;border-bottom: 1px solid #e7e7e7;">
+                <div ng-bind-html="item.tab"></div>
+            </li>
+        </ul>
+    </ion-scroll>
+    <div class="col col-80" style="padding: 0 10px;">
+        <ion-scroll ng-style="ionScrollStyle" direction="y" scrollbar-x="false" scrollbar-y="false">
+            <div ng-include="template"></div>
+        </ion-scroll>
+    </div>
+</div>

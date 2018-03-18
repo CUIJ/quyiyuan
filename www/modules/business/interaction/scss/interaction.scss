@@ -1,0 +1,405 @@
+.qy_doctor_message_board{
+
+  .row{
+    //padding: 5px;
+  }
+
+  .tl_e{
+    text-align: end;
+  }
+
+  .unread_text{
+    padding-left: 35px;padding-top: 10px;
+  }
+
+  .show_name{
+    width: 48px;
+    margin: 10px 0 10px 10px;
+    white-space: normal;
+  }
+
+  .doctor-info{
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 120px;padding-left: 20px;
+  }
+  .doctor-img{
+    -webkit-border-radius: 5px;
+    width: 65px;
+    height: 93px;
+  }
+  .words_text{
+    white-space: normal;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 5px 5px 5px 0;
+  }
+  .operate_div{
+    //background-color: #f6f6f6;
+    white-space: normal;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 1px;
+    margin-left: 10px;
+    margin-right: 25px;
+  }
+  .text_area{
+    border: 1px solid #ccc;
+    width: 80%;
+    height: 40px;
+    resize: none;
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  .doctor_text{
+    background-color: #FFFF99;
+  }
+
+  .content_sec{
+    top: 138px !important;
+  }
+
+  .words_div{
+    font-size: 0.85em;
+    padding: 0;
+    border-width: 0;
+  }
+
+  .words_operate_btn{
+    border-left: 1px solid #333;
+    margin-left: 20px;
+    text-align: right;
+  }
+
+  .mar_60{
+    margin-left: 60px;
+  }
+
+  .words_operate_btn_noborder{
+    margin-left: 20px;
+    text-align: right;
+  }
+
+  .footer_border{
+    height: 50px;
+    background-color: #d3d3d3;
+    padding: 5px;
+  }
+
+  .submit_btn{
+    font-weight: bold;
+    text-align: center;
+    padding-top: 12px;
+    width: 20%;
+    font-size: 14px;
+  }
+
+  .show_name_sec{
+    padding: 10px 10px 0 0;
+  }
+  .show_operate_sec{
+    padding: 0 10px 0 0;
+  }
+
+  .reset_div{
+    padding: 0 10px 0 0;
+    border-left: 1px solid #333;
+    margin-left: 20px;
+  }
+
+  .clear_border{
+    border: 0;
+  }
+
+  .row_box{
+    border-bottom: 1px solid #e7e7e7;
+    position: relative;
+  }
+  .row_box:last-child{
+    border-bottom: none;
+  }
+
+  .doctor_info_box {
+    padding: 0;
+  }
+  .doctor_info_box h3{
+    font-size:16px;
+    margin-bottom: 15px;
+  }
+  .button_abs{
+    position: absolute;
+    top: 25px;
+    right: 0;
+  }
+  .doctoc_title {
+    font-size:12px;
+    color:#357fbc;
+    margin-left:10px;
+  }
+
+  .doctor_desc {
+    text-align:justify;
+    line-height:18px;
+  }
+  .path_show{
+    overflow: inherit !important;
+  }
+  .img_chat{width: 20px;vertical-align: sub}
+
+  .unread_height{
+    line-height: 25px;
+  }
+
+  .chat_right{
+    min-width: 9em;
+    text-align: right;
+  }
+
+  .empty-text{
+    padding-top: 27%;
+  }
+}
+
+
+.doctor-personal-page {
+
+  .has-header{
+    top:260px;
+  }
+
+  /* 医生详情 */
+  .BusinessCard {
+    height: 208px;
+    overflow: hidden;
+    left-top: no-repeat;
+    background:url('../../resource/images/icons/docbg.jpg') top right no-repeat;
+    background-size:cover;
+  }
+  .BusinessCard .detail {
+    margin-left: 1.5em;
+    margin-top: 5.2em;
+    margin-bottom: 1.5em;
+
+  }
+  .BusinessCard .detail .lft {
+    float: left;
+    width: 100px;
+    margin-bottom: 10px;
+  }
+  .BusinessCard .detail .lft img {
+    -webkit-border-radius: 4px;
+    width:80px;
+    height:112px;
+  }
+  .BusinessCard .detail .rgt {
+  }
+  .BusinessCard .detail .rgt ol li {
+    margin: 0;
+    padding:2px 0;
+    border: none;
+  }
+  .BusinessCard .detail .rgt ol li span.doctorname {
+    font-size: 18px;
+  }
+  .BusinessCard .detail .rgt ol li span.dtitle {
+    font-size: 100%;
+    line-height: 2em;
+  }
+  .BusinessCard .detail .rgt ol li span.hospital {
+    font-size: 16px;
+  }
+  .BusinessCard .detail .rgt ol li span.department {
+    font-size: 16px;
+  }
+
+  /* subButtonBar  */
+  .center {
+    text-align: center
+  }
+  .subBar {
+    padding: .6em 0 .6em 0;
+  }
+  .subBar .button-bar .button{
+    line-height: 30px;
+    min-height: 10px;
+  }
+  .subBar .select {
+    background: #fff;
+    color: #333;
+  }
+  .subBar .two {
+    width: 25em;
+    margin: 0 auto;
+  }
+  .subBar .three {
+    width: 40em;
+    margin: 0 auto;
+  }
+  .subBar.gray {
+    background: #8b8b99;
+  }
+  .leftBt {
+    width: 8em;
+    float: left;
+    border: 2px solid #fff;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+    color: #fff;
+    font-size: 100%;
+    text-align: center;
+    text-decoration: none;
+  }
+  .midBt {
+    width: 8em;
+    float: left;
+    border: 2px solid #fff;
+    border-left: none;
+    color: #fff;
+    font-size: 100%;
+    text-align: center;
+    text-decoration: none;
+  }
+  .rightBt {
+    width: 8em;
+    float: left;
+    border: 2px solid #fff;
+    border-left: none;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    color: #fff;
+    font-size: 100%;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .tab_button {
+    font-size: 100%;
+    border-radius: 0;
+    border: 2px solid white;
+    color: #fff;
+    background-color: #8b8b99;
+  }
+  .tab_radius_button_left {
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+    border: 2px solid #fff;
+  }
+  .tab_radius_button_right {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border: 2px solid #fff;
+  }
+  .tab_button_active {
+    background: #fff;
+    color: #333;
+  }
+  .button:first-child{
+    border-right-width: 0;
+  }
+  .button:last-child{
+    border-right-width: 2px;
+    border-left-width: 0;
+  }
+  .quyiyuan-interaction-doctor-item {
+    border-width: 0px;
+    margin: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .doctor-pingjia-button {
+    color: #0f9d58;
+    padding: 5px 10px;
+    margin: 0 0 0 30px;
+    border: 1px solid #0f9d58;
+    -webkit-border-radius: 4px;
+    line-height: 2.4em;
+  }
+  .doctor-info{
+    padding: 1em 1.2em 0 1.2em;
+    font-size: 14px;
+    line-height: 1.5em;
+  }
+}
+
+.doctor_schedule{
+  .row{
+    padding:0;
+  }
+  .schedule-box{
+    border: 1px  #d9d9d9 solid;
+    margin: 0.2em;
+    color:#666;
+    font-size:14px;
+  }
+  .schedule-click{
+    font-size:.8em;
+    color:#0F9D58;
+  }
+}
+
+.doctor_suggest{
+  .doctor-total {
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  .doctor-total-info {
+    padding: 0;
+  }
+  .doctor-total-score{
+    font-size: 200%;
+    color: #faab18;
+    margin-top: 10px;
+  }
+  .doctor-total-fonts{
+    font-size: 100%;
+    line-height: 2.4em;
+    margin-top: 10px;
+  }
+  .me-suggest{
+    background: #fff;
+    color: #0f9d58;padding: 5px 10px;
+    float: right;
+    border: 1px solid #0f9d58;
+    border-radius: 4px;
+    height: 28px;
+    line-height: 16px;
+    font-size: 0.85em;
+  }
+  .doctor-suggest-fonts{
+    height: 2em;
+    line-height: 2em;
+    font-size: 120%;
+    color: #FFF;
+    background: #8b8b99;
+    padding: 0 10px;
+  }
+  .doctor-suggest-item{
+    padding: 0 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0.5px;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-top-style: solid;
+    border-bottom-style: solid;
+  }
+  .suggester-name{
+    padding-left: 0px;
+  }
+  .suggest-star{
+    margin-right: 5%;
+    width: 10%;
+  }
+  .suggest-first-star{
+    margin-left: 6%;
+  }
+  .suggest-date{
+    text-align: right
+  }
+  .suggest-value{
+    white-space: normal;
+  }
+}

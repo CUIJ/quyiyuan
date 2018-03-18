@@ -1,0 +1,232 @@
+.multiple_query_search {
+  .search-item {
+    height: 28px;
+    padding: 0;
+    border-radius: 2px;
+  }
+
+  .search_container{
+    width: 100%;
+    height: 34px;
+  }
+  .item-input-wrapper {
+    position: relative;
+    border-right: 1px solid #e7e7e7;
+  }
+  .ion-close-circled {
+    position: absolute;
+    //right: 0;
+    top: 8px;
+    right:40px;
+  }
+  .placeholder-icon{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .search_button {
+    font-size: 17px;
+    border-radius: 0 2px 2px 0;
+    height:34px;
+    border:0;
+  }
+  .search_button.active,.search_button.activated,.search_button:hover{
+    background: white;
+    opacity: 1;
+    color: #5baa8a;
+  }
+  .top_and_height {
+    top: 42px !important;
+  }
+  .min_height_35px {
+    min-height: 35px !important;
+  }
+  .query-search {
+    background-color: #ddd !important;
+    height: 42px;
+    .query-search-input {
+      height: 2em;
+      border-radius: 4px;
+      margin: .3em .6em;
+      width: 80%;
+      background-clip: padding-box;
+    }
+    .query-input {
+      height: 20px;
+    }
+    .query-search-img {
+      margin-right: .5em;
+      font-size: 14px;
+    }
+  }
+
+  .search-btn {
+    padding: 10px;
+    color: #0F9D58;
+  }
+  .bar .button.button-icon .icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before, .bar .button.button-icon:before {
+    font-size: 20px;
+    line-height: 30px;
+    position: relative;
+    top: 2px;
+  }
+  .search-history-tips {
+    padding-top: 9px;
+    margin-left: 16px;
+  }
+
+  .clear-history-btn {
+    text-decoration: underline;
+  }
+  .history_item {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background: #FFFFFF;
+    border: 1px solid #e7e7e7;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+    display: inline-block;
+  }
+  .result_item {
+    line-height: 40px;
+    .item_logo {
+      padding-right: 5px;
+    }
+    .row {
+      //margin-top: 5px;
+    }
+    .col {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .result_item_title{
+      color: #000;
+    }
+  }
+  .no-history-tips {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    height: 40px;
+    padding-top: 9px;
+    margin-left: 16px;
+  }
+
+  .mycare-label {
+    padding: 10px 10px 10px 0;
+    margin-left: 16px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .no-mycare-tips {
+    padding-top: 50px;
+    text-align: center;
+  }
+
+  .mycare-list {
+    margin: 10px 10px 10px 16px;
+    border-bottom: 1px solid #ddd;
+    padding: 0 7px 0 0;
+  }
+
+  .no-result-list {
+    height: 120px;
+    text-align: center;
+    padding-top: 40px;
+  }
+
+  .result-img {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  .result-text {
+    padding-left: 10px;
+  }
+  .img_top{
+    padding-top: 4px;
+  }
+
+  .no-result-tips-label {
+    padding: 10px 10px 10px 16px;
+  }
+}
+
+.disease_info {
+  .search-item {
+    height: 28px;
+    padding: 0;
+    border-radius: 2px;
+  }
+
+  .search_button {
+    font-size: 17px;
+    border-radius: 0 2px 2px 0
+  }
+  .search_button.active,.search_button.activated,.search_button:hover{
+    background: white;
+    opacity: 1;
+    color: #5baa8a;
+  }
+
+  .item-input-wrapper {
+    position: relative;
+    border-right: 1px solid #e7e7e7;
+  }
+  .placeholder-icon{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .icon-seach {
+    font-size: 17px;
+  }
+  .disease_content {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+  }
+  .dept_content {
+    li {
+      padding-top: 10px;
+    }
+  }
+}
+
+.disease_list {
+  .search-item {
+    height: 28px;
+    padding: 0;
+    border-radius: 2px;
+  }
+
+  .item-input-wrapper {
+    position: relative;
+    border-right: 1px solid #e7e7e7;
+  }
+  .placeholder-icon{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .search_button {
+    font-size: 17px;
+    border-radius: 0 2px 2px 0
+  }
+  .search_button.active,.search_button.activated,.search_button:hover{
+    background: white;
+    opacity: 1;
+    color: #5baa8a;
+  }
+}

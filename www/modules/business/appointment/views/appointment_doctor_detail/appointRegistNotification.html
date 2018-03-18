@@ -1,0 +1,16 @@
+<ion-scroll has-bouncing="false" scrollbar-y="false" class="notification mar-t-20"
+             delegate-handle="appoint_regist_notification"
+            style="max-height: {{KyeeEnv.innerSizeSource.height - 320}}px;">
+    <div id="notification.notificationId" style="line-height: 20px;"
+         ng-class="{'notification_div':showMore}" >
+        <div class="mar-d-5 " ng-show="appointNotificationShow" >
+            <span class="f14">{{appointRule}}</span>
+        </div>
+        <div ng-bind-html="APPOINT_NOTIFICATION_SHOW|kyee_to_html" ng-show="appointNotificationShow"></div>
+        <div class="mar-d-5 " ng-show="registNotificationShow">
+            <span class="f14">{{registRule}}</span>
+        </div>
+        <div ng-bind-html="REGIST_NOTIFICATION_SHOW|kyee_to_html" ng-show="registNotificationShow"></div>
+    </div>
+    <div style="text-align: center;color: #009245;padding-top: 5px" ng-click="getMoreNotification(2)"ng-class="{'notification_a':!showMore}">点击加载更多</div>
+</ion-scroll>

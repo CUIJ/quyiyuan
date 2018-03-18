@@ -1,0 +1,62 @@
+<ion-view class="msg_select_hospital" cache-view="false">
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button ng-click="goBack();"></ion-nav-back-button>
+        <ion-nav-title>
+            <a ng-if="!(userSource=='4001')" class="text-ellipsis select_city" ng-click=" goToProvince();">
+                <span class="text-ellipsis city_name" ng-style="{'max-width':cityWidth}">{{cityName}}</span>
+                <i class="ion-chevron-down f14 city_arrow" ng-if="canSelectHospital"></i>
+            </a>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" scrollbar-y="false">
+       <ul ng-if="0 < openedHospitals.length">
+           <li class="pad-lr-14 border-b line50 color_9" kyee-i18n-directive code="openHospital" default="已开通医院"></li>
+           <li class="line60 row pad-lr-14 border-b qy-bg-white"
+               ng-repeat="openHospital in openedHospitals" ng-click="getDeptListByHospital(openHospital)">
+               <img class="hospital_img mar-tb-10"
+                    ng-src="{{openHospital.logoUrl || 'resource/images/icons/logo_default.png'}}"
+                    onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+               <div class="mar-l-10 w100 text-ellipsis color_3">{{openHospital.hospitalName}}</div>
+           </li>
+       </ul>
+       <ul ng-if="0 < closedHospitals.length">
+           <li class="pad-lr-14 border-b line50 color_9" kyee-i18n-directive code="closedHospitals" default="未开通医院"></li>
+           <li class="line60 row pad-lr-14 border-b qy-bg-white noOpenHopsital" ng-repeat="closedHospitals in closedHospitals">
+               <img class="hospital_img mar-tb-10"
+                    ng-src="{{closedHospitals.logoUrl || 'resource/images/icons/logo_default.png'}}"
+                    onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+               <div class="mar-l-10 w100 text-ellipsis color_3">{{closedHospitals.hospitalName}}</div>
+           </li>
+       </ul>
+
+       <!--同城无开通医院 start-->
+       <div class="" ng-if="isRecommend">
+           <div class="position-r closedHospitalsTips">
+               <i class="icon-hospital1 font50 color_9 position-a"></i>
+               <div class="color_6 position-a mar-l-14 closedHospitalsTipsText"
+                    ng-style="{'width':KyeeEnv.innerSize.width - 124 + 'px'}">
+                   {{closedHospitalsTipsText}}
+               </div>
+           </div>
+           <div class="color_9 recommendHospitalText" kyee-i18n-directive code="recommendHospital" default="推荐医院"></div>
+           <ul class="recommendHospitalUl border-td" ng-if="recommendHospitals">
+               <li class="line60 position-r border-b pad-lr-14 qy-bg-white" ng-repeat="hospital in recommendHospitals"
+                    ng-click="getDeptListByHospital(hospital)">
+                   <img class="position-a hospital_img mar-tb-10 left_0 mar-r-14"
+                        ng-src="{{hospital.logoUrl || 'resource/images/icons/logo_default.png'}}"
+                        onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+                   <div class="position-a r14 text-ellipsis" ng-style="{'width':KyeeEnv.innerSize.width - 82 + 'px'}">
+                       {{hospital.hospitalName}}
+                   </div>
+               </li>
+           </ul>
+           <!--无数据提示信息 start-->
+           <div ng-if="0 == recommendHospitals.length" class="empty-text" >
+               <i class="icon-icon_3 empty-icon"></i>
+               <span kyee-i18n-directive  code="emptyRecommendHospital" default="暂无推荐医院"></span>
+           </div>
+           <!--无数据提示信息 end-->
+       </div>
+        <!--同城无开通医院 end-->
+    </ion-content>
+</ion-view>

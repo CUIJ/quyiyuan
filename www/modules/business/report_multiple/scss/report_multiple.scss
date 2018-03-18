@@ -1,0 +1,378 @@
+/*Report Main*/
+.qy_report_multipe {
+  .delete_btn{
+    background-color: #ff777a;
+  }
+  .scroll-bar-indicator{
+    height: 40px !important;
+    background-color: #999999;
+    width: 5px;
+    border: 1px solid #666;
+  }
+.item-content{
+    position: relative;
+    z-index: 2;
+    padding: 10px 90px 10px 14px;
+    border: none;
+    background-color: #fff;
+  }
+  .icon_show{
+    position: relative;
+    top: 1px;
+  }
+   .item-complex.activated .item-content{
+     background-color:  #fff;
+   }
+  .item.activated{
+    border-bottom: 1px solid #efefef;
+    border-top-color: #efefef;
+  }
+  .report_footer_bar{
+    height: 23px;
+    text-align: center;
+    display: inline-block;
+  }
+  .report_subfilter{
+    padding: 6px;
+    .subfilter_btn{
+      margin:0 5px;
+    }
+  }
+  .report_head{
+    overflow: hidden;
+    padding: 10px 14px;
+  }
+  .item_name{
+    color:#666;
+    //width:60%;
+    margin-bottom: 5px;
+    font-size:14px;
+  }
+  .is_three_div{
+    padding:20px 0 10px 14px;
+  }
+  .is_history_div{
+    padding:10px 0 10px 14px;
+  }
+  .li_bottom{
+    position: relative;
+    padding: 0;
+    margin-bottom: 10px;
+    background-color:  #fff;
+  }
+.report_item_arrow{
+  position: absolute;
+  right: 14px;
+  margin-top: -9px;
+  top: 50%;
+  color:#999999;
+}
+.icon-examination-font{
+  font-size: 20px;
+  position: absolute;
+  }
+.user_name_color{
+    color:#333;
+  }
+.div_mar_left{
+   margin-left: 28px;
+  }
+  .report_empty_font{
+    color: #cccccc;
+
+  }
+ .div_hosname_date{
+       width:100%;
+       overflow: hidden;
+ }
+  .div_hosname_span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:60%;
+    display: inline-block;
+    float: left;
+  }
+  .footer_bar{
+    height: auto;
+    background-color: black;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 0;
+    .foot_bar_div {
+      margin: 0;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+  }
+  .default_text{
+    position: relative;
+    top: -28px;
+    background: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+  }
+  .left_155{
+    left: 155px;
+  }
+  .left_110{
+    left: 110px;
+  }
+  .left_200{
+    left: 200px;
+  }
+
+  .commit_btn{
+    color: white;
+    float: right;
+    padding: 6px 15px 5px 15px;
+    border-radius: 3px;
+    line-height: 0px;
+    min-height: 30px;
+  }
+  .flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    /*-webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;*/
+
+    align-content: flex-start;
+  }
+  .flex_auto{
+    -webkit-flex: auto;
+    -moz-flex: auto;
+    -ms-flex: auto;
+    -o-flex: auto;
+    flex: auto;
+  }
+
+}
+/*inspection view*/
+.qy_inspection{
+  .report_search{
+    position: relative;
+    input{
+      padding-top: 1px;
+    }
+  }
+  .item_date{
+    float: right;
+    width: 6.5em;
+    text-align: right;
+  }
+  .report_empty_font{
+    color: #cccccc;
+
+  }
+}
+/*inspection_detail view*/
+.qy_inspection_detail{
+  .del_button{
+    font-size: 14px !important;
+    color: #fff;
+  }
+  .w_39{
+    width: 48%;
+  }
+
+  .w_100 {
+    width: 100%;
+  }
+  .item_name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+
+  }
+  .pad_b_5{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .lab_title_bianhao{
+    text-align: center;
+  }
+  .report_empty_font{
+    color: #cccccc;
+
+  }
+    .consulting_btn{
+      padding: 0 10px;
+      line-height: 30px;
+      border-radius: 4px;
+    }
+  .footer_bar{
+    height: auto;
+    background-color: #ffffff;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 0;
+    .foot_bar_div {
+      margin: 0;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+  }
+  .flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    /*-webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;*/
+
+    align-content: flex-start;
+  }
+  .flex_auto{
+    -webkit-flex: auto;
+    -moz-flex: auto;
+    -ms-flex: auto;
+    -o-flex: auto;
+    flex: auto;
+  }
+ .lab_pad10{
+    //height: 36px;
+   overflow:hidden;
+ }
+  .lab_detail_line{
+    line-height: 26px;
+  }
+}
+/* check_detail view */
+.qy_exam_detail{
+  .back_check{
+    //border: solid 1px #dedfe0;
+    background-color: white;
+    margin-top: 10px;
+  }
+  .del_button{
+    font-size: 14px !important;
+    color: #fff;
+  }
+  .content_table{
+    border-right: 1px solid #e7e7e7;
+    table{
+      border-bottom: 1px solid #e7e7e7;
+      td,th{
+        border-left:1px solid #e7e7e7;
+        border-top:1px solid #e7e7e7;
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+      }
+      td{
+        padding-left: 2%;
+        white-space: pre-line;
+      }
+    }
+  }
+  .consulting_btn{
+    padding: 0 10px;
+    line-height: 30px;
+    border-radius: 4px;
+  }
+  .footer_bar{
+    height: auto;
+    background-color: #ffffff;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 0;
+    .foot_bar_div {
+      margin: 0;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+  }
+  .flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    /*-webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;*/
+
+    align-content: flex-start;
+  }
+  .flex_auto{
+    -webkit-flex: auto;
+    -moz-flex: auto;
+    -ms-flex: auto;
+    -o-flex: auto;
+    flex: auto;
+  }
+  .w_20{
+    width: 20%;
+  }
+  .w_30{
+    width: 30%;
+  }
+  .w_96{
+    width: 96%;
+  }
+  .w_100{
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .check_img{
+    height: auto;
+    display: block;
+  }
+  .exam_pic{
+    border: solid 1px #e7e7e7;
+    margin-left: 14px;
+    margin-right: 14px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .report_empty_font{
+    color: #cccccc;
+
+  }
+  .p_sapn{
+    margin-left:5px ;
+  }
+
+}
+/* check_detail_img view */
+.qy_exam_detail_img{
+  background: #000;
+  opacity: .95 !important;
+  .va_m{
+    vertical-align: middle;
+  }
+  .w_100{
+    width: 100%;
+  }
+
+}
+.qy_report_bycard_query{
+  .input_content{
+    width: 75%;
+    border: 0;
+    padding-left: 15px;
+  }
+}

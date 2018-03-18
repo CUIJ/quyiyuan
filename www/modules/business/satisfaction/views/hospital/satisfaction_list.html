@@ -1,0 +1,65 @@
+<ion-view class="satisfaction_main">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="zhuYuanTitle " default="住院满意度"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('satisfaction')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <div class="bar bar-subheader item-input-inset search pad-b-14 qy-bg-grey2" ng-if="inHospitalNoPwd==1">
+        <label class="item-input-wrapper search-item">
+            <div class="div_search"><i class="icon icon-seach placeholder-icon mar-l-10 "></i></div>
+            <input type="search" ng-model="search.searchNo" placeholder="{{placeText}}">
+        </label>
+        <button class="button"
+                kyee-operation-monitor-directive="doSearchInPatient"
+                kyee-action-holder-directive="medical_search_btn"
+                ng-click="KAH($event) || doSearchInPatient()">
+            <span kyee-i18n-directive code="zhuYuan_souSuo" default="搜索"></span>
+        </button>
+    </div>
+
+    <ion-content ng-style="{'padding-top':inHospitalNoPwdTop}">
+        <ul style="margin-left: 14px; padding-left: 0px;" class="list-b" ng-repeat="item in appointItems" ng-click="itemClick(item)">
+            <li>
+                <span class="f14 qy-grey7 "  kyee-i18n-directive code="zhuYuan_zhuYuanHao" default="住院号：{{item.INHOSPITAL_NO}}" params="item"></span>
+                <span class="date">{{item.IN_HOSPITAL_DATE.substr(0,10) | date : 'yy/MM/dd'}}</span>
+            </li>
+            <li>{{item.HOSPITAL_NAME}}</li>
+            <li>{{item.DEPT_NAME+'/'+item.DOCTOR_NAME}}</li>
+            <li>
+                <button ng-if="item.DOCTOR_SUGGEST_SCORE ==0 " class="button button-size-s button-color-green"
+                        kyee-operation-monitor-directive="gotoDoctor" ng-click="KAH($event) || gotoDoctor(item)" >
+                    <span kyee-i18n-directive code="zhuYuan_pingJiaZhuZhiYiSheng" default="评价主治医生"></span>
+                    <i class="ion-chevron-right white"></i>
+                </button>
+                <span ng-if="item.DOCTOR_SUGGEST_SCORE !=0 " class="score">
+                      <span kyee-i18n-directive code="zhuYuan_zhuZhiYiSheng" default="主治医生："></span>
+                    <span class="f14 qy-orange">{{item.DOCTOR_SUGGEST_SCORE}}</span>
+                    <span kyee-i18n-directive code="all:commonText.minText" default="分"></span>
+                </span>
+
+                <button ng-if="item.HOSPITAL_SUGGEST_SCORE == 0" class="button button-size-s button-color-green mar-l-10"
+                        kyee-operation-monitor-directive="gotoHospital" ng-click="KAH($event) || gotoHospital(item)">
+                    <span kyee-i18n-directive code="zhuYuan_pingJiaZhuYuan" default="评价住院环境"></span>
+                    <i class="ion-chevron-right white"></i>
+                </button>
+                <span ng-if="item.HOSPITAL_SUGGEST_SCORE != 0" class="score mar-l-10">
+                      <span kyee-i18n-directive code="zhuYuan_zhuYuanHuanJing" default="住院环境："></span>
+                    <span class="f14 qy-orange">{{item.HOSPITAL_SUGGEST_SCORE}}</span>
+                     <span kyee-i18n-directive code="all:commonText.minText" default="分"></span>
+                </span>
+            </li>
+        </ul>
+        <div ng-if="showEmpty" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

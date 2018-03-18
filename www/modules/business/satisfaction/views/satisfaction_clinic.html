@@ -1,0 +1,54 @@
+<!--
+* 产品名称：quyiyuan
+* 修改人：吴伟刚
+* 任务号：KYEEAPPC-3642
+* 修改原因：满意度页面优化
+-->
+<ion-view class="satisfaction_main">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="clinicTitle " default="门诊满意度"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('satisfaction')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <div class="bar bar-subheader">
+        <div class="row switchtable">
+            <div class="col off" ng-class="{'on':activityClass == 0}" kyee-operation-monitor-directive="selectStatus"
+                 kyee-action-holder-directive="satisfac_btn"  ng-click="KAH($event) || selectStatus(0)">
+                <span kyee-i18n-directive code="weiPingJia" default="未评价"></span>
+            </div>
+            <div class="col off" ng-class="{'on':activityClass == 1}" kyee-operation-monitor-directive="selectStatus"
+                 kyee-action-holder-directive="satisfaced_btn"  ng-click="KAH($event) || selectStatus(1)">
+                <span kyee-i18n-directive code="yiPingJia" default="已评价"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <ion-content has-bouncing="true" scroll="true" class="has-subheader">
+
+        <div class="list">
+            <div class="item qy-iconlist pad-td-10 pad-r-14" kyee-operation-monitor-directive="itemClick"
+                 ng-click="itemClick(item)" ng-repeat="item in appointItems">
+                <div class="fl-l text-ellipsis" style="width: 69%;">
+                    <span class="f14 qy-grey7 fw-b">{{item.DEPT_NAME}}&nbsp;{{item.DOCTOR_NAME}}</span>
+                    <span class="f12 qy-grey4" ng-if="item.CLINIC_TYPE">({{item.CLINIC_TYPE}})</span>
+                </div>
+                <span class="f10 qy-grey4 ta-r fl-r">{{item.REG_DATE | date : 'yy/MM/dd'}}</span>
+                <p class="f12 qy-grey6 hospital_name">{{item.HOSPITAL_NAME}}</p>
+                <i class="icon ion-play qy-green"></i>
+            </div>
+        </div>
+        <div ng-if="showEmpty" class="empty-text">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p>{{emptyText}}</p>
+        </div>
+    </ion-content>
+</ion-view>

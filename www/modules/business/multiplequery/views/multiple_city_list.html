@@ -1,0 +1,47 @@
+<ion-view  class="qy_select_city" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="selectAreaTitle" default="选择地区"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+
+    <div class="bar bar-subheader sub_border f14 ">
+        <div class="local_info" ng-click="goCurrentPosition(currentPosition)" style="text-align: center;">
+            <i class="icon ion-location icon_local qy-green"></i>
+            <a class="qy-green"><span kyee-i18n-directive code="currentPosition" default="定位至当前位置"></span></a>
+        </div>
+    </div>
+
+    <ion-content has-bouncing="true" padding="false" class="has-subheader f14" scroll="false">
+
+        <div class="row row-no-padding">
+            <!--省份列表-->
+            <div class="col col-25 pd province_sec" >
+                <ion-scroll delegate-handle="multipleProvinceList" has-bouncing="true" scrollbar-y="false"
+                            zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 88)+'px'}">
+                    <ul>
+                        <li ng-repeat="province in provinces" ng-class="{'active province_list_two' : provinceIdx == $index,'province_list': provinceIdx != $index}"
+                            ng-click="loadCitys($index, '{{province.PROVINCE_ID}}','{{province.PROVINCE_CODE}}','{{province.PROVINCE_NAME}}')"
+                            class="province_list">{{province.PROVINCE_NAME}}
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+
+            <!--城市列表-->
+            <div class="col">
+                <ion-scroll delegate-handle="multipleCityList" has-bouncing="true" scrollbar-y="false"
+                            zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 88)+'px'}">
+                    <ul>
+                        <li ng-click="selectCity(city)"
+                            ng-repeat="city in citys" class="city_list">{{city.CITY_NAME}}
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

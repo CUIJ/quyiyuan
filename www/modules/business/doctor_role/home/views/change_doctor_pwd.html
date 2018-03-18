@@ -1,0 +1,31 @@
+<ion-view class="qy_doctor_center">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="changePasswordTitle" default="修改密码"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+
+        <div class="list mar-t-20">
+
+            <label class="item item-input">
+                <span class="input-label" kyee-i18n-directive code="oldPassword" default="旧 密 码："></span>
+                <input type="password" ng-model="pwdInfo.old_pwd" id="old_pwd" placeholder="{{placeholderOldPassword}}">
+            </label>
+
+            <div class="item item-input item-icon-right">
+                <span class="input-label" kyee-i18n-directive code="newPassword" default="新 密 码："></span>
+                <input type="password" ng-model="pwdInfo.new_pwd" id="new_pwd"  placeholder="{{placeholderNewPassword}}"/>
+                <i ng-click="iconClick()" class="icon ion-ios-eye f32" ng-class="{'qy-green':isActive}"></i>
+            </div>
+
+        </div>
+
+        <div class="pad-b-14">
+            <button ng-click="submentClick()" class="button button-block button-size-l"><span kyee-i18n-directive code="submit" default="提交"></span></button>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,310 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: zhangming
+* 日期: 2015年11月5日11:26:42
+*/-->
+<ion-view  class="qy_report_multipe">
+    <!--标题栏-->
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()" ></ion-nav-back-button>
+        <ion-nav-title>
+            <span>{{reportSourceShow}}</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a ng-if="isQueryInhosOpen" ng-click="switchPage()" style="color: white;font-size: 14px;" class="button button-clear ">
+                {{reportSourceRight}}
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" scrollbar-y="false" padding="false" class="qy-bg-grey1" delegate-handle="mainScroll">
+
+        <!--<div style="line-height: 30px;" class="report_head qy-bg-white" ng-style="{display:patientEmpty}">-->
+            <!--<span class="f14 mar-r-10 user_name_color">{{USER_NAME}}</span>-->
+            <!--<span class="f14">{{SEX}}<span ng-if="!sexEmpty&&!ageEmpty"> / </span>{{AGE}}</span>-->
+        <!--</div>-->
+        <div ng-if="!isEmpty"  id="scroll_id" ng-hide="showCon" class="">
+            <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                           refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(false,true)">
+            </ion-refresher>
+            <!--三角形-->
+            <!--<div style="width: 0; height: 0; border-top: 14px solid #fcf921; border-left: 7px solid transparent;border-right: 7px solid transparent;position: absolute;z-index: 999;"></div>-->
+
+            <!--模块一  ng-if="showPage.modelOne-->
+            <!--<div ng-style="{'height':heightSize}" style="background-color: white;border-bottom: 1px solid #efefef;">-->
+            <div id="modleOne" ng-if="showPage.modelOne" style="height: 100%;background-color: white;border-bottom: 1px solid #efefef;">
+
+                <div ng-if="!IS_SHOW_REPORT_MESSAGE_CHECK" class="row" style="display: table;">
+                    <div style="width: 0;height: 0;border-top: 20px solid #ff943f;border-left:0 solid transparent;border-right: 20px solid transparent;position: absolute;"></div>
+                    <!--<div ng-style="{'padding-top':showPage.onePandding}" ng-if="showPage.LAST_SEND_TIME" style="padding:14px 0 14px 25px;width:80%;">-->
+                    <div style="display:table-cell;vertical-align:middle;text-align: left;padding:14px 0 14px 25px;width:80%;" ng-style="{'width':KyeeEnv.innerSize.width-38+'px'}">
+                        <span style="color: #666666;font-size: 14px;">{{showPage.MESSAGE}}</span>
+                        <span style="color: #468ac1;font-size: 14px;" ng-click="goAddInpatientNumberPage()">{{showPage.CLICK_MESSAGE}}</span>
+                        <!--<span ng-style="{'top':showPage.oneLastTime}" style="display:block;font-size: 12px;color: #999999;position: absolute;white-space: nowrap">以下为历史数据-时间：{{showPage.LAST_SEND_TIME}}</span>-->
+                        <span ng-if="showPage.LAST_SEND_TIME" style="font-size: 12px;color: #999999;white-space: nowrap" kyee-i18n-directive code="historyDataTip" default="以下为历史数据-时间："></span><span style="font-size: 12px;color: #999999;white-space: nowrap">{{showPage.LAST_SEND_TIME}}</span>
+                    </div>
+                    <!--<div ng-if="!showPage.LAST_SEND_TIME" style="width:80%;padding: 15px 0 15px 25px;" class="">-->
+                    <div ng-if="false" style="width:80%;padding: 15px 0 15px 25px;" class="">
+                        <span style="color: #666666;font-size:14px;">{{showPage.MESSAGE}}</span>
+                        <span style="color: #468ac1;font-size:14px;" ng-click="goAddInpatientNumberPage()">{{showPage.CLICK_MESSAGE}}</span>
+                    </div>
+                    <div style="display:table-cell;vertical-align:middle; text-align:right;" ng-click="doRefresh()">
+                        <i class="qy-green icon icon-plot " style="font-size:22px;vertical-align: sub;margin-right: 10px;margin-top: 1px;"></i>
+                    </div>
+                </div>
+                <div ng-if="IS_SHOW_REPORT_MESSAGE_CHECK">
+                    <div ng-if="!getCode" style="padding: 14px 25px 14px 25px;">
+                        <div class="" >{{PASS_MESSAGE}}</div>
+                        <span class="qy-green" style="float: right;position: relative;top: -20px;" ng-click="getCheckAndCode()" > 立即校验 </span>
+                    </div>
+                    <div ng-if="getCode" style="padding: 14px 25px 0px 25px;">
+                        <div style="margin-bottom: 10px;">已向您在医院预留的手机发送短信，请输入验证码</div>
+
+                       <div style="display: flex;">
+                           <label class="item-input-wrapper">
+                            <input type="tel" class="qy-bg-grey2" ng-model="report.checkCode"  ng-change="codeLength()" style="padding-left: 5px;width: 95%" >
+
+                            </label>
+
+                           <button id="report.validateBtn" ng-click="toCommit()"
+                                   ng-disabled="validateBtnDisabled"
+                                   class="button qy-bg-green commit_btn"  style="border: none" >确认
+                           </button>
+                       </div>
+                        <button id="report.validateMsg" ng-class="toLeft" class="qy-grey5 default_text" style="" ></button>
+                    </div>
+
+                </div>
+            </div>
+            <!--模块二  ng-if="showPage.IS_AGREE_QY_QUERY == 0" -->
+            <div ng-if="showPage.modelTwo" style="height: 84px;background-color: white;margin-top: 10px; border-top: 1px solid #efefef;border-bottom: 1px solid #efefef;margin-bottom: 10px;">
+                <div ng-style="{'background':imgUrl,'background-size':imgUrlSize}" style="margin: 12px 0 12px 10px;border: 0 solid rgb(221, 221, 221);width: 60px;height: 60px;border-radius: 30px;background-size: 60px;float: left;"></div>
+                <div ng-style="{'width':(showPage.content_width)+'px'}" style="float: left;height: 60px; margin: 12px 0px;">
+                    <div style="font-size: 16px; color: #333333;padding-left: 20px;">
+                        <span>{{USER_NAME}}</span><span style="padding-left: 10px">{{AGE}}</span>
+                    </div>
+                    <div style="width: 100%;padding-left: 20px;padding-top: 12px;" ng-click="showpatientCardNo()">
+                        <span style="border: 1px solid #cccccc; padding: 5px 6px 5px 6px; border-radius: 4px;font-size:14px;display: block;" ng-style="{'width':(showPage.selectSize)+'px'}">
+                            <span class="span_content" style="color: #65b091;max-width: 140px;word-break: break-all;display: inline-block;" ng-style="{'max-width':(showPage.selectSize - 30)+'px'}">{{showPage.SHOW_FRONT}}{{showPage.IS_SELECT_NUMBER}}</span>
+                            <span ng-if="showPage.QUERY_TYPE == 6 || showPage.QUERY_TYPE == 1 || showPage.QUERY_TYPE == 2" style="border-left: 1px solid #efefef; padding-left: 5px;margin-left: 5px;position: absolute;right: 26px;"><i style="color: #999999;" class="ion-chevron-down"></i></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--模块三-->
+            <div ng-if="showPage.modelThree" style="right: 50%;width: 0; height: 0; border-top: 8px solid #fafafa; border-left: 6px solid transparent;border-right: 6px solid transparent;position: absolute;z-index: 10;"></div>
+            <div ng-if="showPage.modelThree" style="border-bottom: 1px solid #efefef;background-color:#ff9a02;height: 70px;border-bottom: 1px solid #efefef;opacity:0.6;">
+            <div class="row" ng-click="goDetailsPage()">
+                <div ng-if="showPage.REPORT_PROJECT.REPORT_PROJECT.length>2" style="width: 95%; padding: 14px 0 14px 41px" class="">
+                        <span style="color: white; font-size: 14px;">
+                            <span kyee-i18n-directive code="queryReportAlert" default="部分报告单类型暂不提供在线查询，包括"></span>
+                            <span>{{showPage.SHOW_REPORT_PROJECT}}</span>
+                            <span kyee-i18n-directive code="viewDetails" default="...点击查看详情>"></span>
+                        </span>
+                </div>
+                <div ng-if="showPage.REPORT_PROJECT.REPORT_PROJECT.length<=2" style="width: 95%; padding: 24px 0 14px 54px;" class="">
+                        <span style="color: white; font-size: 14px;">
+                            {{showPage.SHOW_REPORT_PROJECT}}
+                        </span>
+                </div>
+            </div>
+            <i ng-if="showPage.REPORT_PROJECT.REPORT_PROJECT.length>2" style="color: white; font-size: 20px; position: relative;top: -43px; left: 14px;" class="icon-lock"></i>
+            <i ng-if="showPage.REPORT_PROJECT.REPORT_PROJECT.length<=2" style="color: white; font-size: 20px; position: relative;top: -36px; left: 12px;" class="icon-lock"></i>
+        </div>
+            <!--模块四因产品要求 暂时隐藏模块4-->
+            <!--<div ng-if="showPage.modelFour" style="background-color:white;margin-top: 10px;border-bottom: 1px solid #efefef;border-top: 1px solid #efefef;padding: 15px 10px;" ng-click="twentyFour()">-->
+            <div ng-if='showPage.modelFour' style="background-color:white;margin-top: 10px;border-bottom: 1px solid #efefef;border-top: 1px solid #efefef;padding: 15px 10px;" ng-click="twentyFour()">
+                <i style="color:#999999;padding-left: 10px;font-size: 20px; position: absolute; padding-top: 1px;" ng-class="{'icon-radiobox_2':showPage.IS_AGREE_QY_QUERY == 0}"></i>
+                <i style=" position: absolute;padding-top: 8px;font-size: 20px;left: 14px;" ng-class="{'icon-radiobox_1 qy-green':showPage.IS_AGREE_QY_QUERY == 1}"></i>
+                <span style=" padding-left: 31px;font-size:14px;">{{showPage.modelFourText}}</span>
+                 <span ng-if="showPage.IS_AGREE_QY_QUERY == 1" style="line-height: 15px;padding-left: 31px; font-size: 12px;color:#999999;padding-right: 14px; display: block;">
+                     <span kyee-i18n-directive code="hasQuery" default="已查询"></span>
+                     <span class="qy-green" style="padding-left: 5px;">{{showPage.JOB_SYN_COUNT}}
+                    </span>
+                     <span kyee-i18n-directive code="tailUnit" default="次，查询频率10分钟/次">
+                     </span>
+                </span>
+            </div>
+            <ion-list>
+                <ion-item style="margin-top: 10px;" class="f14  list-b qy-bg-white li_bottom" ng-repeat="reportDataItem in OneToDataFlag">
+                    <span ng-if="reportDataItem.REPORT_FLAG!='LAB'" class="icon-examination1 qy-orange icon-examination-font" style="top: 18px;"></span>
+                    <span ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 1" class="icon-examination2 qy-red icon-examination-font" style="top: 18px;"></span>
+                    <span ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 0" class="icon-examination2 qy-red icon-examination-font" style="color: #ccc;top: 18px;"></span>
+                    <!--检查单-->
+                    <div class="div_mar_left" ng-click="clickItem(reportDataItem)" ng-if="reportDataItem.REPORT_FLAG=='EXAM'">
+                        <h5 class="item_name text-ellipsis">{{reportDataItem.EXAM_CLASS}}
+                            <span ng-style="{'display':reportDataItem.EXAM_SUB_CLASS!=null
+                            && reportDataItem.EXAM_SUB_CLASS !=''?'inline':'none'}">/{{reportDataItem.EXAM_SUB_CLASS}}
+                        </span>
+                        </h5>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span">
+                                {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 14px; top: 20px;">
+                                <span  class="f12 qy-grey5 mar-l-14">{{getDate(reportDataItem.REPORT_DATE)}}</span>
+                                <span class="ico ion-chevron-right icon_show"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--检验单 有明细数据-->
+                    <div class="div_mar_left" ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 1"
+                         ng-click="clickItem(reportDataItem)">
+                        <h5 class="item_name text-ellipsis">{{reportDataItem.EXAM_SUB_CLASS}}</h5>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span"> {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 14px; top: 20px;">
+                                <span class="f12 qy-red mar-l-14" kyee-i18n-directive code="today" default="今日"> </span>
+                                <span class="ico ion-chevron-right icon_show"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--检验单 无明细数据-->
+                    <div class="div_mar_left" ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 0">
+                        <span class="item_name text-ellipsis ccc" ng-style="{'max-width':divWidth+'px'}" style="color: #ccc;margin-bottom: 0px;display: inline-block;">{{reportDataItem.EXAM_SUB_CLASS}}</span>
+                        <span style="background-color: #f4f4f4;color: #ccc;border-radius: 2px;margin-left: 5px;padding:0px 5px 0.5px 5px;font-size: 12px;position: absolute;">未出结果</span>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span" style="color: #ccc"> {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 25px; top: 20px;">
+                                <span class="f12 qy-grey5 mar-l-14" style="color: #ccc"> {{getDate(reportDataItem.REPORT_DATE)}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-info qy-fff delete_btn " ng-click="delReportData($index,reportDataItem,1)">
+                        <span kyee-i18n-directive code="deleteCode" default="删 除"></span>
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+            <div ng-if="isThreeMonthData" style="padding: 6px 0px 15px 14px;" class="f14 is_three_div" kyee-i18n-directive code="recentReport" default="最近1个月的的检查检验单"></div>
+            <ion-list>
+                <ion-item class="f14  list-b qy-bg-white li_bottom" ng-repeat="reportDataItem in ThreeMonthData">
+                    <span ng-if="reportDataItem.REPORT_FLAG!='LAB'" class="icon-examination1 qy-orange icon-examination-font" style="top: 18px;"></span>
+                    <span ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 1" class="icon-examination2 qy-red icon-examination-font" style="top: 18px;"></span>
+                    <span ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 0" class="icon-examination2 qy-red icon-examination-font" style="color: #ccc;top:18px;"></span>
+                    <!--检查单-->
+                    <div class="div_mar_left" ng-click="clickItem(reportDataItem)" ng-if="reportDataItem.REPORT_FLAG=='EXAM'">
+                        <h5 class="item_name text-ellipsis">{{reportDataItem.EXAM_CLASS}}
+                            <span ng-style="{'display':reportDataItem.EXAM_SUB_CLASS!=null
+                            && reportDataItem.EXAM_SUB_CLASS !=''?'inline':'none'}">/{{reportDataItem.EXAM_SUB_CLASS}}
+                        </span>
+                        </h5>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span">
+                                {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 14px; top: 20px;">
+                                <span  class="f12 qy-grey5 mar-l-14">{{getDate(reportDataItem.REPORT_DATE)}}</span>
+                                <span class="ico ion-chevron-right icon_show"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--检验单 有明细数据-->
+                    <div class="div_mar_left" ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 1"
+                         ng-click="clickItem(reportDataItem)">
+                        <h5 class="item_name text-ellipsis">{{reportDataItem.EXAM_SUB_CLASS}}</h5>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span"> {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 14px; top: 20px;">
+                                <span class="f12 qy-grey5 mar-l-14"> {{getDate(reportDataItem.REPORT_DATE)}}</span>
+                                <span class="ico ion-chevron-right icon_show"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--检验单 无明细数据-->
+                    <div class="div_mar_left" ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 0">
+                        <span class="item_name text-ellipsis" ng-style="{'max-width':divWidth+'px'}" style="color: #ccc;margin-bottom: 0px;display: inline-block;">{{reportDataItem.EXAM_SUB_CLASS}}</span>
+                        <span style="background-color: #f4f4f4;color: #ccc;border-radius: 2px;margin-left: 5px;padding: 0px 5px 0.5px 5px;font-size: 12px;position: absolute;">未出结果</span>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span" style="color: #ccc"> {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 25px; top: 20px;">
+                                <span class="f12 qy-grey5 mar-l-14" style="color: #ccc"> {{getDate(reportDataItem.REPORT_DATE)}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-info qy-fff delete_btn " ng-click="delReportData($index,reportDataItem,2)">
+                        <span kyee-i18n-directive code="deleteCode" default="删 除"></span>
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+            <div ng-if="isHistoryData" style="line-height: 15px;" class="f14 is_history_div" kyee-i18n-directive code="historyData" default="历史检查检验单"></div>
+            <ion-list>
+                <ion-item class="f14  list-b qy-bg-white li_bottom" ng-repeat="reportDataItem in HistoryData">
+                    <span ng-if="reportDataItem.REPORT_FLAG!='LAB'" class="icon-examination1 qy-orange icon-examination-font" style="top: 18px;"></span>
+                    <span ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 1" class="icon-examination2 qy-red icon-examination-font" style="top: 18px;"></span>
+                    <span ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 0" class="icon-examination2 qy-red icon-examination-font" style="color: #ccc;top: 18px;"></span>
+                    <!--检查单-->
+                    <div class="div_mar_left" ng-click="clickItem(reportDataItem)" ng-if="reportDataItem.REPORT_FLAG=='EXAM'">
+                        <h5 class="item_name text-ellipsis">{{reportDataItem.EXAM_CLASS}}
+                          <span ng-style="{'display':reportDataItem.EXAM_SUB_CLASS!=null
+                            && reportDataItem.EXAM_SUB_CLASS !=''?'inline':'none'}">/{{reportDataItem.EXAM_SUB_CLASS}}
+                        </span>
+                        </h5>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span">
+                                {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 14px; top: 20px;">
+                                <span  class="f12 qy-grey5 mar-l-14">{{getDate(reportDataItem.REPORT_DATE)}}</span>
+                                <span class="ico ion-chevron-right icon_show"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--检验单 有明细数据-->
+                    <div class="div_mar_left" ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 1"
+                         ng-click="clickItem(reportDataItem)">
+                        <h5 class="item_name text-ellipsis">{{reportDataItem.EXAM_SUB_CLASS}}</h5>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span"> {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 14px; top: 20px;">
+                                <span   class="f12 qy-grey5 mar-l-14"> {{getDate(reportDataItem.REPORT_DATE)}}</span>
+                                <span class="ico ion-chevron-right icon_show"></span>
+                            </span>
+
+                        </div>
+                    </div>
+                    <!--检验单 无明细数据-->
+                    <div class="div_mar_left" ng-if="reportDataItem.REPORT_FLAG=='LAB' && reportDataItem.HAVE_DETAIL == 0">
+                        <span class="item_name text-ellipsis" ng-style="{'max-width':divWidth+'px'}" style="color: #ccc;margin-bottom: 0px;display: inline-block">{{reportDataItem.EXAM_SUB_CLASS}}</span>
+                        <span style="background-color: #f4f4f4;color: #ccc;border-radius: 2px;margin-left: 5px;padding: 0px 5px 0.5px 5px;font-size: 12px;position: absolute;">未出结果</span>
+                        <div class="div_hosname_date">
+                            <span class="f12 qy-grey5 div_hosname_span" style="color: #ccc"> {{reportDataItem.HOSPITAL_NAME}}</span>
+                            <span style="position: absolute; right: 25px; top: 20px;">
+                                <span class="f12 qy-grey5 mar-l-14" style="color: #ccc"> {{getDate(reportDataItem.REPORT_DATE)}}</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <ion-option-button class="button-info qy-fff delete_btn" ng-click="delReportData($index,reportDataItem,3)">
+                        <span kyee-i18n-directive code="deleteCode" default="删 除"></span>
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+
+            <div  ng-if="noLoadTxt==true" style="margin-top: 14px;"class="ta-c qy-grey4" >
+                <span  kyee-i18n-directive code="loadCompleteALLData" default="已加载全部数据"></span>
+            </div>
+            <ion-infinite-scroll  ng-if="noLoad" immediate-check="false" on-infinite="loadMore(true,false)" distance="1%"   icon="ion-loading-c">
+            </ion-infinite-scroll>
+            </div>
+
+        <div ng-if="isEmpty" id="null_scroll_id" ng-hide="showCon" class="border-t">
+            <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                           refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(false,true)">
+            </ion-refresher>
+            <ion-list>
+                <div ng-style="{'padding-top':KyeeEnv.innerSize.height<481 ? '28%':'20%'}"  class="empty-text qy-grey5">
+                    <i class="icon icon-icon_3 empty-icon"></i>
+                    <p class="report_empty_font"  ng-bind-html="emptyText|kyee_to_html" id="report_emptyId">{{emptyText}}</p>
+                </div>
+            </ion-list>
+        </div>
+
+        <!--底部提示黑框-->
+        <div style="font-size: 14px;padding-bottom: 8px;" class="footer_bar qy-fff row pad-b-14 pad-td-5" ng-if="false" id="footbar_id">
+            <div class="col">
+                <p class="foot_bar_div" ng-bind-html="tips|kyee_to_html" id="report_tipId">
+                    {{tips}}
+                </p>
+            </div>
+            <div style="padding-left: 14px;" class="ion-close" ng-click="tipIsShow()"></div>
+        </div>
+    </ion-content>
+</ion-view>
+<div  kyee-compile-directive template="modules/business/report_multiple/views/selected.html"></div>

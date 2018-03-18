@@ -1,0 +1,21 @@
+<!--
+* 任务:河科大二院二维码
+ * 修改者:郑鹏程
+ * 修改时间：2017年11月24日
+ * 修改原因：二维码展示
+-->
+<ion-view  class="fadeDown-enter qy_code_image" >
+    <ion-content style="background-color: transparent;top:0px" has-bouncing="false" scrollbar-y="false">
+        <!--  <ion-scroll zooming="false"  max-zoom="1" min-zoom="0.2" class="ta-c"
+                      on-drag-start="press()"
+                      on-drag="drag($event)"
+                      on-drag-end="leave($event)"
+                      draggable="true">-->
+
+        <div style=" margin:0 auto;width: 232px;">
+            <img ng-src="{{paidInfo.BAR_CODE}}" style="width:{{imgWidth+'px'}};height: 230px; margin-top: 42px;">
+        </div>
+
+    </ion-content>
+
+</ion-view>

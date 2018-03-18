@@ -1,0 +1,54 @@
+<ion-view class="qy_patients_report">
+
+    <ion-nav-bar align-title="center" class="message_header qy-bg-white border-b">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title >
+            <span kyee-i18n-directive code="personalReport" class="f16 qy-grey7" default="举报"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right"></ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2 f14 qy-grey7">
+        <div class="row line40 pad-l-14 f12 color_9">
+            <span kyee-i18n-directive code="phone"  default="请选择投诉原因"></span>
+        </div>
+        <div class="list border-td qy-bg-white">
+            <div class="row line50 mar-l-14 border-b report_item" ng-click="switchItemChecked('sqds')">
+                <span kyee-i18n-directive code="phone" ng-module="reportContent.sqds" default="色情低俗"></span>
+                <i class="ion-checkmark f16 qy-color position-a r14" ng-if="itemFlag.sqdsFlag"></i>
+            </div>
+            <div class="row line50 mar-l-14 border-b report_item" ng-click="switchItemChecked('zzmg')">
+                <span kyee-i18n-directive code="phone" ng-module="reportContent.zzmg" default="政治敏感"></span>
+                <i class="ion-checkmark f16 qy-color position-a r14" ng-if="itemFlag.zzmgFlag"></i>
+            </div>
+            <div class="row line50 mar-l-14 border-b report_item" ng-click="switchItemChecked('sxqz')">
+                <span kyee-i18n-directive code="phone" ng-module="reportContent.sxqz" default="涉嫌欺诈"></span>
+                <i class="ion-checkmark f16 qy-color position-a r14" ng-if="itemFlag.sxqzFlag"></i>
+            </div>
+            <div class="row line50 mar-l-14 border-b report_item" ng-click="switchItemChecked('ggsr')">
+                <span kyee-i18n-directive code="phone" ng-module="reportContent.ggsr"  default="广告骚扰"></span>
+                <i class="ion-checkmark f16 qy-color position-a r14" ng-if="itemFlag.ggsrFlag"></i>
+            </div>
+            <div class="row line50 mar-l-14 border-b report_item" ng-click="switchItemChecked('blkb')">
+                <span kyee-i18n-directive code="phone" ng-module="reportContent.blkb" default="暴力恐怖"></span>
+                <i class="ion-checkmark f16 qy-color position-a r14" ng-if="itemFlag.blkbFlag"></i>
+            </div>
+            <div class="row line50 mar-l-14 report_item" ng-click="showInputReport()">
+                <span kyee-i18n-directive code="phone" default="其他"></span>
+            </div>
+            <div class="mar-l-14 mar-r-14 report_item border-t-dash" ng-if="itemFlag.otherReasonFlag">
+                <textarea placeholder="在此输入要举报的内容,最多可输入200字" ng-model="reportContent.otherReason"
+                          rows="5" maxlength="200" class="row pad-td-15 report_content"
+                        ng-style="{'height':KyeeEnv.innerSize.scrollHeight}">
+                </textarea>
+            </div>
+         </div>
+
+        <div class="pad-b-14 mar-d-10">
+            <button kyee-operation-monitor-directive="submit" ng-click="submitReportInfo()"
+                    class="button button-block button-size-l"
+                    kyee-i18n-directive code="all:add_patient_info.translation" default="提 交">
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

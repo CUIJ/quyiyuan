@@ -1,0 +1,93 @@
+<ion-view class="patient_card">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="hospCardManagement" default="就诊卡管理"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt"  kyee-operation-monitor-directive="patientCardAdd" ng-click="goToAddCard()"
+               kyee-i18n-directive code="add" default="添加"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content style="padding-bottom: 50px;" has-bouncing="true" padding="false" class="qy-bg-grey2"
+                 delegate-handle="mainScrolls" scrollbar-y="false"
+                 on-scroll-complete="onScrollComplete()"
+                 on-drag-down="onDragDown()">
+        <ion-refresher style="top: -80px" pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh()">
+        </ion-refresher>
+        <div style="margin: 20px 20px;border-radius: 10px;height: inherit;" class="box-container " ng-repeat="card in cards" kyee-operation-monitor-directive="editCard">
+             <!--ng-class="{'item_hegiht_by_status':!(card.CARD_STATUS == '3' || ((card.CARD_STATUS == '2') && (card.CARD_TYPE == '-100')))}"-->
+
+            <div class="center-content" style="margin-top: 0px;width: 100%;"
+                 ng-class="{'mar_k':card.CARD_STATUS == '3' || ((card.CARD_STATUS == '2') && (card.CARD_TYPE == '-100'))}">
+
+                <div style="line-height: 44px;border-bottom:1px solid #ddd;" class=" f14 w70_display"
+                     ng-class="{'div_mar_top':card.CARD_STATUS == '3'}">
+                    <img style="padding-right: 6px; width:25px;margin-left:14px;margin-top: 14px;position: absolute;" ng-src="{{card.LOGO_PHOTO ? card.LOGO_PHOTO:'resource/images/icons/logo_default.png'}}"
+                         onerror="javascript:this.src='resource/images/icons/logo_default.png'" />
+                    <span ng-class="colorStyle(card.CARD_TYPE, card.CARD_STATUS)" style="display: inline-flex;color: #333333;max-width: 75%;margin-left:41px;padding-top: 1px"
+                          class="f16 text-ellipsis qy-grey7">
+                        {{card.hospitalNameShow}}   </span>
+                    <i ng-if="card.CARD_STATUS == 1 && card.ELECTRONIC_HEALTH_CARD && card.QRCODE" class="icon-qrcode f16 qr_code" ng-click="openToCode(card)"> </i>
+                </div>
+                <!--<span class="change edit_card_span" ng-if="(card.CARD_STATUS == '3') && (card.CARD_TYPE != '-100')"-->
+                      <!--kyee-i18n-directive code="editCardNo" default="修改卡号"></span>-->
+                <div style="line-height: 30px;height: 30px;margin-top: 5px;" ng-click="editCard(card)">
+                    <span ng-if="!card.CARD_NAME&&!card.ELECTRONIC_HEALTH_CARD" style="border-radius: 2px;color:#5baa8a;padding: 1px 2px 1px 2px; margin-left: 14px; border: 1px solid #5baa8a;">就诊卡</span>
+                    <span ng-if="card.CARD_NAME&&!card.ELECTRONIC_HEALTH_CARD" style="border-radius: 2px;color:#5baa8a;padding: 1px 2px 1px 2px;margin-left: 14px; border: 1px solid #5baa8a;">{{card.CARD_NAME}}</span>
+                    <span ng-if="card.ELECTRONIC_HEALTH_CARD" style="border-radius: 2px;color:#5baa8a;padding: 1px 2px 1px 2px; margin-left: 14px; border: 1px solid #5baa8a;">电子健康卡</span>
+                    <div ng-class="colorStyle(card.CARD_TYPE, card.CARD_STATUS) "
+                         ng-if="(card.CARD_STATUS == '2') && (card.CARD_TYPE == '-100')"
+                         class="edit_card_span f14" style="color: #ff777a;float: right; padding-right: 14px;" kyee-i18n-directive
+                         code="valicatCardNoFail" default="验证失败"
+                            ></div>
+                    <div style="float: right; padding-right: 14px; color: #f55440" class="f14" ng-class="colorStyle(card.CARD_TYPE, card.CARD_STATUS)">
+                        {{getStatText(card.CARD_TYPE, card.CARD_STATUS)}} </div>
+                </div>
+
+                <div ng-if="((card.CARD_STATUS == '2') && (card.CARD_TYPE == '-100')) || (card.CARD_STATUS == '3')" class="f10 qy-grey5" ng-class="{'item_top':card.CARD_STATUS == '3'}" style="background-color: #feefec;line-height:40px;clear: both;height:40px;">
+                    <span kyee-i18n-directive code="hospCardFairOne" class="mar_top_by_phone text-ellipsis f12  qy-grey5"
+                          style="padding-left: 14px;color: #f55440;width: 74%;"
+                          ng-if="(card.CARD_STATUS == '3')"
+                          default="原因：就诊者信息或卡号与医院预留信息不匹配"></span>
+                    <span kyee-i18n-directive code="hospCardFairTwo"
+                          style="padding-left: 14px;color: #f55440;width: 74%;"
+                          class="mar_top_by_phone text-ellipsis f12 qy-grey5"
+                          ng-if="(card.CARD_STATUS == '2') && (card.CARD_TYPE == '-100')"
+                          default="原因：就诊者信息与医院预留信息不匹配">
+                    </span>
+                    <span kyee-operation-monitor-directive="deleteCard" style="margin-left: 10px; border: 1px solid #f55440; padding: 2px 8px 2px 8px; background-color: #f55440;border-radius: 2px;color: white;float: right;height: 21px;margin-top: 10px;line-height: 15px;margin-right: 14px;white-space: nowrap;" ng-if="(card.CARD_STATUS == '2') && (card.CARD_TYPE == '-100')" ng-click="deleteCard(card)">删 除</span>
+                </div>
+                <div ng-click="editCard(card)" style="line-height: 34px;height:34px;" ng-if="(card.CARD_STATUS != '2' || card.CARD_TYPE != '-100')&&card.CARD_STATUS != '0'">
+                    <span style="padding-left: 14px;" ng-if="(card.CARD_STATUS != '2' || card.CARD_TYPE != '-100')&&card.CARD_STATUS != '0'" class="f12">
+                        <span ng-if="card.CARD_TYPE != -100"
+                              kyee-i18n-directive code="cardNo" default="卡号："></span>
+                        {{hideCardNum(card.CARD_NO)}}
+                    </span>
+                </div>
+                <div style="line-height: 14px;height:14px;" ng-if="!((card.CARD_STATUS != '2' || card.CARD_TYPE != '-100')&&card.CARD_STATUS != '0')"></div>
+            </div>
+
+            <!--<i ng-if="(card.CARD_TYPE != '-100')" style="    color: #999 !important;" d-->
+               <!--class="icon icon-arrow_right right-icon-s "></i>  箭头-->
+        </div>
+        <div style="margin: 20px 20px;border-radius: 10px; border-style: dashed dashed dashed dashed;" class="box-container item_hegiht_by_status">
+            <i ui-sref="patient_card_add" class="icon ion-plus left-content mar-l-10" style="margin-top: 18px;color:#666666"></i>
+            <span class="add_new f14 qy-grey7"  kyee-operation-monitor-directive="patientCardAdd" ui-sref="patient_card_add" style="color: #666666; width:70%;"
+                  kyee-i18n-directive code="addNewCard" default="添加新就诊卡"></span>
+            <i class="icon icon-icon_3 right-icon-s   icon_style"  kyee-operation-monitor-directive="showTips" ng-click="showTips()"
+               style="    margin-top: -16px;"></i>
+        </div>
+        <!--<label ng-if="tips">
+            <p class="qy-tips" style="    color: #b5b5b5; border-bottom: 0px;"
+               kyee-i18n-directive code="addNewCardText" default="就诊卡是医院存储您就诊卡资料的磁性卡，是您与医院挂号，付款等交互的唯一实体凭据（某些地区可由医保卡代替），由于医疗的特殊和保密性需要，
+                每家医院的就诊卡不通用。为保证您的挂号等操作的顺利进行，请正确填选您正在使用的就诊卡。没有就诊卡的患者，请到您就诊的医院凭个人身份证办理就诊卡。"></p>
+        </label>-->
+
+        <div ng-if="noCard" class="empty-text">
+            <p kyee-i18n-directive code="nowNoCard" default="您目前还没有添加就诊卡"></p>
+        </div>
+    </ion-content>
+</ion-view>
+

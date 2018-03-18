@@ -1,0 +1,84 @@
+<ion-view class="qy_card_recharge_confirm qy-bg-grey1">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="back();"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="就诊卡充值"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1" delegate-handle="rechargeConfirm">
+
+        <!--下拉刷新-->
+        <ion-refresher ng-if="rechargeInfo.STATUS==0" pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                       refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="doRefresh(true)" disable-pulling-rotation="true"></ion-refresher>
+
+        <!--验证结果-->
+        <div class="result_box ta-c" ng-if="!isEmpty && rechargeInfo.SHOW_TITLE == 1">
+            <div class="top mar-d-15" ng-class="rechargeInfo.STATUS==2?'qy-red':'qy-green'">
+                <i class="icon pad-r-5" ng-class="{'icon-radiobox_1 qy-green':rechargeInfo.STATUS==1,'icon-icon_4 qy-red':rechargeInfo.STATUS==2,'icon-stop qy-green':rechargeInfo.STATUS==0}"></i>
+                <span class="f16">{{rechargeInfo.QUERY_RESULT}}</span>
+            </div>
+            <div class="bottom" ng-class="rechargeInfo.STATUS==0?'ta-l':''">
+                {{rechargeInfo.TIP}}
+            </div>
+        </div>
+
+        <!--个人信息输入框-->
+        <ul class="qy-bg-white border-td pad-l-14 f14 mar-d-10" ng-class="rechargeInfo.STATUS==1?'':'mar-t-10'" ng-if="rechargeInfo.total>0 || rechargeInfo.STRAIGHT == 1">
+            <li class="item_h border-d pad-r-14">
+                <div class="text-ellipsis qy-grey7 ">{{rechargeInfo.HOSPITAL_NAME}}</div>
+            </li>
+            <ul class="pad-t-10 pad-d-5">
+                <li><span class="head_left pad-d-5" kyee-i18n-directive code="patientName" default="姓名："></span>{{rechargeInfo.PATIENT_NAME}}</li>
+                <li><span class="head_left pad-d-5" kyee-i18n-directive code="idNo" default="身份证号："></span>{{rechargeInfo.SHOW_ID_NO}}</li>
+                <li><span class="head_left pad-d-5" kyee-i18n-directive code="patientId" default="就诊卡号："></span>{{rechargeInfo.CARD_NO}}</li>
+            </ul>
+            <li class="ta-r item_h border-t pad-r-14">
+                <span kyee-i18n-directive code="totalAmount" default="余额："></span>
+                <span class="f18" ng-class="rechargeInfo.TOTAL_AMOUNT<0?'qy-red':'qy-green'">¥ {{convertMoney(rechargeInfo.TOTAL_AMOUNT)}}</span>
+            </li>
+        </ul>
+
+        <!--重新验证输入框-->
+        <ul class="mar-d-10 qy-bg-white border-td pad-l-14" ng-if="rechargeInfo.STATUS == 2">
+            <li class="item_h item_cont border-d">
+                <span class="item_left"  kyee-i18n-directive code="patientName" default="姓名："></span>
+                <input readonly="readonly" type="text" ng-model="rechargeInfo.PATIENT_NAME" class="mr_100 item_input">
+            </li>
+            <li class="item_h item_cont">
+                <span class="item_left"  kyee-i18n-directive code="cardNo" default="就诊卡："></span>
+                <input type="text" ng-model="recharge.CARD_SHOW" ng-change="onChangeCardNo()" class="mr_100 item_input">
+                <i class="icon icon-icon_3 f18 qy-green" ng-click="showChardNoInfo()"></i>
+                <span class="item_right qy-grey5" ng-click="showPatientCardNo()" kyee-operation-monitor-directive="showPatientCardNo">
+                    <span  kyee-i18n-directive code="select" default="选择"></span>
+                </span>
+                <i class="icon ion-chevron-right qy-grey5"></i>
+            </li>
+        </ul>
+
+        <!--金额-->
+        <div class="item_h2 border-td pad-b-14 qy-bg-white" style="position: relative"  ng-if="rechargeInfo.STRAIGHT == 0 && rechargeInfo.STATUS != 2||rechargeInfo.STRAIGHT == 1">
+            <span class="input-label head_left" style="width: 44px;" kyee-i18n-directive code="amount" default="金额："></span>
+            <input class="input_amount" ng-style="{'width':(KyeeEnv.innerSize.width-77)+'px'}" type="number" ng-model="rechargeInfo.rechargeAmount" placeholder={{placeholder.pHCharge}}>
+        </div>
+
+        <!--验证成功 - 下一步按钮-->
+        <div class="pad-b-14 qy-bg-grey1 mar-t-20" ng-if="rechargeInfo.STATUS == 1 || rechargeInfo.total>0 || rechargeInfo.STRAIGHT == 1">
+            <button ng-click="rechargeSubmit();" class="button button-block button-size-l" kyee-operation-monitor-directive="goPay">
+                <span kyee-i18n-directive code="nextStep" default="下一步"></span>
+            </button>
+        </div>
+        <!--验证中 - 下一步按钮-->
+        <div class="pad-b-14 qy-bg-grey2 mar-t-20" ng-if="rechargeInfo.STATUS == 0">
+            <button class="button button-block button-size-l button_color_grey" kyee-operation-monitor-directive="paySubmit">
+                <span kyee-i18n-directive code="nextStep" default="下一步"></span>
+            </button>
+        </div>
+        <!--验证失败 - 下一步按钮-->
+        <div class="pad-b-14 qy-bg-grey2 mar-t-20" ng-if="rechargeInfo.STATUS == 2">
+            <button ng-click="goRecharge();" class="button button-block button-size-l" kyee-operation-monitor-directive="goRecharge">
+                <span kyee-i18n-directive code="revalidate" default="重新验证"></span>
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
+<div kyee-compile-directive template="modules/business/patient_card_recharge/views/delay_views/selected.html"></div>

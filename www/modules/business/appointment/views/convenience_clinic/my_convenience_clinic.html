@@ -1,0 +1,64 @@
+<ion-view class="my_convenience_clinic"cache-view="false">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>网络门诊记录</span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear " ng-click="openRightMenu('my_convenience_clinic')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="pad-td-10 qy-bg-grey1">
+        <div class="pad-b-14 qy-bg-white border-td mar-d-10"ng-repeat="CONVENIENCE in CONVENIENCE_LIST">
+            <div class="row item-content pad-td-10" ng-click="goToVideoInterrogation(CONVENIENCE)">
+                <div class="line_height_30 div_medicine"ng-class="{'qy-bg-acidblue':CONVENIENCE.ONLINE_BUSINESS_TYPE=='1','qy-bg-orange':CONVENIENCE.ONLINE_BUSINESS_TYPE=='0'}">
+                    <span class="icon-medicine i_medicine" ng-if="CONVENIENCE.ONLINE_BUSINESS_TYPE=='1'"></span>
+                    <span class="icon-outpatient i_medicine" ng-if="CONVENIENCE.ONLINE_BUSINESS_TYPE=='0'"></span>
+                </div>
+                <span class=" f14 text-ellipsis col pad-l-5 type_desc line_height_30">{{CONVENIENCE.ONLINE_BUSINESS_TYPE_DESC}}</span>
+                <span class="business_desc line_height_30 qy-green" ng-show="getTextColor(CONVENIENCE)=='1'" > {{CONVENIENCE.ONLINE_BUSINESS_STATUS_DESC}}</span>
+                <span class="business_desc line_height_30 qy-red" ng-show="getTextColor(CONVENIENCE)=='2'"> {{CONVENIENCE.ONLINE_BUSINESS_STATUS_DESC}}</span>
+                <span class="business_desc line_height_30 qy-grey6"ng-show="getTextColor(CONVENIENCE)=='3'"> {{CONVENIENCE.ONLINE_BUSINESS_STATUS_DESC}}</span>
+            </div>
+            <div class="border-t"  ng-click="goToVideoInterrogation(CONVENIENCE)" ng-class="{'border-d':showButton(CONVENIENCE)}" >
+                <ul class="item-content">
+                    <li class="pad-td-10 row">
+                        <div class="min_width_70 qy-deepblue">就诊人：</div>
+                        <div class="qy-grey7 text-ellipsis">{{CONVENIENCE.PATIENT_NAME}}</div>
+                    </li>
+                    <li class="pad-d-10 row ">
+                        <div class="min_width_70 qy-deepblue">服务医生：</div>
+                        <div class="qy-grey7 text-ellipsis">{{CONVENIENCE.DOCTOR_NAME}}</div>
+                    </li>
+                    <li class="pad-d-10 row">
+                        <div class="min_width_70 qy-deepblue">服务费用：</div>
+                        <div class="qy-grey7 text-ellipsis">¥{{CONVENIENCE.AMOUNT}}</div>
+                    </li>
+                    <li class="pad-d-10 row">
+                        <div class="min_width_70 qy-deepblue">申请时间：</div>
+                        <div class="qy-grey7 text-ellipsis">{{CONVENIENCE.REG_CREATE_TIME}}</div>
+                    </li>
+                </ul>
+                <div class="pad-d-10 qy-orange f12"ng-if="CONVENIENCE.ONLINE_BUSINESS_TYPE=='1'&&CONVENIENCE.ONLINE_BUSINESS_STATUS=='1'">
+                    <span> 如果医生超时未响应，我们会将服务费退还给您。</span>
+</div>
+</div>
+<div class="ta-r line_height_50" ng-if="showButton(CONVENIENCE)">
+    <button class="button-color-green button-size-s mar_button" ng-if="CONVENIENCE.ONLINE_BUSINESS_STATUS=='2'&&CONVENIENCE.ONLINE_BUSINESS_TYPE=='1'" ng-click="chatWithDoctor(CONVENIENCE)">查看聊天记录</button>
+    <button class="button-color-green button-size-s mar_button" ng-if="CONVENIENCE.SUGGEST_FLAG" ng-click="goFeedBack()">意见反馈</button>
+    <button class="button-color-green button-size-s mar_button" ng-if="CONVENIENCE.COMMENT_FLAG" ng-click="goToComment(CONVENIENCE)">{{CONVENIENCE.COMMENT_BUTTON_NAME}}</button>
+    <button class="button-color-green button-size-s mar_button" ng-if="CONVENIENCE.ONLINE_BUSINESS_STATUS=='0'&&CONVENIENCE.ONLINE_BUSINESS_TYPE=='1'" ng-click="goToVideoInterrogation(CONVENIENCE)">填写申请</button>
+    <button class="button-color-green button-size-s mar_button" ng-if="CONVENIENCE.CONTACT_DOCTOR_FLAG" ng-click="chatWithDoctor(CONVENIENCE)">联系医生</button>
+</div>
+</div>
+<!--上拉加载更多-->
+<ion-infinite-scroll icon="ion-loading-c" ng-if="HAS_MORE" on-infinite="loadConvenienceMore(1)" immediate-check="false" distance="1%" >
+</ion-infinite-scroll>
+<div ng-if="NO_DATA" class="empty-text">
+    <i class="icon-icon_3 empty-icon"></i>
+    暂无网络门诊信息
+</div>
+</ion-content>
+</ion-view>

@@ -1,0 +1,47 @@
+.row_view{
+  .changeChooseStyle{
+    color: #0F9D58;
+  }
+  .changeHiddenStyle {
+    display: inline !important;
+    padding-top: 6px;
+    color: #5baa8a;
+  }
+  .new_item_border{
+    border-bottom: 1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
+  }
+  .new_item_div{
+    padding: 15px 15px 15px 0;
+  }
+  .ion-android-radio-button-on:before{
+    content: "\f3a7";
+    font-size: 20px;
+    color: #5baa8a;
+  }
+  .ion-android-radio-button-off:before{
+    content: "\f3a6";
+    font-size: 20px;
+  }
+  .often-name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 35%;
+  }
+  .sex-and-age{
+    display: inline-block;
+    width: 65%;
+  }
+  .role_item{
+    border-top: solid 1px  #e7e7e7;
+    height: 50px;
+  }
+  .first_not_top_border{
+    border-top: solid 1px white;
+  }
+
+
+
+}

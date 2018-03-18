@@ -1,0 +1,20 @@
+<ion-view class="qy_pay_result" cache-view="false">
+
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="付款结果"></span>
+        </ion-nav-title>
+        <ion-nav-back-button ng-click="back()"></ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content class="item-divider">
+        <h3 class="ta-c" style="margin-top: 70px"><span kyee-i18n-directive code="tip1" default="您已成功支付"></span>{{AMOUNT}}</h3>
+        <p class="qy-grey5 mar-t-10" style="padding-right: 15%;padding-left: 15%" kyee-i18n-directive code="tip2" default="本页提示不作为最终支付凭证。如有疑问，请咨询您的发卡银行"></p>
+        <div class="pad-b-14" style="margin-top: 50px;">
+            <button ng-click="back()" class="button button-full button-size-l">
+                <span kyee-i18n-directive code="back" default="返回"></span>
+            </button>
+        </div>
+    </ion-content>
+
+</ion-view>

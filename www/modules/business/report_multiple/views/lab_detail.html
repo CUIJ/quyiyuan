@@ -1,0 +1,74 @@
+<!--/**
+* 产品名称 quyiyuan.
+* 创建用户: zhangming
+* 日期: 2015年11月20日11:26:42
+* 检验单详细信息
+*/-->
+<ion-view  class="qy_inspection_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span>{{LAB_ITEM}}</span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a
+                    class="button button-clear del_button" ng-if="showDelBtn"
+                    kyee-i18n-directive code="examDeleteCode" default="删除"
+                    kyee-operation-monitor-directive="delLabItem"
+                    ng-click="delLabItem(LAB_ID,PATIENT_ID)"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <div class="titlebox pad-b-14 pad-td-10 qy-bg-white lab_title_bianhao">
+            <span class="qy-grey5">{{getDate(REPORT_DATE)}}&nbsp;</span>
+            <span class="qy-grey5" kyee-i18n-directive code="lab_Bianhao" default="编号：{{LAB_TEST_NO}}" params="Language">
+            </span>
+        </div>
+        <ul class="list" ng-if="project">
+            <li ng-if="!isLabDetailEmpty" class="item pad-b-14 pad-td-5 fw-b border-td qy-bg-grey1">
+                <span kyee-i18n-directive code="lab_xiangmu" default="项目"></span>
+                <span class="fl-r"  kyee-i18n-directive code="lab_jianyanjieguo" default="检验结果"></span>
+            </li>
+            <li class="qy-bg-white" ng-repeat="labDetailDataItem in labDetailData">
+                <div class="border-d pad-td-5 pad-b-14  lab_pad10"
+                     kyee-operation-monitor-directive="clickItem"
+                     ng-click="clickItem(labDetailDataItem)">
+                    <span class="item_name lab_detail_line">{{labDetailDataItem.ITEM_NAME}}</span>
+                    <span class="{{HighOrLowColor(labDetailDataItem.ABNORMAL_INDICATOR)}} ta-r w_39 fl-r lab_detail_line">
+                        {{labDetailDataItem.RESULT}}&nbsp;{{labDetailDataItem.UNITS=='/'? '': labDetailDataItem.UNITS}}
+                         <span class="{{checkHighOrLow(labDetailDataItem.ABNORMAL_INDICATOR)==-1?'ion-ios-arrow-thin-down':(checkHighOrLow(labDetailDataItem.ABNORMAL_INDICATOR)==1?
+                            'ion-ios-arrow-thin-up':'')}} pad_b_5">
+                         </span>
+                         <span ng-class="{'ion-arrow-up-b qy-grey6':labDetailDataItem.IS_SHOW_CANKAO,'ion-arrow-down-b qy-green':!labDetailDataItem.IS_SHOW_CANKAO}">
+                         </span>
+                    </span>
+                </div>
+                <div class="border-d pad-td-5 pad-b-14 ta-r qy-grey5 qy-bg-grey1" ng-if="labDetailDataItem.IS_SHOW_CANKAO">
+                    <sapn kyee-i18n-directive code="lab_zhengchangcankao" default="正常参考值："></sapn>
+                    <sapn>{{labDetailDataItem.REFERENCE_RANGE}}&nbsp;{{labDetailDataItem.UNITS=='/'?'':labDetailDataItem.UNITS}}</sapn>
+                </div>
+            </li>
+        </ul>
+        <ion-scroll ng-if="displayPic" zooming="true"  ng-style="{'height':(KyeeEnv.innerSize.height-97)+'px'}" direction="xy" class="w_100">
+            <img src="{{PHOTO_URL}}">
+        </ion-scroll>
+        <div ng-if="isLabDetailEmpty"  ng-style="{'padding-top':KyeeEnv.innerSize.height<481 ? '35%':'45%'}" class="empty-text qy-grey5">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p class="report_empty_font">{{LabDetailEmptyText}}</p>
+        </div>
+
+    </ion-content>
+
+    <div ng-if="IS_OPEN_REPORT_CONSULT=='1'" class="footer_bar qy-fff pad-b-14 " style="    width: 100%;
+    border-top: 1px solid #e7e7e7;
+    padding-top: 12px;
+    padding-bottom: 18px;
+    height: 80px;">
+        <img  ng-src="resource/images/report/report.png" style=" height: 50px;">
+        <div class="fl-r ">
+            <!--<span ng-click="goToChatWithDoctor()" class="inline f14 text-center consulting_btn" ng-class="{'qy-bg-green qy-fff': canClickConsult, 'qy-grey4 qy-bg-grey2': canNotClickConsult}" kyee-i18n-directive code="consult" default="诊后咨询"></span>-->
+            <span ng-click="goToConsultNewDoctor()" style="top: 13px;
+    position: relative;" class="inline f14 text-center consulting_btn qy-bg-green qy-fff" ng-class="{'qy-bg-green qy-fff': canClickConsult, 'qy-grey4 qy-bg-grey2': canNotClickConsult}" kyee-i18n-directive code="consult" default="咨询医生"></span>
+        </div>
+    </div>
+</ion-view>

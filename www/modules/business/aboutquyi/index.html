@@ -1,0 +1,73 @@
+<ion-view class="qy_aboutquyi">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="helpTitle" default="关于趣医"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('aboutquyi')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-white">
+        <div class="row pad-t-10 pad-b-14">
+            <div class="col" align="center">
+                <img ng-src="resource/images/aboutquyi/versionAlert.png" class="brand_img">
+            </div>
+
+            <div class="col" align="center">
+                <img on-hold="onQRCodeHold()" ng-src="resource/images/aboutquyi/qrcode.png" class="brand_img">
+            </div>
+        </div>
+
+        <div class="qy-green mar-d-20" align="center">
+            <p kyee-i18n-directive>{{version}}</p>
+        </div>
+
+        <ul class="list-a qy-bg-white border-t " >
+
+            <li ng-if="notIOS" ng-init="" ng-click="checkNewVersion()" class="pad-td-10 pad-r-14">
+                <span kyee-i18n-directive code="checkUpdate" default="检查更新"></span>
+
+                <i class="ico ion-chevron-right right_arr_icon "></i>
+                <span ng-class="newFlagClass" class="badge badge-assertive new_version_icon"
+                      kyee-i18n-directive code="findNewVersion" default="发现新版本"></span>
+            </li>
+            <!--<li ng-click="enterHelpPage()"  class="pad-td-10 pad-r-14">-->
+                <!--<span kyee-i18n-directive code="helpItem" default="帮助"></span>-->
+
+                <!--<i class="ico ion-chevron-right right_arr_icon"></i>-->
+            <!--</li>-->
+            <li ng-click="showShareMenu()"  class="pad-td-10 pad-r-14">
+                <span kyee-i18n-directive code="shareItem" default="分享"></span>
+
+                <i class="ico ion-chevron-right right_arr_icon"></i>
+            </li>
+
+            <li ng-click="click2call()"  class="pad-td-10 pad-r-14 uyg-flex">
+                <span kyee-i18n-directive code="hotLine" default="客服热线： "></span>
+                <span class="qy-green a_underline">400-080-1010</span>
+            </li>
+
+            <!--<li ng-if="notIOS" ng-click="click2openNet()"  class="pad-td-10 pad-r-14 uyg-flex">
+                <span kyee-i18n-directive code="webAddress" default="网址： "></span>
+                <span class="qy-green a_underline">www.quyiyuan.com</span>
+            </li>-->
+
+            <li  class="pad-td-10 pad-b-14 uyg-flex">
+                <span kyee-i18n-directive code="smsAddress" default="短信平台： "></span>
+                <span class="qy-green">{{sms}}</span>
+            </li>
+        </ul>
+
+    </ion-content>
+
+    <div kyee-share-directive
+         share-params="shareData"
+         has-share-menu="hasShareMenu"
+         bind="bind(params)">
+    </div>
+</ion-view>

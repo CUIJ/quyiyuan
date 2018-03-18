@@ -1,0 +1,20 @@
+<ion-view class="" cache-view="false">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive  code="noMoney" default="预交金不足提醒"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear"  ng-click="openRightMenu('clound_his_message')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" class=" qy-bg-grey1">
+        <div class="mar-t-10 appoint-binding" style="text-align: justify;">
+            <div ng-class="{'border-t border-d qy-bg-white':(MESSAGE!=''&&MESSAGE!=null)}" style="padding-bottom: 18px;padding-top: 18px;line-height: 24px;" class="f14   pad-b-14">
+                <span class="qy-grey7">{{MESSAGE}}</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

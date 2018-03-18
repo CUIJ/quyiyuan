@@ -1,0 +1,59 @@
+<ion-view class="qy_attending_doctor">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="goBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span>选择主治医生</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" scroll="true" class="qy-bg-grey2">
+        <!--科室名-->
+        <div ng-show="isload">
+            <div class="border-d h50 qy-bg-white title-1 pad-l-14">
+                <div class="mar-t-5">
+                    <img src={{hospitalLogo}} class="logo flex-auto mar-t-8">
+                </div>
+                <div>
+                    <span class="pad-l-10 f16 qy-grey7">{{deptName}}</span>
+                    <span class="f12 qy-grey6 pad_t_2">{{hospitalName}}</span>
+                </div>
+            </div>
+
+        <div ng-show="showDoctorList">
+        <div class="flex qy-bg-white flex-wrap pad_b_20" style="padding-left: 20px;padding-right: 20px;text-align: -webkit-center;">
+            <div ng-repeat="doctor in doctorList" class="text-center mar_t_20 mar-l-20" ng-class="$index%2 != 0?'right_m':'left_m'">
+                <div class="doctor_card" ng-class="$index==index?'border-all-g':'border-all' " ng-click=chooseDoctor($index)>
+                    <img ng-if="doctor.sex != 1 && !(doctor.photo == null || !doctor.photo)" class="doctor_img mar_t_14" ng-src="{{doctor.photo}}" onerror='this.src="resource/images/base/head_default_female.jpg"' >
+                    <img ng-if="doctor.sex != 1 && (doctor.photo == null || !doctor.photo)" class="doctor_img mar_t_14" ng-src="resource/images/base/head_default_female.jpg">
+                    <img ng-if="doctor.sex == 1 && !(doctor.photo == null || !doctor.photo)" class="doctor_img mar_t_14" ng-src="{{doctor.photo}}" onerror='this.src="resource/images/base/head_default_man.jpg"' >
+                    <img ng-if="doctor.sex == 1 && (doctor.photo == null || !doctor.photo)" class="doctor_img mar_t_14" ng-src="resource/images/base/head_default_man.jpg">
+                    <div class="f16 qy-grey7 pad-t-9">{{doctor.name}}</div>
+                    <div class="qy-blue f12 pad_t_2 pad-b-20">{{doctor.title}}
+                    </div>
+                    <div ng-if="doctor.title == '' || doctor.title == null" class="height20 qy-blue f12 pad_t_2 pad-b-20">
+                    </div>
+                    <i ng-if="$index==index" class="icon-choose mar-r-5 fl-r choose qy-green"></i>
+                </div>
+            </div>
+            <!--占位div-->
+            <div ng-if="(doctorList.length)%2 != 0" class="doctor_card text-center mar_t_20 mar_l_40 right_m">
+            </div>
+        </div>
+        <div class="mar-t-20 mar-l-14 mar-r-14 mar-d-20">
+            <span class="">
+                <span class="f14">若以上医生不是您的主治医生，</span>
+                <span class="f14 qy-blue" ng-click="goToConsultDoctor()">请点击这里</span>
+            </span>
+            <button class="button button-block button-size-l mar_t_20_i" ng-click="submit()">确定</button>
+        </div>
+        </div>
+        <!--无数据提示信息-->
+            <div ng-if="!showDoctorList" class="empty-text" >
+                <i class="icon-icon_3 empty-icon"></i>
+                <span>该科室暂无医生</span>
+                <span class="text-center">
+                    <span class="f14 qy-blue" ng-click="goToConsultDoctor()">请点击这里</span>
+                </span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

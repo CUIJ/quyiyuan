@@ -1,0 +1,87 @@
+<ion-view class="qy_query_card_result">
+
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="queryCardResultTitle" default="查卡结果"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('query_card_result')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content scrollbar-y="false" has-bouncing="true" padding="false" scroll="false">
+
+        <!--<ion-content scrollbar-y="false" has-bouncing="true" padding="false" scroll="false">-->
+
+            <!--<div class="list" >-->
+                <!--<label class="item item-input">-->
+                    <!--<span class="input-label" kyee-i18n-directive code="hospitalName" default="医院名称"></span>-->
+                    <!--<input type="text" value="{{data.HOSPITAL_NAME}}" readonly="readonly">-->
+                <!--</label>-->
+
+                <!--<label class="item item-input item-icon-right">-->
+                <!--<span class="input-label">-->
+                 <!--<span kyee-i18n-directive code="patientName" default="就诊者姓名"></span>-->
+                <!--</span>-->
+                    <!--<input type="text" value="{{data.OFTEN_NAME}}" readonly="readonly">-->
+                <!--</label>-->
+
+            <!--</div>-->
+
+            <!--<p ng-if="!showEmpty" class="mar-b-14 mar-td-10">-->
+                <!--<span kyee-i18n-directive code="patientCardId" default="就诊卡号（请选择默认就诊卡）"></span>-->
+            <!--</p>-->
+
+            <!--<ion-scroll has-bouncing="true"  direction="y" style="height: {{KyeeEnv.innerSize.height - 220}}px">-->
+
+                <!--<ul>-->
+                    <!--<li  kyee-operation-monitor-directive="messageClick" ng-click="messageClick($index)" ng-repeat="card in data.CARDS" class="pad-b-14 pad-td-20 item">-->
+                        <!--<i class="icon icon-radio-checked"></i>-->
+                        <!--<span>{{card.CARD_NO}}</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+
+                <!--<div class="empty-text" ng-if="showEmpty" >-->
+                    <!--<p>-->
+                        <!--<span kyee-i18n-directive code="noQueryPatientCareInfo" default="未查询到您的就诊卡信息！"></span>-->
+                    <!--</p>-->
+                <!--</div>-->
+            <!--</ion-scroll>-->
+
+        <!--</ion-content>-->
+
+        <ion-content style="padding-bottom: 50px;" has-bouncing="true" padding="false" class="qy-bg-grey2"
+                     delegate-handle="mainScrolls">
+        <div  ng-if="!showEmpty" class="box-container cardBox" ng-repeat="card in data.CARDS">
+            <div class="center-content" style="margin-top: 0px;width: 100%;">
+                <div  class=" f14 hospitalName">
+                    <span  class="f16 text-ellipsis ng-binding text"  >
+                       {{data.HOSPITAL_NAME}}
+                    </span>
+                </div>
+                <div class="titleName" >
+                    <span style="float: left;" kyee-i18n-directive code="patientName" default="姓名："></span>
+                    <spqn class="text-ellipsis ng-binding text " >{{data.OFTEN_NAME}}</spqn>
+                </div>
+                <div class="titleName" >
+                    <span style="float:left;"  kyee-i18n-directive code="patientCardId" default="卡号："></span>
+                    <span class="text-ellipsis ng-binding text " > {{card.CARD_NO}} </span>
+                </div>
+
+            </div>
+        </div>
+        <!--<div class="empty-text" ng-if="showEmpty" >-->
+             <!--<p>-->
+                 <!--<span kyee-i18n-directive code="noQueryPatientCareInfo" default="未查询到您的就诊卡信息！"></span>-->
+             <!--</p>-->
+        <!--</div>-->
+        <div class="empty-text" ng-if="showEmpty" >
+            <i class="icon-icon_3 empty-icon"></i>
+            <span kyee-i18n-directive code="noQueryPatientCareInfo" default="未查询到您的就诊卡信息！"></span>
+        </div>
+    </ion-content>
+
+</ion-view>

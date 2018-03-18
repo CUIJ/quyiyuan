@@ -1,0 +1,57 @@
+<ion-view class="patient_card_select">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="selectCard" default="选择就诊卡"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt"
+               kyee-operation-monitor-directive="addPatientCard"
+               ng-click="addPatientCard()"
+               kyee-i18n-directive code="add" default="添加"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" delegate-handle="mainScroll">
+
+        <p class="pad-b-14 pad-t-14"
+           kyee-i18n-directive code="oneIsUserCard" default="以下为您在{{hospInfo.name}}登记有效的就诊卡" params="hospInfo"></p>
+
+        <div class="box-container"  ng-repeat="card in patientCards"
+             kyee-operation-monitor-directive="selectCard" ng-click="selectCard(card)" style="margin: 14px 14px;">
+            <i class="icon left-content mar-l-10" ng-class="isSelected(card.CARD_NO) ? 'icon-radiobox_1' : 'icon-radiobox_2'"></i>
+            <div class="center-content mar-l-10 pad-t-10" style="width: 168px">
+                <span class="f16 color_grezy1" id="asdasdasda"
+                   kyee-i18n-directive code="cardNo {{card.CARD_NO_SHOW}}" default="卡号： {{card.CARD_NO_SHOW}}" params="card"></span>
+            </div>
+            <div  style="width: auto;float: right;margin-right: 14px;margin-top: 30px; ">
+                <span ng-if="card.CARD_NAME&&!card.ELECTRONIC_HEALTH_CARD" style="border-radius: 2px;color:#5baa8a;padding: 1px 2px 1px 2px;border: 1px solid #5baa8a;">{{card.CARD_NAME}}</span>
+                <span ng-if="card.ELECTRONIC_HEALTH_CARD" style="border-radius: 2px;color:#5baa8a;padding: 1px 2px 1px 2px;border: 1px solid #5baa8a;">电子健康卡</span>
+            </div>
+        </div>
+        <div class="box-container"
+             kyee-operation-monitor-directive="addPatientCard"
+             ng-click="addPatientCard()" style="height: 61px;    margin-top: 0px;">
+            <i class="icon ion-plus left-content mar-l-10" style="margin-top: 17px"></i>
+            <div class="center-content mar-l-10 pad-t-10"  style="margin-top: 9px">
+                <span  class=" f14 qy-grey7 mb10 pad-t-3"
+                       kyee-i18n-directive code="addNewCard" default="添加新就诊卡"></span>
+            </div>
+            <i class="icon icon-icon_3 right-icon-s tips_icon"
+               kyee-operation-monitor-directive="showTips"
+               ng-click="showTips()"></i>
+        </div>
+        <label ng-if="tips">
+            <p class="qy-tips"
+               kyee-i18n-directive code="addNewCardTalk" default="就诊卡是医院存储您就诊卡资料的磁性卡，是您与医院挂号，付款等交互的唯一实体凭据（某些地区可由医保卡代替），由于医疗的特殊和保密性需要，
+                每家医院的就诊卡不通用。为保证您的挂号等操作的顺利进行，请正确填选您正在使用的就诊卡。没有就诊卡的患者，请到您就诊的医院凭个人身份证办理就诊卡。"></p>
+        </label>
+
+        <div ng-if="noCard" class="empty-text">
+            <p kyee-i18n-directive code="youNowNotCard" default="您目前还没有添加就诊卡"></p>
+        </div>
+    </ion-content>
+
+
+
+</ion-view>

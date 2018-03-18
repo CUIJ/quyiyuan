@@ -1,0 +1,20 @@
+<ion-view class="satisfaction_doctor">
+
+    <ion-nav-bar class="qy-header CommSubButton" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <div class="row my_title pad-b-14">
+                <a class="col tab_button button border_radius_left_top_bottom" ng-class="{'tab_button_active':isTabActive == 1}" kyee-action-holder-directive="doctor_btn" ng-click="KAH($event) || gotoDoctor()"  >
+                    <span class="f14" kyee-i18n-directive code="all:satisfaction_hospital_menu.zhuYuan_zhuZhiYiShengTitle" default="主治医生"></span>
+                </a>
+                <a class="col tab_button button border_radius_right_top_bottom" ng-class="{'tab_button_active':isTabActive == 2}" kyee-action-holder-directive="hospital_btn" ng-click="KAH($event) || gotoHospital()"  >
+                    <span class="f14" kyee-i18n-directive code="all:satisfaction_hospital_menu.zhuYuan_zhuYuanHuanJingTitle" default="住院环境"></span>
+                </a>
+            </div>
+
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ui-view name="satisfaction_hospital_menu_view"></ui-view>
+
+</ion-view>

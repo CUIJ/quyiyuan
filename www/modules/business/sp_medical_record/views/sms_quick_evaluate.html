@@ -1,0 +1,86 @@
+<ion-view  class="medical_record">
+    <ion-nav-bar class="qy-header " align-title="center">
+        <ion-nav-title>
+            <span >快捷评价</span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false">
+        <div class="mar-l-14 ">
+            <div>
+                <ul>
+                    <li class="qy-bg-white pad-r-14 border-d f14 height50 line_height50 ">
+                        <span>手机号</span>
+                        <input ng-model="sat.phoneNumber" placeholder="请输入手机号码" class="input_content ">
+                    </li>
+                    <li class="qy-bg-white border-d f14 height50 line_height50">
+                        <span>验证码</span>
+                        <input ng-model="sat.checkCode" placeholder="请输入手机号对应的验证码" class="input_content">
+                    </li>
+                    <li class="mar-t-20 qy-grey5">
+                        温馨提示：请输入手机号及收到的对应验证码，可根据验证码查询就医记录进行评价。
+                    </li>
+                    <li class="mar-r-14 mar_t_30" >
+                        <button ng-click="submit()" style="border:none !important;" class=" btn_Bg button-size-l button button-block">查询</button>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="font16 titleBox">
+            <div class="titleBorder">
+                <div class="titleText">最满意医院</div>
+            </div>
+        </div>
+        <div ng-repeat="satHosInfo in satHosList " class="hospitalList" ng-class="{'bord-topAndBottom':$index==1}">
+
+            <ul class="clearfix">
+                <li><img  ng-src="resource/images/sp_medical_record/top{{$index+1}}.png"></li>
+                <li>
+                    <img src="{{satHosInfo.hosPictureUrl}}"
+                         onerror="javascript:this.src='resource\\images\\sp_medical_record\\default_hospital.png '">
+                </li>
+                <li>
+                    <!--<span  class="font10 qy-grey6 mar-r-14">{{satHosInfo.organizationName}}</span>-->
+                    <div class="f14 qy-grey7 hospital_name">{{satHosInfo.organizationName}}</div>
+                    <div class="f12 hospital_rank">{{satHosInfo.hospitalTypeName}}</div>
+                    <div class="orang aver-score">
+                        <span class="qy-fff f12 aver-score-ping">评</span>
+                        <span class="scoreVal">{{satHosInfo.averageScore}}</span>
+                        <span class="f12">分</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="font16 titleBox">
+            <div class="titleBorder">
+                <div class="titleText" style="width:120px">最满意医护人员</div>
+            </div>
+        </div>
+        <div  ng-repeat="satDocInfo in satDocList " class="hospitalList clearfix border-b">
+            <div class="float_l doctorImgBac" ng-class="{'doctorImgBac1':$index==0,'doctorImgBac2':$index==1,'doctorImgBac3':$index==2}">
+                <img style="width: 65px;height: 65px;position: relative; border-radius: 50%;top:12px;"
+                     src="{{satDocInfo.doctorImage}}" onerror="javascript:this.src='resource\\images\\sp_medical_record\\man.png'">
+            </div>
+            <div class="float_l doctorLsitDetail">
+                <div>
+                    <span  class="font14 qy-grey7 ">{{satDocInfo.doctorName}}</span>
+                    <span  class="font12 titleColor">{{satDocInfo.doctorTitle}} </span>
+                </div>
+                <div style="margin-top: 6px;">
+                    <span  class="font12 qy-grey6 ">{{satDocInfo.deptName}}</span>
+                </div>
+                <div>
+                    <span  class="font12 qy-grey6 ">{{satDocInfo.organizationName}}</span>
+                </div>
+            </div>
+            <div class="float_r" style="margin-top: 25px;">
+                <div class="orang aver-score">
+                    <span class="qy-fff f12 aver-score-ping">评</span>
+                    <span class="scoreVal">{{satDocInfo.averageScore}}</span>
+                    <span class="f12">分</span>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

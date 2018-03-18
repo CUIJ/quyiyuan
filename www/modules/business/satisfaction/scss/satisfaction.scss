@@ -1,0 +1,319 @@
+.satisfaction_main {
+
+  .satisf_btn{
+    width: 60%;
+    margin-top: 60px;
+
+  }
+
+  .satisf_btn_bg_clr_clinic{
+    background-color: #37DAAE;
+  }
+
+  .satisf_btn_bg_clr_inpatient{
+    background-color: #0F9D58;
+  }
+
+  .hospital_name{
+    -webkit-box-flex: 0;
+    clear: both;
+    flex: 0 0 90%;
+    max-width: 90%;
+    padding-top: 10px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+
+  .list-b{
+    li span.date{ margin-top:0px;font-size: 12px;}
+
+    border-bottom: 1px solid #efefef;
+    padding: 10px 14px;
+    border-top: 0;
+  }
+
+  .score{
+    font-size: 12px;
+    min-height: 24px;
+    line-height: 24px;
+  }
+}
+
+
+.satisfaction_append_suggest{
+  .append_input{
+    width: 100%;
+    height: 100px;
+    border: 1px solid #d4d4d4;
+    resize: none;
+    padding: 5px;
+  }
+
+  .border_none{
+    border-width: 0;
+  }
+
+}
+
+.CommSubButton {
+
+  .two {
+    padding: 0 4em;
+  }
+  .tab_button {
+    border-radius: 0;
+    border: 2px solid white;
+    color: #fff;
+    background-color: #5baa8a;
+  }
+
+  .button-bar > .button:first-child {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+    background-clip: padding-box !important;
+  }
+
+  .button-bar > .button:last-child {
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+    border-right-width: 2px;
+    background-clip: padding-box !important;
+  }
+
+  .tab_button_active {
+    background-color: rgba(255, 255, 255, 1);
+    color: black;
+  }
+}
+.satisfaction_doctor {
+  .bar .title {
+    margin: 3px 0 0 0;
+  }
+
+  .list-b{
+    padding-left: 14px;
+  }
+
+  .doctor_background{
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90px;
+    background-image: url("../../resource/images/icons/doctorbg.png");
+    border: none;
+  }
+
+  .star_img{
+    margin-left: 6%;
+    width: 8%;
+    font-size: 30px;
+    color: #ecb32a;
+  }
+  .star_img_new{
+    font-size: 17px;
+    margin-left:5px;
+    color: #ecb32a;
+  }
+  .star_img1{
+    font-size: 30px;
+    color: #ecb32a;
+  }
+
+  .suggest_input{
+    width: 100%;
+    height: 100px;
+    border: 1px solid #e7e7e7;
+    padding: 5px;
+    resize: none;
+  }
+  .suggest_input_new{
+    width: 100%;
+    height: 80px;
+    padding: 10px 5px 5px 0px;
+    resize: none;
+    border-top: 1px solid #e7e7e7;
+    font-size: 12px;
+  }
+  .appent_suggest_input_new{
+    width: 100%;
+    height: 80px;
+    padding: 12px 5px 5px 0px;
+    resize: none;
+    border-top: 1px solid #e7e7e7;
+  }
+
+  .rdio{
+    -webkit-appearance: none;
+    width: 20px;
+    font-size: 16px;
+    line-height: 18px;
+  }
+  .div_rdio{
+    padding-left: 8%;
+  }
+  .glb_div {
+    border-bottom: 1px solid #e7e7e7;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .glb_div {
+     border-bottom: 1px solid #e7e7e7;
+     padding-left: 14px;
+     padding-right: 14px;
+   }
+  .glb_div_new {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .line_height{
+    line-height: 20px;
+    word-break: break-all;
+  }
+
+  .left_menu_btn{
+    display: inline;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+    min-height: 31px;
+    line-height: 36px;
+  }
+
+  .right_menu_btn{
+    display: inline;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+    min-height: 31px;
+    line-height: 36px;
+  }
+
+  .tab_button_active{
+    color: black !important;
+  }
+
+  .s_t{
+    padding: 0px 14px 10px 10px;
+    text-align: right;
+  }
+  .s_t_new{
+    float: right;
+  }
+  .hospital_name_overflow{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    width:80%;
+  }
+  .my_title{
+    background-clip: padding-box;
+    max-height: 32px;
+    margin-top: 3px;
+    span{
+      bottom: 1px;
+      position: relative;
+    }
+  }
+  .border_radius_left_top_bottom{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid white;
+    background-clip: padding-box;
+  }
+  .border_radius_right_top_bottom{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid white;
+    background-clip: padding-box;
+  }
+  .empty_star{
+    color: #cccccc;
+  }
+  //.doctor_img{
+  //  margin: 14px;
+  //  overflow: hidden;
+  //  float: left
+  //}
+  //.doctor_head_image{
+  //  display: block;
+  //  width: 70px;
+  //  height: 70px;
+  //  border-radius: 50%;
+  //}
+  //.doctor_name{
+  //  padding-top: 14px;
+  //  color: #000;
+  //  font-size: 18px;
+  //}
+  //.care_doctor{
+  //  position: absolute;
+  //  right: 14px;
+  //  top: 20px;
+  //  text-align: center;
+  //}
+  .support_name{
+    float: left;
+    color: #333333;
+    font-size: 14px;
+  }
+  .suggest_item{
+    padding-left: 10px;
+  }
+  .append_input_new{
+    width: 100%;
+    height: 100px;
+    resize: none;
+    padding: 5px;
+  }
+.append_suggest{
+  border-top: 1px solid #e7e7e7;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+  .s_doctorbox{
+    background: url("../../resource/images/appoint/doctor_bg.png") bottom no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    position: relative;
+  }
+  .s_doc_img_box{
+    margin: 15px 15px 15px 14px;
+    width: 52px;
+    height: 73px;
+    overflow: hidden;
+  }
+  .s_head_image{
+    display: block;
+    width: 62px;
+    height: auto;
+    position: relative;
+  }
+  .s_doctor_info_box {
+    padding: 0;
+    margin-right: 14px;
+  }
+  .s_favorite_box {
+    position: absolute;
+    right: 14px;
+    top: 35px;
+    text-align: center;
+  }
+  .s_doctoc_care{
+    width:40px;
+  }
+  .pad1{
+    padding-top: 15px;
+  }
+.pad2{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+}
+
+
+

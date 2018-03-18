@@ -1,0 +1,87 @@
+<ion-view class="treatment_check_detail" cache-view="false">
+    <ion-header-bar align-title="center" class="bar bar-header item-input-inset quyiyuan_header">
+        <ion-nav-bar align-title="center" class="qy-header">
+            <ion-nav-title>
+                <span>{{reportName}}</span>
+            </ion-nav-title>
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="right">
+                <a class="button button-clear" ng-show="userSource!='3'" ng-click="openRightMenu('treatment_check_list')">
+                    <i class="icon ion-navicon" ></i>
+                </a>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+    </ion-header-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey2" ng-show="isExamination=='0'">
+        <div class="titlebox pad-b-14 pad-td-10 qy-bg-white lab_title_bianhao">
+            <span class="qy-grey5">{{datagenerateDate}}</span>
+            <span class="qy-grey5" >编号：{{reportNo}}</span>
+        </div>
+        <ul class="list" ng-show="isExamination=='0'&&checkDetailList.length>0">
+            <li  class="item pad-b-14 pad-td-5 fw-b border-td qy-bg-grey1">
+                <span kyee-i18n-directive code="checkXiangMu" default="项目"></span>
+                <span class="fl-r"  kyee-i18n-directive code="checkJieGuo" default="检验结果"></span>
+            </li>
+            <li class="qy-bg-white"ng-repeat="checkDetail in checkDetailList" ng-if="!noCheckDetail">
+                <!--检验单明细-->
+                <div class="border-d pad-td-5 pad-b-14  lab_pad10"
+                     ng-click="clickCheck(checkDetail)" >
+                    <span class="item_name lab_detail_line">{{checkDetail.TEST_ITEM_NAME}}</span>
+                    <span class="{{resultColor(checkDetail.TEST_RESULTS_EXCEPTION_ID)}} ta-r w_39 fl-r lab_detail_line">
+                        {{checkDetail.TEST_RESULT}}
+                         <span class="ion-ios-arrow-thin-up qy-red" ng-if="checkDetail.TEST_RESULTS_EXCEPTION_ID=='3'"></span>
+                         <span class="ion-ios-arrow-thin-down qy-red" ng-if="checkDetail.TEST_RESULTS_EXCEPTION_ID=='4'" ></span>
+                         <span style="margin-left: 5px" ng-class="{'ion-arrow-up-b qy-grey6':checkDetail.IS_SHOW_CANKAO,'ion-arrow-down-b qy-grey6':!checkDetail.IS_SHOW_CANKAO}">
+                         </span>
+                    </span>
+                </div>
+                <div class="border-d pad-td-5 pad-b-14 ta-r qy-grey5 qy-bg-grey1" ng-if="checkDetail.IS_SHOW_CANKAO">
+                    <sapn kyee-i18n-directive code="checkZhengChangZhi" default="正常参考值："></sapn>
+                    <sapn>{{checkDetail.TEST_REFERENCE_VALUE}}</sapn>
+                </div>
+            </li>
+        </ul>
+        <div  ng-style="{'padding-top':KyeeEnv.innerSize.height<481 ? '35%':'45%'}" class="empty-text qy-grey5"ng-if="noCheckDetail">
+            <i class="icon icon-icon_3 empty-icon"></i>
+            <p class="report_empty_font">未查询到此检验单的详细信息</p>
+        </div>
+    </ion-content>
+    <ion-content has-bouncing="false" padding="false" class="qy-bg-grey1" ng-show="isExamination=='1'&&checkDetailList.length>0">
+        <div class=" border-l border-r mar-t-10 mar-b-14 border-d qy-bg-white "has-bouncing="true" style="border-radius: 4px 4px 4px 4px;" ng-style="{'height':$root.KyeeEnv.innerSize.height-10-20-44+'px'}">
+            <div class="qy-bg-green "style="min-height: 6px;height: 6px;border-radius:4px 4px 0 0"></div>
+            <div class="mar-d-10 " >
+                <li class="item item-input item_padding_0 line_40 " style="position: relative;padding-top: 10px !important;">
+                    <span class="f14  text-ellipsis qy-grey7 f16"kyee-i18n-directive code="checkTestInfo" default="检查检验信息" ></span>
+                    <span class="span_postion qy-bg-green"></span>
+                </li>
+                <li class="item item-input item_padding_0 line_40 " >
+                    <span class="f14 fixed_width1 text-ellipsis qy-deepblue f14"kyee-i18n-directive code="checkDate" default="检查日期：" ></span>
+                    <span class="f14 text-ellipsis span_dis_block qy-grey7 f14"ng-style="{'width':$root.KyeeEnv.innerSize.width-(10+14+70+14)+'px'}">{{checkDetailList[0].EXAMINATION_DATE}}</span>
+                </li>
+                <li class="item item-input item_padding_0 line_40 ">
+                    <span class="f14 fixed_width1 text-ellipsis qy-deepblue f14" kyee-i18n-directive code="applyPeople" default="申请人："></span>
+                    <span class="f14 text-ellipsis span_dis_block qy-grey7 f14"ng-style="{'width':$root.KyeeEnv.innerSize.width-(10+14+70+14)+'px'}">{{checkDetailList[0].APPLICANT_NAME}}</span>
+                </li>
+                <li class="item item-input item_padding_0 line_40 ">
+                    <span class="f14 fixed_width1 text-ellipsis qy-deepblue f14" kyee-i18n-directive code="checkPeople" default="检查人："></span>
+                    <span class="f14 text-ellipsis span_dis_block qy-grey7 f14"ng-style="{'width':$root.KyeeEnv.innerSize.width-(10+14+70+14)+'px'}">{{checkDetailList[0].EXAMINATOR_NAME}}</span>
+                </li>
+                <li class="item item-input item_padding_0 line_40 border_none" style="padding-bottom: 10px !important;">
+                    <span class="f14 fixed_width1 text-ellipsis qy-deepblue f14" kyee-i18n-directive code="applyHospital" default="申请医院："></span>
+                    <span class="f14 text-ellipsis span_dis_block qy-grey7 f14"ng-style="{'width':$root.KyeeEnv.innerSize.width-(10+14+70+14)+'px'}">{{checkDetailList[0].EXAMINATION_ORGANIZATION_NAME}}</span>
+                </li>
+                <li class="item item-input item_padding_0 line_40 border-t-dash" style="position: relative;padding-top: 10px !important;">
+                    <span class="f14  text-ellipsis qy-grey7 f16" kyee-i18n-directive code="checkResult" default="检查结论"></span>
+                    <span class="span_postion qy-bg-green"></span>
+                </li>
+                <ion-scroll has-bouncing="true"ng-style="{'height':($root.KyeeEnv.innerSize.height - 10-20-44-16-261)+'px'}" scrollbar-y="false" zooming="false"  direction="y" class=" border_none pad-r-14" style="padding-left: 32px;line-height: 30px;">
+                    <span class="f14  qy-grey7 f14">{{checkDetailList[0].EXAMINATION_CONCLUSION}}</span>
+                </ion-scroll>
+            </div>
+        </div>
+        <div class="empty-text" ng-if="noCheckDetail">
+            <i class="icon-icon_3 empty-icon"></i>
+            <p>未查询到此检查单的详细信息</p>
+        </div>
+    </ion-content>
+</ion-view>

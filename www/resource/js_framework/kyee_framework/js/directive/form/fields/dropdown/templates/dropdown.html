@@ -1,0 +1,12 @@
+<div id="DROPMENU_ID" style="position: absolute;background-color: white;height: 200px;display: none;z-index: 9999;">
+    <ion-view style="border: 1px solid #B2B2B2;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;">
+        <ion-content has-bouncing="true" scrollbar-y="true" padding="false" ng-class="{'has-footer' : mode == 'checkbox'}">
+            <li ng-repeat="item in data" ng-click="selectItem(item)" class="item" ng-style="{'background-color':(checkboxValues[item.value] != undefined ? '#EEEEEE' : 'white')}" style="border-bottom: 1px solid #cccccc;padding: 15px;">
+                {{item.text}}
+            </li>
+        </ion-content>
+        <div ng-if="mode == 'checkbox'" class="bar bar-footer">
+            <button ng-click="selectCheckboxFinish()" class="button button-block button-outline" style="margin: 0px;border: none;border-top: 1px solid #cccccc;" kyee-i18n-directive code="all:commonText.ensureMsg" default="确定"></button>
+        </div>
+    </ion-view>
+</div>

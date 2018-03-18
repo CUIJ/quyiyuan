@@ -1,0 +1,43 @@
+<!--症状列表-->
+<ion-view cache-view="false" class="qy_body_symptom_list">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="症状列表"></span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear txt title_button"  ng-click="toPic()" kyee-i18n-directive code="trigePic" default="图形导诊">
+
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  has-bouncing="true" padding="false" class="f14">
+
+        <div class="row">
+            <div style="padding-top: 0px" class="col col-25 province_sec">
+                <ion-scroll delegate-handle="triage-body-symptom-list-depart" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 44)+'px'}">
+                    <ul>
+                        <li kyee-operation-monitor-directive="onPartItemClick" style="padding: 13px 0;" ng-click="onPartItemClick($index)" ng-repeat="partData in partDatas" ng-class="{'active border-t border-d' : partId == $index}"
+                            class="province_list">{{partData.bodyName}}</li>
+                    </ul>
+                </ion-scroll>
+            </div>
+
+            <div class="col">
+                <ion-scroll delegate-handle="triage-body-symptom-list-symptom" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 44)+'px'}">
+                    <ul>
+                        <li  kyee-operation-monitor-directive="onSymptomItemClick" ng-click="onSymptomItemClick(symptomData.symptomCode,symptomData.symptomName)" class="item city_list border-d"
+                            ng-repeat="symptomData in partDatas[partId].main" >
+                            {{symptomData.symptomName }}
+                            <div class="ion-chevron-right qy-grey5 fl-r f12"></div>
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
+<!--症状列表-->
+
+

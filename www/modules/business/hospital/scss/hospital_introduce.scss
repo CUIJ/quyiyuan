@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.hospital_introduce{
+  .img-css{
+    vertical-align: top;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .hos_name_css{
+    margin-top: 15px;
+    h4{
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+  }
+  .hos_score{
+    padding-bottom: 4px;
+  }
+  .hos_score_tip{
+    margin-top: 15px;
+  }
+  .hos_score_icon{
+    width:120px;
+    margin-bottom: 7px;
+  }
+}

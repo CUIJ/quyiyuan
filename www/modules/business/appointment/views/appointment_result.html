@@ -1,0 +1,237 @@
+<ion-view cache-view="false" class="qy_appointment_result qy-bg-grey1">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button ng-click="forwardBack()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-show="appointmentResult.IS_REFERRAL!=2">{{appointmentResult.statusType}}</span>
+            <span ng-show="appointmentResult.IS_REFERRAL==2">转诊结果</span>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-nav-buttons side="right">
+        <a class="button button-clear txt qy-fff" ng-click="todetail()"
+           kyee-i18n-directive  code="lookInfo4" default="查看详情"></a>
+    </ion-nav-buttons>
+
+    <ion-content has-bouncing="true" padding="false" class="has-footer">
+        <div ng-if="SHOW_RESULT_DATE">
+            <div class="qy-bg-white pad-b-14 " style="height:80px">
+                <div ng-if="appointmentResult.flag==0 || appointmentResult.flag==3" class="qy-green ta-c border_d" style="padding-top: 25px;padding-bottom: 22px;">
+                    <i class="f28 icon-processing pad-r-10 " style="position: relative; top: 2px"></i>
+                    <span class="fw-500 f16 status_type_position">{{appointmentResult.statusType}}</span>
+                </div>
+                <div ng-if="appointmentResult.flag==2" class=" ta-c border_d" style="color:#f55440;padding-top:25px;padding-bottom: 22px;">
+                    <i class="f28 icon icon-icon_6 mar-r-10"></i>
+                    <span class="fw-500 f16 status_type_position">{{appointmentResult.statusType}}</span>
+                </div>
+                <div ng-if="appointmentResult.flag==1" class="qy-green ta-c border_d" style="padding-top: 25px;padding-bottom: 22px;">
+                    <i class="f28 icon ion-ios-checkmark mar-r-10"></i>
+                    <span class="fw-500 f16 status_type_position">{{appointmentResult.statusType}}{{appointmentResult.statusTypePlus}}</span>
+                </div>
+            </div>
+            <!--  失败原因-->
+            <div ng-if="STATUS_FAIL"  class="qy-bg-white">
+              <div  class="pad-t-14 f14 pad-b-14">
+                <p class="col f14 detail_msg fn-break"  style="margin-bottom: 0;word-break: break-all;">
+                    <span ng-if="IS_SHOW_HANDLE_MESSAGE==1" id="WARN_MSG">{{WARN_MSG}}</span>
+                </p>
+              </div>
+            </div>
+            <!-- 温馨提示-->
+            <div ng-if="appointmentResult.flag==0 || appointmentResult.flag==2" class="pad_td_10 f14 pad-b-14 border-d qy-bg-white">
+                <span class="text_desc" id="appointResultMsgPrompt" ng-bind-html="appointmentResult.msgShow|kyee_to_html"></span>
+            </div>
+            <div class="pad-d-10 pad-b-14 border-td pad-t-10 qy-bg-white mar-t-10"  ng-if="SHOW_REFERAL_HOSPITAL&&appointmentResult.flag!=1" >
+                <div class="" style="position: relative;line-height: 30px;">
+                    <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+                        <div class=" col-33" style="white-space: nowrap;">转诊医院：</div>
+                        <div class="text-ellipsis col-66">{{appointmentResult.REFERRAL_HOSPITAL_NAME}}</div>
+                    </div>
+                    <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+
+                        <div class="col-33"></div>
+                        <div class="text-ellipsis col-66">{{appointmentResult.HOSPITAL_NAME}}</div>
+                    </div>
+                    <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+                        <div class="col-33" style="white-space: nowrap;">转诊科室：</div>
+                        <div class="text-ellipsis col-66">{{appointmentResult.DEPT_NAME}}</div>
+                    </div>
+                    <div class="icon icon-referrals qy-green" style="position: absolute;right: 0px;top:22px;font-size: 18px"></div>
+                </div>
+            </div>
+            <!-- 预约成功-->
+
+            <div  ng-if="appointmentResult.flag==1">
+               <div class="border-d pad_d_14 qy-bg-white pad-b-14">
+                 <div class="list_item_row f14 qy-grey6 pad-d-10 pad-t-14 ta-c ">
+                        <span kyee-i18n-directive  code="visitTime" class="qy-deepblue" default="就诊时间：" ng-if="appointmentResult.IS_REFERRAL!=2"></span>
+                     <span kyee-i18n-directive  code="visitTimeReferral" class="qy-deepblue" default="转诊时间："ng-if="appointmentResult.IS_REFERRAL==2"></span>
+                     <span>{{appointmentResult.clinicTime}}</span>
+                 </div>
+                 <div ng-show="!typeMsgNotHidden" class="row list_item_row f14 qy-grey6">
+                       <span class="col" style="word-break: break-all" ng-bind-html="appointmentResultDetilMSG|kyee_to_html" id="appointmentResultDetilMSG"></span>
+                 </div>
+               </div>
+                <div class="pad-d-10 pad-b-14 border-td pad-t-10 qy-bg-white mar-t-10"  ng-if="SHOW_REFERAL_HOSPITAL" >
+                     <div class="" style="position: relative;line-height: 30px;">
+                         <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+                             <div class=" col-33" style="white-space: nowrap;">转诊医院：</div>
+                             <div class="text-ellipsis col-66">{{appointmentResult.REFERRAL_HOSPITAL_NAME}}</div>
+                         </div>
+                         <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+
+                             <div class="col-33"></div>
+                             <div class="text-ellipsis col-66">{{appointmentResult.HOSPITAL_NAME}}</div>
+                         </div>
+                         <div class="row f14 pad-r-10  "style="max-width:{{(KyeeEnv.innerSize.width-28-40)+'px'}};margin-left: 0px">
+                             <div class="col-33" style="white-space: nowrap;">转诊科室：</div>
+                             <div class="text-ellipsis col-66">{{appointmentResult.DEPT_NAME}}</div>
+                         </div>
+                         <div class="icon icon-referrals qy-green" style="position: absolute;right: 0px;top:22px;font-size: 18px"></div>
+                     </div>
+                </div>
+                <div class="mar-t-10 qy-bg-white border-td">
+                     <div class="item item-input item-icon-right item_padding_0 border_top_none">
+                         <span class="f14 patient qy-deepblue">{{appointmentResult.hospitalName}}</span>
+                         <div class="card_sel_new" ng-click="goToHospitalLocat()">
+                             <a   kyee-i18n-directive  code="goHospital" default="去医院"> </a>
+                             <i class="ico ion-chevron-right qy-grey5"></i>
+                         </div>
+                     </div>
+                    <div class="item item-input item-icon-right item_padding_0 border_top_none border_bottom_none">
+                         <span class="f14 patient qy-deepblue">{{appointmentResult.deptName}}</span>
+                         <div ng-if="showNavigation" class="card_sel_new" ng-click="goToDeptLocat()">
+                             <a  kyee-i18n-directive  code="goHospital" default="院内指南"> </a>
+                             <i class="ico ion-chevron-right qy-grey5"></i>
+                          </div>
+                    </div>
+                </div>
+                 <!-- 停诊险-->
+                 <div ng-if="appointmentResultAD.IS_SHOW_RISK_NEW">
+                     <div  ng-if="appointmentResultAD.RISK_PAY_TYPE=='1'" class="mar-t-10 border-td" >
+                         <img kyee-operation-monitor-directive=photoToInsurance{{appointmentResultAD.RISK_OPERATION}} immediate="true"  ng-src="{{appointmentResultAD.RISK_PHOTO}}" class="banner" ng-click="goToBuyRisk()">
+                         <div class="qy-bg-white border-t" kyee-operation-monitor-directive=textToInsurance{{appointmentResultAD.RISK_OPERATION}} immediate="true" ng-click="goToBuyRisk()">
+                             <div class="item item-input item-icon-right item_padding_0 border_top_none border_bottom_none">
+                                 <span class="f14 patient qy-deepblue">{{appointmentResultAD.RISK_NAME}}</span>
+                                 <span class="qy-red" style="position: absolute;right: 84px;top: 15px;">{{appointmentResultAD.RISK_PREM}}{{appointmentResultAD.RISK_PREM_TEXT}}</span>
+                                 <div class="card_sel">
+                                     <span class="qy-red">{{appointmentResultAD.RISK_OTHERS}}</span>
+                                     <i class="ico ion-chevron-right qy-grey5"></i>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div ng-if="appointmentResultAD.RISK_PAY_TYPE=='2'" class="mar-t-10 border-td" >
+                         <img kyee-operation-monitor-directive=photoToInsurance{{appointmentResultAD.RISK_OPERATION}} immediate="true" ng-src="{{appointmentResultAD.RISK_PHOTO}}"
+                              class="banner" ng-click="goToBuyRisk()" id=text>
+                         <div class="qy-bg-white border-t">
+                             <div class="item item-input item-icon-right item_padding_0 border_top_none border_bottom_none">
+                                 <i ng-if="!appointmentResultAD.SHOW_NEW_DIAGNOSIS" ng-click="noSelectRiskFree()" ng-class="{'ion-ios-checkmark-outline qy-green pad-r-5 f16':checkBoxUp == '1',
+                                 'ion-ios-circle-outline pad-r-5 f16':checkBoxUp == '2'}"></i>
+                                 <span class="f14 patient qy-deepblue">{{appointmentResultAD.RISK_NAME}}</span>
+                                 <div class="card_sel"  ng-click="goToBuyRisk()"  kyee-operation-monitor-directive=textToInsurance{{appointmentResultAD.RISK_OPERATION}} immediate="true">
+                                     <span class="qy-red">{{appointmentResultAD.RISK_OTHERS}}</span>
+                                     <i class="ico ion-chevron-right qy-grey5"></i>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div ng-if="appointmentResultAD.SHOW_NEW_DIAGNOSIS">
+                     <div class="mar-t-10 border-td" ng-click="withTheDiagnosis()">
+                         <img ng-src="{{appointmentResultAD.NEW_DIAGNOSIS_PHOTO}}" class="banner" style="max-width:{{(KyeeEnv.innerSize.width)+'px'}};display: block;">
+                         <div class="qy-bg-white border-t">
+                             <div class="item item-input item-icon-right item_padding_0 border_top_none border_bottom_none">
+                                 <span class="f14 patient qy-deepblue">{{appointmentResultAD.NEW_DIAGNOSIS_TITLE}}</span>
+                                 <span class="qy-red" style=" position: absolute;right: 84px;top: 15px;">{{appointmentResultAD.NEW_DIAGNOSIS_TEXT}}</span>
+                                 <div class="card_sel">
+                                     <span class="qy-red">{{appointmentResultAD.NEW_DIAGNOSIS_OTHERS}}</span>
+                                     <i class="ico ion-chevron-right qy-grey5"></i>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <div ng-if="appointmentResult.flag==3" class="f14 pad-b-14 qy-bg-white border-d pad-td-10">
+                <div class="text_desc pad-d-10" ng-bind-html="appointmentResult.msgShow|kyee_to_html"></div>
+                <div class="pad-td-10 qy-orange ta-c f16">
+                    <i class="f20 icon icon-records qy-orange" style="position: relative; top: 3px"></i>
+                    <span  kyee-i18n-directive  code="payTime" default="支付剩余时间："></span>
+                    <span ng-bind-html="appointmentResult.payTime|kyee_to_html"></span>
+                </div>
+            </div>
+
+            <div ng-if="isShowCoupons" class="f14 pad-b-14 pad-t-10 qy-orange uyg-flex">
+                <i class="icon  qy-orange i-coupons icon-icon_1" style="font-size: 20px"></i>
+                <span kyee-i18n-directive  code="couponsInfo" default="恭喜您已获得50元购药基金，您可在我的->优惠券中"></span><a kyee-i18n-directive code="lookInfo4" default="查看详情" ng-click="toCouponsRecord()" class="qy-orange a-underline"></a>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="footer_border qy-bg-grey2" ng-if="SHOW_RESULT_DATE">
+        <!--按钮-->
+        <div class="bar appointment_detail_footer qy-bg-grey1">
+            <div ng-if="appointmentResult.isShowRefresh==1" class="col pad-l-14 qy-bg-grey1">
+                <button kyee-action-holder-directive="refresh" ng-click="KAH($event) || refreshView()"
+                        class="button_position button button-block mar-t-10 mar-d-10" style="background-color: #5baa8a !important;color: white;" >
+                    <span kyee-i18n-directive  code="refash" default="刷 新"></span>
+                </button>
+            </div>
+            <!--转诊成功不显示重新预约-->
+            <div ng-if="appointmentResult.isShowReAppoint && !consulotion" class="pad-l-14 col qy-bg-grey1">
+                <button kyee-action-holder-directive="reappoint" ng-click="KAH($event) || reappoint()"
+                        class="button_position returnbutton button-block button-size-l mar-t-10 mar-d-10" >
+                    <span  kyee-i18n-directive  code="aginAppoint" default="重新预约"></span>
+                </button>
+            </div>
+            <div ng-if="appointmentResult.returnToPayShow==1" class="col pad-l-14 qy-bg-grey1">
+                <button kyee-action-holder-directive="returnToPay" ng-click="KAH($event) || returnPay()"
+                        class="button_position returnbutton button-block button-size-l mar-t-10 mar-d-10" >
+                    <span  kyee-i18n-directive  code="pay" default="支付"></span>
+                </button>
+            </div>
+            <div ng-if="appointmentResult.returnToPayShow==2" class=" pad-l-14 col qy-bg-grey1">
+                <button class="button_position nopaybutton button-block button-size-l button-color-grey"  kyee-i18n-directive  code="pay2" default="支付">
+                </button>
+            </div>
+            <div ng-if="checkBoxUp == 1 && appointmentResult.returnVisitTreeShow==1 && appointmentResult.isShowReAppoint==false && appointmentResult.returnToPayShow!=1" class="col pad-b-14  qy-bg-grey1">
+                <button kyee-operation-monitor-directive="riskFreeButton" immediate="true" kyee-action-holder-directive="confimRisk" ng-click="goToBuyRisk()"
+                        class="button_position returnbutton button-block"
+                        ng-class="{'pad_l_8 button_size_l':appointmentResult.returnToPayShow==2||appointmentResult.isShowRefresh==1,'pad-l-14 button-size-l':appointmentResult.returnToPayShow==0||appointmentResult.isShowRefresh!=1}">
+                    <span kyee-i18n-directive  code="confimRisk" default="确认"></span>
+                </button>
+            </div>
+            <div ng-if="checkBoxUp == 1 && appointmentResult.returnVisitTreeShow==1 && (appointmentResult.isShowReAppoint || appointmentResult.returnToPayShow==1)"
+                 class="col pad_l_8 pad-r-14 qy-bg-grey1">
+                <button kyee-operation-monitor-directive="riskFreeButton" immediate="true" kyee-action-holder-directive="confimRisk" ng-click="goToBuyRisk()"
+                        class="button_position button button-block button_size_l">
+                    <span kyee-i18n-directive  code="confimRisk" default="确认"></span>
+                </button>
+            </div>
+            <div ng-if="checkBoxUp == 2 && appointmentResult.returnVisitTreeShow==1 && appointmentResult.isShowReAppoint==false && appointmentResult.returnToPayShow!=1"
+                 class="col pad-r-14 qy-bg-grey1"
+                 ng-class="{'pad_l_8':appointmentResult.returnToPayShow==2||appointmentResult.isShowRefresh==1,'pad-l-14 ':appointmentResult.returnToPayShow==0||appointmentResult.isShowRefresh!=1}">
+                <button kyee-action-holder-directive="returnToVisitTree" ng-click="KAH($event) || returnAppointRegistMor()"
+                        class="button_position returnbutton button-block button_size_l" >
+                    <span kyee-i18n-directive  code="complite" default="完成"></span>
+                </button>
+            </div>
+            <div ng-if="checkBoxUp == 2 && appointmentResult.returnVisitTreeShow==1 && (appointmentResult.isShowReAppoint || appointmentResult.returnToPayShow==1)"
+                 class="col pad_l_8 pad-r-14 qy-bg-grey1">
+                <button kyee-action-holder-directive="returnToVisitTree" ng-click="KAH($event) || returnAppointRegistMor()"
+                        class="button_position button button-block button_size_l" >
+                    <span kyee-i18n-directive  code="complite" default="完成"></span>
+                </button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <div kyee-overlay-directive
+         location="center"
+         width="{{overlayData.width-40}}"
+         height="{{overlayData.height}}"
+         top="{{deviceTop}}"
+         data="overlayData"
+         content-background-color="transparent"
+         template="modules/business/appointment/views/pictule_img.html"
+         bind="bind(params)">
+    </div>
+</ion-view>

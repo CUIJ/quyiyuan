@@ -1,0 +1,87 @@
+<ion-view class="clinic_hospital_detail">
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-back-button ng-click="backHealth()"></ion-nav-back-button>
+        <ion-nav-title>
+            <span ng-if="isInHospital == '0'" kyee-i18n-directive code="isClinicDetailTitle" default="门诊详情"></span>
+            <span ng-if="isInHospital == '1'" kyee-i18n-directive code="isHospitalDetailTitle" default="住院详情"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-show="userSource!='3'" ng-click="openRightMenu('clinic_hospital_detail')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" scrollbar-y="false" class="qy-bg-grey2"
+                 delegate-handle="confirm_appoint_content">
+        <div ng-if="showDetailDate">
+            <ul class="list qy-bg-white border-td mar_b_10">
+                <li class="item item-input item_padding_0 item-icon-right border_bottom_none pad_t_20 height_0">
+                    <span class="f14 fixed_width1" kyee-i18n-directive code="primaryDiagnosis" default="疾病名称"></span>
+                    <span class="f14 text-ellipsis span_dis_block mar_l_16"
+                          ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}">{{treatmentInfo.DISEASE_NAME}}</span>
+                </li>
+                <li class="item item-input item_padding_0 item-icon-right border_bottom_none height_0">
+                    <span class="f14 fixed_width1 " kyee-i18n-directive code="holiday" default="医院名称"></span>
+                    <span class="f14 text-ellipsis span_dis_block mar_l_16"
+                          ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}">{{treatmentInfo.ORGANIZATION_NAME}}</span>
+                </li>
+                <li class="item item-input item_padding_0 item-icon-right border_bottom_none height_0">
+                    <span class="f14 fixed_width1 " kyee-i18n-directive code="dept" default="科室名称"></span>
+                    <span class="f14 text-ellipsis span_dis_block mar_l_16"
+                          ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}">{{treatmentInfo.DEPARTMENT_NAME}}</span>
+                </li>
+                <li class="item item-input item_padding_0 item-icon-right border_bottom_none height_0">
+                    <span class="f14 fixed_width1 " kyee-i18n-directive code="doctor" default="就诊医生"></span>
+                    <span class="f14 text-ellipsis span_dis_block mar_l_16"
+                          ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}">{{treatmentInfo.DOCTOR_NAME}}</span>
+                </li>
+                <li class="item item-input item_padding_0 item-icon-right border_bottom_none pad_d_20 height_0">
+                    <span class="f14 fixed_width1 " kyee-i18n-directive code="regDate" default="就诊日期"></span>
+                    <span class="f14 text-ellipsis span_dis_block mar_l_16"
+                          ng-style="{'width':KyeeEnv.innerSize.width-98+'px'}">{{treatmentInfo.DIAGNOSIS_DATE}}</span>
+                </li>
+            </ul>
+            <div class="qy-bg-white pad-l-14 mar-d-10 pad_b_16 border-td">
+                <span class="f14 qy-grey7" kyee-i18n-directive code="informationIntegrity" default="信息完整度"></span>
+                <div class="display-block">
+                <span class="f12 mar_t_12 mar-r-5" style="text-align: center;width: 74px;"
+                      ng-class="{'information':showDetailsCheckList == true,'information_empty':showDetailsCheckList == false}"
+                      kyee-i18n-directive code="checkList" default="检查检验单"></span>
+                <span class="f12 mar_t_12 mar-r-5" style="text-align: center;width: 74px;"
+                      ng-class="{'information':showRecipeNum == true,'information_empty':showRecipeNum == false}"
+                      kyee-i18n-directive code="medicationAndPrescription" default="用药及处方"></span>
+                <span ng-if="isInHospital == '1' && showDetailsAdvicesList == true"
+                      class="f12 mar_t_12 mar-r-5 information"
+                      style="text-align: center;width: 62px;"
+                      kyee-i18n-directive code="medicalInformation" default="医嘱信息"></span>
+                <span ng-if="isInHospital == '1'&& showDetailsAdvicesList == false"
+                      class="f12 mar_t_12 mar-r-5 information_empty"
+                      style="text-align: center;width: 62px;"
+                      kyee-i18n-directive code="medicalInformation" default="医嘱信息"></span>
+                </div>
+            </div>
+            <ul class="list qy-bg-white border-td">
+                <li class="item item-input item_padding_0 item-icon-right">
+                    <span ng-click="goCheckListDetail()" class="f14 fixed_width2" ng-style="{'width':$root.KyeeEnv.innerSize.width-40+'px'}"
+                          kyee-i18n-directive code="checkList" default="检查检验单"></span>
+                    <i ng-if="showDetailsCheckList" ng-click="goCheckListDetail()"
+                       class="ion-chevron-right right_arrow qy-grey5"></i>
+                </li>
+                <li class="item item-input item_padding_0 item-icon-right"
+                    ng-class="{'border_bottom_none':isInHospital == '0'}">
+                    <span ng-click="goMediPrescripDetail()" class="f14 fixed_width2"  ng-style="{'width':$root.KyeeEnv.innerSize.width-40+'px'}"
+                          kyee-i18n-directive code="medicationAndPrescription" default="用药及处方"></span>
+                    <i ng-if="showRecipeNum" ng-click="goMediPrescripDetail()"
+                       class="ion-chevron-right right_arrow qy-grey5"></i>
+                </li>
+                <li ng-if="isInHospital == '1'"
+                    class="item item-input item_padding_0 item-icon-right border_bottom_none">
+                    <span ng-click="goMedicalInformation()" class="f14 fixed_width2 "  ng-style="{'width':$root.KyeeEnv.innerSize.width-40+'px'}"
+                          kyee-i18n-directive code="medicalInformation" default="医嘱信息"></span>
+                    <i ng-if="showDetailsAdvicesList" ng-click="goMedicalInformation()"
+                       class="ion-chevron-right right_arrow qy-grey5"></i>
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>

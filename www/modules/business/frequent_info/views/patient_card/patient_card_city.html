@@ -1,0 +1,39 @@
+<ion-view class="patient_card_city" title="选择地区">
+
+	<ion-nav-bar class="qy-header" align-title="center" >
+		<ion-nav-back-button></ion-nav-back-button>
+
+	</ion-nav-bar>
+
+	<ion-content has-bouncing="true" padding="false" scroll="false" class="f14">
+
+		<div class="row row-no-padding">
+			<!--省份列表-->
+			<div class="col col-25 province_sec">
+				<ion-scroll delegate-handle="multipleProvinceList"  has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 44)+'px'}">
+					<ul>
+						<li style="    line-height: 25px;"
+							ng-class="{'active': focusPos == $index,'province_list_two': focusPos == $index,'province_list': focusPos != $index}" ng-repeat="province in provinces"
+							ng-click="provinceSelected($index,'{{province.PROVINCE_ID}}','{{province.PROVINCE_CODE}}')"
+							kyee-operation-monitor-directive="provinceSelected">
+							{{province.PROVINCE_NAME}}
+						</li>
+					</ul>
+				</ion-scroll>
+			</div>
+
+			<!--城市列表-->
+			<div class="col">
+				<ion-scroll delegate-handle="cityListScrollContainer" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 44)+'px'}">
+					<ul>
+						<li class="city_list" ng-repeat="city in citys"
+							kyee-operation-monitor-directive="citySelected"
+							ng-click="citySelected(city)">{{city.CITY_NAME}}</li>
+					</ul>
+				</ion-scroll>
+			</div>
+		</div>
+
+	</ion-content>
+
+</ion-view>

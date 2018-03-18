@@ -1,0 +1,62 @@
+<ion-view class="disease_info">
+
+    <ion-content has-bouncing="true" padding="false" class="has-header  qy-bg-grey1">
+        <!--疾病显示区-->
+        <div class="qy-bg-white disease_info_content mar-d-10 pad-b-14  pad-td-10" >
+            <div class="pad-t-5 row pad-d-10" >
+                <img class="result-img mar-r-10" src="resource/images/home/s_disease_blue.png" style="  width: 20px;height: 20px;"/>
+                <span class="f16 pad-r-14">{{diseaseName}}</span>
+                <span>{{departName}}</span>
+            </div>
+            <div  class="disease_content">
+                {{diseaseInfo}}
+            </div>
+            <div style="text-align: right" class="pad-t-10">
+                <a class="qy-blue" ng-click="goToDiseaseInfo()">
+                    <span kyee-i18n-directive code="checkDetails" default="查看详情 >"></span></a>
+            </div>
+        </div>
+
+        <!--医院实际科室显示区-->
+        <ul class="qy-bg-white dept_content mar-d-10 pad-b-14 "  style="padding-top:2px;" ng-if="result.deptData.length">
+           <li ng-repeat="deptData in result.deptData"  ng-if="$index<6" class="row mar-r-10" ng-click="goToAppointMent(deptData)" style="padding-top: 0px;">
+               <div class="pad-r-10" style="padding-top: 9px;">
+                   <img class="fl-l" width="38px" height="38px" ng-src="{{deptData.HOSPITAL_PICTURE?deptData.HOSPITAL_PICTURE:'resource/images/icons/logo_default.png'}}" onerror="javascript:this.src='resource/images/icons/logo_default.png'"/>
+               </div>
+               <div class="col border-d pad-td-10">
+                   <span class="row f14 pad-d-5">{{deptData.DEPT_NAME}}</span>
+                   <span class="row">{{deptData.HOSPITAL_NAME}}</span>
+                   <span class="row qy-grey5">{{deptData.HOSPITAL_ADDRESS}}</span>
+               </div>
+           </li>
+            <div style="text-align: right" class="pad-td-10" ng-click="goToDeptList()" ng-if="result.deptData.length>6" >
+                <a class="qy-blue">
+                    <span kyee-i18n-directive code="moreRecommendHospitalDept" default="更多推荐医院科室 >"></span>
+                </a>
+            </div>
+        </ul>
+
+        <!--医生显示区-->
+        <ul class="qy-bg-white dept_content mar-d-10 pad-b-14" ng-if="result.doctorData.length">
+            <li ng-repeat="doctorData in result.doctorData" class="row mar-r-10">
+                <img class="header_image" ng-src="{{doctorData.DOCTOR_PHOTO?doctorData.DOCTOR_PHOTO:'resource/images/base/doc_head_default_m.png'}} "onerror="javascript:this.src='resource/images/base/doc_head_default_m.png'"/>
+                <div class="col border-d">
+                    <div class="row">
+                        <span class="col-33">{{doctorData.DOCTOR_NAME}}</span>
+                        <span class="col">{{doctorData.DOCTOR_TITLE}}</span>
+                    </div>
+                    <div class="row">
+                        <span class="col-50">{{doctorData.HOSPITAL_NAME}}</span>
+                        <span class="col">{{doctorData.DEPT_NAME}}</span>
+                    </div>
+                    <div >{{doctorData.DOCTOR_DIC}}</div>
+                </div>
+            </li>
+        </ul>
+
+        <div ng-if="result.deptData.length==0&&departLoaded" class="empty-text qy-bg-white">
+            <span kyee-i18n-directive code="noRecommendDeptDia" default="抱歉，趣医掌上医院暂无推荐科室或医生诊疗疾病"></span>
+        </div>
+
+    </ion-content>
+</ion-view>

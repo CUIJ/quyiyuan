@@ -1,0 +1,28 @@
+<ion-view class="medical_information" >
+    <ion-nav-bar class="qy-header" align-title="center">
+        <ion-nav-title>
+            <span class="" kyee-i18n-directive  code="isClinicDetailTitle" default="医嘱信息"></span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right" >
+            <a class="button button-clear" ng-show="userSource!='3'"  ng-click="openRightMenu('medical_information')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  has-bouncing="true" scrollbar-y="false" class="qy-bg-grey2"
+                 delegate-handle="confirm_appoint_content">
+        <div class="mar-b-14 mar-t-10 mar-d-10 qy-bg-white">
+            <div class="qy-bg-grey2">
+                <div style="height: 6px;border-radius: 8px 8px 0 0;" class="qy-bg-green"></div>
+            </div>
+            <div class="f18 pad-t-20 pad-d-20 mar-b-14 border_d_dashed" style="text-align: center;"
+                 kyee-i18n-directive  code="isClinicDetailTitle" default="医嘱信息"></div>
+            <div class="pad-t-14 pad_d_14">
+                <div ng-repeat="detailAdvices in detailAdvicesList" class="f14 mar-b-14 qy-grey7"
+                     ng-class="{'pad_d_8':$index != detailAdvicesList.length-1}">
+                    {{detailAdvices.DOCTOR_ADVICE_CONTENT}}</div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

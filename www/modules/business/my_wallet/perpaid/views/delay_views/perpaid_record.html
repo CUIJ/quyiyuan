@@ -1,0 +1,54 @@
+<ion-list show-delete="false" show-reorder="false" can-swipe="true" delegate-handle="perpaid_record_list">
+    <div ng-repeat="item in perpaidRecords">
+        <!--日期头部-->
+        <div class="pad-b-14 f14 border-d month_line">
+            <div ng-if="!$first" class="top_line"></div>
+            <div class="month" ng-class="isCurrentMonth(item)?'qy-bg-green':'bg_grey'">{{item.MONTH_OF_NUMBER}}<span kyee-i18n-directive code="month" default="月"></span></div>
+            <div class="line"></div>
+            <span class="qy-grey4 year">{{item.YEAR_OF_DATE}}</span>
+        </div>
+
+        <ul on-drag-end="dragListen($index)" >
+            <ion-item ng-repeat="detailItem in item.PAYMENT_INFO" class="pad-l-14 qy-bg-white main_box" ng-class="$last?'border-d':''">
+                <div class="row time_box pad-td-14" ng-class="$last?'':'border-d'" ng-click="goDetail(detailItem)">
+                    <div ng-class="detailItem.EXTRACT_CODE?'mar-t-10':''">
+                        <p class="f14">{{detailItem.PAY_TIME.substr(5,5)}}</p>
+                        <p class="qy-grey5" style="padding-left: 3px;font-size: 12px;" >{{detailItem.PAY_TIME.substr(11,5)}}</p>
+                    </div>
+                    <ul  ng-class="detailItem.EXTRACT_CODE?'box_l col box_r pad-r-14 content_box mar-l-16':'box_2 col box_r pad-r-14 content_box mar-l-16'" >
+                        <li class="content_list f14"  class="detailItem.EXTRACT_CODE?'m-3':''">
+                            <span class="content_right qy-green f14"   ng-class="detailItem.EXTRACT_CODE?'mar-t-10':'mar-3'">
+                               <span ng-class="{'qy_red':detailItem.HIS_STATUS==3||detailItem.HIS_STATUS==2}">{{convertStatus(detailItem.HIS_STATUS)}}</span>
+                            </span>
+                            <span class="content_left">
+                                <span class="text-ellipsis l_span qy-grey7" style="padding-right: 60px;">{{detailItem.HOSPITAL_NAME}}</span>
+                            </span>
+                        </li>
+                        <li class="content_list f12"  ng-class="detailItem.EXTRACT_CODE?'':''">
+                            <span  ng-class="detailItem.EXTRACT_CODE?'mar-t-10 content_right f16':'content_right f16'"><span ng-if="detailItem.DEPO_AMOUNT">¥ </span>{{convertMoney(detailItem.DEPO_AMOUNT)}}</span>
+                            <span class="content_left">
+                                <span   ng-class="detailItem.EXTRACT_CODE?'text-ellipsis l_span qy-grey5':'text-ellipsis l_span qy-grey5 '" style="padding-right: 85px;" >
+                                    <span kyee-i18n-directive code="patientName" default="就诊者："></span>
+                                    {{detailItem.PATIENT_NAME}}
+                                </span>
+                            </span>
+                            <span class="qy-grey5"  ng-if="detailItem.EXTRACT_CODE">
+                                <span  kyee-i18n-directive code="extractedCode" default="提取码：" ></span>
+                                 {{detailItem.EXTRACT_CODE}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <ion-option-button ng-if="detailItem.DELETE_FLAG == 0" class="color_white qy-bg-grey3" kyee-i18n-directive code="del" default="删除"></ion-option-button>
+                <ion-option-button ng-if="detailItem.DELETE_FLAG == 1" class="color_white qy-bg-red" ng-click="delete($index,detailItem)" kyee-i18n-directive code="del" default="删除"></ion-option-button>
+            </ion-item>
+        </ul>
+    </div>
+    <!--提示语-->
+    <div class="mar-t-15 pad-b-14 qy-orange f12" ng-if="isViewCode">
+        <span >{{perpaidRecords[0].PAYMENT_INFO[0].EXTRACT_TIP}}</span>
+    </div>
+</ion-list>
+
+<ion-infinite-scroll ng-if="noLoad" on-infinite="loadPerpaidMore()" icon="ion-loading-c" immediate-check="false">
+</ion-infinite-scroll>

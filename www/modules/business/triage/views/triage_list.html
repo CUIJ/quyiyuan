@@ -1,0 +1,30 @@
+<!--列表导诊-->
+<ion-view class="qy_body_symptom_list">
+    <ion-content  has-bouncing="true" padding="false" class="has-subheader f14">
+
+        <div class="row">
+            <div class="col col-25 province_sec">
+                <ion-scroll delegate-handle="triage-body-symptom-list-depart" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 88)+'px'}">
+                    <ul>
+                        <li kyee-operation-monitor-directive="onPartItemClick" ng-click="onPartItemClick($index)" ng-repeat="partData in partDatas" ng-class="{'active' : partId == $index}"
+                            class="province_list">{{partData.partName}}</li>
+                    </ul>
+                </ion-scroll>
+            </div>
+
+            <div class="col">
+                <ion-scroll delegate-handle="triage-body-symptom-list-symptom" has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 88)+'px'}">
+                    <ul>
+                        <li kyee-operation-monitor-directive="onSymptomItemClick" ng-click="onSymptomItemClick(symptomData.mainId,symptomData.mainName)"
+                             ng-repeat="symptomData in partDatas[partId].main" class="item city_list" >
+                            {{symptomData.mainName }}
+                            <div class="ion-chevron-right" style="float: right"></div>
+                        </li>
+                    </ul>
+                </ion-scroll>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
+<!--列表导诊-->

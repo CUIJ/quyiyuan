@@ -1,0 +1,87 @@
+<ion-view class="diagnostic-result-main">
+
+    <ion-nav-bar class="qy-header" align-title="cesnter">
+        <ion-nav-title>
+            <span kyee-i18n-directive code="title" default="可能疾病"></span>
+        </ion-nav-title>
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('DiagnosticResult')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="qy-bg-grey1">
+        <!--<div style="line-height: 29px;background-color: #fff1ed;" class="qy-bg-white border-d pad-b-14 pad-td-10 mar-d-10">
+            <i style="color: #ff777a;" class="icon icon-icon_1 f16 tip_position"></i>
+            <span style="color: #ff777a;padding-left: 8px;" kyee-i18n-directive code="notice" default="若症状程度较重,反复持续不缓解,请及时就医"></span>
+        </div>
+        <ion-scroll  has-bouncing="true" scrollbar-y="false" zooming="false" direction="y" ng-style="{'height':(KyeeEnv.innerSize.height - 80)+'px'}">
+            <ul class="border-t" style="background-color: white;">
+                <li style="padding-left: 0px; padding-right: 14px; line-height: 25px; padding-top: 13px; margin-left: 14px;" kyee-operation-monitor-directive="choose" ng-click="choose(result)" ng-repeat="result in DiagnosticResult" class="item border-d">
+                    <i class="icon icon-icon_3 qy-blue icon_position"></i>
+                    <span style="padding-left: 8px;" class="qy-blue diagnostic_name">{{result.diseaseName}}</span>
+                    <div class="ion-chevron-right  qy-grey5 fl-r f12"></div>
+                </li>
+            </ul>
+        </ion-scroll>-->
+        <div ng-if="!isEmpty" style="background-image: url('resource/images/triage/bg.png');background-size: 100% 175px;background-repeat: no-repeat;padding-top: 26px;margin-bottom: 60px;height: 174px;">
+            <div ng-click="choose(firstDiagnosticResult)"  class="border-all qy-bg-white" style="margin-left: 32px;margin-right: 32px;border-radius: 10px; " >
+                <div style="margin-top: 25px;margin-bottom: 16px" >
+                    <div class=" circle1 mar-l-14 " >
+                        <span class="pingfen" style="">{{firstDiagnosticResult.correlation}}</span> <span class="f14" style="color: #ff9900;opacity:0.6;margin-right: -5px;">%</span>
+                        <p class="f12" style=" color: #ff9900; ">患病概率</p>
+                    </div>
+
+                    <ul class="" style="" >
+                        <li class=" qy-grey7 f18 text-ellipsis" style="margin-bottom: 15px">{{firstDiagnosticResult.diseaseName}}</li>
+                        <li class="f12 f qy-grey5 mar-d-5">对应相关科室</li>
+                        <li style="display: inline-flex" ng-repeat="Dep in firstDiagnosticResult.seniorNew">
+                            <div ng-if="Dep.juniorName" ng-class="Dep.bgColor" class="dept" style="">{{Dep.juniorName}}</div>
+                        </li>
+                        <li ng-if="firstDiagnosticResult.seniorNew.length == 0">
+                            <div style="height: 20px;">   </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div>
+                    <div class="" style="height: 40px ;background-color: #ff9900;opacity:0.15;">
+
+                    </div>
+                    <div class="f14" style="color: #ff9900; position: relative; margin-left: 20px;top: -30px;max-width: 80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">伴随症状：{{auxiliarySymptomName}}</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div  ng-if="!isEmpty" ng-click="choose(item)" class="border-all qy-bg-white" style="margin-left: 32px;margin-right: 32px;margin-top: 26px;border-radius: 10px;" ng-repeat="item in DiagnosticResult">
+            <div style="margin-top: 25px;margin-bottom: 16px" class="">
+                <div style="" class="circle  mar-l-14 " >
+                    <span class="qy-green" style="font-size:30px;margin-right: -5px ">{{item.correlation}}</span> <span class="f14 qy-green" style="opacity:0.6;margin-right: -5px">%</span>
+                    <p class="f12 qy-green" style="  ">患病概率</p>
+                </div>
+
+                <ul class="" style="" >
+                    <li class=" qy-grey7 f18 text-ellipsis" style="margin-bottom: 15px">{{item.diseaseName}}</li>
+                    <li class="f12 f qy-grey5 mar-d-5">对应相关科室</li>
+                    <li style="display: inline-flex" ng-repeat="dept in item.seniorNew">
+                        <div ng-class="dept.bgColor" class="dept" style="">{{dept.juniorName}}</div>
+                    </li>
+                    <li  ng-if="item.seniorNew.length == 0">
+                        <div style="height: 20px;">  </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div>
+                <div class="qy-bg-green" style="height: 40px ;opacity:0.15;">
+                </div>
+                <div class="f14 qy-green" style="position: relative; margin-left: 20px;top: -30px;max-width: 80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">伴随症状：{{auxiliarySymptomName}}</div>
+            </div>
+        </div>
+
+
+
+    </ion-content>
+</ion-view>

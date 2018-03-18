@@ -1,0 +1,62 @@
+<ion-view class="qy_add_friends">
+    <ion-nav-bar class="message_header qy-bg-white border-b" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="addFriends" default="添加好友"></span>
+        </ion-nav-title>
+    </ion-nav-bar>
+
+    <ion-content class="qy-bg-grey2" has-bouncing="true" padding="false" scrollbar-y="false">
+
+        <!--搜索-->
+        <div class="mar-t-10 qy-bg-white mar-b-14 border-all border_radius_4">
+            <div class="search_container position-r" ng-click="goQueryFriends()">
+                <input type="text" placeholder="输入手机号/昵称" class="text-ellipsis" ng-readonly="true">
+                <button class="button-icon icon-seach grid_img color_search"></button>
+            </div>
+        </div>
+
+        <!--群列表-->
+        <div ng-if="groups.length > 0" class="pad-b-14 color_9 add_friends" kyee-i18n-directive code="addFriendInGroup" default="添加群组成员"></div>
+        <ul class="list pad-l-14 qy-bg-white border-td" ng-if="groups.length > 0">
+            <li class="border-b w100 clear pad-r-14 position-r line70" ng-repeat="group in groups"
+                ng-click="showGroupMembers(group)">
+                <div class="line70 position-a left_0">
+                    <img class="head_img" ng-src="{{group.groupPhoto || 'resource/images/icons/logo_default.png'}}"
+                        onerror="javascript:this.src='resource/images/icons/logo_default.png'">
+                </div>
+                <div class="mar-td-10 mar-l-14 position-a r14 left50" ng-style="{'width':KyeeEnv.innerSize.width - 92 + 'px'}">
+                    <div class="line30 w100">
+                        <div class="clear line30 fl-l w80">
+                            <div class="fl-l max-w60 mar-r-10 text-ellipsis color_3">{{group.groupName}}</div>
+                            <span class="max-w30 bg-label-blue groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==2">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 qy-bg-orange groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==1">
+                                {{group.groupLabel}}
+                            </span>
+                            <span class="max-w30 bg-label-red groupLabel text-ellipsis"
+                                  ng-if="group.groupLabel && group.groupType==0">
+                                {{group.groupLabel}}
+                            </span>
+                        </div>
+                        <div class="fl-r text-right line30 w20">
+                            <i class="icon icon-arrow_right qy-grey4"></i>
+                        </div>
+                        <!--<div class="f12 line20 color_9">
+                            <div class="w100 text-ellipsis">{{group.groupDeclared}}</div>
+                        </div>-->
+                    </div>
+                   <!-- <span class="position-a r14 line50">
+                        <i class="icon icon-arrow_right qy-grey4"></i>
+                    </span>-->
+                    <div class="f12 line20 color_9">
+                        <div class="w100 text-ellipsis">{{group.groupDeclared}}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

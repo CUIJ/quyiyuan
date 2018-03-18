@@ -1,0 +1,44 @@
+<div class="ncss_payment_record">
+    <div class="mar-l-10 mar-r-10" ng-if="dataEmpty.emptyType != 1">
+        <ion-scroll class="lateral_full" zooming="true" direction="x" scrollbar-x="false">
+            <div class="year_div pad-t-5" style="width:{{years.length * 67 + 50}}px">
+                <span class="span_year pad-t-10 pad-d-10 pad-b-14" ng-repeat="x in years"
+                      ng-class="{'span_active':activeYear == x}"
+                      ng-click="yearClick(x)">
+                    {{x}}
+                </span>
+            </div>
+        </ion-scroll>
+    </div>
+    <div class="list" ng-repeat="x in data" ng-if="dataEmpty.emptyType == 0">
+        <label class="item item-input ">
+            <span class="input-label it_looks_even_more_neat"
+                  kyee-i18n-directive code="medicalCard5" default="缴费时间："></span>
+            <span class="input-label " >{{x.PAYMENT_TIME}}</span>
+        </label>
+        <label class="item item-input ">
+            <span class="input-label it_looks_even_more_neat"
+                  kyee-i18n-directive code="joinPeople5" default="参加人数："></span>
+            <span class="input-label " >{{x.ATTEND_POPULATION}}</span>
+        </label>
+        <label class="item item-input ">
+            <span class="input-label it_looks_even_more_neat"
+                  kyee-i18n-directive code="giveMoney5" default="缴费金额："></span>
+            <span class="input-label " >{{x.PAYMENT}}</span>
+        </label>
+        <label class="item item-input ">
+            <span class="input-label it_looks_even_more_neat"
+                  kyee-i18n-directive code="startDate5" default="保障起始时间："></span>
+            <span class="input-label " >{{x.GUARANTEE_START_TIME}}</span>
+        </label>
+        <label class="item item-input ">
+            <span class="input-label it_looks_even_more_neat"
+                  kyee-i18n-directive code="endDate5" default="保障结束时间："></span>
+            <span class="input-label " >{{x.GUARANTEE_END_TIME}}</span>
+        </label>
+    </div>
+    <div class="empty-text " ng-if="dataEmpty.emptyType != 0">
+        <i class="icon icon-icon_3 empty-icon"></i>
+        <p>{{dataEmpty.emptyText}}</p>
+    </div>
+</div>

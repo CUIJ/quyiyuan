@@ -1,0 +1,75 @@
+<ion-view class="qy_presition">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span>我的处方</span>
+        </ion-nav-title>
+
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false" class="pad-td-10 qy-bg-grey2" >
+        <div ng-repeat="item in presitionData" class="mar-d-10" ng-click="checkDetailPres(item.FETCH_FLAG,item.PRESCRIPTION_NO,item.HOSPITAL_ID,item.PROMPT)">
+
+            <div class="pad-b-14  qy-bg-grey1 border-td  flex justify-between">
+                <div class="title-list flex align_items_c">
+                   <img ng-src="{{item.LOGO_PHOTO}}"
+                        onerror="this.src='resource/images/icons/logo_default.png'"/> <div>{{item.HOSPITAL_NAME}}</div>
+                </div>
+                <div class="title-list-time flex align_items_c">
+                    {{item.PRESCRIPTION_DATE}}
+                </div>
+            </div>
+            <div class="presition-content  border-d flex justify-between qy-bg-grey1">
+                <div class="presition-content-left mar-b-14 pad-td-20">
+                    <ul>
+                        <li>
+                            <span class="title-list-span">处方号:</span><span class="mar-l-20">{{item.PRESCRIPTION_NO}}</span>
+                        </li>
+                        <li class="pad-t-12">
+                            <span class="title-list-span">科室:</span><span class="item-keshi">{{item.DEPT_NAME}}</span>
+                        </li>
+                        <li class="pad-t-12">
+                            <span class="title-list-span">医生:</span><span class="item-keshi">{{item.DOCTOR_NAME}}</span>
+                        </li>
+                        <li class="pad-t-12">
+                            <span class="title-list-span">就诊人:</span><span class="mar-l-20">{{item.PATIENT_NAME}}</span><sapn class="mar-l-20">{{item.GENDER}}/{{item.AGE}}</sapn><span ng-if="item.FETCH_FLAG!=0" class="has-get">已取药</span><span ng-if="item.FETCH_FLAG==0" class="has-no-get">未取药</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="presition-content-right">
+                    <div class="title-list-price text-right">
+                        ￥{{item.TOTAL_PRICE}}
+                    </div>
+
+                    <!--<div class="" style="position:absolute">-->
+                          <!--32-->
+                    <!--</div>-->
+                    <!--<div class="isCatchers">-->
+                        <!--<button class="button-color-green button-size-s mar_button" ng-if="item.status==1">已取药</button>-->
+                        <!--<button class="button-color-green button-size-s mar_button" ng-if="item.status==0">未取药</button>-->
+                    <!--</div>-->
+                </div>
+          </div>
+
+        </div>
+
+        <!--上拉加载更多-->
+        <!--<ion-infinite-scroll icon="ion-loading-c" ng-if="HAS_MORE" on-infinite="loadConvenienceMore(1)" immediate-check="false" distance="1%" >-->
+        <!--</ion-infinite-scroll>-->
+        <div ng-if="!hasPresition" class="empty-text">
+            <i class="icon-icon_3 empty-icon"></i>
+            暂无处方
+        </div>
+
+    </ion-content>
+    <div kyee-overlay-directive
+         location="center"
+         width="{{dataPaneWidth}}"
+         height = "{{datePanelStyle}}"
+         top="{{deviceTop}}"
+         data="overlayData"
+         animate="{{false}}"
+         content-background-color="transparent"
+         template="modules/business/my_prescription/views/my_presition_detail.html"
+         bind="binds(params)">
+    </div>
+</ion-view>

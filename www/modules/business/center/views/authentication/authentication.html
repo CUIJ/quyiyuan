@@ -1,0 +1,88 @@
+<ion-modal-view ng-controller="AuthenticationController" class="qy_authentication_cls qy-bg-grey2">
+
+    <ion-header-bar align-title="center" class="qy-header">
+        <a style="padding-top: 2px;" ng-click="removeModal()" class="button back-button button-clear header_button">
+            <i style="padding-left: 10px;top: 2px;" class="icon ion-android-arrow-back"></i>
+        </a>
+
+        <h2 class="title header_title">{{titleSelectChange}}</h2>
+    </ion-header-bar>
+
+    <ion-content class="has-footer" has-bouncing="true"  scroll="true" delegate-handle="mainScroll">
+        <div  class="content_main">
+            <div class="row" ng-if="failedReason" style="background-color: #feefec;padding: 0 14px 0 14px;position: relative;">
+                <i class="icon-failure" style="color: #f55440;font-size: 20px;margin-top: 18px;"></i>
+                <div class="col " style="padding-left:8px;color: #f55440;font-size: 14px;margin: 15px 0 15px 0;"><label style="font-size: 16px;">认证失败！</label>{{failedReason}}</div>
+            </div>
+            <div class="list qy-bg-white" ng-class="{'mar-t-10 border-t':!failedReason}"  style="border-bottom: 1px solid #e7e7e7;">
+                <label class="item item-input mar-l-14" style="min-height: 40px; padding: 9px 14px 9px 0;">
+                    <span class="input-label"
+                          kyee-i18n-directive code="all:add_patient_info.name" default="姓名"></span>
+                    <input id="name"class="f14 text-ellipsis input_item"type="text"
+                           ng-class="textColor"
+                           ng-readonly="isEdit"
+                           ng-model="userObj.nameShow">
+                </label>
+                <label class="item item-input  mar-l-14" style="min-height: 40px; padding: 9px 14px 9px 0;border-bottom: none !important;">
+                    <span class="input-label"
+                          kyee-i18n-directive code="all:add_patient_info.idNo" default="身份证号"></span>
+                    <input id="idNo" class="f14 input_item" type="text"
+                           ng-class="textColor"
+                           ng-readonly="isEdit"
+                           ng-model="userObj.idNoShow">
+                </label>
+            </div>
+            <div class="box-container append_class"
+                 ng-class="{'id_background':!idCardPic}"
+                 ng-click="takePic()"
+                 ng-style="{'height':divHeight+'px','width':picDivWidth+'px'}">
+                <div ng-show="idCardPic" style="text-align: center;">
+                    <img ng-src="{{idCardPic}}" align="center" style="{{idCardPicStyle}}"  ng-if="isAppPage" >
+                    <!--如果是微信页面，用下面标签。ng-src会将大小写转换，因此微信不采用ng-src-->
+                    <img id="idcardImg" ng-if="!isAppPage" align="center" src="" style="{{idCardPicStyle}}"  />
+                </div>
+                <div ng-if="!idCardPic" class="qy-grey5">
+                    <div class="id_icon">
+                        <i class="icon-id qy-green f45"></i>
+                    </div>
+                    <div class="id_icon_tip">
+                        <ul class="tip_text">
+                            <li  kyee-i18n-directive code="all:add_patient_info.addIdNoImage" default="添加身份证或户口本正面照片"></li>
+                            <li style="line-height: 1.4;" kyee-i18n-directive code="all:add_patient_info.addIdNoImageTips" default="（请确保照片内容清晰有效）"> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div style="white-space: nowrap" class="exam_content_title">
+                <span style="color:#999999" kyee-i18n-directive code="all:add_patient_info.uploadExam" default="上传示例"></span>
+                <span style="color:#cccccc" kyee-i18n-directive code="all:add_patient_info.uploadChildTip" default="（儿童上传身份证）"></span>
+            </div>
+            <div class="exam_photo_content row"style="width: inherit;" ng-style="{'padding-left':(KyeeEnv.innerSize.width-286)/2+'px','padding-right':(KyeeEnv.innerSize.width-286)/2+'px'}">
+                <div class="exam_photo col" style=" height: 130px;">
+                    <img style="width:108px;display: inline" src="resource/images/center/id_card.png">
+                    <i class="icon-choose circle qy-green" style="display: inline"></i>
+                    <span class="exam_photo_name" kyee-i18n-directive code="idPhoto" default="身份证照片"
+                        style="position: relative; right: 12px; font-size: 14px;top: 10px;" ></span>
+                </div>
+                <div class="exam_photo col" style="float:right;position: relative; left: 20px;"
+                      >
+                    <img style="width:108px;border:1px solid #e7e7e7" src="resource/images/center/household_book.png">
+                    <i class="icon-choose circle qy-green" ></i>
+                    <span class="exam_photo_name" kyee-i18n-directive code="hoseHoldPhoto" default="户口本"
+                          style="position: relative; right: 12px; font-size: 14px;top: 10px;"  ></span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="authenTipType == 0" class="qy-grey5 love_tip">
+            <p kyee-i18n-directive code="all:add_patient_info.addIdNoText" default="温馨提示：为保障您享受更好的就诊服务，需要您配合上传证件照片，趣医会严格为您信息保密。"></p>
+        </div>
+        <div ng-if="authenTipType == 1"  class="qy-grey5 love_tip" style="color: #f90;">
+            <span class="icon-icon_1"></span>
+            <span kyee-i18n-directive code="all:add_patient_info.editInfoText" default="修改就诊者信息需上传对应证件照片，审核通过后就诊者将修改成功。"></span>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer pad-b-14" style="background: #f4f4f4; margin-bottom: 12px;">
+        <button ng-click="submitPic();" class="button button-block button-size-l" style="margin-top: 20px"
+                kyee-i18n-directive code="all:authenticat ion.submitPic" default="提 交"></button>
+    </div>
+</ion-modal-view>

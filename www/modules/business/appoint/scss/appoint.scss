@@ -1,0 +1,260 @@
+.text_decoration{
+  text-decoration:underline
+}
+.quyiyuan_appoint_confirm{
+  .min-w70{
+    min-width: 70px;
+  }
+  .width70{
+    width : 70px;
+  }
+  .mar_l_20{
+    margin-left: 20px !important;
+  }
+  .mar_l_34{
+    margin-left: 34px !important;
+  }
+  .mar_l_15{
+    margin-left: 15px !important;
+  }
+  .mar_l_80{
+    margin-left: 80px !important;
+  }
+  .address_input{
+    line-height: 19px;
+    background-color: white;
+    margin-left: 20px !important;
+  }
+  .border_top_none{
+    border-top: none !important;
+  }
+  .item_padding_0{
+    border-top: 1px solid #e7e7e7;
+    margin-left: 14px;
+    border-bottom: none !important;
+    padding-left: 0px !important;
+  }
+  .appoint_confirm_content{
+    margin-top: 1em;
+  }
+  .appoint_confirm_contentsub{
+    margin-top: 1em;
+  }
+ /* .row{
+    white-space: normal;
+  }
+  .row + .row{
+    padding-top: 9px;
+  }*/
+  .icon-icon_3{
+    font-size: 18px;
+    right:50px;
+    margin-right: 9px;
+  }
+  .mr_100{
+    margin-right: 100px;
+  }
+  .card_sel{
+    position: absolute;
+    right: 14px;
+    top:15px
+  }
+  .appoint_confirm_rows{
+    display: -webkit-box;
+    line-height: 2em;
+    margin: 0;
+    padding-bottom: 0;
+    min-height: 40px;
+    line-height: 40px;
+  }
+  .appoint_confirm_rowone{
+    display: -webkit-box;
+    min-height: 40px;
+    line-height: 40px;
+  }
+  .appoint_confirm_cols{
+    -webkit-box-flex: 1;
+    .appoint_confirm_icon{
+      color: #0F9D58;
+      position: absolute;
+      right: 1.5em;
+    }
+  }
+  .appoint_confirm_footer{
+    height: 5em;
+    border: none;
+    .appoint_footer{
+      text-align: center;
+      width: 100%;
+	  border: none;
+    };
+  }
+  .choose_card{
+    padding: 0 14px;
+    border-bottom: 0px solid #e7e7e7;
+    .appoint_confirm_cols{
+      position: relative;
+    }
+    .canWrite{
+      //border-bottom:1px solid #d8d8d8;
+      background:#fff;
+    }
+    input{
+      background: transparent;
+      width: 65%;
+      .appoint_cardNo_input{
+      }
+      .appoint_cardNo_notinput{
+        readonly:true;
+      }
+    }
+  }
+  .appoint_span_ion{
+    right: 4em;
+    padding: .1em 1em .1em 1em;
+    color: #0F9D58;
+  }
+  .begin_line_border{
+    border-top: 1px solid #e7e7e7;
+  }
+  .end_line_border{
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .no_address_div{
+       height: 100px;
+  }
+  .align_right{
+    text-align: right;
+    padding-right: 10px;
+  }
+  .mar_r_14{
+    padding-right: 10px;
+  }
+  .inherit{
+    white-space: normal;
+  }
+  .patient{
+    width: 60%;
+    white-space: normal;
+    display: block;
+  }
+  .change_address_font{
+    position: absolute;
+    right: 14px;
+    top:15px;
+  }
+  .address{
+    position: relative;
+    min-height: 40px;
+    padding-bottom: 0px;
+    border-bottom: 0px;
+  }
+  .address_range{
+    position: relative;
+    min-height: 30px;
+    padding-top: 1px;
+  }
+  .address_range a{
+    top: 0px;
+  }
+  .text_decoration{
+    text-decoration:underline
+  }
+  .pad-box {
+    padding: 10px 14px 10px 0px;
+  }
+  .line_30 {
+    font-size: 14px;
+    line-height: 30px;
+  }
+  .fixed_width1 {
+  /*  width: 25% !important;*/
+    white-space: nowrap;
+    color: #264557;
+  }
+  .pad_r_0
+  {
+    padding-left: 0px !important;
+  }
+  .mar_r_0{
+    margin-right: 0px !important;
+  }
+  .doctoc_title {
+    font-size: 12px;
+/*    color: #357fbc;*/
+    margin-left: 8px;
+  }
+  .mar_b_0 {
+    margin-bottom: 0px ;
+    margin-top: 0px
+ }
+  .readonly{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+}
+.card-select{
+  text-align: center;
+  .item-icon-right > div{
+    position: absolute;
+    left: 14px;
+    text-align: left;
+  }
+}
+.appoint-binding12320 {
+  .appoint-binding {
+    .input-label {
+      width: 25%;
+      color: #224557;
+    }
+  }
+}
+
+/* calendar-check style */
+.appoint-calendar-check {
+  background-image: url('../../resource/images/appoint/check.png');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  vertical-align: middle;
+}
+/*shiping*/
+.appoint-shipin-img{
+  background-image: url('../../resource/images/icons/shipin.png');
+  background-size:  16px 15px;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  vertical-align: middle;
+  line-height: 23px;
+  display: inline-block;
+  margin-top: -12px;
+}
+.activity_msg_button{
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 3px;
+  color: white !important;
+  font-size: 12px !important;
+  height: 20px;
+  top: 5px;
+  position: relative;
+  line-height: 20px;
+}
+.inner-circle-l{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 6px;
+  left: -4px;
+}
+.inner-circle-r{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 6px;
+  right: -4px;
+}

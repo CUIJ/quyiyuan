@@ -1,0 +1,98 @@
+.viewFade {
+  -webkit-transition: 500ms linear all;
+  transition: 500ms linear all;
+
+}
+
+.viewFade.ng-enter {
+  opacity: 0;
+  -webkit-animation: 500ms fade;
+  animation: 500ms fade;
+}
+
+.viewFade.ng-enter-stagger {
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+  -webkit-animation-duration: 0;
+  animation-duration: 0;
+}
+
+.viewFade.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.viewFade.ng-leave {
+  opacity: 0;
+}
+
+.viewFade.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.listFade {
+  -webkit-transition: 500ms linear all;
+  transition: 500ms linear all;
+}
+
+.listFade.ng-enter {
+  opacity: 0;
+  -webkit-animation: 500ms fadeRightBig;
+  animation: 500ms fadeRightBig;
+}
+
+.listFade.ng-enter-stagger {
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+  -webkit-animation-duration: 0;
+  animation-duration: 0;
+}
+
+.listFade.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.listFade.ng-leave {
+  opacity: 0;
+}
+
+.listFade.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+@-webkit-keyframes broadcastShake {
+  0%, 40% {
+    -webkit-transform: translateX(0);
+  }
+  10%, 30% {
+    -webkit-transform: translateX(-10px)
+  }
+  20% {
+    -webkit-transform: translateX(10px)
+  }
+}
+
+.broadcastShake {
+  -webkit-animation-name: broadcastShake;
+  -moz-animation-name: broadcastShake;
+  -o-animation-name: broadcastShake;
+  animation-name: broadcastShake
+}
+
+.broadcastShake {
+  -webkit-animation: broadcastShake 1s ease;
+  animation: broadcastShake 1s ease
+}
+
+.broadcastShake-enter, .broadcastShake-show {
+  -webkit-animation: broadcastShake 1s ease;
+  animation: broadcastShake 1s ease;
+}
+
+.broadcastShake-leave, .broadcastShake-hide {
+  -webkit-animation: broadcastShake 1s ease;
+  animation: broadcastShake 1s ease
+}
+
+.broadcastShake-leave.touch-broadcastShake-leave-active, .broadcastShake-hide.touch-broadcastShake-hide-active {
+  opacity: 0
+}

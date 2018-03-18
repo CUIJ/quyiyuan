@@ -1,0 +1,35 @@
+<!--
+* 任务号：KYEEAPPC-7817
+ * 描述：二维码展示
+-->
+<ion-view  class="fadeDown-enter qy_code_image">
+    <ion-content style="background-color: transparent;top:20px" has-bouncing="false" scrollbar-y="false">
+           <div class="code_div">
+               <img ng-src="{{patient.QRCODE}}" ng-style="{'width':imgWidth+'px','margin':topM}">
+           </div>
+
+            <!--<div class="ta-c" style="margin-top:28px;">
+                <span class="f14 fw-b">就诊卡号：</span>
+                <span class="f14 fw-b"> {{patient.CARD_NO}}</span>
+            </div>-->
+    </ion-content>
+    <ion-footer-bar class="mar-b-14 img_footer">
+        <div class="ta-c img_wdt ta-c">
+            <span class="footer_block">
+                <span  class="ion_show mar-r-20 mar-l-20" ng-class="{'qy-green ion_border_green':greenIndex==1}" ng-click="oneSizeShow()">
+                    <div class="ion_number">1.0</div><div class="ion_font">倍</div>
+                </span>
+                <div class="footer_line"></div>
+            </span>
+            <span class="footer_block">
+                <span class="ion_show  mar-r-20 mar-l-20" ng-class="{'qy-green ion_border_green':greenIndex==2}" ng-click="twoSizeShow()">
+                    <div class="ion_number">0.5</div><div class="ion_font">倍</div>
+                </span>
+                <div class="footer_line"></div>
+            </span>
+            <span class="ion_show  mar-r-20 mar-l-20" ng-class="{'qy-green ion_border_green':greenIndex==3}" ng-click="threeSizeShow()">
+                <div class="ion_number">0.25</div><div class="ion_font">倍</div></span>
+            </span>
+        </div>
+    </ion-footer-bar>
+</ion-view>

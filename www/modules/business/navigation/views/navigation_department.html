@@ -1,0 +1,17 @@
+   <ion-view title="选择科室" ng-init="initView()" class="qy_navigation">
+        <ion-nav-bar align-title="center" class="qy-header">
+            <ion-nav-back-button></ion-nav-back-button>
+        </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false">
+        <div class="bar item-input-inset search pad-b-14 qy-bg-grey2">
+            <label class="item-input-wrapper search-item">
+                <i class="icon icon-seach placeholder-icon mar-l-10 "></i>
+                <input type="search" placeholder="{{placeText}}" ng-keyup="searchDept(keywords)" ng-model="keywords">
+            </label>
+        </div>
+        <div kyee-indexed-list-directive data="departmentInfro" bind="bind(params)" itemclick="onClick(params)" height="{{KyeeEnv.innerSize.height - 100}}"></div>
+    </ion-content>
+    <div ng-if="empty" class="emptyText" >
+        <p kyee-i18n-directive code="noDataInfo" default="暂无科室数据"></p>
+    </div>
+</ion-view>

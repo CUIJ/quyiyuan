@@ -1,0 +1,111 @@
+<ion-content class="record_content " scroll="true" padding="false" has-bouncing="true">
+
+    <ion-refresher pulling-text="{{$root.lang.pullingText}}" pulling-icon="" refreshing-icon=""
+                   refreshing-text="{{$root.lang.refreshingText}}" class="qy-refresh-icon" on-refresh="refresh()"></ion-refresher>
+    <div class="record_list" ng-repeat="visitRecord in visitRecords">
+        <div class="row list_head" style="height: 34px;line-height: 20px">
+            <div class="list_head-label f14 fw-b" style="padding-left: 10px;">
+                <span kyee-i18n-directive code="clinicDate" default="就诊日期："></span>
+            </div>
+            <div class="list_head-text col" style="padding: 0;">{{visitRecord.REG_DATE}}</div>
+        </div>
+        <div ng-if="visitRecord.APPOINT_REGIST!=undefined && visitRecord.APPOINT_REGIST.length > 0" class="appoint_regist_list_head f14" ng-click="showAppointRegList($index)"><span kyee-i18n-directive code="appointmentRecord" default="预约挂号记录"></span>
+            <i class="arrowIcon"
+               ng-class="{'icon-arrow_up':showAppointReg[$index],'icon-arrow_down qy-green':!showAppointReg[$index]}"></i>
+        </div>
+        <div ng-if="showAppointReg[$index]" class="appoint_regist_record_list_container">
+            <div class="appoint_regist_record_list" ng-repeat="appointRegistRecords in visitRecord.APPOINT_REGIST" ng-class="{'last_item':$last}">
+                <div class="list_head_label text-ellipsis f14"><span kyee-i18n-directive code="dept" default="科室："></span>{{appointRegistRecords.DEPT_NAME}}</div>
+                <div class="list_head_right text-ellipsis f14"><span kyee-i18n-directive code="doctor" default="医生："></span>{{appointRegistRecords.DOCTOR_NAME}}</div>
+            </div>
+        </div>
+        <div ng-if="visitRecord.LABS!=undefined && visitRecord.LABS.length > 0" class="lab_head f14" ng-click="showLabRecord($index)"><span kyee-i18n-directive code="inspectionSheet" default="检验单"></span>
+            <i class="arrowIcon"
+               ng-class="{'icon-arrow_up':showLab[$index],'icon-arrow_down qy-green':!showLab[$index]}"></i>
+        </div>
+        <div ng-if="showLab[$index]" class="lab_list_container">
+            <div class="row lab_list" ng-repeat="labRecords in visitRecord.LABS"
+                 ng-click="goLabRecordDetail(labRecords)" ng-class="{'last_item':$last}">
+                <div class="lab_list_item_name">{{labRecords.ITEM_NAME}}</div>
+                <div ng-if="(labRecords.LABDETAIL==undefined||labRecords.LABDETAIL=='')
+                    &&(labRecords.PHOTO_URL==undefined||labRecords.PHOTO_URL=='')" class="red">
+                    <span kyee-i18n-directive code="noResults" default="暂无结果"></span>
+                </div>
+                <div ng-if="!((labRecords.LABDETAIL==undefined||labRecords.LABDETAIL=='')
+                    &&(labRecords.PHOTO_URL==undefined||labRecords.PHOTO_URL==''))"
+                     class="col ion-arrow-right-b qy-green"></div>
+                <div class="date_text">{{labRecords.REQUESTED_DATE_TIME.substr(0,10)}}</div>
+            </div>
+        </div>
+        <div ng-if="visitRecord.EXAMS!=undefined && visitRecord.EXAMS.length > 0" class="exam_head f14" ng-click="showExamRecord($index)"><span kyee-i18n-directive code="checkList" default="检查单"></span>
+            <i class="arrowIcon"
+               ng-class="{'icon-arrow_up':showExam[$index],'icon-arrow_down qy-green':!showExam[$index]}"></i>
+        </div>
+        <div ng-if="showExam[$index]" class="exam_list_container">
+            <!-- todo -->
+            <div class="row exam_list" ng-repeat="examRecords in visitRecord.EXAMS">
+                <div style="margin-bottom: .5em;width: 100%;" ng-class="{'last_item':$last}">
+                    <div class="item item-divider exam_master" ng-click="showExamDetail($index)">
+                        <div>
+                            <div>
+                                <span style="white-space: pre-line;">{{examRecords.EXAM_CLASS}}</span>
+                                <span style="display: {{examRecords.EXAM_SUB_CLASS!=null
+                                    && examRecords.EXAM_SUB_CLASS !=''?'inline':'none'}}">/{{examRecords.EXAM_SUB_CLASS}}
+                                </span>
+                                <span class="qy-grey4 fl-r">{{getDate(examRecords.EXAM_DATE_TIME)}}</span>
+                            </div>
+                        </div>
+                        <div >
+                            <div><span kyee-i18n-directive code="impressionAndSuggestion" default="印象及建议："></span>
+                                <span style="white-space: pre-line;">{{examRecords.IMPRESSION}}</span>
+                                <span style="white-space: normal;display: {{examRecords.RECOMMENDATION!=null
+                                    && examRecords.RECOMMENDATION !=''?'inline':'none'}}">/{{examRecords.RECOMMENDATION}}
+                                </span>
+                                <span class="fl-r"
+                                      ng-class="{'ion-arrow-up-b qy-grey6':isExamDisplay == $index,
+                                      'ion-arrow-down-b qy-green':isExamDisplay != $index}">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list" ng-if="isExamDisplay == $index" >
+                        <div class="item row-no-padding">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 20%"><span kyee-i18n-directive code="applicationDate" default="申请日期："></span></th>
+                                    <td style="width: 30%">{{examRecords.REQ_DATE}}</td>
+                                    <th style="width: 20%"><span kyee-i18n-directive code="applicationDoctor" default="申请医生："></span></th>
+                                    <td style="width: 30%">{{examRecords.REQ_PHYSICIAN}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span kyee-i18n-directive code="reportDate" default="报告日期："></span></th>
+                                    <td>{{examRecords.REPORT_DATE}}</td>
+                                    <th><span kyee-i18n-directive code="reportDoctor" default="报告医生："></span></th>
+                                    <td>{{examRecords.REPORTER}}</td>
+                                </tr>
+                                <tr class="ta-l">
+                                    <th><span kyee-i18n-directive code="examinationFinding" default="检查所见："></span></th>
+                                    <td colspan="3" style="white-space: pre-line;">{{examRecords.DESCRIPTION}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="showEmpty" class="empty-text">
+        <p>{{emptyText}}</p>
+    </div>
+
+</ion-content>
+
+<ion-infinite-scroll
+        ng-if="moreDataCanBeLoaded()"
+        icon="ion-loading-c"
+        on-infinite="loadMore()">
+</ion-infinite-scroll>
+
+
+

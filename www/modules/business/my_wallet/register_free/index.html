@@ -1,0 +1,47 @@
+<ion-view  class="qy_register_free">
+    <ion-nav-bar align-title="center" class="qy-header">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-title>
+            <span kyee-i18n-directive code="registerFreeTitle" default="免挂号费"></span>
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <a class="button button-clear" ng-click="openRightMenu('register_free')">
+                <i class="icon ion-navicon"></i>
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content has-bouncing="true" padding="false">
+        <div class="ta-r top_box pad-d-10 qy-bg-grey1" >
+            <span class="qy-green ta-r" kyee-i18n-directive code="allFreeAmount" default="减免金额"></span>
+            <p class="qy-grey7 fw-b f14"><a kyee-i18n-directive code="amountTip" default="金额："></a><a class="f28 qy-green">￥{{data.AMOUNT_ALL.toFixed(2)}}</a></p>
+        </div>
+        <div class="pad-b-14 pad-td-10 qy-bg-white" ng-if="data.ISNJPLATFORM == 'true'" >
+            <button ng-click="onGetNjRecordBtn()"
+                    type="text" class="button button-block button-size-l">{{data.NAMEBTN}}</button>
+        </div>
+
+        <div class="pad-b-14 qy-bg-white" ng-if="data.fundExplain" ng-click="showFundExplain()">
+            <h5 class="fl-l" kyee-i18n-directive code="freeExplain" default="免挂号费说明"></h5>
+            <i ng-class="{'icon-arrow_right':!showRule, 'icon-arrow_down':showRule}" class="ico qy-green icon_rule"></i>
+            <div class="clear_both" ng-if="showRule" ng-bind-html="data.fundExplain"></div>
+        </div>
+
+        <ul class="pad-b-14 pad-t-20">
+           <li class="title_bar" kyee-i18n-directive code="freeRecordTitle" default="我的减免记录">
+           </li>
+
+            <li ng-repeat="item in data.LIST" class="main_content">
+                <h5>{{item.SHOW_INFORMATION}}</h5>
+                <span class="fl-l">{{item.OPERATE_TIME}}</span>
+                <span class="fl-r" kyee-i18n-directive code="freeAmount" default="减免金额：￥{{item.AMOUNT}}" params="item"></span>
+            </li>
+
+            <div class="empty-text" ng-if="showEmpty" >
+                <p class="ta-c" kyee-i18n-directive code="freeRecordIsEmpty" default="暂无免挂号费记录"></p>
+            </div>
+
+         </ul>
+
+     </ion-content>
+
+</ion-view>
